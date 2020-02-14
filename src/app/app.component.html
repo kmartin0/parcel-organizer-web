@@ -1,0 +1,29 @@
+<div class="content">
+  <div class="title">
+    <h1>Parcel Organizer</h1>
+    <img class="logo-top" src="assets/ic_box.svg" alt="logo">
+    <h3>Simple organizing of your parcels</h3>
+  </div>
+  <div class="center-container">
+
+    <div class="logo-center-container">
+      <img class="logo" src="assets/ic_box.svg" alt="logo">
+    </div>
+
+    <div class="form-container">
+      <form class="select-form-container" [formGroup]="formSelector">
+        <input id="login" type="radio" formControlName="formSelect" value="login" class="login">
+        <label for="login" class="select-form-label">Login </label>
+        <input id="register" type="radio" formControlName="formSelect" value="register" class="register">
+        <label for="register" class="select-form-label"> Register </label>
+      </form>
+
+      <app-login (loginSuccess)="onLoginSuccess()"
+                 [hidden]="formSelector.get('formSelect').value !== 'login'"></app-login>
+      <app-register (registerSuccess)="onRegisterSuccess()"
+                    [hidden]="formSelector.get('formSelect').value !== 'register'"></app-register>
+
+    </div>
+  </div>
+</div>
+

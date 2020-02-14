@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+/*noinspection CssUnknownTarget*/
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+body, html {
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+:focus {
+  outline-style: none;
+}

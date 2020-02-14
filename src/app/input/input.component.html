@@ -1,0 +1,20 @@
+<div class="input-wrap">
+  <label for="{{id}}">{{label}}</label>
+  <input [type]="type"
+         [placeholder]="placeholder"
+         [value]="value"
+         [disabled]="disabled"
+         (blur)="onTouched()"
+         (input)="onChange($event.target.value)"
+         id="{{id}}"/>
+
+  <ul class="error" *ngIf="ngControl && (ngControl.errors && ngControl.dirty)">
+    <li *ngFor="let errorMessage of errorMessages">
+      {{ errorMessage }}
+    </li>
+  </ul>
+
+</div>
+
+
+
