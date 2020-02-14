@@ -10,8 +10,10 @@ export class ErrorMessageService {
   }
 
   public getErrorMessagesForValidationErrors(validationErrors: ValidationErrors): string[] {
+
     // Define array to store the error messages.
     let errors = new Array<string>();
+
     // Iterate through validationErrors, construct user readable messages and store in errors array.
     Object.keys(validationErrors).forEach(key => {
 

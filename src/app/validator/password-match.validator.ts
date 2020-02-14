@@ -1,21 +1,22 @@
-import {AbstractControl, ValidatorFn} from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 
-/**
- *
- * @param controlName key of the first password FormControl
- * @param matchingControlName key of password confirmation FormControl
- *
- * @return confirmPassword error state if the passwords do not match.
- */
-export function passwordMatchValidator(controlName: string, matchingControlName: string): ValidatorFn {
-  return (abstractControl: AbstractControl): { [key: string]: any } | null => {
-    if (abstractControl.parent) {
-      const control = abstractControl.parent.get(controlName);
-      const matchingControl = abstractControl.parent.get(matchingControlName);
-      return control.value !== matchingControl.value ? {'confirmPassword': {value: false}} : null;
+export function passwordMatchValidator(controlName: string, matchingControlName: string, errorName: string) {
+  return (abstractControl: AbstractControl) => {
+    const control = abstractControl.get(controlName);
+    const matchingControl = abstractControl.get(matchingControlName);
+
+    let tmpConfirmErrors = matchingControl.errors;
+
+    if (control.value !== matchingControl.value) {
+      if (tmpConfirmErrors !== null) {
+        tmpConfirmErrors.confirmPassword = false;
+        matchingControl.setErrors(tmpConfirmErrors);
+      } else {
+        matchingControl.setErrors({[errorName]: false});
+      }
+    } else if (tmpConfirmErrors != null && tmpConfirmErrors.hasOwnProperty(errorName)) {
+      delete tmpConfirmErrors.confirmPassword;
+      matchingControl.setErrors(tmpConfirmErrors);
     }
-    return null;
   };
 }
-
-

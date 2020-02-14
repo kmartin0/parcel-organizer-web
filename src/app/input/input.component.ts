@@ -3,6 +3,7 @@ import {ControlValueAccessor, NgControl} from '@angular/forms';
 import {ErrorMessageService} from '../service/error-message.service';
 import {EMPTY, merge, Observable} from 'rxjs';
 import {FormSubmitDirective} from '../directive/form-submit.directive';
+import {timeout} from 'rxjs/operators';
 
 @Component({
   selector: 'app-input',
@@ -38,7 +39,8 @@ export class InputComponent implements ControlValueAccessor, OnInit {
     if (this.ngControl) {
       merge(
         this.submit$,
-        this.ngControl.valueChanges
+        // this.ngControl.valueChanges,
+        this.ngControl.statusChanges
       ).subscribe(value => {
 
         if (value instanceof Event) {
