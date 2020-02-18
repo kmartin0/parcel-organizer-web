@@ -1,9 +1,2 @@
-<form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
-  <app-input id="register-email" label="Email" placeholder="xyz@gmail.com" type="text" formControlName="email"></app-input>
-  <app-input id="register-name" label="Name" placeholder="John Doe" type="text" formControlName="name"></app-input>
-  <app-input id="register-password" label="Password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;" type="password"
-             formControlName="password"></app-input>
-  <app-input id="register-confirm-password" label="Confirm password" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
-             type="password" formControlName="confirmPassword"></app-input>
-  <app-input id="register-submit" type="submit" value="Register"></app-input>
-</form>
+<app-form [formName]="'Register'" [inputFields]="registerForm" [formValidators]="registerFormValidators"
+          (formValidSubmit)="onRegisterValidSubmit($event)"></app-form>

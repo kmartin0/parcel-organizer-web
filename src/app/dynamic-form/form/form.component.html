@@ -1,0 +1,18 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="input-wrap" *ngFor="let inputField of inputFields">
+    <label [attr.for]="inputField.id">{{inputField.label}}</label>
+
+    <div [ngSwitch]="inputField.controlType">
+      <app-text-input *ngSwitchCase="'textbox'" [inputField]="inputField"
+                      [control]="getFormControl(inputField.key)"></app-text-input>
+    </div>
+
+    <ul class="error" id="{{'error' + inputField.id}}"
+        *ngIf="formGroup.get(inputField.key) && errorMessages && errorMessages[inputField.key] && formGroup.get(inputField.key).dirty">
+      <li *ngFor="let errorMessage of errorMessages[inputField.key]">
+        {{ errorMessage }}
+      </li>
+    </ul>
+  </div>
+  <app-button (onClick)="onSubmit()">{{formName}}</app-button>
+</form>

@@ -1,5 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Validators} from '@angular/forms';
+import {TextBoxInputField} from '../dynamic-form/input/text-box-input-field';
+import {FormComponent} from '../dynamic-form/form/form.component';
 
 @Component({
   selector: 'app-login',
@@ -8,34 +10,38 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  @Output() public loginSuccess = new EventEmitter();
+  @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;
+  get formComponent(): FormComponent {
+    return this._formComponent;
+  }
 
-  private loginForm: FormGroup;
+  loginForm: TextBoxInputField[] = [
+    new TextBoxInputField({
+      id: 'login-email',
+      key: 'email',
+      type: 'email',
+      label: 'Email',
+      placeholder: 'xyz@gmail.com',
+      validators: [Validators.required, Validators.email]
+    }),
+    new TextBoxInputField({
+      id: 'login-password',
+      key: 'password',
+      type: 'password',
+      label: 'Password',
+      placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
+      validators: Validators.required
+    })
+  ];
 
-  constructor(private formBuilder: FormBuilder) {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
+  constructor() {
   }
 
   public ngOnInit() {
+
   }
 
-  private onLoginSubmit() {
-    this.loginForm.valid ? this.onLoginSuccess() : this.onLoginError();
+  onLoginValidSubmit(formKeyValues: { [key: string]: string; }) {
+    alert('Success Login: ' +  JSON.stringify(formKeyValues));
   }
-
-  private onLoginSuccess() {
-    this.loginSuccess.emit();
-
-    setTimeout(() => {
-      this.loginForm.reset();
-    }, 0);
-  }
-
-  private onLoginError() {
-    // alert('Login unsuccessful');
-  }
-
 }

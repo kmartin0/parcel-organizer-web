@@ -1,8 +1,10 @@
 <div class="content">
-  <div class="title">
-    <h1>Parcel Organizer</h1>
+  <div class="header">
     <img class="logo-top" src="assets/ic_box.svg" alt="logo">
-    <h3>Simple organizing of your parcels</h3>
+    <div>
+      <h1 id="title">Parcel Organizer</h1>
+      <h3 id="subtitle">Simple organizing of your parcels</h3>
+    </div>
   </div>
   <div class="center-container">
 
@@ -12,18 +14,15 @@
 
     <div class="form-container">
       <form class="select-form-container" [formGroup]="formSelector">
-        <input id="login" type="radio" formControlName="formSelect" value="login" class="login">
+        <input id="login" type="radio" formControlName="formSelect" [value]=FORM_TYPES.LOGIN class="login">
         <label for="login" class="select-form-label">Login </label>
-        <input id="register" type="radio" formControlName="formSelect" value="register" class="register">
+        <input id="register" type="radio" formControlName="formSelect" [value]=FORM_TYPES.REGISTER class="register">
         <label for="register" class="select-form-label"> Register </label>
       </form>
 
-      <app-login (loginSuccess)="onLoginSuccess()"
-                 [hidden]="formSelector.get('formSelect').value !== 'login'"></app-login>
-      <app-register (registerSuccess)="onRegisterSuccess()"
-                    [hidden]="formSelector.get('formSelect').value !== 'register'"></app-register>
+      <app-login [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN"></app-login>
+      <app-register [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER"></app-register>
 
     </div>
   </div>
 </div>
-

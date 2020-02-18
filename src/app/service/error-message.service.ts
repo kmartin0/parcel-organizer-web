@@ -11,6 +11,10 @@ export class ErrorMessageService {
 
   public getErrorMessagesForValidationErrors(validationErrors: ValidationErrors): string[] {
 
+    if (validationErrors === null) {
+      return null;
+    }
+
     // Define array to store the error messages.
     let errors = new Array<string>();
 
