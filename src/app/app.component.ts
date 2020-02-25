@@ -2,6 +2,8 @@ import {Component, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
+import {UserService} from './service/user.service';
+import {User} from './model/user';
 
 @Component({
   selector: 'app-root',

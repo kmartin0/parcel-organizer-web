@@ -13,13 +13,13 @@ export function passwordMatchValidator(controlName: string, matchingControlName:
 
     if (control.value !== matchingControl.value) {
       if (tmpConfirmErrors !== null) {
-        tmpConfirmErrors.confirmPassword = false;
+        tmpConfirmErrors[errorName] = false;
         matchingControl.setErrors(tmpConfirmErrors);
       } else {
         matchingControl.setErrors({[errorName]: false});
       }
     } else if (tmpConfirmErrors != null && tmpConfirmErrors.hasOwnProperty(errorName)) {
-      delete tmpConfirmErrors.confirmPassword;
+      delete tmpConfirmErrors[errorName];
       matchingControl.setErrors(tmpConfirmErrors);
     }
     return null;

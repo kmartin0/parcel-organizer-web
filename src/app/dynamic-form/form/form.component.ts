@@ -4,6 +4,7 @@ import {TextBoxInputField} from '../input/text-box-input-field';
 import {ErrorMessageService} from '../../service/error-message.service';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+import {User} from '../../model/user';
 
 @Component({
   selector: 'app-form',
@@ -35,12 +36,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onFormValid() {
-    let formKeyValues = {};
-    Object.keys(this.formGroup.controls).forEach(key => {
-      const formControl = this.formGroup.controls[key];
-      formKeyValues[key] = formControl.value;
-    });
-    this.formValidSubmit.emit(formKeyValues);
+    this.formValidSubmit.emit(this.formGroup.value);
   }
 
   onFormInvalid() {
@@ -53,6 +49,19 @@ export class FormComponent implements OnInit, OnDestroy {
 
   resetForm() {
     this.formGroup.reset();
+  }
+
+  setError(key: string, error: string) {
+    let formControl = this.formGroup.controls[key];
+    let tmpErrors = formControl.errors;
+    let errorValue = {['value']: error};
+
+    if (tmpErrors !== null) {
+      tmpErrors.error = errorValue;
+      formControl.setErrors(tmpErrors);
+    } else {
+      formControl.setErrors({['error']: errorValue});
+    }
   }
 
   /**

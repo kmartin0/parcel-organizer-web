@@ -3,6 +3,10 @@ import {Validators} from '@angular/forms';
 import {passwordMatchValidator} from '../validator/password-match.validator';
 import {TextBoxInputField} from '../dynamic-form/input/text-box-input-field';
 import {FormComponent} from '../dynamic-form/form/form.component';
+import {User} from '../model/user';
+import {UserService} from '../service/user.service';
+import {isApiErrorBody} from '../model/api-error-body';
+import {ApiErrorEnum} from '../api-error.enum';
 
 @Component({
   selector: 'app-register',
@@ -53,14 +57,39 @@ export class RegisterComponent implements OnInit {
 
   registerFormValidators = [passwordMatchValidator('password', 'confirmPassword', 'confirmPassword')];
 
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
   public ngOnInit() {
   }
 
   onRegisterValidSubmit(formKeyValues: { [key: string]: string; }) {
-    alert('Success Login: ' + JSON.stringify(formKeyValues));
+    this.registerUser({
+      id: null,
+      email: formKeyValues.email,
+      name: formKeyValues.name,
+      password: formKeyValues.password
+    });
+  }
+
+  private registerUser(user: User) {
+    this.userService.registerUser(user).subscribe(user => {
+      this.handleRegisterSuccess(user);
+    }, apiError => {
+      this.handleRegisterErrors(apiError);
+    });
+  }
+
+  private handleRegisterSuccess(user: User) {
+    window.alert(`User Registered: ${JSON.stringify(user)}`);
+  }
+
+  private handleRegisterErrors(apiError: any) {
+    if (isApiErrorBody(apiError) && apiError.error === ApiErrorEnum.ALREADY_EXISTS) {
+      this.formComponent.setError('email', apiError.details['email']);
+    } else {
+      console.log('Unknown Api Error', apiError);
+    }
   }
 
 }

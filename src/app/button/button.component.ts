@@ -10,7 +10,7 @@ export class ButtonComponent implements OnInit {
   @Output() onClick = new EventEmitter<MouseEvent>();
 
   onClickButton(event) {
-    this.onClick.emit(event);
+    // this.onClick.emit(event);
   }
 
   constructor() {

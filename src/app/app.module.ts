@@ -9,6 +9,7 @@ import {RegisterComponent} from './register/register.component';
 import {FormComponent} from './dynamic-form/form/form.component';
 import {TextInputComponent} from './dynamic-form/input/text-input/text-input.component';
 import {ButtonComponent} from './button/button.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {ButtonComponent} from './button/button.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
