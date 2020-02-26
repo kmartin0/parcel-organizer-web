@@ -19,3 +19,17 @@ label {
   border-radius: 12px;
   font-size: small;
 }
+
+.lottie {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  width: 25%;
+  height: 25%;
+}
+
+.form-container {
+  position: relative
+}
+

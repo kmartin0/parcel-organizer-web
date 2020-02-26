@@ -10,6 +10,15 @@ import {FormComponent} from './dynamic-form/form/form.component';
 import {TextInputComponent} from './dynamic-form/input/text-input/text-input.component';
 import {ButtonComponent} from './button/button.component';
 import {HttpClientModule} from '@angular/common/http';
+import {LottieModule} from 'ngx-lottie';
+import player from 'lottie-web';
+import { SuccessComponent } from './success/success.component';
+
+// Note we need a separate function as it's required
+// by the AOT compiler
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -19,6 +28,7 @@ import {HttpClientModule} from '@angular/common/http';
     FormComponent,
     TextInputComponent,
     ButtonComponent,
+    SuccessComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +36,8 @@ import {HttpClientModule} from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    LottieModule.forRoot({player: playerFactory})
   ],
   providers: [],
   bootstrap: [AppComponent]

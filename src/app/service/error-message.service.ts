@@ -21,6 +21,10 @@ export class ErrorMessageService {
     // Iterate through validationErrors, construct user readable messages and store in errors array.
     Object.keys(validationErrors).forEach(key => {
       const error = this.defaultErrors[key];
+      if (key == 'customError') {
+        errors.push(...(validationErrors[key]));
+        return;
+      }
       if (error != null) {
         errors.push(error instanceof Function ? error(validationErrors[key]) : error);
       } else {
@@ -38,7 +42,6 @@ export class ErrorMessageService {
     maxlength: ({requiredLength, actualLength}) => `This field requires a maximum of ${requiredLength} characters`,
     email: `This field requires a valid email`,
     confirmPassword: `Passwords must match`,
-    error: ({value}) => `${value}`
   };
 
 }

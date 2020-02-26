@@ -44,6 +44,10 @@ export class AppComponent {
       }
     });
   }
+
+  onRegisterSuccess(user: User) {
+    this.formSelector.controls.formSelect.setValue(FORM_TYPES.LOGIN);
+  }
 }
 
 export enum FORM_TYPES {

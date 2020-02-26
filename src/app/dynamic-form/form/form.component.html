@@ -1,18 +1,29 @@
-<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-  <div class="input-wrap" *ngFor="let inputField of inputFields">
-    <label [attr.for]="inputField.id">{{inputField.label}}</label>
+<div class="form-container">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <div class="input-wrap" *ngFor="let inputField of inputFields">
+      <label [attr.for]="inputField.id">{{inputField.label}}</label>
 
-    <div [ngSwitch]="inputField.controlType">
-      <app-text-input *ngSwitchCase="'textbox'" [inputField]="inputField"
-                      [control]="getFormControl(inputField.key)"></app-text-input>
+      <div [ngSwitch]="inputField.controlType">
+        <app-text-input *ngSwitchCase="'textbox'" [inputField]="inputField"
+                        [control]="getFormControl(inputField.key)"></app-text-input>
+      </div>
+
+      <ul class="error"
+          *ngIf="formGroup.get(inputField.key) && errorMessages && errorMessages[inputField.key] && formGroup.get(inputField.key).dirty">
+        <li *ngFor="let errorMessage of errorMessages[inputField.key]">
+          {{ errorMessage }}
+        </li>
+      </ul>
     </div>
 
-    <ul class="error" id="{{'error' + inputField.id}}"
-        *ngIf="formGroup.get(inputField.key) && errorMessages && errorMessages[inputField.key] && formGroup.get(inputField.key).dirty">
-      <li *ngFor="let errorMessage of errorMessages[inputField.key]">
+    <app-button [loading$]="loading$">{{formName}}</app-button>
+    <ul class="error"
+        *ngIf="errorMessages && errorMessages['formGroup'] && formGroup.dirty">
+      <li *ngFor="let errorMessage of errorMessages['formGroup']">
         {{ errorMessage }}
       </li>
     </ul>
-  </div>
-  <app-button (onClick)="onSubmit()">{{formName}}</app-button>
-</form>
+  </form>
+  <app-success class="lottie" ></app-success>
+</div>
+

@@ -7,6 +7,8 @@ import {User} from '../model/user';
 import {UserService} from '../service/user.service';
 import {isApiErrorBody} from '../model/api-error-body';
 import {ApiErrorEnum} from '../api-error.enum';
+import {loadingIndicator} from '../operators';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -15,11 +17,13 @@ import {ApiErrorEnum} from '../api-error.enum';
 })
 export class RegisterComponent implements OnInit {
 
-  @Output() public registerSuccess = new EventEmitter();
+  @Output() public registerSuccess = new EventEmitter<User>();
   @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;
   get formComponent(): FormComponent {
     return this._formComponent;
   }
+
+  loading$ = new Subject<boolean>();
 
   registerForm: TextBoxInputField[] = [
     new TextBoxInputField({
@@ -73,22 +77,37 @@ export class RegisterComponent implements OnInit {
   }
 
   private registerUser(user: User) {
-    this.userService.registerUser(user).subscribe(user => {
+    this.userService.registerUser(user).pipe(
+      loadingIndicator(this.loading$)
+    ).subscribe(user => {
       this.handleRegisterSuccess(user);
     }, apiError => {
-      this.handleRegisterErrors(apiError);
+      this.handleRegisterError(apiError);
     });
   }
 
   private handleRegisterSuccess(user: User) {
-    window.alert(`User Registered: ${JSON.stringify(user)}`);
+    this.formComponent.displaySuccess(() => {
+      this.registerSuccess.emit(user);
+    });
   }
 
-  private handleRegisterErrors(apiError: any) {
-    if (isApiErrorBody(apiError) && apiError.error === ApiErrorEnum.ALREADY_EXISTS) {
-      this.formComponent.setError('email', apiError.details['email']);
+  private handleRegisterError(apiError: any) {
+    if (isApiErrorBody(apiError)) {
+      switch (apiError.error) {
+        case  ApiErrorEnum.ALREADY_EXISTS : {
+          this.formComponent.setError('email', apiError.details['email']);
+          break;
+        }
+        case ApiErrorEnum.INVALID_ARGUMENTS: {
+          this.formComponent.setError('email', apiError.details['email']);
+          this.formComponent.setError('password', apiError.details['password']);
+          this.formComponent.setError('name', apiError.details['name']);
+          break;
+        }
+      }
     } else {
-      console.log('Unknown Api Error', apiError);
+      this.formComponent.setError(null, 'An unknown error has occurred.');
     }
   }
 

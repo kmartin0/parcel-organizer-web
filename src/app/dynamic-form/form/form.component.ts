@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import {TextBoxInputField} from '../input/text-box-input-field';
 import {ErrorMessageService} from '../../service/error-message.service';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
-import {User} from '../../model/user';
+import {SuccessComponent} from '../../success/success.component';
 
 @Component({
   selector: 'app-form',
@@ -13,16 +13,17 @@ import {User} from '../../model/user';
 })
 export class FormComponent implements OnInit, OnDestroy {
 
+  @Input() loading$?: Subject<boolean>;
   @Input() formName: string = 'Submit';
   @Input() inputFields: TextBoxInputField[];
   @Input() formValidators: ValidatorFn[];
   @Output() formValidSubmit: EventEmitter<{ [key: string]: string; }> = new EventEmitter();
 
   private formGroup: FormGroup;
-
   private errorMessages: { [key: string]: string[]; } = {};
-
   private unsubscribe$: Subject<void> = new Subject<void>();
+
+  @ViewChild(SuccessComponent, {static: false}) private successComponent: SuccessComponent;
 
   constructor(private errorMessageService: ErrorMessageService) {
   }
@@ -32,6 +33,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.markFormAsDirty();
     this.formGroup.valid ? this.onFormValid() : this.onFormInvalid();
   }
 
@@ -40,10 +42,22 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onFormInvalid() {
+    // Display the general form errors.
+    this.errorMessages['formGroup'] = this.errorMessageService.getErrorMessagesForValidationErrors(this.formGroup.errors);
+
+    // Display the input field errors.
+    Object.keys(this.formGroup.controls).forEach(key => {
+      const formControl = this.formGroup.controls[key];
+      this.errorMessages[key] = this.errorMessageService.getErrorMessagesForValidationErrors(formControl.errors);
+    });
+  }
+
+  markFormAsDirty() {
+    this.formGroup.markAsDirty();
+
     Object.keys(this.formGroup.controls).forEach(key => {
       const formControl = this.formGroup.controls[key];
       formControl.markAsDirty();
-      this.errorMessages[key] = this.errorMessageService.getErrorMessagesForValidationErrors(formControl.errors);
     });
   }
 
@@ -51,16 +65,13 @@ export class FormComponent implements OnInit, OnDestroy {
     this.formGroup.reset();
   }
 
-  setError(key: string, error: string) {
-    let formControl = this.formGroup.controls[key];
-    let tmpErrors = formControl.errors;
-    let errorValue = {['value']: error};
-
-    if (tmpErrors !== null) {
-      tmpErrors.error = errorValue;
-      formControl.setErrors(tmpErrors);
-    } else {
-      formControl.setErrors({['error']: errorValue});
+  setError(formControlKey: string, error: string) {
+    if (error) {
+      let target = this.formGroup.controls[formControlKey] || this.formGroup;
+      let tmpErrors = target.errors;
+      let errorValue;
+      errorValue = tmpErrors != null && tmpErrors['customError'] != null ? {'customError': [...tmpErrors['customError'], error]} : {'customError': [error]};
+      target.setErrors(errorValue);
     }
   }
 
@@ -85,6 +96,10 @@ export class FormComponent implements OnInit, OnDestroy {
         this.errorMessages[key] = this.errorMessageService.getErrorMessagesForValidationErrors(formControl.errors);
       });
     });
+    // Observe the status for the formGroup. Whenever the status changes update the error message.
+    this.formGroup.statusChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value => {
+      this.errorMessages['formGroup'] = this.errorMessageService.getErrorMessagesForValidationErrors(this.formGroup.errors);
+    });
   }
 
   getFormControl(key: string): FormControl {
@@ -95,6 +110,10 @@ export class FormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  displaySuccess(successCompleteCallback: () => void) {
+    this.successComponent.play(successCompleteCallback);
   }
 
 }

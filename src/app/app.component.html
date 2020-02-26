@@ -21,7 +21,7 @@
       </form>
 
       <app-login [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN"></app-login>
-      <app-register [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER"></app-register>
+      <app-register [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER" (registerSuccess)="onRegisterSuccess($event)"></app-register>
 
     </div>
   </div>

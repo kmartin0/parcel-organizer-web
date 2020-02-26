@@ -12,15 +12,10 @@ export function passwordMatchValidator(controlName: string, matchingControlName:
     let tmpConfirmErrors = matchingControl.errors;
 
     if (control.value !== matchingControl.value) {
-      if (tmpConfirmErrors !== null) {
-        tmpConfirmErrors[errorName] = false;
-        matchingControl.setErrors(tmpConfirmErrors);
-      } else {
-        matchingControl.setErrors({[errorName]: false});
-      }
+      matchingControl.setErrors({...tmpConfirmErrors, [errorName]: false});
     } else if (tmpConfirmErrors != null && tmpConfirmErrors.hasOwnProperty(errorName)) {
       delete tmpConfirmErrors[errorName];
-      matchingControl.setErrors(tmpConfirmErrors);
+      Object.keys(tmpConfirmErrors).length > 0 ? matchingControl.setErrors(tmpConfirmErrors) : matchingControl.setErrors(null);
     }
     return null;
   };
