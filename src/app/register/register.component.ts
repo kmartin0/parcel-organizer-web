@@ -39,7 +39,8 @@ export class RegisterComponent implements OnInit {
       key: 'name',
       type: 'text',
       label: 'Name',
-      placeholder: 'John Doe'
+      placeholder: 'John Doe',
+      validators: [Validators.required]
     }),
     new TextBoxInputField({
       id: 'register-password',

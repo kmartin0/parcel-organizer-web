@@ -9,10 +9,11 @@ import {RegisterComponent} from './register/register.component';
 import {FormComponent} from './dynamic-form/form/form.component';
 import {TextInputComponent} from './dynamic-form/input/text-input/text-input.component';
 import {ButtonComponent} from './button/button.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LottieModule} from 'ngx-lottie';
 import player from 'lottie-web';
-import { SuccessComponent } from './success/success.component';
+import {SuccessComponent} from './success/success.component';
+import {AuthInterceptor} from './auth.interceptor';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -39,7 +40,9 @@ export function playerFactory() {
     HttpClientModule,
     LottieModule.forRoot({player: playerFactory})
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

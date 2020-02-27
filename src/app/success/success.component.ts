@@ -14,6 +14,7 @@ export class SuccessComponent implements OnInit {
   @Input() height: string = '100px';
 
   private isDisplaying = false;
+  private value?: any;
 
   @ViewChild(LottieComponent, {static: false}) private lottieComponent: LottieComponent;
 
@@ -38,11 +39,14 @@ export class SuccessComponent implements OnInit {
     animationItem.play();
     animationItem.addEventListener('complete', args => {
       animationItem.stop();
-      this.successComplete.emit();
+      this.successComplete.emit(this.value);
+      this.isDisplaying = false;
+      this.value = null;
     });
   }
 
-  play() {
+  play(value?: any) {
+    this.value = value;
     this.isDisplaying = true;
   }
 

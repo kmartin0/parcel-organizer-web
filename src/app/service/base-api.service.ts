@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {ApiErrorBody} from '../model/api-error-body';
-import {catchError, delay} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,17 @@ export class BaseApiService {
   constructor(private http: HttpClient) {
   }
 
-  makePost<T>(url: string, body: T): Observable<T> {
-    return this.http.post<T>(BASE_API_URL + url, body).pipe(catchError(this.handleError));
+  makePost<T>(url: string, body: any): Observable<T> {
+    return this.http.post<T>(url, body).pipe(catchError(this.handleError));
+  }
+
+  makePostFormUrlEncoded<T>(url: string, params: HttpParams): Observable<T> {
+    const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+    return this.http.post<T>(url, params.toString(), {headers}).pipe(catchError(this.handleError));
+  }
+
+  makeGet<T>(url: string): Observable<T> {
+    return this.http.get<T>(url).pipe(catchError(this.handleError));
   }
 
   handleError(error: HttpErrorResponse) {
@@ -38,6 +47,3 @@ export class BaseApiService {
       'Something bad happened; please try again later.');
   }
 }
-
-// export const BASE_API_URL = 'https://parcel-organizer-api.herokuapp.com/';
-export const BASE_API_URL = 'http://localhost:8080/';

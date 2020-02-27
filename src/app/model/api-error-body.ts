@@ -9,5 +9,5 @@ export interface ApiErrorBody {
 
 export function isApiErrorBody(object): object is ApiErrorBody {
   const apiErrorBody = object as ApiErrorBody;
-  return apiErrorBody.error && apiErrorBody.description !== undefined;
+  return apiErrorBody.error !== undefined;
 }

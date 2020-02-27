@@ -48,6 +48,10 @@ export class AppComponent {
   onRegisterSuccess(user: User) {
     this.formSelector.controls.formSelect.setValue(FORM_TYPES.LOGIN);
   }
+
+  onLoginSuccess(user: any) {
+    console.log('Login Success', user);
+  }
 }
 
 export enum FORM_TYPES {

@@ -20,7 +20,7 @@
         <label for="register" class="select-form-label"> Register </label>
       </form>
 
-      <app-login [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN"></app-login>
+      <app-login [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN" (loginSuccess)="onLoginSuccess($event)"></app-login>
       <app-register [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER" (registerSuccess)="onRegisterSuccess($event)"></app-register>
 
     </div>

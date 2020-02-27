@@ -113,10 +113,9 @@ export class FormComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  displaySuccess() {
-    this.successComponent.play();
+  displaySuccess(value?: any) {
+    this.successComponent.play(value);
   }
-
 }
 
 // https://stackblitz.com/edit/angular-dynamic-form-builder
