@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {BaseApiService} from './base-api.service';
-import {User} from '../model/user';
-import {GET_USER, LOGIN, SAVE_USER} from '../api-endpoints';
+import {User} from '../models/user';
+import {GET_USER, LOGIN, SAVE_USER} from '../api/api-endpoints';
 import {HttpParams} from '@angular/common/http';
 import {map, mergeMap} from 'rxjs/operators';
-import {Oauth2Credentials} from '../model/oauth2-credentials';
+import {Oauth2Credentials} from '../models/oauth2-credentials';
 
 @Injectable({
   providedIn: 'root'

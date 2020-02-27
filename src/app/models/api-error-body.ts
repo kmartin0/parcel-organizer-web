@@ -1,4 +1,4 @@
-import {ApiErrorEnum} from '../api-error.enum';
+import {ApiErrorEnum} from '../api/api-error.enum';
 
 export interface ApiErrorBody {
   error: ApiErrorEnum,

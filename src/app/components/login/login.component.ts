@@ -2,11 +2,11 @@ import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {Validators} from '@angular/forms';
 import {TextBoxInputField} from '../dynamic-form/input/text-box-input-field';
 import {FormComponent} from '../dynamic-form/form/form.component';
-import {UserService} from '../service/user.service';
+import {UserService} from '../../services/user.service';
 import {Subject} from 'rxjs';
-import {loadingIndicator} from '../operators';
-import {isApiErrorBody} from '../model/api-error-body';
-import {ApiErrorEnum} from '../api-error.enum';
+import {loadingIndicator} from '../../helpers/operators';
+import {isApiErrorBody} from '../../models/api-error-body';
+import {ApiErrorEnum} from '../../api/api-error.enum';
 
 @Component({
   selector: 'app-login',

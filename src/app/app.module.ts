@@ -4,16 +4,16 @@ import {AppComponent} from './app.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {LoginComponent} from './login/login.component';
-import {RegisterComponent} from './register/register.component';
-import {FormComponent} from './dynamic-form/form/form.component';
-import {TextInputComponent} from './dynamic-form/input/text-input/text-input.component';
-import {ButtonComponent} from './button/button.component';
+import {LoginComponent} from './components/login/login.component';
+import {RegisterComponent} from './components/register/register.component';
+import {FormComponent} from './components/dynamic-form/form/form.component';
+import {TextInputComponent} from './components/dynamic-form/input/text-input/text-input.component';
+import {ButtonComponent} from './components/button/button.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {LottieModule} from 'ngx-lottie';
 import player from 'lottie-web';
-import {SuccessComponent} from './success/success.component';
-import {AuthInterceptor} from './auth.interceptor';
+import {SuccessComponent} from './components/success/success.component';
+import {AuthInterceptor} from './api/auth.interceptor';
 
 // Note we need a separate function as it's required
 // by the AOT compiler

@@ -1,13 +1,13 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {passwordMatchValidator} from '../validator/password-match.validator';
+import {passwordMatchValidator} from '../../validators/password-match.validator';
 import {TextBoxInputField} from '../dynamic-form/input/text-box-input-field';
 import {FormComponent} from '../dynamic-form/form/form.component';
-import {User} from '../model/user';
-import {UserService} from '../service/user.service';
-import {isApiErrorBody} from '../model/api-error-body';
-import {ApiErrorEnum} from '../api-error.enum';
-import {loadingIndicator} from '../operators';
+import {User} from '../../models/user';
+import {UserService} from '../../services/user.service';
+import {isApiErrorBody} from '../../models/api-error-body';
+import {ApiErrorEnum} from '../../api/api-error.enum';
+import {loadingIndicator} from '../../helpers/operators';
 import {Subject} from 'rxjs';
 
 @Component({

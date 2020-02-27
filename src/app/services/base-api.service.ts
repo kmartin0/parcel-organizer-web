@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {ApiErrorBody} from '../model/api-error-body';
+import {ApiErrorBody} from '../models/api-error-body';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
