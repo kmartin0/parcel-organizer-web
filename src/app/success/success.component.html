@@ -1,2 +1,3 @@
-<ng-lottie [options]="options" [styles]="styles" (animationCreated)="animationCreated($event)"
+<ng-lottie *ngIf="isDisplaying" [width]="width" [height]="height" [options]="options" [styles]="styles"
+           (animationCreated)="animationCreated($event)"
            (complete)="successComplete.emit()"></ng-lottie>

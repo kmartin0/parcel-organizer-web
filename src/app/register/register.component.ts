@@ -87,9 +87,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private handleRegisterSuccess(user: User) {
-    this.formComponent.displaySuccess(() => {
-      this.registerSuccess.emit(user);
-    });
+    this.formComponent.displaySuccess();
   }
 
   private handleRegisterError(apiError: any) {

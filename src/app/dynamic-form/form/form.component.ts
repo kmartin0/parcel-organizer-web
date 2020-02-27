@@ -17,6 +17,7 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() formName: string = 'Submit';
   @Input() inputFields: TextBoxInputField[];
   @Input() formValidators: ValidatorFn[];
+  @Output() successComplete = new EventEmitter<any>();
   @Output() formValidSubmit: EventEmitter<{ [key: string]: string; }> = new EventEmitter();
 
   private formGroup: FormGroup;
@@ -112,8 +113,8 @@ export class FormComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  displaySuccess(successCompleteCallback: () => void) {
-    this.successComponent.play(successCompleteCallback);
+  displaySuccess() {
+    this.successComponent.play();
   }
 
 }
