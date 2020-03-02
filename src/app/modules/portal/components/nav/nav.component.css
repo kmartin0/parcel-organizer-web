@@ -1,0 +1,105 @@
+.main-nav {
+  background-color: #1a1a1a;
+  height: 100%;
+  color: white;
+  overflow: hidden;
+  width: 260px;
+}
+
+.closed-nav {
+  width: 60px;
+}
+
+.logo-container {
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  margin: 20px 10px 16px 10px;
+}
+
+.logo-image {
+  width: 64px;
+  height: 64px;
+}
+
+.logo-text {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 6px 0 0 0;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.5s ease 0.3s, opacity 0.5s ease 0.3s;
+}
+
+.main-nav, .logo-container, .logo-image {
+  transition: all 1s ease 0.3s;
+}
+
+.closed-nav .logo-container {
+  margin-bottom: 40px;
+}
+
+.closed-nav .logo-text {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.closed-nav .logo-image {
+  width: 40px;
+  height: 40px;
+}
+
+.nav-list-item-text {
+  margin-left: 18px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  color: white;
+}
+
+a {
+  padding: 6px 0 6px 18px;
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+  white-space: nowrap;
+  transition: border-left-color ease 1s, color 1s ease;
+}
+
+fa-icon {
+  transition: color 1s ease;
+  color: #11A9ED;
+}
+
+.closed-nav fa-icon {
+  color: gray;
+}
+
+.active a {
+  border-left: 4px solid white;
+  padding-left: 14px;
+}
+
+.closed-nav .active a {
+  border-left-color: #afafaf;
+}
+
+.closed-nav a {
+  color: gray;
+}
+
+@media (max-width: 991px) {
+  .closed-nav {
+    width: 0;
+  }
+
+  .main-nav, .logo-container, .logo-image {
+    transition: all 0.7s ease 0.1s;
+  }
+}

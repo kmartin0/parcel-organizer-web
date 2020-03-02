@@ -1,0 +1,8 @@
+<header>
+  <div class="nav-icon-container"
+       [@navOpenClose]="navBarState == navBarStates.OPENED || navBarState == navBarStates.CLIPPED  ? 'open' : 'closed'">
+    <fa-icon class="arrow" (click)="toggleNavBarClip()" [styles]="faIconStyle" [icon]="faIcons.arrowLeft"></fa-icon>
+    <fa-icon class="hamburger" (click)="toggleNavBarClip()" [styles]="faIconStyle" [icon]="faIcons.hamburger"></fa-icon>
+  </div>
+  <h2>Angular Holy Grill Layout with CSS Grid</h2>
+</header>

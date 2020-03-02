@@ -1,0 +1,11 @@
+<div class="portal-container">
+  <app-header (changeNavBarState)="navBarState = $event" [navBarState]="navBarState"></app-header>
+
+  <app-nav [navBarState]="navBarState" (navBarStateChanged)="navBarState = $event"></app-nav>
+
+  <app-portal-page>
+    <router-outlet></router-outlet>
+  </app-portal-page>
+
+  <app-footer></app-footer>
+</div>

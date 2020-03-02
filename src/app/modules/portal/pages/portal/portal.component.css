@@ -1,0 +1,23 @@
+.portal-container {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "nav header" "nav content" "nav footer";
+  height: 100vh;
+}
+
+app-header {
+  grid-area: header;
+}
+
+app-nav {
+  grid-area: nav;
+}
+
+app-portal-page {
+  grid-area: content;
+}
+
+app-footer {
+  grid-area: footer;
+}
