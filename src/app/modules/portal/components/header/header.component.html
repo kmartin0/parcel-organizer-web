@@ -1,6 +1,6 @@
 <header>
   <div class="nav-icon-container"
-       [@navOpenClose]="navBarState == navBarStates.OPENED || navBarState == navBarStates.CLIPPED  ? 'open' : 'closed'">
+     [ngClass]="{'open' : navBarState == navBarStates.OPENED || navBarState == navBarStates.CLIPPED}">
     <fa-icon class="arrow" (click)="toggleNavBarClip()" [styles]="faIconStyle" [icon]="faIcons.arrowLeft"></fa-icon>
     <fa-icon class="hamburger" (click)="toggleNavBarClip()" [styles]="faIconStyle" [icon]="faIcons.hamburger"></fa-icon>
   </div>

@@ -1,22 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faArrowCircleLeft, faBars} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
 import {NAV_BAR_STATES} from '../nav/nav.component';
 
 @Component({
   selector: 'app-header',
-  animations: [
-    trigger('navOpenClose', [
-      state('open', style({})),
-      state('closed', style({
-        transform: 'rotate(180deg)',
-      })),
-      transition('open <=> closed', [
-        animate('0.5s 0.7s ease')
-      ]),
-    ]),
-  ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })

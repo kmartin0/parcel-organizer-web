@@ -1,17 +1,12 @@
 header {
   color: black;
   font-size: 14px;
-  padding: 16px 8px;
+  padding: 8px 8px;
   background-color: #fff;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-}
-
-h2 {
-  margin: 0;
-  padding: 0;
 }
 
 fa-icon:hover {
@@ -24,6 +19,11 @@ fa-icon:hover {
   min-width: 32px;
   min-height: 32px;
   margin-right: 18px;
+  transition: 1s ease 0.3s;
+}
+
+.open {
+  transform: rotate(180deg);
 }
 
 .hamburger {
@@ -37,5 +37,9 @@ fa-icon:hover {
 
   .hamburger {
     display: inline;
+  }
+
+  .open {
+    transform: rotate(0deg);
   }
 }

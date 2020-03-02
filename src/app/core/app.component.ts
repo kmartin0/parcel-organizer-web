@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../shared/services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,11 +8,15 @@ import {UserService} from '../shared/services/user.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  isUserLoggedIn = this.userService.isUserLoggedIn();
+  constructor(private userService: UserService, private router: Router) {
+  }
 
-  constructor(private userService: UserService) {
+  ngOnInit(): void {
+    if (this.userService.isUserLoggedIn()) {
+this.router.navigate(['/portal']);
+    }
   }
 
 }
