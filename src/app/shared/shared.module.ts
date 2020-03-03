@@ -8,6 +8,7 @@ import {LottieModule} from 'ngx-lottie';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import player from 'lottie-web';
+import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -20,7 +21,8 @@ export function playerFactory() {
     FormComponent,
     TextInputComponent,
     ButtonComponent,
-    SuccessComponent
+    SuccessComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ export function playerFactory() {
     FormComponent,
     TextInputComponent,
     ButtonComponent,
-    SuccessComponent
+    SuccessComponent,
+    PageNotFoundComponent
   ]
 })
 export class SharedModule { }

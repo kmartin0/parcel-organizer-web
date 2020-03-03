@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
-import {PageNotFoundComponent} from '../pages/page-not-found/page-not-found.component';
+import {PageNotFoundComponent} from '../shared/components/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   {

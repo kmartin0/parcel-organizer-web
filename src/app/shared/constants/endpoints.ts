@@ -1,9 +1,9 @@
 export const PAGE_NOT_FOUND = '**';
 export const HOME = '';
-export const PORTAL = 'portal';
+export const PORTAL = '/portal';
 export const PARCELS = PORTAL + '/parcels';
 export const CREATE_PARCEL = PORTAL + '/create-parcel';
 export const PARCEL_DETAILS = PARCELS + '/:id';
 export const ACCOUNT = PORTAL + '/account';
 export const EDIT_ACCOUNT = ACCOUNT + '/edit';
-export const CHANGE_PASSWORD = ACCOUNT + 'change-password';
+export const CHANGE_PASSWORD = ACCOUNT + '/change-password';

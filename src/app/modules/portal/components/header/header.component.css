@@ -1,5 +1,4 @@
 header {
-  color: var(--color-on-header);
   font-size: 14px;
   padding: 8px 8px;
   background-color: var(--color-header);
@@ -7,6 +6,10 @@ header {
   height: 100%;
   display: flex;
   align-items: center;
+}
+
+h2 {
+  color: var(--color-on-header)
 }
 
 fa-icon:hover {
@@ -20,6 +23,7 @@ fa-icon:hover {
   min-height: 32px;
   margin-right: 18px;
   transition: 1s ease 0.3s;
+  color: var(--color-primary);
 }
 
 .open .nav-icon-container {
@@ -31,7 +35,7 @@ fa-icon:hover {
 }
 
 .logo {
-display: none;
+  display: none;
 }
 
 @media (max-width: 991px) {

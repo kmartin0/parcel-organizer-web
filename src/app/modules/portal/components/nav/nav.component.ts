@@ -3,7 +3,7 @@ import {faCubes, faPlusCircle, faUser, faSignOutAlt} from '@fortawesome/free-sol
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 import {UserService} from '../../../../shared/services/user.service';
 import {Router} from '@angular/router';
-import {HOME} from '../../../../shared/constants/endpoints';
+import {ACCOUNT, CREATE_PARCEL, HOME, PARCELS} from '../../../../shared/constants/endpoints';
 
 @Component({
   selector: 'app-nav',
@@ -24,11 +24,18 @@ export class NavComponent implements OnInit {
     height: '24px'
   };
 
+  navRoutes = {
+    parcels: PARCELS,
+    createParcel: CREATE_PARCEL,
+    account: ACCOUNT
+  };
+
   navBarStates = NAV_BAR_STATES;
   @Input() navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLOSED;
   @Output() navBarStateChanged = new EventEmitter<NAV_BAR_STATES>();
 
   constructor(private userService: UserService, private router: Router) {
+    console.log(router.config)
   }
 
   ngOnInit() {

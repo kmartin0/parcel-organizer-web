@@ -10,13 +10,10 @@ import {Router} from '@angular/router';
 
 export class AppComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    if (this.userService.isUserLoggedIn()) {
-this.router.navigate(['/portal']);
-    }
   }
 
 }

@@ -1,15 +1,17 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoginComponent} from '../../components/login/login.component';
 import {RegisterComponent} from '../../components/register/register.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {User} from '../../../../shared/models/user';
+import {UserService} from '../../../../shared/services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
   @ViewChild(LoginComponent, {static: false})
   private loginComponent: LoginComponent;
@@ -20,7 +22,7 @@ export class HomeComponent {
   private formSelector: FormGroup;
   private FORM_TYPES = FORM_TYPES;
 
-  constructor(formBuilder: FormBuilder) {
+  constructor(formBuilder: FormBuilder, private userService: UserService, private router: Router) {
     this.initFormSelect(formBuilder);
   }
 
@@ -49,6 +51,17 @@ export class HomeComponent {
 
   onLoginSuccess(user: any) {
 
+  }
+
+  //TODO: Use auth guard to automatically open portal.
+  //TODO: Automatically change title based on url.
+  //TODO: Parcels Component.
+  //TODO: Create Parcel Component.
+  //TODO: Account Component.
+  ngOnInit(): void {
+    if (this.userService.isUserLoggedIn()) {
+      this.router.navigate(['/portal']);
+    }
   }
 
 }

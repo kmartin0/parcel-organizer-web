@@ -1,4 +1,10 @@
 .container {
   text-align: center;
   color: var(--color-on-header);
+  padding-top: 50px
 }
+
+h2 {
+  margin: 0
+}
+

@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PortalComponent} from './pages/portal/portal.component';
-import {MainComponent} from './pages/main/main.component';
+import {ParcelsComponent} from './pages/parcels/parcels.component';
+import {CreateParcelComponent} from './pages/create-parcel/create-parcel.component';
+import {AccountComponent} from './pages/account/account.component';
 
 const portalRoutes: Routes = [
   {
@@ -10,10 +12,22 @@ const portalRoutes: Routes = [
     children: [
       {
         path: '',
-        component: MainComponent
-      }
+        redirectTo: 'parcels'
+      },
+      {
+        path: 'parcels',
+        component: ParcelsComponent,
+      },
+      {
+        path: 'create-parcel',
+        component: CreateParcelComponent
+      },
+      {
+        path: 'account',
+        component: AccountComponent
+      },
     ]
-  }
+  },
 ];
 
 @NgModule({
@@ -25,11 +39,5 @@ const portalRoutes: Routes = [
     RouterModule
   ]
 })
-export class PortalRoutingModule { }
-
-export const PortalRoutePaths = {
-  Portal: '',
-  Main: ''
-};
-
-// https://stackblitz.com/angular/pbqlrdpbpvx?file=src%2Fapp%2Fcrisis-center%2Fcrisis-center-routing.module.ts
+export class PortalRoutingModule {
+}

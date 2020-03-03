@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {PortalRoutingModule} from './portal-routing.module';
-import {MainComponent} from './pages/main/main.component';
 import {PortalComponent} from './pages/portal/portal.component';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
@@ -10,7 +9,9 @@ import {PortalPageComponent} from './components/portal-page/portal-page.componen
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SharedModule} from '../../shared/shared.module';
 import {HomeModule} from '../home/home.module';
-
+import {ParcelsComponent} from './pages/parcels/parcels.component';
+import {CreateParcelComponent} from './pages/create-parcel/create-parcel.component';
+import {AccountComponent} from './pages/account/account.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +20,17 @@ import {HomeModule} from '../home/home.module';
     HeaderComponent,
     FooterComponent,
     NavComponent,
-    MainComponent
+    ParcelsComponent,
+    CreateParcelComponent,
+    AccountComponent
   ],
-    imports: [
-        CommonModule,
-        PortalRoutingModule,
-        FontAwesomeModule,
-        SharedModule,
-        HomeModule
-    ]
+  imports: [
+    CommonModule,
+    PortalRoutingModule,
+    FontAwesomeModule,
+    SharedModule,
+    HomeModule
+  ]
 })
-export class PortalModule { }
+export class PortalModule {
+}

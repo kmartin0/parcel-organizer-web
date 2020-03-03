@@ -4,7 +4,6 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from '../api/auth.interceptor';
-import {PageNotFoundComponent} from '../pages/page-not-found/page-not-found.component';
 import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from '../shared/shared.module';
 
@@ -12,7 +11,6 @@ import {SharedModule} from '../shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
