@@ -7,6 +7,8 @@ import {Subject} from 'rxjs';
 import {loadingIndicator} from '../../../../shared/helpers/operators';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
+import {Router} from '@angular/router';
+import {PORTAL} from '../../../../shared/constants/endpoints';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +44,7 @@ export class LoginComponent {
     })
   ];
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   onLoginValidSubmit(formKeyValues: { [key: string]: string; }) {
@@ -53,14 +55,14 @@ export class LoginComponent {
     this.userService.loginUser(email, password)
       .pipe(loadingIndicator(this.loading$))
       .subscribe(value => {
-        this.onLoginSuccess(value);
+        this.formComponent.displaySuccess(value);
       }, error => {
         this.onLoginError(error);
       });
   }
 
   private onLoginSuccess(value: any) {
-    this.formComponent.displaySuccess(value);
+    this.router.navigate([PORTAL]);
   }
 
   private onLoginError(apiError: any) {

@@ -27,4 +27,9 @@ const portalRoutes: Routes = [
 })
 export class PortalRoutingModule { }
 
+export const PortalRoutePaths = {
+  Portal: '',
+  Main: ''
+};
+
 // https://stackblitz.com/angular/pbqlrdpbpvx?file=src%2Fapp%2Fcrisis-center%2Fcrisis-center-routing.module.ts

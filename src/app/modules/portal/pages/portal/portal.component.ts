@@ -9,7 +9,7 @@ import {NAV_BAR_STATES} from '../../components/nav/nav.component';
 })
 export class PortalComponent implements OnInit {
 
-  navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLOSED;
+  navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLIPPED;
   user = this.userService.getLoggedInUser();
 
   constructor(private userService: UserService) {

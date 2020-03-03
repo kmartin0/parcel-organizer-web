@@ -8,6 +8,8 @@ import {FooterComponent} from './components/footer/footer.component';
 import {NavComponent} from './components/nav/nav.component';
 import {PortalPageComponent} from './components/portal-page/portal-page.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {SharedModule} from '../../shared/shared.module';
+import {HomeModule} from '../home/home.module';
 
 
 @NgModule({
@@ -19,10 +21,12 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     NavComponent,
     MainComponent
   ],
-  imports: [
-    CommonModule,
-    PortalRoutingModule,
-    FontAwesomeModule
-  ]
+    imports: [
+        CommonModule,
+        PortalRoutingModule,
+        FontAwesomeModule,
+        SharedModule,
+        HomeModule
+    ]
 })
 export class PortalModule { }

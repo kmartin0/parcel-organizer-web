@@ -2,11 +2,39 @@
 /*noinspection CssUnknownTarget*/
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
+:root {
+  /*Primary color for widgets*/
+  --color-primary: #7654e5;
+  --color-primary-variant: #4a47e5;
+  --color-primary-disabled: rgba(74, 71, 229, 0.51);
+
+  /*Background colors*/
+  --color-background: #E57654;
+  --color-surface: #e5365c;
+  --color-header: #fff5d7;
+  --color-nav: #101368;
+  --color-footer: #AD1457;
+
+  /*Error and disabled colors*/
+  --color-error: #ffffff;
+  --color-error-background: rgba(0, 0, 0, 0.75);
+  --color-disabled: gray;
+
+  /*"On" colors define how text, icons and strokes are colored in relation to the surface on which they appear.*/
+  --color-on-primary: #ffffff;
+  --color-on--background: #000000;
+  --color-on-header: #000000;
+  --color-on-nav: #ffffff;
+  --color-on-surface: #000000;
+  --color-on-surface-variant: #ffffff;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  /*background: #E57654;*/
+  background: var(--color-background);
+  height: 100vh;
 }
 
 * {

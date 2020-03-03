@@ -1,7 +1,7 @@
 .main-nav {
-  background-color: #1a1a1a;
+  background-color: var(--color-nav);
   height: 100%;
-  color: white;
+  color: var(--color-on-nav);
   overflow: hidden;
   width: 260px;
 }
@@ -59,39 +59,52 @@ ul {
   padding: 0;
 }
 
-li {
-  color: white;
-}
-
 a {
-  padding: 6px 0 6px 18px;
+  width: 100%;
+  padding: 8px 0 8px 18px;
   text-decoration: none;
-  color: white;
+  color: var(--color-on-nav);
   display: inline-block;
   white-space: nowrap;
   transition: border-left-color ease 1s, color 1s ease;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 fa-icon {
   transition: color 1s ease;
-  color: #11A9ED;
+  color: var(--color-surface);
+  vertical-align: middle;
+  line-height: 100%;
 }
 
 .closed-nav fa-icon {
-  color: gray;
+  color: var(--color-disabled);
 }
 
 .active a {
-  border-left: 4px solid white;
+  border-left: 4px solid var(--color-surface);
   padding-left: 14px;
 }
 
 .closed-nav .active a {
-  border-left-color: #afafaf;
+  border-left-color: var(--color-disabled);
 }
 
 .closed-nav a {
-  color: gray;
+  color: var(--color-disabled);
+}
+
+.closed-nav app-button {
+  opacity: 0.4;
+}
+
+app-button {
+  display: inline-block;
+  margin-left: 18px;
+  transition: opacity 1s ease;
 }
 
 @media (max-width: 991px) {

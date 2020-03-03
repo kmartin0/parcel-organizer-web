@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {faCubes, faPlusCircle, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faCubes, faPlusCircle, faUser, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
+import {UserService} from '../../../../shared/services/user.service';
+import {Router} from '@angular/router';
+import {HOME} from '../../../../shared/constants/endpoints';
 
 @Component({
   selector: 'app-nav',
@@ -12,19 +15,20 @@ export class NavComponent implements OnInit {
   faIcons = {
     cubes: faCubes,
     plusCircle: faPlusCircle,
-    user: faUser
+    user: faUser,
+    logout: faSignOutAlt
   };
 
   faIconStyle: Styles = {
     width: '24px',
-    height: '24px',
+    height: '24px'
   };
 
   navBarStates = NAV_BAR_STATES;
   @Input() navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLOSED;
   @Output() navBarStateChanged = new EventEmitter<NAV_BAR_STATES>();
 
-  constructor() {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -47,6 +51,11 @@ export class NavComponent implements OnInit {
 
   emitNavBarState() {
     this.navBarStateChanged.emit(this.navBarState);
+  }
+
+  onLogout() {
+    this.userService.logoutUser();
+    this.router.navigate([HOME]);
   }
 
 }

@@ -21,3 +21,11 @@ app-portal-page {
 app-footer {
   grid-area: footer;
 }
+
+@media (max-width: 991px) {
+  .portal-container {
+    display: grid;
+    grid-template-columns: min-content 100%;
+    overflow-x: hidden;
+  }
+}

@@ -7,4 +7,6 @@ input[type=text], input[type=password], input[type=email] {
   height: 40px;
   width: 100%;
   display: block;
+  color: var(--color-on-surface);
+  background-color: var(--color-on-surface-variant);
 }

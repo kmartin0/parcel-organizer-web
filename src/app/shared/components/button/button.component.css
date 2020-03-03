@@ -5,14 +5,14 @@ button {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: normal;
-  color: white;
-  background: #7654e5;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
   display: block;
 }
 
 button:hover:enabled {
-  color: white;
-  background: #4a47e5;
+  color: var(--color-on-primary);
+  background: var(--color-primary-variant);
 }
 
 .loading {
@@ -20,7 +20,11 @@ button:hover:enabled {
 }
 
 button:disabled {
-  background: rgba(74, 71, 229, 0.51);
+  background: var(--color-primary-disabled);
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 @keyframes shadow-pulse {

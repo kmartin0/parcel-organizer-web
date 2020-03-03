@@ -1,2 +1,2 @@
 <app-form [formName]="'Login'" [inputFields]="loginForm" (formValidSubmit)="onLoginValidSubmit($event)"
-          (successComplete)="loginSuccess.emit($event)"></app-form>
+          (successComplete)="onLoginSuccess($event)" [loading$]="loading$"></app-form>

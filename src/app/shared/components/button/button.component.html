@@ -1,4 +1,3 @@
-<button [style.width]="width" [ngClass]="{'loading': (loading$ | async)}" [disabled]="loading$ | async"
-        (click)="onClickButton($event)">
+<button [style.width]="width" [ngClass]="{'loading': (loading$ | async)}" [disabled]="loading$ | async">
   <ng-content></ng-content>
 </button>

@@ -11,11 +11,11 @@ label {
 }
 
 .error {
-  color: #ffffff;
+  color: var(--color-error);
   padding: 0 25px;
   margin: 10px 10px 0;
   display: inline-block;
-  background: rgba(0, 0, 0, 0.75);
+  background: var(--color-error-background);
   border-radius: 12px;
   font-size: small;
 }

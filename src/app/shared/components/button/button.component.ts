@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 
 @Component({
@@ -8,13 +8,8 @@ import {Subject} from 'rxjs';
 })
 export class ButtonComponent implements OnInit {
 
-  @Output() onClick = new EventEmitter<any>();
   @Input() loading$?: Subject<boolean>;
   @Input() width: string = "100%";
-
-  onClickButton(event) {
-    this.onClick.emit(event);
-  }
 
   constructor() {
   }

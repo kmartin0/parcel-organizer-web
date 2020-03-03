@@ -9,7 +9,7 @@
   <div>
     <ul>
       <li [routerLinkActive]="['active']">
-        <a routerLink="/home">
+        <a routerLink="/portal">
           <fa-icon [styles]="faIconStyle" [icon]="faIcons.cubes"></fa-icon>
           <span class="nav-list-item-text">Parcels</span>
         </a>
@@ -28,7 +28,13 @@
           <span class="nav-list-item-text">Account</span>
         </a>
       </li>
+
+      <li>
+        <a (click)="onLogout()">
+          <fa-icon [styles]="faIconStyle" [icon]="faIcons.logout"></fa-icon>
+          <app-button [width]="'160px'">Logout</app-button>
+        </a>
+      </li>
     </ul>
   </div>
-  <button>Logout</button>
 </nav>
