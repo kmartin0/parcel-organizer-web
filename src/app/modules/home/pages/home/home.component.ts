@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
   }
 
   //TODO: Automatically change title based on url.
+  // TODO: Refactor portal into dashboard.
   //TODO: Parcels Component.
   //TODO: Create Parcel Component.
   //TODO: Account Component.

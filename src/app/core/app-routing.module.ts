@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   {
     path: '',
     loadChildren: () => import('../modules/home/home.module').then(m => m.HomeModule),
-    canLoad: [AnonymousGuard]
+    canActivate: [AnonymousGuard]
   },
   {path: 'unauthenticated', component: UnauthenticatedComponent},
   {path: '**', component: PageNotFoundComponent}

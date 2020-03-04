@@ -23,14 +23,17 @@ const portalRoutes: Routes = [
           {
             path: 'parcels',
             component: ParcelsComponent,
+            data: {title: 'Parcels'}
           },
           {
             path: 'create-parcel',
-            component: CreateParcelComponent
+            component: CreateParcelComponent,
+            data: {title: 'Create Parcel'}
           },
           {
             path: 'account',
-            component: AccountComponent
+            component: AccountComponent,
+            data: {title: 'Account'}
           }
         ]
       }

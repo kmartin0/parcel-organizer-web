@@ -1,5 +1,5 @@
 <div class="portal-container">
-  <app-header (changeNavBarState)="navBarState = $event" [navBarState]="navBarState"></app-header>
+  <app-header [title]="title" (changeNavBarState)="navBarState = $event" [navBarState]="navBarState"></app-header>
 
   <app-nav [navBarState]="navBarState" (navBarStateChanged)="navBarState = $event"></app-nav>
 

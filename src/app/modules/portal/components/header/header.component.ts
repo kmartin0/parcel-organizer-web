@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
 
   navBarStates = NAV_BAR_STATES;
   @Input() navBarState: NAV_BAR_STATES;
+  @Input() title: string;
   @Output() changeNavBarState = new EventEmitter<NAV_BAR_STATES>();
 
   faIcons = {
