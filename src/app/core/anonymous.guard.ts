@@ -12,7 +12,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import {UserService} from '../shared/services/user.service';
-import {PORTAL} from '../shared/constants/endpoints';
+import {DASHBOARD} from '../shared/constants/endpoints';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +46,7 @@ export class AnonymousGuard implements CanActivate, CanActivateChild, CanLoad {
     if (!this.userService.isUserLoggedIn()) {
       return true;
     } else {
-      this.router.navigateByUrl(PORTAL);
+      this.router.navigateByUrl(DASHBOARD);
       return false;
     }
   }

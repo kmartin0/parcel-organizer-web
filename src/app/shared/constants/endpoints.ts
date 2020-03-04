@@ -1,10 +1,10 @@
 export const PAGE_NOT_FOUND = '**';
 export const HOME = '';
-export const PORTAL = '/portal';
-export const PARCELS = PORTAL + '/parcels';
-export const CREATE_PARCEL = PORTAL + '/create-parcel';
+export const DASHBOARD = '/dashboard';
+export const PARCELS = DASHBOARD + '/parcels';
+export const CREATE_PARCEL = DASHBOARD + '/create-parcel';
 export const PARCEL_DETAILS = PARCELS + '/:id';
-export const ACCOUNT = PORTAL + '/account';
+export const ACCOUNT = DASHBOARD + '/account';
 export const EDIT_ACCOUNT = ACCOUNT + '/edit';
 export const CHANGE_PASSWORD = ACCOUNT + '/change-password';
 export const UNAUTHENTICATED = '/unauthenticated';

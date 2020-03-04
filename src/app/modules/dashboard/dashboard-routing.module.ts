@@ -1,15 +1,15 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {PortalComponent} from './pages/portal/portal.component';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {ParcelsComponent} from './pages/parcels/parcels.component';
 import {CreateParcelComponent} from './pages/create-parcel/create-parcel.component';
 import {AccountComponent} from './pages/account/account.component';
 import {AuthGuard} from '../../core/auth.guard';
 
-const portalRoutes: Routes = [
+const dashboardRoutes: Routes = [
   {
     path: '',
-    component: PortalComponent,
+    component: DashboardComponent,
     canActivate: [AuthGuard],
     children: [
       {
@@ -44,11 +44,11 @@ const portalRoutes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forChild(portalRoutes)
+    RouterModule.forChild(dashboardRoutes)
   ],
   exports: [
     RouterModule
   ]
 })
-export class PortalRoutingModule {
+export class DashboardRoutingModule {
 }

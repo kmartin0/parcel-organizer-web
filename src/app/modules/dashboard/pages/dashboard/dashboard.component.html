@@ -1,11 +1,11 @@
-<div class="portal-container">
+<div class="dashboard-container">
   <app-header [title]="title" (changeNavBarState)="navBarState = $event" [navBarState]="navBarState"></app-header>
 
   <app-nav [navBarState]="navBarState" (navBarStateChanged)="navBarState = $event"></app-nav>
 
-  <app-portal-page>
+  <app-dashboard-page>
     <router-outlet></router-outlet>
-  </app-portal-page>
+  </app-dashboard-page>
 
   <app-footer></app-footer>
 </div>

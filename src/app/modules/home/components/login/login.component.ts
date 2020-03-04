@@ -8,7 +8,7 @@ import {loadingIndicator} from '../../../../shared/helpers/operators';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {Router} from '@angular/router';
-import {PORTAL} from '../../../../shared/constants/endpoints';
+import {DASHBOARD} from '../../../../shared/constants/endpoints';
 import {RedirectService} from '../../../../shared/services/redirect.service';
 
 @Component({
@@ -67,7 +67,7 @@ export class LoginComponent {
     if (redirect) {
       this.router.navigateByUrl(redirect);
     } else {
-      this.router.navigate([PORTAL]);
+      this.router.navigate([DASHBOARD]);
     }
   }
 

@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PortalRoutingModule} from './portal-routing.module';
-import {PortalComponent} from './pages/portal/portal.component';
+import {DashboardRoutingModule} from './dashboard-routing.module';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {NavComponent} from './components/nav/nav.component';
-import {PortalPageComponent} from './components/portal-page/portal-page.component';
+import {DashboardPageComponent} from './components/dashboard-page/dashboard-page.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SharedModule} from '../../shared/shared.module';
 import {HomeModule} from '../home/home.module';
@@ -15,8 +15,8 @@ import {AccountComponent} from './pages/account/account.component';
 
 @NgModule({
   declarations: [
-    PortalComponent,
-    PortalPageComponent,
+    DashboardComponent,
+    DashboardPageComponent,
     HeaderComponent,
     FooterComponent,
     NavComponent,
@@ -26,11 +26,11 @@ import {AccountComponent} from './pages/account/account.component';
   ],
   imports: [
     CommonModule,
-    PortalRoutingModule,
+    DashboardRoutingModule,
     FontAwesomeModule,
     SharedModule,
     HomeModule
   ]
 })
-export class PortalModule {
+export class DashboardModule {
 }

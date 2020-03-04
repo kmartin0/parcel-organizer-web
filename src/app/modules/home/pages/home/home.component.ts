@@ -52,12 +52,7 @@ export class HomeComponent implements OnInit {
   onLoginSuccess(user: any) {
 
   }
-
-  //TODO: Automatically change title based on url.
-  // TODO: Refactor portal into dashboard.
-  //TODO: Parcels Component.
-  //TODO: Create Parcel Component.
-  //TODO: Account Component.
+  
   ngOnInit(): void {
   }
 

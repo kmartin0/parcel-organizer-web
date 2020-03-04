@@ -8,8 +8,8 @@ import {AnonymousGuard} from './anonymous.guard';
 
 const appRoutes: Routes = [
   {
-    path: 'portal',
-    loadChildren: () => import('../modules/portal/portal.module').then(m => m.PortalModule),
+    path: 'dashboard',
+    loadChildren: () => import('../modules/dashboard/dashboard.module').then(m => m.DashboardModule),
     canLoad: [AuthGuard]
   },
   {
