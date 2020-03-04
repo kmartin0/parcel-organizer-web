@@ -35,7 +35,6 @@ export class NavComponent implements OnInit {
   @Output() navBarStateChanged = new EventEmitter<NAV_BAR_STATES>();
 
   constructor(private userService: UserService, private router: Router) {
-    console.log(router.config)
   }
 
   ngOnInit() {

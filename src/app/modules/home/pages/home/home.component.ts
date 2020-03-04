@@ -53,15 +53,11 @@ export class HomeComponent implements OnInit {
 
   }
 
-  //TODO: Use auth guard to automatically open portal.
   //TODO: Automatically change title based on url.
   //TODO: Parcels Component.
   //TODO: Create Parcel Component.
   //TODO: Account Component.
   ngOnInit(): void {
-    if (this.userService.isUserLoggedIn()) {
-      this.router.navigate(['/portal']);
-    }
   }
 
 }

@@ -7,3 +7,4 @@ export const PARCEL_DETAILS = PARCELS + '/:id';
 export const ACCOUNT = PORTAL + '/account';
 export const EDIT_ACCOUNT = ACCOUNT + '/edit';
 export const CHANGE_PASSWORD = ACCOUNT + '/change-password';
+export const UNAUTHENTICATED = '/unauthenticated';

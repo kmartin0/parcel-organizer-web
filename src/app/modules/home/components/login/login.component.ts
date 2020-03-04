@@ -9,6 +9,7 @@ import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {Router} from '@angular/router';
 import {PORTAL} from '../../../../shared/constants/endpoints';
+import {RedirectService} from '../../../../shared/services/redirect.service';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,7 @@ export class LoginComponent {
     })
   ];
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private redirectService: RedirectService) {
   }
 
   onLoginValidSubmit(formKeyValues: { [key: string]: string; }) {
@@ -62,7 +63,12 @@ export class LoginComponent {
   }
 
   private onLoginSuccess(value: any) {
-    this.router.navigate([PORTAL]);
+    const redirect = this.redirectService.redirect;
+    if (redirect) {
+      this.router.navigateByUrl(redirect);
+    } else {
+      this.router.navigate([PORTAL]);
+    }
   }
 
   private onLoginError(apiError: any) {

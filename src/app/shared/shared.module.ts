@@ -9,6 +9,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import player from 'lottie-web';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {UnauthenticatedComponent} from './components/unauthenticated/unauthenticated.component';
+import {RouterModule} from '@angular/router';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -22,20 +24,23 @@ export function playerFactory() {
     TextInputComponent,
     ButtonComponent,
     SuccessComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    UnauthenticatedComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
     ReactiveFormsModule,
     LottieModule.forRoot({player: playerFactory}),
+    RouterModule,
   ],
   exports: [
     FormComponent,
     TextInputComponent,
     ButtonComponent,
     SuccessComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    UnauthenticatedComponent
   ]
 })
 export class SharedModule { }
