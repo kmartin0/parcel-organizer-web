@@ -8,14 +8,6 @@ header {
   align-items: center;
 }
 
-h2 {
-  color: var(--color-on-header)
-}
-
-fa-icon:hover {
-  cursor: pointer;
-}
-
 .nav-icon-container {
   height: 40px;
   width: 40px;
@@ -30,12 +22,16 @@ fa-icon:hover {
   transform: rotate(180deg);
 }
 
-.hamburger {
+.hamburger, .logo-center {
   display: none;
 }
 
-.logo {
-  display: none;
+h2 {
+  color: var(--color-on-header)
+}
+
+fa-icon:hover {
+  cursor: pointer;
 }
 
 @media (max-width: 991px) {
@@ -43,30 +39,28 @@ fa-icon:hover {
     display: none;
   }
 
-  .hamburger {
+  .hamburger, .logo-center {
     display: inline;
+  }
+
+  .logo-center {
+    width: 42px;
+    height: 42px;
+    margin-right: 18px;
+  }
+
+  .logo-center, h2 {
+    transition: all 0.5s ease 0.3s;
   }
 
   .open .nav-icon-container {
     transform: rotate(0deg);
   }
 
-  .logo {
-    display: inline;
-    width: 42px;
-    height: 42px;
-    transition: width 0.5s ease 0.3s, height 0.5s ease 0.3s, margin 0.5s ease 0.3s;
-    margin-right: 18px;
-  }
-
-  .open .logo {
+  .open .logo-center {
     width: 0;
     height: 0;
     margin: 0;
-  }
-
-  h2 {
-    transition: padding 0.5s ease 0.3s;
   }
 
   .open h2 {

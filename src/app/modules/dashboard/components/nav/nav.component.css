@@ -1,13 +1,9 @@
-.main-nav {
+nav {
   background-color: var(--color-nav);
   height: 100%;
   color: var(--color-on-nav);
   overflow: hidden;
   width: 260px;
-}
-
-.closed-nav {
-  width: 60px;
 }
 
 .logo-container {
@@ -22,6 +18,10 @@
   height: 64px;
 }
 
+nav, .logo-container, .logo-image {
+  transition: all 1s ease 0.3s;
+}
+
 .logo-text {
   overflow: hidden;
   white-space: nowrap;
@@ -29,28 +29,6 @@
   visibility: visible;
   opacity: 1;
   transition: visibility 0.5s ease 0.3s, opacity 0.5s ease 0.3s;
-}
-
-.main-nav, .logo-container, .logo-image {
-  transition: all 1s ease 0.3s;
-}
-
-.closed-nav .logo-container {
-  margin-bottom: 40px;
-}
-
-.closed-nav .logo-text {
-  visibility: hidden;
-  opacity: 0;
-}
-
-.closed-nav .logo-image {
-  width: 40px;
-  height: 40px;
-}
-
-.nav-list-item-text {
-  margin-left: 18px;
 }
 
 ul {
@@ -73,6 +51,11 @@ a:hover {
   cursor: pointer;
 }
 
+.active a {
+  border-left: 4px solid var(--color-surface);
+  padding-left: 14px;
+}
+
 fa-icon {
   transition: color 1s ease;
   color: var(--color-surface);
@@ -80,20 +63,34 @@ fa-icon {
   line-height: 100%;
 }
 
-.closed-nav fa-icon {
-  color: var(--color-disabled);
+span, app-button {
+  margin-left: 18px;
 }
 
-.active a {
-  border-left: 4px solid var(--color-surface);
-  padding-left: 14px;
+app-button {
+  display: inline-block;
+  transition: opacity 1s ease;
 }
 
-.closed-nav .active a {
-  border-left-color: var(--color-disabled);
+.closed-nav {
+  width: 60px;
 }
 
-.closed-nav a {
+.closed-nav .logo-container {
+  margin-bottom: 40px;
+}
+
+.closed-nav .logo-image {
+  width: 40px;
+  height: 40px;
+}
+
+.closed-nav .logo-text {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.closed-nav a, .closed-nav fa-icon {
   color: var(--color-disabled);
 }
 
@@ -101,10 +98,8 @@ fa-icon {
   opacity: 0.4;
 }
 
-app-button {
-  display: inline-block;
-  margin-left: 18px;
-  transition: opacity 1s ease;
+.closed-nav .active a {
+  border-left-color: var(--color-disabled);
 }
 
 @media (max-width: 991px) {
@@ -112,7 +107,7 @@ app-button {
     width: 0;
   }
 
-  .main-nav, .logo-container, .logo-image {
+  nav, .logo-container, .logo-image {
     transition: all 0.7s ease 0.1s;
   }
 }

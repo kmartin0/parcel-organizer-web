@@ -5,6 +5,10 @@
   padding-top: 100px;
 }
 
+fa-icon {
+  color: var(--color-on--background);
+}
+
 p {
   width: 250px;
   text-align: center;
@@ -12,10 +16,6 @@ p {
   margin-top: 18px;
   font-size: 22px;
   font-weight: 500;
-}
-
-fa-icon {
-  color: var(--color-on--background);
 }
 
 a {

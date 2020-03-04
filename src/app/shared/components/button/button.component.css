@@ -10,21 +10,21 @@ button {
   display: block;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 button:hover:enabled {
   color: var(--color-on-primary);
   background: var(--color-primary-variant);
-}
-
-.loading {
-  animation: shadow-pulse 1s infinite;
 }
 
 button:disabled {
   background: var(--color-primary-disabled);
 }
 
-button:hover {
-  cursor: pointer;
+.loading {
+  animation: shadow-pulse 1s infinite;
 }
 
 @keyframes shadow-pulse {

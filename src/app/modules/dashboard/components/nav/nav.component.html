@@ -1,4 +1,4 @@
-<nav (mouseenter)="onNavMouseEnter()" (mouseleave)="onNavMouseLeave()" class="main-nav"
+<nav (mouseenter)="onNavMouseEnter()" (mouseleave)="onNavMouseLeave()"
      [ngClass]="{'closed-nav':navBarState == navBarStates.CLOSED}">
 
   <div class="logo-container">
@@ -11,21 +11,21 @@
       <li [routerLinkActive]="['active']">
         <a [routerLink]="navRoutes.parcels">
           <fa-icon [styles]="faIconStyle" [icon]="faIcons.cubes"></fa-icon>
-          <span class="nav-list-item-text">Parcels</span>
+          <span>Parcels</span>
         </a>
       </li>
 
       <li [routerLinkActive]="['active']">
         <a [routerLink]="navRoutes.createParcel">
           <fa-icon [styles]="faIconStyle" [icon]="faIcons.plusCircle"></fa-icon>
-          <span class="nav-list-item-text">Create Parcel</span>
+          <span>Create Parcel</span>
         </a>
       </li>
 
       <li [routerLinkActive]="['active']">
         <a [routerLink]="navRoutes.account">
           <fa-icon [styles]="faIconStyle" [icon]="faIcons.user"></fa-icon>
-          <span class="nav-list-item-text">Account</span>
+          <span>Account</span>
         </a>
       </li>
 

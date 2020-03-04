@@ -10,18 +10,18 @@
   margin-bottom: 15px;
 }
 
+.logo-top {
+  width: 15%;
+  min-width: 70px;
+  margin-right: 15px;
+}
+
 #title {
   margin: 0;
 }
 
 #subtitle {
   margin: 0 0 15px 0;
-}
-
-.logo-top {
-  width: 15%;
-  min-width: 70px;
-  margin-right: 15px;
 }
 
 .center-container {
@@ -41,9 +41,15 @@
   padding: 16px;
 }
 
-.logo {
+.logo-center {
   width: 85%;
   max-width: 500px;
+}
+
+.form-container {
+  border-radius: 25px;
+  flex: 1;
+  padding: 16px;
 }
 
 .select-form-container {
@@ -72,17 +78,7 @@
   border-color: var(--color-primary);
 }
 
-.form-container {
-  border-radius: 25px;
-  flex: 1;
-  padding: 16px;
-}
-
 @media only screen and (max-width: 767px) {
-  .logo-center-container {
-    display: none;
-  }
-
   #title {
     font-size: 25px;
   }
@@ -94,6 +90,10 @@
   .center-container {
     min-height: auto;
     max-height: none;
+  }
+
+  .logo-center-container {
+    display: none;
   }
 }
 
