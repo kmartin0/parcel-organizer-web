@@ -1,0 +1,47 @@
+<div class="container"
+     [ngClass]="{
+     'ordered': parcel.parcelStatus.status === parcelStatuses.ORDERED,
+     'sent': parcel.parcelStatus.status === parcelStatuses.SENT,
+     'delivered': parcel.parcelStatus.status === parcelStatuses.DELIVERED
+     }">
+  <p class="title">{{parcel.title}}</p>
+
+  <div class="center">
+    <div class="information-item">
+      <div class="left">
+        <fa-icon class="information-icon" [icon]="faIcons.sender" [styles]="faIconStyle"></fa-icon>
+        <span class="information-text">{{parcel.sender}}</span>
+      </div>
+      <div class="right" [ngSwitch]="parcel.parcelStatus.status">
+        <span class="information-text">{{parcel.parcelStatus.status}}</span>
+        <fa-icon *ngSwitchCase="parcelStatuses.ORDERED" class="information-icon" [icon]="faIcons.ordered"
+                 [styles]="faIconStyle"></fa-icon>
+        <fa-icon *ngSwitchCase="parcelStatuses.SENT" class="information-icon" [icon]="faIcons.sent"
+                 [styles]="faIconStyle"></fa-icon>
+        <fa-icon *ngSwitchCase="parcelStatuses.DELIVERED" class="information-icon" [icon]="faIcons.delivered"
+                 [styles]="faIconStyle"></fa-icon>
+      </div>
+    </div>
+
+    <div class="information-item">
+      <div class="left">
+        <fa-icon class="information-icon" [icon]="faIcons.courier" [styles]="faIconStyle"></fa-icon>
+        <span class="information-text">{{parcel.courier}}</span>
+      </div>
+    </div>
+
+    <div class="information-item">
+      <div class="left">
+        <fa-icon class="information-icon" [icon]="faIcons.date" [styles]="faIconStyle"></fa-icon>
+        <span class="information-text">{{parcel.lastUpdated | date : 'longDate'}}</span>
+      </div>
+      <div class="right">
+        <fa-icon class="information-icon action-icon" [icon]="faIcons.edit" [styles]="faIconStyle"></fa-icon>
+        <fa-icon class="information-icon action-icon" [icon]="faIcons.share" [styles]="faIconStyle"></fa-icon>
+        <fa-icon class="information-icon action-icon" [icon]="faIcons.delete" [styles]="faIconStyle"></fa-icon>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+  </div>
+</div>

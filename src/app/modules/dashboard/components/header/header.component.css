@@ -22,7 +22,7 @@ header {
   transform: rotate(180deg);
 }
 
-.hamburger, .logo-center {
+.hamburger, .logo {
   display: none;
 }
 
@@ -39,17 +39,17 @@ fa-icon:hover {
     display: none;
   }
 
-  .hamburger, .logo-center {
+  .hamburger, .logo {
     display: inline;
   }
 
-  .logo-center {
+  .logo {
     width: 42px;
     height: 42px;
     margin-right: 18px;
   }
 
-  .logo-center, h2 {
+  .logo, h2 {
     transition: all 0.5s ease 0.3s;
   }
 
@@ -57,7 +57,7 @@ fa-icon:hover {
     transform: rotate(0deg);
   }
 
-  .open .logo-center {
+  .open .logo {
     width: 0;
     height: 0;
     margin: 0;

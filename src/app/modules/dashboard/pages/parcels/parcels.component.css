@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.parcels {
+  max-width: var(--parcels-max-width);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .parcels {
+    justify-content: center;
+  }
+}

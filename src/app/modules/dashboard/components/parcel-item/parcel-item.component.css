@@ -1,0 +1,102 @@
+:host {
+  /*Grid percentages*/
+  --perc-left: 62%;
+  --perc-grid-gap: 6%;
+  --perc-right: calc(100% - var(--perc-left) - var(--perc-grid-gap));
+
+  /*Divider percentages*/
+  --perc-divider-left: calc(var(--perc-left) + calc(var(--perc-grid-gap) / 2));
+  --perc-divider-height: 84%;
+  --perc-divider-top: calc(calc(100% - var(--perc-divider-height)) / 2);
+}
+
+.container {
+  width: var(--pi-width);
+  background-color: gray;
+  margin: var(--pi-margin);
+  padding: 8px;
+  border-radius: 12px;
+  color: var(--color-on-pi);
+}
+
+.center {
+  position: relative;
+}
+
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 22px;
+  margin: 0;
+}
+
+.information-item {
+  display: grid;
+  grid-template-areas: 'left right';
+  grid-template-columns: var(--perc-left) var(--perc-right);
+  grid-gap: var(--perc-grid-gap);
+  margin: 4px 0;
+}
+
+.information-icon {
+  line-height: 100%;
+}
+
+.information-text {
+  font-size: 16px;
+  word-break: break-all;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  grid-area: left;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  grid-area: right;
+}
+
+.left .information-icon {
+  margin-right: 6px;
+}
+
+.right .information-icon {
+  margin-left: 6px;
+}
+
+.divider {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  height: var(--perc-divider-height);
+  top: var(--perc-divider-top);
+  position: absolute;
+  left: var(--perc-divider-left);
+}
+
+.action-icon:hover {
+  cursor: pointer;
+}
+
+.action-icon {
+  margin-right: 6px;
+}
+
+.action-icon:last-child {
+  margin-right: 0;
+}
+
+.ordered {
+  background-color: var(--pi-color-ordered);
+}
+
+.sent {
+  background-color: var(--pi-color-sent);
+}
+
+.delivered {
+  background-color: var(--pi-color-delivered);
+}

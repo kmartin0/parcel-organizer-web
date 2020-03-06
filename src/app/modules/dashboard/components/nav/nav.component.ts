@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {faCubes, faPlusCircle, faUser, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 import {UserService} from '../../../../shared/services/user.service';
@@ -62,6 +62,15 @@ export class NavComponent implements OnInit {
   onLogout() {
     this.userService.logoutUser();
     this.router.navigate([HOME]);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  private onResize(event) {
+    const target = event.target;
+    if (target.innerWidth < 991) {
+      this.navBarState = NAV_BAR_STATES.CLOSED;
+      this.emitNavBarState();
+    }
   }
 
 }

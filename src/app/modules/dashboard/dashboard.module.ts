@@ -12,6 +12,7 @@ import {HomeModule} from '../home/home.module';
 import {ParcelsComponent} from './pages/parcels/parcels.component';
 import {CreateParcelComponent} from './pages/create-parcel/create-parcel.component';
 import {AccountComponent} from './pages/account/account.component';
+import {ParcelItemComponent} from './components/parcel-item/parcel-item.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {AccountComponent} from './pages/account/account.component';
     NavComponent,
     ParcelsComponent,
     CreateParcelComponent,
-    AccountComponent
+    AccountComponent,
+    ParcelItemComponent
   ],
   imports: [
     CommonModule,

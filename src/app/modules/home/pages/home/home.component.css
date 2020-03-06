@@ -29,8 +29,6 @@
   max-width: 1400px;
   min-height: 550px;
   margin: auto;
-  background: var(--color-surface);
-  border-radius: 24px;
 }
 
 .logo-center-container {

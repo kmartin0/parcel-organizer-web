@@ -27,6 +27,18 @@
   --color-on-nav: #ffffff;
   --color-on-surface: #000000;
   --color-on-surface-variant: #ffffff;
+
+  /*Parcel item colors*/
+  --pi-color-ordered: #01579B;
+  --pi-color-sent: #880E4F;;
+  --pi-color-delivered: #1B5E20;
+  --color-on-pi: #F3FEE2;
+
+  /*Parcel item properties*/
+  --pi-width: 400px;
+  --pi-margin: 18px;
+  --max-parcel-items-row: 3;
+  --parcels-max-width: calc((var(--pi-width) + (var(--pi-margin) * 2)) * var(--max-parcel-items-row));
 }
 
 body {
@@ -43,4 +55,9 @@ body {
 
 :focus {
   outline-style: none;
+}
+
+.surface {
+  background: var(--color-surface);
+  border-radius: 24px;
 }
