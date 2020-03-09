@@ -16,6 +16,7 @@ app-nav {
 
 app-dashboard-page {
   grid-area: content;
+  overflow: auto;
 }
 
 app-footer {

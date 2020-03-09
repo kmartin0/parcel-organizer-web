@@ -1,6 +1,5 @@
 <div class="container">
   <div class="parcels">
-    <app-parcel-item *ngFor="let parcel of parcels" [parcel]="parcel"></app-parcel-item>
+    <app-parcel-item @items *ngFor="let parcel of parcels" [parcel]="parcel"></app-parcel-item>
   </div>
 </div>
-

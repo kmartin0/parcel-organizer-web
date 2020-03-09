@@ -3,9 +3,13 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import {Observable} from 'rxjs';
 import {shouldBasicAuth, shouldBearerTokenAuth} from './api-endpoints';
 import {User} from '../shared/models/user';
+import {UserService} from '../shared/services/user.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+
+  constructor(private userService: UserService) {
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let url = req.url;
@@ -18,12 +22,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
       return next.handle(authReq);
     } else if (shouldBearerTokenAuth(url, method)) {
-      const user: User = JSON.parse(localStorage.getItem('user'));
+      const user: User = this.userService.getLoggedInUser();
       if (user != null && user.oauth2Credentials != null) {
         const authReq = req.clone({
           headers: req.headers.set('Authorization', user.oauth2Credentials.access_token)
         });
-
         return next.handle(authReq);
       }
     }

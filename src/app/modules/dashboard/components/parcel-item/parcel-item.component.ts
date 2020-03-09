@@ -13,7 +13,6 @@ import {
   faPen
 } from '@fortawesome/free-solid-svg-icons';
 
-
 @Component({
   selector: 'app-parcel-item',
   templateUrl: './parcel-item.component.html',

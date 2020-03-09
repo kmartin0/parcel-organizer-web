@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faArrowCircleLeft, faBars} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 import {NAV_BAR_STATES} from '../nav/nav.component';
+import {DashboardLoadingService} from '../dashboard-loading.service';
 
 @Component({
   selector: 'app-header',
@@ -25,7 +26,7 @@ export class HeaderComponent implements OnInit {
     height: '100%',
   };
 
-  constructor() {
+  constructor(private dashboardLoadingService: DashboardLoadingService) {
   }
 
   ngOnInit() {

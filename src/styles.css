@@ -36,7 +36,7 @@
 
   /*Parcel item properties*/
   --pi-width: 400px;
-  --pi-margin: 18px;
+  --pi-margin: 22px;
   --max-parcel-items-row: 3;
   --parcels-max-width: calc((var(--pi-width) + (var(--pi-margin) * 2)) * var(--max-parcel-items-row));
 }

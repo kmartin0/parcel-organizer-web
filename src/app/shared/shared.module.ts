@@ -11,6 +11,7 @@ import player from 'lottie-web';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {UnauthenticatedComponent} from './components/unauthenticated/unauthenticated.component';
 import {RouterModule} from '@angular/router';
+import {LoadingComponent} from './components/loading/loading.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -25,7 +26,8 @@ export function playerFactory() {
     ButtonComponent,
     SuccessComponent,
     PageNotFoundComponent,
-    UnauthenticatedComponent
+    UnauthenticatedComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ export function playerFactory() {
     ButtonComponent,
     SuccessComponent,
     PageNotFoundComponent,
-    UnauthenticatedComponent
+    UnauthenticatedComponent,
+    LoadingComponent
   ]
 })
 export class SharedModule { }

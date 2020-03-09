@@ -12,12 +12,14 @@ import {Subject} from 'rxjs';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
+  loading$ = new Subject<boolean>();
   private ngUnsubscribe$ = new Subject();
   title: string;
-  navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLIPPED;
+  navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLOSED;
   user = this.userService.getLoggedInUser();
 
   constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) {
+
   }
 
   ngOnInit() {
