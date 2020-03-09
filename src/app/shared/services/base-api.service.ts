@@ -25,6 +25,10 @@ export class BaseApiService {
     return this.http.get<T>(url).pipe(catchError(this.handleError));
   }
 
+  makeDelete(url: string): Observable<any> {
+    return this.http.delete(url).pipe(catchError(this.handleError));
+  }
+
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

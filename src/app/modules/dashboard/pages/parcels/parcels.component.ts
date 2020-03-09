@@ -26,9 +26,11 @@ export class ParcelsComponent implements OnInit {
     ).subscribe(value => {
       this.parcels.splice(0, this.parcels.length);
       this.parcels.push(...value);
-    }, error => {
-      console.log(error); //TODO find out which errors can occur
     });
+  }
+
+  onParcelDeleted(parcel: Parcel) {
+    this.parcels = this.parcels.filter(item => item.id !== parcel.id);
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Parcel} from '../../../../shared/models/parcel';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 import {
@@ -12,6 +12,11 @@ import {
   faMoneyCheckAlt,
   faPen
 } from '@fortawesome/free-solid-svg-icons';
+import {MatDialog} from '@angular/material';
+import {ParcelDeleteDialogComponent} from '../parcel-delete-dialog/parcel-delete-dialog.component';
+import {ParcelService} from '../../../../shared/services/parcel.service';
+import {DashboardLoadingService} from '../dashboard-loading.service';
+import {loadingIndicator} from '../../../../shared/helpers/operators';
 
 @Component({
   selector: 'app-parcel-item',
@@ -21,7 +26,7 @@ import {
 export class ParcelItemComponent implements OnInit {
 
   @Input() parcel: Parcel;
-
+  @Output() parcelDeleted = new EventEmitter<Parcel>();
   parcelStatuses = ParcelStatusEnum;
 
   faIcons = {
@@ -41,10 +46,31 @@ export class ParcelItemComponent implements OnInit {
     height: '20px'
   };
 
-  constructor() {
+  constructor(private dialog: MatDialog, private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService) {
   }
 
   ngOnInit() {
+  }
+
+  onParcelDeleteClick() {
+    const dialogRef = this.dialog.open(ParcelDeleteDialogComponent, {
+      data: {parcelTitle: this.parcel.title},
+      panelClass: 'app-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteParcel();
+      }
+    });
+  }
+
+  deleteParcel() {
+    this.parcelService.deleteParcel(this.parcel.id)
+      .pipe(loadingIndicator(this.dashboardLoadingService.loading$))
+      .subscribe(value => {
+        this.parcelDeleted.emit(this.parcel);
+      });
   }
 
 }

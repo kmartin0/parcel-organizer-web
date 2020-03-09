@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="icon-wrap" mat-dialog-title>
+    <fa-icon [icon]="deleteIcon" [styles]="deleteIconStyle"></fa-icon>
+  </div>
+
+  <div mat-dialog-content>
+    <p class="description">Are you sure you want to delete <span class="parcel-title">{{parcelTitle}}</span></p>
+  </div>
+
+  <div mat-dialog-actions class="actions">
+    <button class="action-button" [mat-dialog-close]="false">Cancel</button>
+    <button class="action-button" [mat-dialog-close]="true">Yes</button>
+  </div>
+
+</div>
+
+
+
+
+

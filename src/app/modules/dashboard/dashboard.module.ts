@@ -13,6 +13,9 @@ import {ParcelsComponent} from './pages/parcels/parcels.component';
 import {CreateParcelComponent} from './pages/create-parcel/create-parcel.component';
 import {AccountComponent} from './pages/account/account.component';
 import {ParcelItemComponent} from './components/parcel-item/parcel-item.component';
+import {MatButtonModule, MatDialogModule} from '@angular/material';
+import {ParcelDeleteDialogComponent} from './components/parcel-delete-dialog/parcel-delete-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -24,14 +27,20 @@ import {ParcelItemComponent} from './components/parcel-item/parcel-item.componen
     ParcelsComponent,
     CreateParcelComponent,
     AccountComponent,
-    ParcelItemComponent
+    ParcelItemComponent,
+    ParcelDeleteDialogComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     FontAwesomeModule,
     SharedModule,
-    HomeModule
+    HomeModule,
+    MatDialogModule,
+    MatButtonModule
+  ],
+  entryComponents: [
+    ParcelDeleteDialogComponent
   ]
 })
 export class DashboardModule {

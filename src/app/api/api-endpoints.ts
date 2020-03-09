@@ -3,24 +3,29 @@
 export const BASE_API_URL = 'http://localhost:8080/';
 
 // User Endpoints
-export const SAVE_USER = BASE_API_URL + 'users';
-export const GET_USER = BASE_API_URL + 'users';
-export const UPDATE_USER = BASE_API_URL + 'users';
-export const DELETE_USER = BASE_API_URL + 'users';
-export const CHANGE_PASSWORD = BASE_API_URL + 'users/change-password';
+export const BASE_USER_URL = 'users';
+export const SAVE_USER = BASE_USER_URL;
+export const GET_USER = BASE_USER_URL;
+export const UPDATE_USER = BASE_USER_URL;
+export const DELETE_USER = BASE_USER_URL;
+export const CHANGE_PASSWORD = BASE_USER_URL + '/change-password';
+
+// Auth Endpoints
 export const LOGIN = BASE_API_URL + 'oauth/token';
 
 // Parcel Endpoints
-export const SAVE_PARCEL = BASE_API_URL + 'parcels';
-export const GET_PARCELS = BASE_API_URL + 'parcels';
-export const GET_PARCEL = BASE_API_URL + 'parcels/{parcelId}';
-export const UPDATE_PARCEL = BASE_API_URL + 'parcels';
-export const DELETE_PARCEL = BASE_API_URL + 'parcels/{parcelId}';
+export const BASE_PARCEL_URL = BASE_API_URL + 'parcels';
+export const SAVE_PARCEL = BASE_PARCEL_URL;
+export const GET_PARCELS = BASE_PARCEL_URL;
+export const GET_PARCEL = (parcelId) => BASE_PARCEL_URL + `/${parcelId}`;
+export const UPDATE_PARCEL = BASE_PARCEL_URL;
+export const DELETE_PARCEL = (parcelId) => BASE_PARCEL_URL + `/${parcelId}`;
 
 // Parcel Status Endpoints
-export const GET_PARCEL_STATUSES = BASE_API_URL + 'parcel-statuses';
-export const GET_PARCEL_STATUS_BY_ID = BASE_API_URL + 'parcel-statuses/id/{parcelStatusId}';
-export const GET_PARCEL_STATUS_BY_STATUS = BASE_API_URL + 'parcel-statuses/status/{parcelStatus}';
+export const BASE_PARCEL_STATUS = 'parcel-statuses';
+export const GET_PARCEL_STATUSES = BASE_API_URL + BASE_PARCEL_STATUS;
+export const GET_PARCEL_STATUS_BY_ID = (parcelStatusId) => BASE_PARCEL_STATUS + `/id/${parcelStatusId}`;
+export const GET_PARCEL_STATUS_BY_STATUS = (parcelStatus) => BASE_PARCEL_STATUS + `/status/${parcelStatus}`;
 
 // Http Methods
 export const POST = 'POST';
@@ -30,27 +35,12 @@ export const DELETE = 'DELETE';
 
 export function shouldBasicAuth(url: string, method: string): boolean {
   switch (method) {
-    // GET commented because server doesn't support this yet.
+    // // Not supported by api yet.
     // case GET: {
-    //   switch (url) {
-    //     case SAVE_USER:
-    //     case GET_PARCEL_STATUSES:
-    //     case GET_PARCEL_STATUS_BY_ID:
-    //     case GET_PARCEL_STATUS_BY_STATUS: {
-    //       return true;
-    //     }
-    //     default:
-    //       return false;
-    //   }
+    //   return url.startsWith(SAVE_USER) || url.startsWith(BASE_PARCEL_STATUS);
     // }
     case POST: {
-      switch (url) {
-        case LOGIN : {
-          return true;
-        }
-        default:
-          return false;
-      }
+      return url.startsWith(LOGIN);
     }
     default:
       return false;
@@ -60,45 +50,16 @@ export function shouldBasicAuth(url: string, method: string): boolean {
 export function shouldBearerTokenAuth(url: string, method: string): boolean {
   switch (method) {
     case GET: {
-      switch (url) {
-        case GET_USER:
-        case GET_PARCELS:
-        case GET_PARCEL: {
-          return true;
-        }
-        default:
-          return false;
-      }
+      return url.startsWith(BASE_USER_URL) || url.startsWith(BASE_PARCEL_URL);
     }
     case POST: {
-      switch (url) {
-        case CHANGE_PASSWORD:
-        case SAVE_PARCEL: {
-          return true;
-        }
-        default:
-          return false;
-      }
+      return url.startsWith(CHANGE_PASSWORD) || url.startsWith(BASE_PARCEL_URL);
     }
     case PUT: {
-      switch (url) {
-        case UPDATE_USER:
-        case UPDATE_PARCEL: {
-          return true;
-        }
-        default:
-          return false;
-      }
+      return url.startsWith(BASE_USER_URL) || url.startsWith(BASE_PARCEL_URL);
     }
     case DELETE: {
-      switch (url) {
-        case DELETE_USER:
-        case DELETE_PARCEL: {
-          return true;
-        }
-        default:
-          return false;
-      }
+      return url.startsWith(BASE_USER_URL) || url.startsWith(BASE_PARCEL_URL);
     }
     default:
       return false;
