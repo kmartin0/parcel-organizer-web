@@ -1,10 +1,17 @@
+<style>
+  .to-delete {
+    font-weight: bold;
+    font-style: italic;
+  }
+</style>
+
 <div class="container">
   <div class="icon-wrap" mat-dialog-title>
     <fa-icon [icon]="deleteIcon" [styles]="deleteIconStyle"></fa-icon>
   </div>
 
   <div mat-dialog-content>
-    <p class="description">Are you sure you want to delete <span class="parcel-title">{{parcelTitle}}</span></p>
+    <p class="description">Are you sure you want to delete <span class="to-delete">{{toDelete}}</span></p>
   </div>
 
   <div mat-dialog-actions class="actions">

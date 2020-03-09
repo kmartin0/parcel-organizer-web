@@ -13,7 +13,7 @@ import {
   faPen
 } from '@fortawesome/free-solid-svg-icons';
 import {MatDialog} from '@angular/material';
-import {ParcelDeleteDialogComponent} from '../parcel-delete-dialog/parcel-delete-dialog.component';
+import {DeleteDialogComponent} from '../../../../shared/dialogs/delete-dialog/delete-dialog.component';
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {DashboardLoadingService} from '../dashboard-loading.service';
 import {loadingIndicator} from '../../../../shared/helpers/operators';
@@ -53,8 +53,8 @@ export class ParcelItemComponent implements OnInit {
   }
 
   onParcelDeleteClick() {
-    const dialogRef = this.dialog.open(ParcelDeleteDialogComponent, {
-      data: {parcelTitle: this.parcel.title},
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {toDelete: this.parcel.title},
       panelClass: 'app-dialog'
     });
 
@@ -70,7 +70,7 @@ export class ParcelItemComponent implements OnInit {
       .pipe(loadingIndicator(this.dashboardLoadingService.loading$))
       .subscribe(value => {
         this.parcelDeleted.emit(this.parcel);
-      });
+      }, error => {});
   }
 
 }

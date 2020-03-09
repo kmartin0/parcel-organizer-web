@@ -23,11 +23,6 @@ fa-icon {
   color: var(--color-on-surface-variant)
 }
 
-.parcel-title {
-  font-weight: bold;
-  font-style: italic;
-}
-
 .actions {
   margin-left: auto;
 }

@@ -6,11 +6,15 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from '../api/auth.interceptor';
 import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from '../shared/shared.module';
+import {HttpLoggingInterceptor} from '../api/http-logging.interceptor';
+import {MatButtonModule, MatDialogModule} from '@angular/material';
+import {DeleteDialogComponent} from '../shared/dialogs/delete-dialog/delete-dialog.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -20,9 +24,11 @@ import {SharedModule} from '../shared/shared.module';
     AppRoutingModule,
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HttpLoggingInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: []
 })
 export class AppModule {
 }

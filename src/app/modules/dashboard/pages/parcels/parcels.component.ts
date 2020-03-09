@@ -26,7 +26,7 @@ export class ParcelsComponent implements OnInit {
     ).subscribe(value => {
       this.parcels.splice(0, this.parcels.length);
       this.parcels.push(...value);
-    });
+    }, error => {});
   }
 
   onParcelDeleted(parcel: Parcel) {

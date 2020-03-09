@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {FormComponent} from './components/dynamic-form/form/form.component';
 import {TextInputComponent} from './components/dynamic-form/input/text-input/text-input.component';
 import {ButtonComponent} from './components/button/button.component';
@@ -12,6 +12,9 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {UnauthenticatedComponent} from './components/unauthenticated/unauthenticated.component';
 import {RouterModule} from '@angular/router';
 import {LoadingComponent} from './components/loading/loading.component';
+import {MatButtonModule, MatDialogModule} from '@angular/material';
+import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
+import {ErrorDialogComponent} from './dialogs/error-dialog/error-dialog.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -27,12 +30,17 @@ export function playerFactory() {
     SuccessComponent,
     PageNotFoundComponent,
     UnauthenticatedComponent,
-    LoadingComponent
+    LoadingComponent,
+    DeleteDialogComponent,
+    ErrorDialogComponent
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
+    MatDialogModule,
+    MatButtonModule,
+    FontAwesomeModule,
     LottieModule.forRoot({player: playerFactory}),
     RouterModule,
   ],
@@ -44,6 +52,8 @@ export function playerFactory() {
     PageNotFoundComponent,
     UnauthenticatedComponent,
     LoadingComponent
-  ]
+  ],
+  entryComponents: [DeleteDialogComponent, ErrorDialogComponent]
 })
-export class SharedModule { }
+export class SharedModule {
+}
