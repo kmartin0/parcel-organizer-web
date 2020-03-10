@@ -9,7 +9,7 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: var(--color-on-surface-variant);
+  background-color: var(--color-on-default);
   display: flex;
   margin: 0 auto;
 }
@@ -20,7 +20,7 @@ fa-icon {
 }
 
 .description {
-  color: var(--color-on-surface-variant)
+  color: var(--color-on-variant)
 }
 
 .actions {
@@ -28,7 +28,7 @@ fa-icon {
 }
 
 .action-button {
-  color: var(--color-on-surface);
+  color: var(--color-on-variant);
   outline: none;
   border: none;
   transition: background-color 0.3s ease;

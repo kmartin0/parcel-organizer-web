@@ -72,7 +72,7 @@
 
 .login:checked + .select-form-label,
 .register:checked + .select-form-label {
-  color: var(--color-on-surface-variant);
+  color: var(--color-on-default);
   border-color: var(--color-primary);
 }
 

@@ -15,5 +15,5 @@ p {
   margin-top: 18px;
   font-size: 22px;
   font-weight: 500;
-  color: var(--color-on--background-variant);
+  color: var(--color-on-default);
 }

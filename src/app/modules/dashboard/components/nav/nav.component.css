@@ -1,7 +1,7 @@
 nav {
   background-color: var(--color-nav);
   height: 100%;
-  color: var(--color-on-nav);
+  color: var(--color-on-default);
   overflow: hidden;
   width: 260px;
 }
@@ -41,7 +41,7 @@ a {
   width: 100%;
   padding: 8px 0 8px 18px;
   text-decoration: none;
-  color: var(--color-on-nav);
+  color: var(--color-on-default);
   display: inline-block;
   white-space: nowrap;
   transition: border-left-color ease 1s, color 1s ease;

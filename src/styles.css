@@ -21,19 +21,15 @@
   --color-disabled: gray;
 
   /*"On" colors define how text, icons and strokes are colored in relation to the surface on which they appear.*/
-  --color-on-primary: #ffffff;
-  --color-on--background: #000000;
-  --color-on--background-variant: #ffffff;
-  --color-on-header: #000000;
-  --color-on-nav: #ffffff;
-  --color-on-surface: #000000;
-  --color-on-surface-variant: #ffffff;
+  --color-on-default: #ffffff;
+  --color-on-variant: #000000;
 
   /*Parcel item colors*/
   --pi-color-ordered: #01579B;
   --pi-color-sent: #880E4F;;
   --pi-color-delivered: #1B5E20;
-  --color-on-pi: #F3FEE2;
+  --pi-color-on: #F3FEE2;
+  --pi-color-title: #FFCA28;
 
   /*Parcel item properties*/
   --pi-width: 400px;
