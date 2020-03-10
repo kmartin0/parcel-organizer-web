@@ -40,6 +40,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
           if (apiError.error_description.startsWith('Access token expired')) {
             return this.refreshToken(req, next);
           }
+          break;
         }
       }
     } else if (httpErrorResponse.error instanceof ProgressEvent) { // The server couldn't be reached.

@@ -23,6 +23,7 @@
   /*"On" colors define how text, icons and strokes are colored in relation to the surface on which they appear.*/
   --color-on-primary: #ffffff;
   --color-on--background: #000000;
+  --color-on--background-variant: #ffffff;
   --color-on-header: #000000;
   --color-on-nav: #ffffff;
   --color-on-surface: #000000;

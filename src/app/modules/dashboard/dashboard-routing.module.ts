@@ -5,6 +5,7 @@ import {ParcelsComponent} from './pages/parcels/parcels.component';
 import {CreateParcelComponent} from './pages/create-parcel/create-parcel.component';
 import {AccountComponent} from './pages/account/account.component';
 import {AuthGuard} from '../../core/auth.guard';
+import {EditParcelComponent} from './pages/edit-parcel/edit-parcel.component';
 
 const dashboardRoutes: Routes = [
   {
@@ -24,6 +25,11 @@ const dashboardRoutes: Routes = [
             path: 'parcels',
             component: ParcelsComponent,
             data: {title: 'Parcels'}
+          },
+          {
+            path: 'parcels/:id/edit',
+            component: EditParcelComponent,
+            data: {title: 'Edit Parcel'}
           },
           {
             path: 'create-parcel',

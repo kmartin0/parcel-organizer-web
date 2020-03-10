@@ -2,6 +2,7 @@ export const PAGE_NOT_FOUND = '**';
 export const HOME = '';
 export const DASHBOARD = '/dashboard';
 export const PARCELS = DASHBOARD + '/parcels';
+export const EDIT_PARCEL = id => PARCELS + `/${id}/edit`;
 export const CREATE_PARCEL = DASHBOARD + '/create-parcel';
 export const PARCEL_DETAILS = PARCELS + '/:id';
 export const ACCOUNT = DASHBOARD + '/account';

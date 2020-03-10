@@ -1,6 +1,7 @@
 export enum ApiErrorEnum {
   invalid_token = 'invalid_token',
   invalid_grant = 'invalid_grant',
+  access_denied = 'access_denied',
   INVALID_ARGUMENTS = 'INVALID_ARGUMENTS', // 400
   MESSAGE_NOT_READABLE = 'MESSAGE_NOT_READABLE', // 400
   UNAUTHENTICATED = 'UNAUTHENTICATED', // 401

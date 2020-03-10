@@ -13,6 +13,7 @@ import {ParcelsComponent} from './pages/parcels/parcels.component';
 import {CreateParcelComponent} from './pages/create-parcel/create-parcel.component';
 import {AccountComponent} from './pages/account/account.component';
 import {ParcelItemComponent} from './components/parcel-item/parcel-item.component';
+import {EditParcelComponent} from './pages/edit-parcel/edit-parcel.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ParcelItemComponent} from './components/parcel-item/parcel-item.componen
     ParcelsComponent,
     CreateParcelComponent,
     AccountComponent,
-    ParcelItemComponent
+    ParcelItemComponent,
+    EditParcelComponent
   ],
   imports: [
     CommonModule,

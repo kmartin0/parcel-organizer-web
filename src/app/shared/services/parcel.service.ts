@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseApiService} from './base-api.service';
-import {DELETE_PARCEL, GET_PARCELS} from '../../api/api-endpoints';
+import {DELETE_PARCEL, GET_PARCEL, GET_PARCELS} from '../../api/api-endpoints';
 import {Observable} from 'rxjs';
 import {Parcel} from '../models/parcel';
 
@@ -18,5 +18,9 @@ export class ParcelService {
 
   deleteParcel(parcelId: number): Observable<any> {
     return this.baseApiService.makeDelete(DELETE_PARCEL(parcelId));
+  }
+
+  getParcel(parcelId): Observable<Parcel> {
+    return this.baseApiService.makeGet(GET_PARCEL(parcelId));
   }
 }

@@ -36,7 +36,7 @@
         <span class="information-text">{{parcel.lastUpdated | date : 'longDate'}}</span>
       </div>
       <div class="right">
-        <fa-icon class="information-icon action-icon" [icon]="faIcons.edit" [styles]="faIconStyle"></fa-icon>
+        <fa-icon (click)="onEditParcelClick()" class="information-icon action-icon" [icon]="faIcons.edit" [styles]="faIconStyle"></fa-icon>
         <fa-icon class="information-icon action-icon" [icon]="faIcons.share" [styles]="faIconStyle"></fa-icon>
         <fa-icon (click)="onParcelDeleteClick()" class="information-icon action-icon" [icon]="faIcons.delete" [styles]="faIconStyle"></fa-icon>
       </div>

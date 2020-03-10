@@ -17,6 +17,8 @@ import {DeleteDialogComponent} from '../../../../shared/dialogs/delete-dialog/de
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {DashboardLoadingService} from '../dashboard-loading.service';
 import {loadingIndicator} from '../../../../shared/helpers/operators';
+import {Router} from '@angular/router';
+import {EDIT_ACCOUNT, EDIT_PARCEL} from '../../../../shared/constants/endpoints';
 
 @Component({
   selector: 'app-parcel-item',
@@ -46,7 +48,7 @@ export class ParcelItemComponent implements OnInit {
     height: '20px'
   };
 
-  constructor(private dialog: MatDialog, private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService) {
+  constructor(private dialog: MatDialog, private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService, private router: Router) {
   }
 
   ngOnInit() {
@@ -70,7 +72,12 @@ export class ParcelItemComponent implements OnInit {
       .pipe(loadingIndicator(this.dashboardLoadingService.loading$))
       .subscribe(value => {
         this.parcelDeleted.emit(this.parcel);
-      }, error => {});
+      }, error => {
+      });
+  }
+
+  onEditParcelClick() {
+    this.router.navigateByUrl(EDIT_PARCEL(this.parcel.id));
   }
 
 }

@@ -18,6 +18,7 @@ import {ErrorDialogComponent} from './dialogs/error-dialog/error-dialog.componen
 import {LoginDialogComponent} from './dialogs/login-dialog/login-dialog.component';
 import {HomeModule} from '../modules/home/home.module';
 import {LoginComponent} from '../modules/home/components/login/login.component';
+import {AccessDeniedComponent} from './components/access-denied/access-denied.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -37,7 +38,8 @@ export function playerFactory() {
     DeleteDialogComponent,
     ErrorDialogComponent,
     LoginDialogComponent,
-    LoginComponent
+    LoginComponent,
+    AccessDeniedComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ export function playerFactory() {
     DeleteDialogComponent,
     ErrorDialogComponent,
     LoginDialogComponent,
-    LoginComponent
+    LoginComponent,
+    AccessDeniedComponent
   ],
   entryComponents: [DeleteDialogComponent, ErrorDialogComponent, LoginDialogComponent]
 })

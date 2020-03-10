@@ -1,0 +1,8 @@
+<div *ngIf="hasAccess; else accessDenied">
+  <p>edit-parcel works!</p>
+  <p>{{parcel | json}}</p>
+</div>
+
+<ng-template #accessDenied>
+  <app-access-denied message="You don't have the rights to edit this parcel."></app-access-denied>
+</ng-template>
