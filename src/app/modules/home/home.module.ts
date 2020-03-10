@@ -10,13 +10,10 @@ import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
     declarations: [
-        LoginComponent,
+        // LoginComponent,
         RegisterComponent,
         HomeComponent,
         HomeRouteComponent
-    ],
-    exports: [
-        HomeComponent
     ],
     imports: [
         CommonModule,

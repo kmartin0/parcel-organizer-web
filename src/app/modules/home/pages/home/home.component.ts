@@ -2,9 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoginComponent} from '../../components/login/login.component';
 import {RegisterComponent} from '../../components/register/register.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {User} from '../../../../shared/models/user';
 import {UserService} from '../../../../shared/services/user.service';
 import {Router} from '@angular/router';
+import {DASHBOARD} from '../../../../shared/constants/endpoints';
+import {RedirectService} from '../../../../shared/services/redirect.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
   private formSelector: FormGroup;
   private FORM_TYPES = FORM_TYPES;
 
-  constructor(formBuilder: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(formBuilder: FormBuilder, private userService: UserService, private router: Router, private redirectService: RedirectService) {
     this.initFormSelect(formBuilder);
   }
 
@@ -45,14 +46,19 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  onRegisterSuccess(user: User) {
+  onRegisterSuccess() {
     this.formSelector.controls.formSelect.setValue(FORM_TYPES.LOGIN);
   }
 
-  onLoginSuccess(user: any) {
-
+  onLoginSuccess() {
+    const redirect = this.redirectService.redirect;
+    if (redirect) {
+      this.router.navigateByUrl(redirect);
+    } else {
+      this.router.navigate([DASHBOARD]);
+    }
   }
-  
+
   ngOnInit(): void {
   }
 

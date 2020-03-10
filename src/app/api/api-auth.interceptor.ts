@@ -6,7 +6,7 @@ import {User} from '../shared/models/user';
 import {UserService} from '../shared/services/user.service';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class ApiAuthInterceptor implements HttpInterceptor {
 
   constructor(private userService: UserService) {
   }
@@ -14,7 +14,6 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let url = req.url;
     let method = req.method;
-    console.log(req);
     if (shouldBasicAuth(url, method)) {
       const authReq = req.clone({
         headers: req.headers.set('Authorization', 'Basic ' + btoa('parcel-organizer-android:secret'))
@@ -27,6 +26,7 @@ export class AuthInterceptor implements HttpInterceptor {
         const authReq = req.clone({
           headers: req.headers.set('Authorization', user.oauth2Credentials.access_token)
         });
+
         return next.handle(authReq);
       }
     }

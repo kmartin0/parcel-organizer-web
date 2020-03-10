@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Parcel} from '../../models/parcel';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 
@@ -20,7 +19,7 @@ export class DeleteDialogComponent implements OnInit {
     color: 'red'
   };
 
-  constructor(public dialogRef: MatDialogRef<Parcel>,
+  constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { toDelete: string }) {
     this.toDelete = data.toDelete;
   }

@@ -17,6 +17,6 @@ export class ParcelService {
   }
 
   deleteParcel(parcelId: number): Observable<any> {
-    return this.baseApiService.makeDelete(DELETE_PARCEL(10000));
+    return this.baseApiService.makeDelete(DELETE_PARCEL(parcelId));
   }
 }

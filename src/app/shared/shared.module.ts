@@ -15,6 +15,9 @@ import {LoadingComponent} from './components/loading/loading.component';
 import {MatButtonModule, MatDialogModule} from '@angular/material';
 import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
 import {ErrorDialogComponent} from './dialogs/error-dialog/error-dialog.component';
+import {LoginDialogComponent} from './dialogs/login-dialog/login-dialog.component';
+import {HomeModule} from '../modules/home/home.module';
+import {LoginComponent} from '../modules/home/components/login/login.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -32,7 +35,9 @@ export function playerFactory() {
     UnauthenticatedComponent,
     LoadingComponent,
     DeleteDialogComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    LoginDialogComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +47,7 @@ export function playerFactory() {
     MatButtonModule,
     FontAwesomeModule,
     LottieModule.forRoot({player: playerFactory}),
-    RouterModule,
+    RouterModule
   ],
   exports: [
     FormComponent,
@@ -51,9 +56,13 @@ export function playerFactory() {
     SuccessComponent,
     PageNotFoundComponent,
     UnauthenticatedComponent,
-    LoadingComponent
+    LoadingComponent,
+    DeleteDialogComponent,
+    ErrorDialogComponent,
+    LoginDialogComponent,
+    LoginComponent
   ],
-  entryComponents: [DeleteDialogComponent, ErrorDialogComponent]
+  entryComponents: [DeleteDialogComponent, ErrorDialogComponent, LoginDialogComponent]
 })
 export class SharedModule {
 }

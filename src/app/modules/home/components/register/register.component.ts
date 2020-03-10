@@ -17,7 +17,7 @@ import {Subject} from 'rxjs';
 })
 export class RegisterComponent implements OnInit {
 
-  @Output() public registerSuccess = new EventEmitter<User>();
+  @Output() public registerSuccess = new EventEmitter();
   @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;
   get formComponent(): FormComponent {
     return this._formComponent;

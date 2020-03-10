@@ -34,7 +34,7 @@ export class NavComponent implements OnInit {
   @Input() navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLOSED;
   @Output() navBarStateChanged = new EventEmitter<NAV_BAR_STATES>();
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
@@ -61,7 +61,6 @@ export class NavComponent implements OnInit {
 
   onLogout() {
     this.userService.logoutUser();
-    this.router.navigate([HOME]);
   }
 
   @HostListener('window:resize', ['$event'])

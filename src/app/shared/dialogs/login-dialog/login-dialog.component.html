@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="icon-wrap" mat-dialog-title>
+    <fa-icon [icon]="infoIcon" [styles]="infoIconStyle"></fa-icon>
+  </div>
+
+  <div mat-dialog-content>
+    <app-login confirmButtonWidth="100%" (loginSuccess)="onLoginSuccess()"></app-login>
+  </div>
+
+  <div mat-dialog-actions class="actions">
+    <button class="action-button" [mat-dialog-close]="false">Logout</button>
+  </div>
+</div>
+

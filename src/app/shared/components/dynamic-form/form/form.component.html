@@ -16,7 +16,7 @@
       </ul>
     </div>
 
-    <app-button width="50%" [loading$]="loading$">{{formName}}</app-button>
+    <app-button [width]="confirmButtonWidth" [loading$]="loading$">{{formName}}</app-button>
     <ul class="error"
         *ngIf="errorMessages && errorMessages['formGroup'] && formGroup.dirty">
       <li *ngFor="let errorMessage of errorMessages['formGroup']">
@@ -24,6 +24,6 @@
       </li>
     </ul>
   </form>
-  <app-success (successComplete)="successComplete.emit($event)"></app-success>
+  <app-success (successComplete)="successComplete.emit()"></app-success>
 </div>
 

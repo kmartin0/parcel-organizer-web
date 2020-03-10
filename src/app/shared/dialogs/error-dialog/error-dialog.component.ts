@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {faBomb} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Parcel} from '../../models/parcel';
 
 @Component({
   selector: 'app-error-dialog',
@@ -20,7 +19,7 @@ export class ErrorDialogComponent implements OnInit {
     color: 'red'
   };
 
-  constructor(public dialogRef: MatDialogRef<Parcel>,
+  constructor(public dialogRef: MatDialogRef<ErrorDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { message: string }) {
     this.message = data.message;
   }
