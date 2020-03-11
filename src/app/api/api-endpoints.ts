@@ -1,5 +1,7 @@
 // Base URL
 // export const BASE_API_URL = 'https://parcel-organizer-api.herokuapp.com/';
+import {ParcelStatusEnum} from '../shared/models/parcel-status-enum';
+
 export const BASE_API_URL = 'http://localhost:8080/';
 
 // User Endpoints
@@ -25,7 +27,7 @@ export const DELETE_PARCEL = (parcelId) => BASE_PARCEL_URL + `/${parcelId}`;
 export const BASE_PARCEL_STATUS = BASE_API_URL + 'parcel-statuses';
 export const GET_PARCEL_STATUSES = BASE_PARCEL_STATUS;
 export const GET_PARCEL_STATUS_BY_ID = (parcelStatusId) => BASE_PARCEL_STATUS + `/id/${parcelStatusId}`;
-export const GET_PARCEL_STATUS_BY_STATUS = (parcelStatus) => BASE_PARCEL_STATUS + `/status/${parcelStatus}`;
+export const GET_PARCEL_STATUS_BY_STATUS = (parcelStatus:ParcelStatusEnum) => BASE_PARCEL_STATUS + `/status/${parcelStatus}`;
 
 // Http Methods
 export const POST = 'POST';

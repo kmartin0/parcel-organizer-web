@@ -8,7 +8,7 @@ export const PARCEL_FORM_KEYS = {
   sender: 'sender',
   courier: 'courier',
   trackingUrl: 'trackingUrl',
-  parcelStatus: 'parcelStatus'
+  parcelStatusEnum: 'parcelStatusEnum'
 };
 
 export const PARCEL_FORM = [
@@ -45,13 +45,14 @@ export const PARCEL_FORM = [
   }),
   new DropdownInputField({
     id: 'parcel-status',
-    key: PARCEL_FORM_KEYS.parcelStatus,
+    key: PARCEL_FORM_KEYS.parcelStatusEnum,
     value: ParcelStatusEnum.ORDERED,
     label: 'Parcel Status',
     options: [
       {label: 'Ordered', value: ParcelStatusEnum.ORDERED},
       {label: 'Sent', value: ParcelStatusEnum.SENT},
       {label: 'Delivered', value: ParcelStatusEnum.DELIVERED}
-    ]
+    ],
+    validators: [Validators.required]
   }),
 ];

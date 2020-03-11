@@ -5,7 +5,7 @@ import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {SuccessComponent} from '../../success/success.component';
 import {BaseInputField} from '../base-input-field';
-import {DropdownInputField} from '../input/dropdown/dropdown-input-field';
+
 
 @Component({
   selector: 'app-form',
@@ -14,12 +14,11 @@ import {DropdownInputField} from '../input/dropdown/dropdown-input-field';
 })
 export class FormComponent implements OnInit, OnDestroy {
 
-  @Input() confirmButtonWidth = "50%";
+  @Input() confirmButtonWidth = '50%';
   @Input() loading$?: Subject<boolean>;
   @Input() formName: string = 'Submit';
   @Input() inputFields: BaseInputField<string>[];
   @Input() formValidators: ValidatorFn[];
-  @Output() successComplete = new EventEmitter();
   @Output() formValidSubmit: EventEmitter<{ [key: string]: string; }> = new EventEmitter();
 
   private formGroup: FormGroup;
@@ -109,14 +108,13 @@ export class FormComponent implements OnInit, OnDestroy {
     return <FormControl> this.formGroup.get(key);
   }
 
-
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
 
-  displaySuccess() {
-    this.successComponent.play();
+  displaySuccess(callback: () => void) {
+    this.successComponent.play(callback);
   }
 }
 

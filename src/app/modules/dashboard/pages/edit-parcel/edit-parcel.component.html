@@ -1,9 +1,8 @@
-<div *ngIf="hasAccess" class="container">
+<div @form *ngIf="hasAccess" class="container">
   <div class="form surface">
-    <app-form formName="Edit" [inputFields]="parcelForm"></app-form>
+    <app-form formName="Edit" [inputFields]="parcelForm" (formValidSubmit)="onValidForm($event)"></app-form>
   </div>
 </div>
 
 <app-access-denied *ngIf="hasAccess == false"
                    message="You don't have the rights to edit this parcel."></app-access-denied>
-

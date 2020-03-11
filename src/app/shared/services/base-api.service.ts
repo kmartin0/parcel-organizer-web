@@ -27,5 +27,8 @@ export class BaseApiService {
     return this.http.delete(url);
   }
 
+  makePut<T>(url: string, body: any): Observable<T> {
+    return this.http.put<T>(url, body);
+  }
 
 }

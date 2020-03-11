@@ -48,9 +48,15 @@ export class RegisterComponent implements OnInit {
     this.userService.registerUser(user).pipe(
       loadingIndicator(this.loading$)
     ).subscribe(user => {
-      this.formComponent.displaySuccess();
+      this.handleRegisterSuccess();
     }, apiError => {
       this.handleRegisterError(apiError);
+    });
+  }
+
+  private handleRegisterSuccess() {
+    this.formComponent.displaySuccess(() => {
+      this.registerSuccess.emit();
     });
   }
 

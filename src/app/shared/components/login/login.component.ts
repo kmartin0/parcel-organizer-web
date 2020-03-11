@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {Validators} from '@angular/forms';
-import {TextBoxInputField} from '../dynamic-form/input/textbox/text-box-input-field';
 import {FormComponent} from '../dynamic-form/form/form.component';
 import {UserService} from '../../services/user.service';
 import {Subject} from 'rxjs';
@@ -39,14 +37,16 @@ export class LoginComponent {
     this.userService.loginUser(email, password)
       .pipe(loadingIndicator(this.loading$))
       .subscribe(value => {
-        this.formComponent.displaySuccess();
+        this.onLoginSuccess();
       }, error => {
         this.onLoginError(error);
       });
   }
 
   private onLoginSuccess() {
-    this.loginSuccess.emit();
+    this.formComponent.displaySuccess(() => {
+      this.loginSuccess.emit();
+    });
   }
 
   private onLoginError(apiError: any) {

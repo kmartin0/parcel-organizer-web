@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {AnimationOptions, LottieComponent} from 'ngx-lottie';
 import {AnimationItem} from 'lottie-web';
 
@@ -9,11 +9,11 @@ import {AnimationItem} from 'lottie-web';
 })
 export class SuccessComponent implements OnInit {
 
-  @Output() successComplete = new EventEmitter<any>();
   @Input() width: string = '100px';
   @Input() height: string = '100px';
 
   private isDisplaying = false;
+  private animationCompleteCallback: () => void;
 
   @ViewChild(LottieComponent, {static: false}) private lottieComponent: LottieComponent;
 
@@ -38,12 +38,13 @@ export class SuccessComponent implements OnInit {
     animationItem.play();
     animationItem.addEventListener('complete', args => {
       animationItem.stop();
-      this.successComplete.emit();
+      this.animationCompleteCallback();
       this.isDisplaying = false;
     });
   }
 
-  play() {
+  play(animCompleteCallback?: () => void) {
+    this.animationCompleteCallback = animCompleteCallback;
     this.isDisplaying = true;
   }
 
