@@ -1,8 +1,9 @@
-<div *ngIf="hasAccess; else accessDenied">
-  <p>edit-parcel works!</p>
-  <p>{{parcel | json}}</p>
+<div *ngIf="hasAccess" class="container">
+  <div class="form surface">
+    <app-form formName="Edit" [inputFields]="parcelForm"></app-form>
+  </div>
 </div>
 
-<ng-template #accessDenied>
-  <app-access-denied message="You don't have the rights to edit this parcel."></app-access-denied>
-</ng-template>
+<app-access-denied *ngIf="hasAccess == false"
+                   message="You don't have the rights to edit this parcel."></app-access-denied>
+

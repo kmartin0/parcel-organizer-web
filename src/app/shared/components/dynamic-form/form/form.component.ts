@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
-import {TextBoxInputField} from '../input/text-box-input-field';
 import {ErrorMessageService} from '../../../services/error-message.service';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {SuccessComponent} from '../../success/success.component';
+import {BaseInputField} from '../base-input-field';
+import {DropdownInputField} from '../input/dropdown/dropdown-input-field';
 
 @Component({
   selector: 'app-form',
@@ -16,7 +17,7 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() confirmButtonWidth = "50%";
   @Input() loading$?: Subject<boolean>;
   @Input() formName: string = 'Submit';
-  @Input() inputFields: TextBoxInputField[];
+  @Input() inputFields: BaseInputField<string>[];
   @Input() formValidators: ValidatorFn[];
   @Output() successComplete = new EventEmitter();
   @Output() formValidSubmit: EventEmitter<{ [key: string]: string; }> = new EventEmitter();

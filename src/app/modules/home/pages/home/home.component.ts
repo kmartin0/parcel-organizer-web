@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {LoginComponent} from '../../components/login/login.component';
+import {LoginComponent} from '../../../../shared/components/login/login.component';
 import {RegisterComponent} from '../../components/register/register.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserService} from '../../../../shared/services/user.service';

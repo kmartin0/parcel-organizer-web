@@ -1,4 +1,4 @@
-import {BaseInputField} from '../base-input-field';
+import {BaseInputField} from '../../base-input-field';
 
 export class TextBoxInputField extends BaseInputField<string>{
   controlType = 'textbox';

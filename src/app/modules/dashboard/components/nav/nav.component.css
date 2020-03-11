@@ -1,21 +1,20 @@
 nav {
   background-color: var(--color-nav);
   height: 100%;
-  color: var(--color-on-default);
   overflow: hidden;
-  width: 260px;
+  width: 60px;
 }
 
 .logo-container {
   overflow: hidden;
   white-space: nowrap;
   text-align: center;
-  margin: 20px 10px 16px 10px;
+  margin: 20px 10px 40px 10px;
 }
 
 .logo-image {
-  width: 64px;
-  height: 64px;
+  width: 40px;
+  height: 40px;
 }
 
 nav, .logo-container, .logo-image {
@@ -24,10 +23,11 @@ nav, .logo-container, .logo-image {
 
 .logo-text {
   overflow: hidden;
+  color: var(--color-on-default);
   white-space: nowrap;
   margin: 6px 0 0 0;
-  visibility: visible;
-  opacity: 1;
+  visibility: hidden;
+  opacity: 0;
   transition: visibility 0.5s ease 0.3s, opacity 0.5s ease 0.3s;
 }
 
@@ -41,10 +41,12 @@ a {
   width: 100%;
   padding: 8px 0 8px 18px;
   text-decoration: none;
-  color: var(--color-on-default);
   display: inline-block;
   white-space: nowrap;
-  transition: border-left-color ease 1s, color 1s ease;
+}
+
+a, fa-icon {
+  color: var(--color-disabled);
 }
 
 a:hover {
@@ -52,13 +54,11 @@ a:hover {
 }
 
 .active a {
-  border-left: 4px solid var(--color-surface);
+  border-left: 4px solid var(--color-disabled);
   padding-left: 14px;
 }
 
 fa-icon {
-  transition: color 1s ease;
-  color: var(--color-surface);
   vertical-align: middle;
   line-height: 100%;
 }
@@ -69,41 +69,51 @@ span, app-button {
 
 app-button {
   display: inline-block;
+  opacity: 0.4;
   transition: opacity 1s ease;
 }
 
-.closed-nav {
-  width: 60px;
+.active-nav {
+  width: 260px;
 }
 
-.closed-nav .logo-container {
-  margin-bottom: 40px;
+.active-nav .logo-container {
+  margin-bottom: 16px;
 }
 
-.closed-nav .logo-image {
-  width: 40px;
-  height: 40px;
+.active-nav .logo-image {
+  width: 64px;
+  height: 64px;
 }
 
-.closed-nav .logo-text {
-  visibility: hidden;
-  opacity: 0;
+.active-nav .logo-text {
+  visibility: visible;
+  opacity: 1;
 }
 
-.closed-nav a, .closed-nav fa-icon {
-  color: var(--color-disabled);
+.active-nav a {
+  color: var(--color-on-default);
 }
 
-.closed-nav app-button {
-  opacity: 0.4;
+.active-nav fa-icon {
+  color: var(--color-surface);
 }
 
-.closed-nav .active a {
-  border-left-color: var(--color-disabled);
+.active-nav a, .active-nav fa-icon {
+  transition: border-left-color 1s ease, color 1s ease;
+}
+
+.active-nav app-button {
+  opacity: 1;
+}
+
+.active-nav .active a {
+  border-left: 4px solid var(--color-surface);
+  padding-left: 14px;
 }
 
 @media (max-width: 991px) {
-  .closed-nav {
+  nav {
     width: 0;
   }
 

@@ -1,0 +1,9 @@
+select {
+  padding: 0 20px;
+  appearance: none;
+  background-color: var(--color-on-default);
+  background-image: url(src/assets/arrow_down.svg);
+  background-position: 97%;
+  background-repeat: no-repeat;
+  background-size: 24px;
+}

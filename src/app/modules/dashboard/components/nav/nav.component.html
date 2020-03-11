@@ -1,5 +1,5 @@
 <nav (mouseenter)="onNavMouseEnter()" (mouseleave)="onNavMouseLeave()"
-     [ngClass]="{'closed-nav':navBarState == navBarStates.CLOSED}">
+     [ngClass]="{'active-nav': (navBarState == navBarStates.CLIPPED || navBarState == navBarStates.OPENED)}">
 
   <div class="logo-container">
     <img class="logo-image" src="assets/ic_box.svg" alt="logo">

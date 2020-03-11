@@ -57,4 +57,5 @@ body {
 .surface {
   background: var(--color-surface);
   border-radius: 24px;
+  padding: 16px;
 }

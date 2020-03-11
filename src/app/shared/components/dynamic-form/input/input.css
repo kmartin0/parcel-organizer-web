@@ -1,4 +1,4 @@
-input[type=text], input[type=password], input[type=email] {
+input[type=text], input[type=password], input[type=email], select {
   padding: 15px 20px;
   border: none;
   border-radius: 25px;

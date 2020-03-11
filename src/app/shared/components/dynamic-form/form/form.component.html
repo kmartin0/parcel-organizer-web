@@ -3,9 +3,11 @@
     <div class="input-wrap" *ngFor="let inputField of inputFields">
       <label [attr.for]="inputField.id">{{inputField.label}}</label>
 
-      <div [ngSwitch]="inputField.controlType">
-        <app-text-input *ngSwitchCase="'textbox'" [inputField]="inputField"
+      <div [ngSwitch]="(inputField | typeof)">
+        <app-text-input *ngSwitchCase="'TextBoxInputField'" [inputField]="$any(inputField)"
                         [control]="getFormControl(inputField.key)"></app-text-input>
+        <app-dropdown-input *ngSwitchCase="'DropdownInputField'" [inputField]="$any(inputField)"
+                            [control]="getFormControl(inputField.key)"></app-dropdown-input>
       </div>
 
       <ul class="error"

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormComponent} from './components/dynamic-form/form/form.component';
-import {TextInputComponent} from './components/dynamic-form/input/text-input/text-input.component';
+import {TextInputComponent} from './components/dynamic-form/input/textbox/text-input.component';
 import {ButtonComponent} from './components/button/button.component';
 import {SuccessComponent} from './components/success/success.component';
 import {LottieModule} from 'ngx-lottie';
@@ -17,8 +17,10 @@ import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.compo
 import {ErrorDialogComponent} from './dialogs/error-dialog/error-dialog.component';
 import {LoginDialogComponent} from './dialogs/login-dialog/login-dialog.component';
 import {HomeModule} from '../modules/home/home.module';
-import {LoginComponent} from '../modules/home/components/login/login.component';
+import {LoginComponent} from './components/login/login.component';
 import {AccessDeniedComponent} from './components/access-denied/access-denied.component';
+import {DropdownInputComponent} from './components/dynamic-form/input/dropdown/dropdown-input.component';
+import {TypeOfPipe} from './pipes/type-of.pipe';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -30,6 +32,7 @@ export function playerFactory() {
   declarations: [
     FormComponent,
     TextInputComponent,
+    DropdownInputComponent,
     ButtonComponent,
     SuccessComponent,
     PageNotFoundComponent,
@@ -39,7 +42,8 @@ export function playerFactory() {
     ErrorDialogComponent,
     LoginDialogComponent,
     LoginComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    TypeOfPipe
   ],
   imports: [
     CommonModule,
@@ -54,6 +58,7 @@ export function playerFactory() {
   exports: [
     FormComponent,
     TextInputComponent,
+    DropdownInputComponent,
     ButtonComponent,
     SuccessComponent,
     PageNotFoundComponent,
@@ -63,7 +68,8 @@ export function playerFactory() {
     ErrorDialogComponent,
     LoginDialogComponent,
     LoginComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    TypeOfPipe
   ],
   entryComponents: [DeleteDialogComponent, ErrorDialogComponent, LoginDialogComponent]
 })

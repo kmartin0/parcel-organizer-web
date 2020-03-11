@@ -1,12 +1,14 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Validators} from '@angular/forms';
-import {TextBoxInputField} from '../../../../shared/components/dynamic-form/input/text-box-input-field';
-import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
-import {UserService} from '../../../../shared/services/user.service';
+import {TextBoxInputField} from '../dynamic-form/input/textbox/text-box-input-field';
+import {FormComponent} from '../dynamic-form/form/form.component';
+import {UserService} from '../../services/user.service';
 import {Subject} from 'rxjs';
-import {loadingIndicator} from '../../../../shared/helpers/operators';
-import {isApiErrorBody} from '../../../../shared/models/api-error-body';
-import {ApiErrorEnum} from '../../../../api/api-error.enum';
+import {loadingIndicator} from '../../helpers/operators';
+import {isApiErrorBody} from '../../models/api-error-body';
+import {ApiErrorEnum} from '../../../api/api-error.enum';
+import {LOGIN_FORM} from '../../forms/login.form';
+import {BaseInputField} from '../dynamic-form/base-input-field';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ import {ApiErrorEnum} from '../../../../api/api-error.enum';
 })
 export class LoginComponent {
 
-  @Input() confirmButtonWidth = "50%";
+  @Input() confirmButtonWidth = '50%';
   @Output() loginSuccess = new EventEmitter<any>();
   loading$ = new Subject<boolean>();
 
@@ -24,24 +26,7 @@ export class LoginComponent {
     return this._formComponent;
   }
 
-  loginForm: TextBoxInputField[] = [
-    new TextBoxInputField({
-      id: 'login-email',
-      key: 'email',
-      type: 'email',
-      label: 'Email',
-      placeholder: 'xyz@gmail.com',
-      validators: [Validators.required, Validators.email]
-    }),
-    new TextBoxInputField({
-      id: 'login-password',
-      key: 'password',
-      type: 'password',
-      label: 'Password',
-      placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
-      validators: Validators.required
-    })
-  ];
+  loginForm: BaseInputField<any>[] = LOGIN_FORM;
 
   constructor(private userService: UserService) {
   }

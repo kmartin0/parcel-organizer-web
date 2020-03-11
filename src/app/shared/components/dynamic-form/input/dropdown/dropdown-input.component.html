@@ -1,0 +1,3 @@
+  <select [attr.id]="inputField.id" [formControl]="control">
+    <option *ngFor="let opt of inputField.options" [value]="opt.value" [label]="opt.label"></option>
+  </select>

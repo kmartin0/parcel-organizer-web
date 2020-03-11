@@ -5,6 +5,9 @@ import {switchMap} from 'rxjs/operators';
 import {Parcel} from '../../../../shared/models/parcel';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
+import {loadingIndicator} from '../../../../shared/helpers/operators';
+import {DashboardLoadingService} from '../../components/dashboard-loading.service';
+import {PARCEL_FORM} from '../../../../shared/forms/parcel.form';
 
 @Component({
   selector: 'app-edit-parcel',
@@ -12,11 +15,12 @@ import {ApiErrorEnum} from '../../../../api/api-error.enum';
   styleUrls: ['./edit-parcel.component.css']
 })
 export class EditParcelComponent implements OnInit {
-
+//TODO: Edit, Create Parcel + Place forms skeletons in a folder.
   parcel: Parcel;
   hasAccess = undefined;
+  parcelForm = PARCEL_FORM;
 
-  constructor(private parcelService: ParcelService, private route: ActivatedRoute) {
+  constructor(private parcelService: ParcelService, private route: ActivatedRoute, private dashboardLoadingService: DashboardLoadingService) {
   }
 
   ngOnInit() {
@@ -26,7 +30,7 @@ export class EditParcelComponent implements OnInit {
   getParcel() {
     this.route.paramMap.pipe(
       switchMap(params => {
-          return this.parcelService.getParcel(params.get('id'));
+          return this.parcelService.getParcel(params.get('id')).pipe(loadingIndicator(this.dashboardLoadingService.loading$));
         }
       )
     ).subscribe(value => {

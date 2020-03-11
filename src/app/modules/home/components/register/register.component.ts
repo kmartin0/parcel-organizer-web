@@ -1,7 +1,5 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {Validators} from '@angular/forms';
 import {passwordMatchValidator} from '../../../../shared/validators/password-match.validator';
-import {TextBoxInputField} from '../../../../shared/components/dynamic-form/input/text-box-input-field';
 import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
 import {User} from '../../../../shared/models/user';
 import {UserService} from '../../../../shared/services/user.service';
@@ -9,6 +7,8 @@ import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {loadingIndicator} from '../../../../shared/helpers/operators';
 import {Subject} from 'rxjs';
+import {BaseInputField} from '../../../../shared/components/dynamic-form/base-input-field';
+import {REGISTER_FORM, REGISTER_FORM_KEYS} from '../../../../shared/forms/register.form';
 
 @Component({
   selector: 'app-register',
@@ -25,40 +25,7 @@ export class RegisterComponent implements OnInit {
 
   loading$ = new Subject<boolean>();
 
-  registerForm: TextBoxInputField[] = [
-    new TextBoxInputField({
-      id: 'register-email',
-      key: 'email',
-      type: 'email',
-      label: 'Email',
-      placeholder: 'xyz@gmail.com',
-      validators: [Validators.required, Validators.email]
-    }),
-    new TextBoxInputField({
-      id: 'register-name',
-      key: 'name',
-      type: 'text',
-      label: 'Name',
-      placeholder: 'John Doe',
-      validators: [Validators.required]
-    }),
-    new TextBoxInputField({
-      id: 'register-password',
-      key: 'password',
-      type: 'password',
-      label: 'Password',
-      placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
-      validators: [Validators.required, Validators.minLength(6)]
-    }),
-    new TextBoxInputField({
-      id: 'register-confirm-password',
-      key: 'confirmPassword',
-      type: 'password',
-      label: 'Confirm Password',
-      placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
-      validators: [Validators.required, Validators.minLength(6)]
-    })
-  ];
+  registerForm: BaseInputField<any>[] = REGISTER_FORM;
 
   registerFormValidators = [passwordMatchValidator('password', 'confirmPassword', 'confirmPassword')];
 
@@ -91,13 +58,13 @@ export class RegisterComponent implements OnInit {
     if (isApiErrorBody(apiError)) {
       switch (apiError.error) {
         case  ApiErrorEnum.ALREADY_EXISTS : {
-          this.formComponent.setError('email', apiError.details['email']);
+          this.formComponent.setError(REGISTER_FORM_KEYS.email, apiError.details['email']);
           break;
         }
         case ApiErrorEnum.INVALID_ARGUMENTS: {
-          this.formComponent.setError('email', apiError.details['email']);
-          this.formComponent.setError('password', apiError.details['password']);
-          this.formComponent.setError('name', apiError.details['name']);
+          this.formComponent.setError(REGISTER_FORM_KEYS.email, apiError.details['email']);
+          this.formComponent.setError(REGISTER_FORM_KEYS.password, apiError.details['password']);
+          this.formComponent.setError(REGISTER_FORM_KEYS.name, apiError.details['name']);
           break;
         }
       }
