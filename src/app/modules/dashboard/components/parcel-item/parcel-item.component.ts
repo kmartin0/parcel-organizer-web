@@ -21,6 +21,7 @@ import {EDIT_PARCEL} from '../../../../shared/constants/endpoints';
 import {prefixUrl} from '../../../../shared/helpers/url.helper';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {CdkCopyToClipboard, Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-parcel-item',
@@ -51,7 +52,7 @@ export class ParcelItemComponent implements OnInit {
     height: '20px'
   };
 
-  constructor(private dialog: MatDialog, private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private dialog: MatDialog, private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService, private router: Router, private snackBar: MatSnackBar, private clipboard: Clipboard) {
   }
 
   ngOnInit() {
@@ -89,13 +90,14 @@ export class ParcelItemComponent implements OnInit {
     // Construct the snackbar message and copy the tracking url if its present.
     let message;
     if (trackingUrl) {
-      message = 'Successfully copied the tracking url to clipboard.';
+      let copied = this.clipboard.copy(trackingUrl);
+      message = copied ? 'Successfully copied the tracking url to clipboard.' : 'Something went wrong while copying the tracking url to the clipboard';
     } else {
       message = 'This parcel item does not contain a tracking url.';
     }
 
     // Display the snackbar message.
-    this.snackBar.open(message, 'OK', {duration: 2000});
+    this.snackBar.open(message, 'OK', {duration: 2500});
   }
 
   goToTrackingUrl() {
