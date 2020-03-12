@@ -52,7 +52,8 @@ export class ParcelItemComponent implements OnInit {
     height: '20px'
   };
 
-  constructor(private dialog: MatDialog, private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService, private router: Router, private snackBar: MatSnackBar, private clipboard: Clipboard) {
+  constructor(private dialog: MatDialog, private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService,
+              private router: Router, private snackBar: MatSnackBar, private clipboard: Clipboard) {
   }
 
   ngOnInit() {

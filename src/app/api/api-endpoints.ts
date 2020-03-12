@@ -1,8 +1,8 @@
-// Base URL
-// export const BASE_API_URL = 'https://parcel-organizer-api.herokuapp.com/';
 import {ParcelStatusEnum} from '../shared/models/parcel-status-enum';
 
-export const BASE_API_URL = 'http://localhost:8080/';
+// Base URL
+export const BASE_API_URL = 'https://parcel-organizer-api.herokuapp.com/';
+// export const BASE_API_URL = 'http://localhost:8080/';
 
 // User Endpoints
 export const BASE_USER_URL = BASE_API_URL + 'users';

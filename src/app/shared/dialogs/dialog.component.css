@@ -20,7 +20,8 @@ fa-icon {
 }
 
 .description {
-  color: var(--color-on-variant)
+  color: var(--color-on-variant);
+  margin-top: 12px;
 }
 
 .actions {
