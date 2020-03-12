@@ -79,6 +79,11 @@
 
 .action-icon:hover {
   cursor: pointer;
+  color: var(--pi-color-action);
+}
+
+.clickable:hover {
+  cursor: pointer;
 }
 
 .action-icon {
@@ -100,3 +105,4 @@
 .delivered {
   background-color: var(--pi-color-delivered);
 }
+

@@ -15,6 +15,7 @@ import {AccountComponent} from './pages/account/account.component';
 import {ParcelItemComponent} from './components/parcel-item/parcel-item.component';
 import {EditParcelComponent} from './pages/edit-parcel/edit-parcel.component';
 import {ParcelFormComponent} from './components/parcel-form/parcel-form.component';
+import {MatSnackBarModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {ParcelFormComponent} from './components/parcel-form/parcel-form.componen
     DashboardRoutingModule,
     FontAwesomeModule,
     SharedModule,
-    HomeModule
+    HomeModule,
+    MatSnackBarModule
   ]
 })
 export class DashboardModule {

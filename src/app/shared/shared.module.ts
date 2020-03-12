@@ -16,7 +16,6 @@ import {MatButtonModule, MatDialogModule} from '@angular/material';
 import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
 import {ErrorDialogComponent} from './dialogs/error-dialog/error-dialog.component';
 import {LoginDialogComponent} from './dialogs/login-dialog/login-dialog.component';
-import {HomeModule} from '../modules/home/home.module';
 import {LoginFormComponent} from './components/login-form/login-form.component';
 import {AccessDeniedComponent} from './components/access-denied/access-denied.component';
 import {DropdownInputComponent} from './components/dynamic-form/input/dropdown/dropdown-input.component';
