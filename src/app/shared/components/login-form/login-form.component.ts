@@ -18,13 +18,12 @@ export class LoginFormComponent {
   @Input() confirmButtonWidth = '50%';
   @Output() loginSuccess = new EventEmitter<any>();
   loading$ = new Subject<boolean>();
+  loginForm: BaseInputField<any>[] = LOGIN_FORM;
 
   @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;
   get formComponent(): FormComponent {
     return this._formComponent;
   }
-
-  loginForm: BaseInputField<any>[] = LOGIN_FORM;
 
   constructor(private userService: UserService) {
   }

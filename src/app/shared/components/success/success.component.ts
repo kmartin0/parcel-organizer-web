@@ -11,10 +11,9 @@ export class SuccessComponent implements OnInit {
 
   @Input() width: string = '100px';
   @Input() height: string = '100px';
+  isDisplaying = false;
 
-  private isDisplaying = false;
   private animationCompleteCallback: () => void;
-
   @ViewChild(LottieComponent, {static: false}) private lottieComponent: LottieComponent;
 
   options: AnimationOptions = {

@@ -17,17 +17,16 @@ import {REGISTER_FORM, REGISTER_FORM_KEYS} from '../../../../shared/forms/regist
 })
 export class RegisterFormComponent implements OnInit {
 
-  @Output() public registerSuccess = new EventEmitter();
+  @Output() registerSuccess = new EventEmitter();
+
+  registerForm: BaseInputField<any>[] = REGISTER_FORM;
+  registerFormValidators = [passwordMatchValidator('password', 'confirmPassword', 'confirmPassword')];
+  loading$ = new Subject<boolean>();
+
   @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;
   get formComponent(): FormComponent {
     return this._formComponent;
   }
-
-  loading$ = new Subject<boolean>();
-
-  registerForm: BaseInputField<any>[] = REGISTER_FORM;
-
-  registerFormValidators = [passwordMatchValidator('password', 'confirmPassword', 'confirmPassword')];
 
   constructor(private userService: UserService) {
   }

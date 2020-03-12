@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 
@@ -22,6 +22,7 @@ export class DeleteDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { toDelete: string }) {
     this.toDelete = data.toDelete;
+
   }
 
   ngOnInit() {

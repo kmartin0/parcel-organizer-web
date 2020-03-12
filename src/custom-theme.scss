@@ -26,7 +26,16 @@ $parcel-organizer-web-theme: mat-light-theme($parcel-organizer-web-primary, $par
 // that you are using.
 @include angular-material-theme($parcel-organizer-web-theme);
 
-.app-dialog .mat-dialog-container {
-background: var(--color-surface);
-}
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+  $font-family: 'Poppins, sans-serif',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+// Override the typography in the core CSS.
+@include mat-core($custom-typography);
 
+.app-dialog .mat-dialog-container {
+  background: var(--color-surface);
+}

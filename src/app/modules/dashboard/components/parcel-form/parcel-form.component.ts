@@ -94,6 +94,18 @@ export class ParcelFormComponent implements AfterViewInit {
     }
   }
 
+  displaySuccess(callback?: () => void) {
+    this.formComponent.displaySuccess(() => {
+      if (callback) {
+        callback();
+      }
+    });
+  }
+
+  resetForm() {
+    this.formComponent.resetForm({[PARCEL_FORM_KEYS.parcelStatusEnum]: this.parcelForm[4].value});
+  }
+
   private initFormObserver() {
     this.formComponent.valueChanges$.subscribe((next: { key: string, value: string }) => {
       switch (next.key) {
@@ -124,17 +136,4 @@ export class ParcelFormComponent implements AfterViewInit {
       }
     });
   }
-
-  displaySuccess(callback?: () => void) {
-    this.formComponent.displaySuccess(() => {
-      if (callback) {
-        callback();
-      }
-    });
-  }
-
-  resetForm() {
-    this.formComponent.resetForm({[PARCEL_FORM_KEYS.parcelStatusEnum]: this.parcelForm[4].value});
-  }
-
 }

@@ -14,17 +14,33 @@ import {RedirectService} from '../../../../shared/services/redirect.service';
 })
 export class HomeComponent implements OnInit {
 
+  formSelector: FormGroup;
+  FORM_TYPES = FORM_TYPES;
+
   @ViewChild(LoginFormComponent, {static: false})
   private loginComponent: LoginFormComponent;
 
   @ViewChild(RegisterFormComponent, {static: false})
   private registerComponent: RegisterFormComponent;
 
-  private formSelector: FormGroup;
-  private FORM_TYPES = FORM_TYPES;
-
   constructor(formBuilder: FormBuilder, private userService: UserService, private router: Router, private redirectService: RedirectService) {
     this.initFormSelect(formBuilder);
+  }
+
+  ngOnInit() {
+  }
+
+  onRegisterSuccess() {
+    this.formSelector.controls.formSelect.setValue(FORM_TYPES.LOGIN);
+  }
+
+  onLoginSuccess() {
+    const redirect = this.redirectService.redirect;
+    if (redirect) {
+      this.router.navigateByUrl(redirect);
+    } else {
+      this.router.navigate([DASHBOARD]);
+    }
   }
 
   private initFormSelect(formBuilder: FormBuilder) {
@@ -45,23 +61,6 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-
-  onRegisterSuccess() {
-    this.formSelector.controls.formSelect.setValue(FORM_TYPES.LOGIN);
-  }
-
-  onLoginSuccess() {
-    const redirect = this.redirectService.redirect;
-    if (redirect) {
-      this.router.navigateByUrl(redirect);
-    } else {
-      this.router.navigate([DASHBOARD]);
-    }
-  }
-
-  ngOnInit(): void {
-  }
-
 }
 
 export enum FORM_TYPES {

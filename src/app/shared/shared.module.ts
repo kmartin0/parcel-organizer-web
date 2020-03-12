@@ -12,7 +12,6 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {UnauthenticatedComponent} from './components/unauthenticated/unauthenticated.component';
 import {RouterModule} from '@angular/router';
 import {LoadingComponent} from './components/loading/loading.component';
-import {MatButtonModule, MatDialogModule} from '@angular/material';
 import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
 import {ErrorDialogComponent} from './dialogs/error-dialog/error-dialog.component';
 import {LoginDialogComponent} from './dialogs/login-dialog/login-dialog.component';
@@ -20,6 +19,8 @@ import {LoginFormComponent} from './components/login-form/login-form.component';
 import {AccessDeniedComponent} from './components/access-denied/access-denied.component';
 import {DropdownInputComponent} from './components/dynamic-form/input/dropdown/dropdown-input.component';
 import {TypeOfPipe} from './pipes/type-of.pipe';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
 // Note we need a separate function as it's required
 // by the AOT compiler

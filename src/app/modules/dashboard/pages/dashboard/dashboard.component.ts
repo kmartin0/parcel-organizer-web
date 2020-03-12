@@ -12,11 +12,11 @@ import {Subject} from 'rxjs';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  loading$ = new Subject<boolean>();
-  private ngUnsubscribe$ = new Subject();
   title: string;
   navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLOSED;
   user = this.userService.getLoggedInUser();
+
+  private ngUnsubscribe$ = new Subject();
 
   constructor(private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) {
 
@@ -25,12 +25,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setInitialTitle();
     this.initTitleChangeObserver();
-  }
-
-  setInitialTitle() {
-    this.activatedRoute.firstChild.firstChild.data.subscribe(data => {
-      this.title = data.title;
-    });
   }
 
   initTitleChangeObserver() {
@@ -48,5 +42,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  private setInitialTitle() {
+    this.activatedRoute.firstChild.firstChild.data.subscribe(data => {
+      this.title = data.title;
+    });
   }
 }

@@ -22,40 +22,30 @@ import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.comp
 })
 export class EditParcelComponent implements OnInit {
 
-  loading$ = new Subject<boolean>();
-  parcelToEdit: Parcel;
-  hasAccess = undefined;
-
+  private _hasAccess: boolean = undefined;
+  private parcelToEdit: Parcel;
+  private loading$ = new Subject<boolean>();
   @ViewChild(ParcelFormComponent, {static: false}) private _parcelFormComponent: ParcelFormComponent;
-  get parcelFormComponent(): ParcelFormComponent {
-    return this._parcelFormComponent;
-  }
 
   constructor(private parcelService: ParcelService, private route: ActivatedRoute, private dashboardLoadingService: DashboardLoadingService,
               private changeDetectorRef: ChangeDetectorRef, private location: Location) {
   }
 
-  ngOnInit() {
-    this.getParcelToEdit();
+  get hasAccess(): boolean {
+    return this._hasAccess;
   }
 
-  getParcelToEdit() {
-    this.route.paramMap.pipe(
-      switchMap(params => {
-          return this.parcelService.getParcel(params.get('id')).pipe(loadingIndicator(this.dashboardLoadingService.loading$));
-        }
-      )
-    ).subscribe(parcel => {
-      this.setAccess(true);
-      this.parcelToEdit = parcel;
-      this.populateForm(parcel);
-    }, error => {
-      if (isApiErrorBody(error)) {
-        if (error.error == ApiErrorEnum.access_denied) {
-          this.setAccess(false);
-        }
-      }
-    });
+  set hasAccess(value: boolean) {
+    this._hasAccess = value;
+    this.changeDetectorRef.detectChanges();
+  }
+
+  get parcelFormComponent(): ParcelFormComponent {
+    return this._parcelFormComponent;
+  }
+
+  ngOnInit() {
+    this.getParcelToEdit();
   }
 
   populateForm(parcel: Parcel) {
@@ -86,8 +76,22 @@ export class EditParcelComponent implements OnInit {
     });
   }
 
-  setAccess(access: boolean) {
-    this.hasAccess = access;
-    this.changeDetectorRef.detectChanges();
+  private getParcelToEdit() {
+    this.route.paramMap.pipe(
+      switchMap(params => {
+          return this.parcelService.getParcel(params.get('id')).pipe(loadingIndicator(this.dashboardLoadingService.loading$));
+        }
+      )
+    ).subscribe(parcel => {
+      this.hasAccess = true;
+      this.parcelToEdit = parcel;
+      this.populateForm(parcel);
+    }, error => {
+      if (isApiErrorBody(error)) {
+        if (error.error == ApiErrorEnum.access_denied || error.error == ApiErrorEnum.RESOURCE_NOT_FOUND) {
+          this.hasAccess = false;
+        }
+      }
+    });
   }
 }

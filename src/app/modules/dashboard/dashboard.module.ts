@@ -15,7 +15,7 @@ import {AccountComponent} from './pages/account/account.component';
 import {ParcelItemComponent} from './components/parcel-item/parcel-item.component';
 import {EditParcelComponent} from './pages/edit-parcel/edit-parcel.component';
 import {ParcelFormComponent} from './components/parcel-form/parcel-form.component';
-import {MatSnackBarModule} from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [

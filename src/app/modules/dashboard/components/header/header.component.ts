@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
     height: '100%',
   };
 
-  constructor(private dashboardLoadingService: DashboardLoadingService) {
+  constructor(public dashboardLoadingService: DashboardLoadingService) {
   }
 
   ngOnInit() {

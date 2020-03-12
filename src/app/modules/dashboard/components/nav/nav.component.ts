@@ -2,8 +2,7 @@ import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@ang
 import {faCubes, faPlusCircle, faUser, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 import {UserService} from '../../../../shared/services/user.service';
-import {Router} from '@angular/router';
-import {ACCOUNT, CREATE_PARCEL, HOME, PARCELS} from '../../../../shared/constants/endpoints';
+import {ACCOUNT, CREATE_PARCEL, PARCELS} from '../../../../shared/constants/endpoints';
 
 @Component({
   selector: 'app-nav',
@@ -55,12 +54,12 @@ export class NavComponent implements OnInit {
     }
   }
 
-  emitNavBarState() {
-    this.navBarStateChanged.emit(this.navBarState);
-  }
-
   onLogout() {
     this.userService.logoutUser();
+  }
+
+  private emitNavBarState() {
+    this.navBarStateChanged.emit(this.navBarState);
   }
 
   @HostListener('window:resize', ['$event'])

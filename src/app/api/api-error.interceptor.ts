@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {EMPTY, Observable, throwError} from 'rxjs';
 import {catchError, switchMap} from 'rxjs/operators';
-import {MatDialog} from '@angular/material';
 import {ErrorDialogComponent} from '../shared/dialogs/error-dialog/error-dialog.component';
 import {isApiErrorBody} from '../shared/models/api-error-body';
 import {ApiErrorEnum} from './api-error.enum';
 import {UserService} from '../shared/services/user.service';
 import {LoginDialogComponent} from '../shared/dialogs/login-dialog/login-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Injectable()
 export class ApiErrorInterceptor implements HttpInterceptor {

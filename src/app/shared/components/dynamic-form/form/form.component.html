@@ -1,5 +1,5 @@
 <div class="form-container">
-  <form [formGroup]="_formGroup" (ngSubmit)="onSubmit()">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <div class="input-wrap" *ngFor="let inputField of inputFields">
       <label [attr.for]="inputField.id">{{inputField.label}}</label>
 
@@ -11,7 +11,7 @@
       </div>
 
       <ul class="error"
-          *ngIf="_formGroup.get(inputField.key) && errorMessages && errorMessages[inputField.key] && _formGroup.get(inputField.key).dirty">
+          *ngIf="formGroup.get(inputField.key) && errorMessages && errorMessages[inputField.key] && formGroup.get(inputField.key).dirty">
         <li *ngFor="let errorMessage of errorMessages[inputField.key]">
           {{ errorMessage }}
         </li>
@@ -20,7 +20,7 @@
 
     <app-button [width]="confirmButtonWidth" [loading$]="loading$">{{formName}}</app-button>
     <ul class="error"
-        *ngIf="errorMessages && errorMessages['formGroup'] && _formGroup.dirty">
+        *ngIf="errorMessages && errorMessages['formGroup'] && formGroup.dirty">
       <li *ngFor="let errorMessage of errorMessages['formGroup']">
         {{ errorMessage }}
       </li>

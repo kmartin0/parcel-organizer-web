@@ -20,20 +20,21 @@ export class ParcelsComponent implements OnInit {
     this.getParcels();
   }
 
-  private getParcels() {
-    this.parcelService.getParcels().pipe(
-      loadingIndicator(this.dashboardLoadingService.loading$)
-    ).subscribe(value => {
-      this.parcels.splice(0, this.parcels.length);
-      this.parcels.push(...value);
-    }, error => {});
+  ngOnInit() {
   }
 
   onParcelDeleted(parcel: Parcel) {
     this.parcels = this.parcels.filter(item => item.id !== parcel.id);
   }
 
-  ngOnInit() {
+  private getParcels() {
+    this.parcelService.getParcels().pipe(
+      loadingIndicator(this.dashboardLoadingService.loading$)
+    ).subscribe(value => {
+      this.parcels.splice(0, this.parcels.length);
+      this.parcels.push(...value);
+    }, error => {
+    });
   }
 
 }

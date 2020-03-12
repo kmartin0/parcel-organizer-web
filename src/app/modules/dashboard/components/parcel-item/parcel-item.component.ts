@@ -12,7 +12,6 @@ import {
   faMoneyCheckAlt,
   faPen, faClipboardList
 } from '@fortawesome/free-solid-svg-icons';
-import {MatDialog, MatSnackBar} from '@angular/material';
 import {DeleteDialogComponent} from '../../../../shared/dialogs/delete-dialog/delete-dialog.component';
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {DashboardLoadingService} from '../dashboard-loading.service';
@@ -20,6 +19,8 @@ import {loadingIndicator} from '../../../../shared/helpers/operators';
 import {Router} from '@angular/router';
 import {EDIT_PARCEL} from '../../../../shared/constants/endpoints';
 import {prefixUrl} from '../../../../shared/helpers/url.helper';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-parcel-item',
@@ -96,7 +97,6 @@ export class ParcelItemComponent implements OnInit {
     // Display the snackbar message.
     this.snackBar.open(message, 'OK', {duration: 2000});
   }
-
 
   goToTrackingUrl() {
     const trackingUrl = this.parcel.trackingUrl;

@@ -6,7 +6,6 @@ import {Observable, Subject} from 'rxjs';
 import {SuccessComponent} from '../../success/success.component';
 import {BaseInputField} from '../base-input-field';
 
-
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -20,48 +19,35 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() inputFields: BaseInputField<string>[];
   @Input() formValidators: ValidatorFn[];
   @Output() formValidSubmit: EventEmitter<{ [key: string]: string; }> = new EventEmitter();
+  errorMessages: { [key: string]: string[]; } = {};
 
-  private _formGroup: FormGroup;
-  private errorMessages: { [key: string]: string[]; } = {};
   private unsubscribe$: Subject<void> = new Subject<void>();
+  private _formGroup: FormGroup;
   private _valueChanges$: Observable<{ key: string, value: string }>;
-
   @ViewChild(SuccessComponent, {static: false}) private successComponent: SuccessComponent;
 
   constructor(private errorMessageService: ErrorMessageService) {
+  }
+
+  get valueChanges$(): Observable<{ key: string, value: string }> {
+    return this._valueChanges$;
+  }
+
+  get formGroup(): FormGroup {
+    return this._formGroup;
   }
 
   ngOnInit() {
     this.initFormGroup();
   }
 
+  displaySuccess(callback: () => void) {
+    this.successComponent.play(callback);
+  }
+
   onSubmit() {
     this.markFormAsDirty();
     this._formGroup.valid ? this.onFormValid() : this.onFormInvalid();
-  }
-
-  onFormValid() {
-    this.formValidSubmit.emit(this.formGroup.value);
-  }
-
-  onFormInvalid() {
-    // Display the general form errors.
-    this.errorMessages['formGroup'] = this.errorMessageService.getErrorMessagesForValidationErrors(this.formGroup.errors);
-
-    // Display the input field errors.
-    Object.keys(this.formGroup.controls).forEach(key => {
-      const formControl = this.formGroup.controls[key];
-      this.errorMessages[key] = this.errorMessageService.getErrorMessagesForValidationErrors(formControl.errors);
-    });
-  }
-
-  markFormAsDirty() {
-    this.formGroup.markAsDirty();
-
-    Object.keys(this.formGroup.controls).forEach(key => {
-      const formControl = this.formGroup.controls[key];
-      formControl.markAsDirty();
-    });
   }
 
   resetForm(value?: any) {
@@ -76,6 +62,10 @@ export class FormComponent implements OnInit, OnDestroy {
       errorValue = tmpErrors != null && tmpErrors['customError'] != null ? {'customError': [...tmpErrors['customError'], error]} : {'customError': [error]};
       target.setErrors(errorValue);
     }
+  }
+
+  getFormControl(key: string): FormControl {
+    return <FormControl> this.formGroup.get(key);
   }
 
   /**
@@ -107,11 +97,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this.initValueChanges$();
   }
 
-  getFormControl(key: string): FormControl {
-    return <FormControl> this.formGroup.get(key);
-  }
-
-  initValueChanges$() {
+  private initValueChanges$() {
     this._valueChanges$ = new Observable(subscriber => {
       // Observe the status for each FormControl. Whenever the status changes update the error message.
       Object.keys(this.formGroup.controls).forEach(key => {
@@ -123,21 +109,33 @@ export class FormComponent implements OnInit, OnDestroy {
     });
   }
 
-  get valueChanges$(): Observable<{ key: string, value: string }> {
-    return this._valueChanges$;
+  private onFormValid() {
+    this.formValidSubmit.emit(this.formGroup.value);
   }
 
-  get formGroup(): FormGroup {
-    return this._formGroup;
+  private onFormInvalid() {
+    // Display the general form errors.
+    this.errorMessages['formGroup'] = this.errorMessageService.getErrorMessagesForValidationErrors(this.formGroup.errors);
+
+    // Display the input field errors.
+    Object.keys(this.formGroup.controls).forEach(key => {
+      const formControl = this.formGroup.controls[key];
+      this.errorMessages[key] = this.errorMessageService.getErrorMessagesForValidationErrors(formControl.errors);
+    });
+  }
+
+  private markFormAsDirty() {
+    this.formGroup.markAsDirty();
+
+    Object.keys(this.formGroup.controls).forEach(key => {
+      const formControl = this.formGroup.controls[key];
+      formControl.markAsDirty();
+    });
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-  }
-
-  displaySuccess(callback: () => void) {
-    this.successComponent.play(callback);
   }
 }
 
