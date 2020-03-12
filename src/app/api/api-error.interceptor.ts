@@ -67,7 +67,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
   retryLogin(req, next) {
     const loginDialog = this.dialog.open(LoginDialogComponent, {
-      data: {message: 'Session expired please login again.'},
+      data: {message: 'Session expired please login-form again.'},
       panelClass: 'app-dialog'
     });
 

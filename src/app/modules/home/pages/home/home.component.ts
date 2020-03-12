@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {LoginComponent} from '../../../../shared/components/login/login.component';
-import {RegisterComponent} from '../../components/register/register.component';
+import {LoginFormComponent} from '../../../../shared/components/login-form/login-form.component';
+import {RegisterFormComponent} from '../../components/register-form/register-form.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserService} from '../../../../shared/services/user.service';
 import {Router} from '@angular/router';
@@ -14,11 +14,11 @@ import {RedirectService} from '../../../../shared/services/redirect.service';
 })
 export class HomeComponent implements OnInit {
 
-  @ViewChild(LoginComponent, {static: false})
-  private loginComponent: LoginComponent;
+  @ViewChild(LoginFormComponent, {static: false})
+  private loginComponent: LoginFormComponent;
 
-  @ViewChild(RegisterComponent, {static: false})
-  private registerComponent: RegisterComponent;
+  @ViewChild(RegisterFormComponent, {static: false})
+  private registerComponent: RegisterFormComponent;
 
   private formSelector: FormGroup;
   private FORM_TYPES = FORM_TYPES;

@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} fr
 import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import {ErrorMessageService} from '../../../services/error-message.service';
 import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {SuccessComponent} from '../../success/success.component';
 import {BaseInputField} from '../base-input-field';
 
@@ -21,9 +21,10 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() formValidators: ValidatorFn[];
   @Output() formValidSubmit: EventEmitter<{ [key: string]: string; }> = new EventEmitter();
 
-  private formGroup: FormGroup;
+  private _formGroup: FormGroup;
   private errorMessages: { [key: string]: string[]; } = {};
   private unsubscribe$: Subject<void> = new Subject<void>();
+  private _valueChanges$: Observable<{ key: string, value: string }>;
 
   @ViewChild(SuccessComponent, {static: false}) private successComponent: SuccessComponent;
 
@@ -36,7 +37,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.markFormAsDirty();
-    this.formGroup.valid ? this.onFormValid() : this.onFormInvalid();
+    this._formGroup.valid ? this.onFormValid() : this.onFormInvalid();
   }
 
   onFormValid() {
@@ -63,8 +64,8 @@ export class FormComponent implements OnInit, OnDestroy {
     });
   }
 
-  resetForm() {
-    this.formGroup.reset();
+  resetForm(value?: any) {
+    this.formGroup.reset(value);
   }
 
   setError(formControlKey: string, error: string) {
@@ -89,7 +90,7 @@ export class FormComponent implements OnInit, OnDestroy {
     });
 
     // Initialize [formGroup]
-    this.formGroup = new FormGroup(tmpFormGroup, {validators: this.formValidators});
+    this._formGroup = new FormGroup(tmpFormGroup, {validators: this.formValidators});
 
     // Observe the status for each FormControl. Whenever the status changes update the error message.
     Object.keys(this.formGroup.controls).forEach(key => {
@@ -102,10 +103,32 @@ export class FormComponent implements OnInit, OnDestroy {
     this.formGroup.statusChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value => {
       this.errorMessages['formGroup'] = this.errorMessageService.getErrorMessagesForValidationErrors(this.formGroup.errors);
     });
+
+    this.initValueChanges$();
   }
 
   getFormControl(key: string): FormControl {
     return <FormControl> this.formGroup.get(key);
+  }
+
+  initValueChanges$() {
+    this._valueChanges$ = new Observable(subscriber => {
+      // Observe the status for each FormControl. Whenever the status changes update the error message.
+      Object.keys(this.formGroup.controls).forEach(key => {
+        const formControl = this.formGroup.controls[key];
+        formControl.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value => {
+          subscriber.next({key: key, value: value});
+        });
+      });
+    });
+  }
+
+  get valueChanges$(): Observable<{ key: string, value: string }> {
+    return this._valueChanges$;
+  }
+
+  get formGroup(): FormGroup {
+    return this._formGroup;
   }
 
   ngOnDestroy(): void {

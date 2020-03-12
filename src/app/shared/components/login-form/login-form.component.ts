@@ -9,11 +9,11 @@ import {LOGIN_FORM} from '../../forms/login.form';
 import {BaseInputField} from '../dynamic-form/base-input-field';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-login-form',
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.css']
 })
-export class LoginComponent {
+export class LoginFormComponent {
 
   @Input() confirmButtonWidth = '50%';
   @Output() loginSuccess = new EventEmitter<any>();

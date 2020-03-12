@@ -20,8 +20,8 @@
         <label for="register" class="select-form-label"> Register </label>
       </form>
 
-      <app-login [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN" (loginSuccess)="onLoginSuccess()"></app-login>
-      <app-register [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER" (registerSuccess)="onRegisterSuccess()"></app-register>
+      <app-login-form [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN" (loginSuccess)="onLoginSuccess()"></app-login-form>
+      <app-register-form [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER" (registerSuccess)="onRegisterSuccess()"></app-register-form>
 
     </div>
   </div>

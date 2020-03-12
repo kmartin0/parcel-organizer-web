@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BaseApiService} from './base-api.service';
-import {DELETE_PARCEL, GET_PARCEL, GET_PARCEL_STATUS_BY_STATUS, GET_PARCELS, UPDATE_PARCEL} from '../../api/api-endpoints';
+import {DELETE_PARCEL, GET_PARCEL, GET_PARCEL_STATUS_BY_STATUS, GET_PARCELS, SAVE_PARCEL, UPDATE_PARCEL} from '../../api/api-endpoints';
 import {Observable} from 'rxjs';
 import {Parcel} from '../models/parcel';
 import {ParcelStatus} from '../models/parcel-status';
@@ -32,5 +32,9 @@ export class ParcelService {
 
   getParcelStatus(parcelStatusEnum: ParcelStatusEnum): Observable<ParcelStatus> {
     return this.baseApiService.makeGet(GET_PARCEL_STATUS_BY_STATUS(parcelStatusEnum));
+  }
+
+  createParcel(parcel: Parcel): Observable<Parcel> {
+    return this.baseApiService.makePost<Parcel>(SAVE_PARCEL, parcel);
   }
 }

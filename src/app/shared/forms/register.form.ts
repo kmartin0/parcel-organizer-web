@@ -10,7 +10,7 @@ export const REGISTER_FORM_KEYS = {
 
 export const REGISTER_FORM: TextBoxInputField[] = [
   new TextBoxInputField({
-    id: 'register-email',
+    id: 'register-form-email',
     key: REGISTER_FORM_KEYS.email,
     type: 'email',
     label: 'Email',
@@ -18,7 +18,7 @@ export const REGISTER_FORM: TextBoxInputField[] = [
     validators: [Validators.required, Validators.email, Validators.maxLength(45)]
   }),
   new TextBoxInputField({
-    id: 'register-name',
+    id: 'register-form-name',
     key: REGISTER_FORM_KEYS.name,
     type: 'text',
     label: 'Name',
@@ -26,7 +26,7 @@ export const REGISTER_FORM: TextBoxInputField[] = [
     validators: [Validators.required, Validators.maxLength(45)]
   }),
   new TextBoxInputField({
-    id: 'register-password',
+    id: 'register-form-password',
     key: REGISTER_FORM_KEYS.password,
     type: 'password',
     label: 'Password',
@@ -34,7 +34,7 @@ export const REGISTER_FORM: TextBoxInputField[] = [
     validators: [Validators.required, Validators.minLength(6), Validators.maxLength(45)]
   }),
   new TextBoxInputField({
-    id: 'register-confirm-password',
+    id: 'register-form-confirm-password',
     key: REGISTER_FORM_KEYS.confirmPassword,
     type: 'password',
     label: 'Confirm Password',

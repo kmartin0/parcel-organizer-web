@@ -14,6 +14,7 @@ import {CreateParcelComponent} from './pages/create-parcel/create-parcel.compone
 import {AccountComponent} from './pages/account/account.component';
 import {ParcelItemComponent} from './components/parcel-item/parcel-item.component';
 import {EditParcelComponent} from './pages/edit-parcel/edit-parcel.component';
+import {ParcelFormComponent} from './components/parcel-form/parcel-form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {EditParcelComponent} from './pages/edit-parcel/edit-parcel.component';
     CreateParcelComponent,
     AccountComponent,
     ParcelItemComponent,
-    EditParcelComponent
+    EditParcelComponent,
+    ParcelFormComponent
   ],
   imports: [
     CommonModule,

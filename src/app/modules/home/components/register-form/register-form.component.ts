@@ -11,11 +11,11 @@ import {BaseInputField} from '../../../../shared/components/dynamic-form/base-in
 import {REGISTER_FORM, REGISTER_FORM_KEYS} from '../../../../shared/forms/register.form';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-register-form',
+  templateUrl: './register-form.component.html',
+  styleUrls: ['./register-form.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterFormComponent implements OnInit {
 
   @Output() public registerSuccess = new EventEmitter();
   @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;

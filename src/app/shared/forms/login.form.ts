@@ -8,7 +8,7 @@ export const LOGIN_FORM_KEYS = {
 
 export const LOGIN_FORM: TextBoxInputField[] = [
   new TextBoxInputField({
-    id: 'login-email',
+    id: 'login-form-email',
     key: LOGIN_FORM_KEYS.email,
     type: 'email',
     label: 'Email',
@@ -16,7 +16,7 @@ export const LOGIN_FORM: TextBoxInputField[] = [
     validators: [Validators.required, Validators.email]
   }),
   new TextBoxInputField({
-    id: 'login-password',
+    id: 'login-form-password',
     key: LOGIN_FORM_KEYS.password,
     type: 'password',
     label: 'Password',

@@ -1,18 +1,18 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ParcelService} from '../../../../shared/services/parcel.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {Parcel} from '../../../../shared/models/parcel';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {loadingIndicator} from '../../../../shared/helpers/operators';
 import {DashboardLoadingService} from '../../components/dashboard-loading.service';
-import {PARCEL_FORM, PARCEL_FORM_KEYS} from '../../../../shared/forms/parcel.form';
+import {PARCEL_FORM_KEYS} from '../../../../shared/forms/parcel.form';
 import {Subject} from 'rxjs';
-import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {Location} from '@angular/common';
+import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.component';
 
 @Component({
   selector: 'app-edit-parcel',
@@ -20,16 +20,15 @@ import {Location} from '@angular/common';
   styleUrls: ['./edit-parcel.component.css'],
   animations: [trigger('form', enterLeaveTransition)]
 })
-export class EditParcelComponent implements OnInit, AfterViewInit {
+export class EditParcelComponent implements OnInit {
 
   loading$ = new Subject<boolean>();
-  parcel: Parcel;
+  parcelToEdit: Parcel;
   hasAccess = undefined;
-  parcelForm = PARCEL_FORM;
 
-  @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;
-  get formComponent(): FormComponent {
-    return this._formComponent;
+  @ViewChild(ParcelFormComponent, {static: false}) private _parcelFormComponent: ParcelFormComponent;
+  get parcelFormComponent(): ParcelFormComponent {
+    return this._parcelFormComponent;
   }
 
   constructor(private parcelService: ParcelService, private route: ActivatedRoute, private dashboardLoadingService: DashboardLoadingService,
@@ -37,22 +36,19 @@ export class EditParcelComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.getParcelToEdit();
   }
 
-  ngAfterViewInit(): void {
-    this.getParcel();
-  }
-
-  getParcel() {
+  getParcelToEdit() {
     this.route.paramMap.pipe(
       switchMap(params => {
           return this.parcelService.getParcel(params.get('id')).pipe(loadingIndicator(this.dashboardLoadingService.loading$));
         }
       )
-    ).subscribe(value => {
+    ).subscribe(parcel => {
       this.setAccess(true);
-      this.parcel = value;
-      this.populateForm(value);
+      this.parcelToEdit = parcel;
+      this.populateForm(parcel);
     }, error => {
       if (isApiErrorBody(error)) {
         if (error.error == ApiErrorEnum.access_denied) {
@@ -63,58 +59,30 @@ export class EditParcelComponent implements OnInit, AfterViewInit {
   }
 
   populateForm(parcel: Parcel) {
-    this.formComponent.getFormControl(PARCEL_FORM_KEYS.title).setValue(parcel.title);
-    this.formComponent.getFormControl(PARCEL_FORM_KEYS.sender).setValue(parcel.sender);
-    this.formComponent.getFormControl(PARCEL_FORM_KEYS.courier).setValue(parcel.courier);
-    this.formComponent.getFormControl(PARCEL_FORM_KEYS.trackingUrl).setValue(parcel.trackingUrl);
-    this.formComponent.getFormControl(PARCEL_FORM_KEYS.parcelStatusEnum).setValue(parcel.parcelStatus.status);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.title).setValue(parcel.title);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.sender).setValue(parcel.sender);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.courier).setValue(parcel.courier);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.trackingUrl).setValue(parcel.trackingUrl);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.parcelStatusEnum).setValue(parcel.parcelStatus.status);
   }
 
-  onValidForm(formValues: any) {
-    this.parcelService.getParcelStatus(formValues[PARCEL_FORM_KEYS.parcelStatusEnum]).pipe(
-      loadingIndicator(this.loading$),
-      loadingIndicator(this.dashboardLoadingService.loading$),
-      switchMap(parcelStatus => {
-        const newParcel = this.parcel;
-        newParcel.title = formValues[PARCEL_FORM_KEYS.title];
-        newParcel.sender = formValues[PARCEL_FORM_KEYS.sender];
-        newParcel.courier = formValues[PARCEL_FORM_KEYS.courier];
-        newParcel.trackingUrl = formValues[PARCEL_FORM_KEYS.trackingUrl];
-        newParcel.parcelStatus = parcelStatus;
+  onParcelResult(parcel: Parcel) {
+    parcel.id = this.parcelToEdit.id;
 
-        return this.parcelService.editParcel(newParcel);
-      })
+    this.parcelService.editParcel(parcel).pipe(
+      loadingIndicator(this.loading$),
+      loadingIndicator(this.dashboardLoadingService.loading$)
     ).subscribe(parcel => {
-      this.handleEditSuccess(parcel);
+      this.handleEditSuccess();
     }, error => {
-      this.handleEditError(error);
+      this.parcelFormComponent.handleParcelApiError(error);
     });
   }
 
-  private handleEditSuccess(parcel: Parcel) {
-    this.formComponent.displaySuccess(() => {
+  private handleEditSuccess() {
+    this.parcelFormComponent.displaySuccess(() => {
       this.location.back();
     });
-  }
-
-  private handleEditError(apiError: any) {
-    if (isApiErrorBody(apiError)) {
-      switch (apiError.error) {
-        case ApiErrorEnum.INVALID_ARGUMENTS: {
-          this.formComponent.setError(PARCEL_FORM_KEYS.title, apiError.details['title']);
-          this.formComponent.setError(PARCEL_FORM_KEYS.sender, apiError.details['sender']);
-          this.formComponent.setError(PARCEL_FORM_KEYS.courier, apiError.details['courier']);
-          this.formComponent.setError(PARCEL_FORM_KEYS.trackingUrl, apiError.details['trackingUrl']);
-          this.formComponent.setError(PARCEL_FORM_KEYS.parcelStatusEnum, apiError.details['parcelStatus']);
-          break;
-        }
-        case ApiErrorEnum.RESOURCE_NOT_FOUND: {
-          this.formComponent.setError(null, 'A resource could not be found. Please try again later or contact us.');
-        }
-      }
-    } else {
-      this.formComponent.setError(null, 'An unknown error has occurred.');
-    }
   }
 
   setAccess(access: boolean) {

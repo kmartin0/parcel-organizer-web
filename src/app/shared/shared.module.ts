@@ -17,7 +17,7 @@ import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.compo
 import {ErrorDialogComponent} from './dialogs/error-dialog/error-dialog.component';
 import {LoginDialogComponent} from './dialogs/login-dialog/login-dialog.component';
 import {HomeModule} from '../modules/home/home.module';
-import {LoginComponent} from './components/login/login.component';
+import {LoginFormComponent} from './components/login-form/login-form.component';
 import {AccessDeniedComponent} from './components/access-denied/access-denied.component';
 import {DropdownInputComponent} from './components/dynamic-form/input/dropdown/dropdown-input.component';
 import {TypeOfPipe} from './pipes/type-of.pipe';
@@ -41,7 +41,7 @@ export function playerFactory() {
     DeleteDialogComponent,
     ErrorDialogComponent,
     LoginDialogComponent,
-    LoginComponent,
+    LoginFormComponent,
     AccessDeniedComponent,
     TypeOfPipe
   ],
@@ -67,7 +67,7 @@ export function playerFactory() {
     DeleteDialogComponent,
     ErrorDialogComponent,
     LoginDialogComponent,
-    LoginComponent,
+    LoginFormComponent,
     AccessDeniedComponent,
     TypeOfPipe
   ],
