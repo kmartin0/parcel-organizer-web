@@ -43,6 +43,7 @@ export class ParcelFormComponent implements AfterViewInit {
       sender: string = '';
       title: string = '';
       trackingUrl: string = '';
+      additionalInformation: string = '';
     };
   }
 
@@ -57,6 +58,7 @@ export class ParcelFormComponent implements AfterViewInit {
       sender: string = formValues[PARCEL_FORM_KEYS.sender];
       courier: string = formValues[PARCEL_FORM_KEYS.courier];
       trackingUrl: string = formValues[PARCEL_FORM_KEYS.trackingUrl];
+      additionalInformation: string = formValues[PARCEL_FORM_KEYS.additionalInformation];
       parcelStatus: ParcelStatus;
       lastUpdated: Date;
     };
@@ -79,6 +81,7 @@ export class ParcelFormComponent implements AfterViewInit {
           this.formComponent.setError(PARCEL_FORM_KEYS.sender, apiError.details['sender']);
           this.formComponent.setError(PARCEL_FORM_KEYS.courier, apiError.details['courier']);
           this.formComponent.setError(PARCEL_FORM_KEYS.trackingUrl, apiError.details['trackingUrl']);
+          this.formComponent.setError(PARCEL_FORM_KEYS.additionalInformation, apiError.details['additionalInformation']);
           this.formComponent.setError(PARCEL_FORM_KEYS.parcelStatusEnum, apiError.details['parcelStatus']);
           break;
         }
@@ -108,6 +111,10 @@ export class ParcelFormComponent implements AfterViewInit {
         }
         case PARCEL_FORM_KEYS.trackingUrl: {
           this.previewParcel.trackingUrl = next.value;
+          break;
+        }
+        case PARCEL_FORM_KEYS.additionalInformation: {
+          this.previewParcel.additionalInformation = next.value;
           break;
         }
         case PARCEL_FORM_KEYS.parcelStatusEnum: {

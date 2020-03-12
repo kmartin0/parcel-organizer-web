@@ -10,7 +10,7 @@ import {
   faBoxOpen,
   faShippingFast,
   faMoneyCheckAlt,
-  faPen
+  faPen, faClipboardList
 } from '@fortawesome/free-solid-svg-icons';
 import {MatDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../../../shared/dialogs/delete-dialog/delete-dialog.component';
@@ -41,6 +41,7 @@ export class ParcelItemComponent implements OnInit {
     sent: faShippingFast,
     ordered: faMoneyCheckAlt,
     delivered: faBoxOpen,
+    additionalInfo: faClipboardList
   };
 
   faIconStyle = {

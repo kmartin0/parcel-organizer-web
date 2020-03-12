@@ -63,6 +63,7 @@ export class EditParcelComponent implements OnInit {
     this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.sender).setValue(parcel.sender);
     this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.courier).setValue(parcel.courier);
     this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.trackingUrl).setValue(parcel.trackingUrl);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.additionalInformation).setValue(parcel.additionalInformation);
     this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.parcelStatusEnum).setValue(parcel.parcelStatus.status);
   }
 

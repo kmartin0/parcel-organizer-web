@@ -35,11 +35,12 @@
   grid-template-areas: 'left right';
   grid-template-columns: var(--perc-left) var(--perc-right);
   grid-gap: var(--perc-grid-gap);
-  margin: 6px 0;
+  margin: 8px 0;
 }
 
 .information-icon {
   line-height: 100%;
+  vertical-align: middle;
 }
 
 .information-text {
@@ -49,7 +50,6 @@
 
 .left {
   display: flex;
-  align-items: center;
   justify-content: flex-start;
   grid-area: left;
 }

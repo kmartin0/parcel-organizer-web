@@ -6,6 +6,7 @@ export interface Parcel {
   sender: string,
   courier: string,
   trackingUrl: string,
+  additionalInformation: string,
   parcelStatus: ParcelStatus,
   lastUpdated: Date,
 }

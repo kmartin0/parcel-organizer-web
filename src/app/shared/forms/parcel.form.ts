@@ -8,6 +8,7 @@ export const PARCEL_FORM_KEYS = {
   sender: 'sender',
   courier: 'courier',
   trackingUrl: 'trackingUrl',
+  additionalInformation: 'additionalInformation',
   parcelStatusEnum: 'parcelStatusEnum'
 };
 
@@ -42,6 +43,13 @@ export const PARCEL_FORM = [
     type: 'text',
     label: 'Tracking Url',
     placeholder: 'https://www.ups.com/WebTracking?id=95746567'
+  }),
+  new TextBoxInputField({
+    id: 'parcel-additional-information',
+    key: PARCEL_FORM_KEYS.additionalInformation,
+    type: 'text',
+    label: 'Additional Information',
+    placeholder: 'Pick up at parcel point.'
   }),
   new DropdownInputField({
     id: 'parcel-status',
