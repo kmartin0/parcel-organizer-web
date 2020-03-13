@@ -3,6 +3,7 @@ import {faCubes, faPlusCircle, faUser, faSignOutAlt} from '@fortawesome/free-sol
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 import {UserService} from '../../../../shared/services/user.service';
 import {ACCOUNT, CREATE_PARCEL, PARCELS} from '../../../../shared/constants/endpoints';
+import {NavigationStart, Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -30,27 +31,28 @@ export class NavComponent implements OnInit {
   };
 
   navBarStates = NAV_BAR_STATES;
-  @Input() navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLOSED;
+  @Input() navBarState: NAV_BAR_STATES;
   @Output() navBarStateChanged = new EventEmitter<NAV_BAR_STATES>();
+  isMobileView: boolean = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
+    this.initNavigationListener();
+    this.isMobileView = window.innerWidth < 991;
   }
 
   ngOnInit() {
-    this.emitNavBarState();
+    this.emitNavBarState(NAV_BAR_STATES.CLOSED);
   }
 
   onNavMouseEnter() {
-    if (this.navBarState != NAV_BAR_STATES.CLIPPED) {
-      this.navBarState = NAV_BAR_STATES.OPENED;
-      this.emitNavBarState();
+    if (!this.isMobileView && this.navBarState != NAV_BAR_STATES.CLIPPED) {
+      this.emitNavBarState(NAV_BAR_STATES.OPENED);
     }
   }
 
   onNavMouseLeave() {
-    if (this.navBarState != NAV_BAR_STATES.CLIPPED) {
-      this.navBarState = NAV_BAR_STATES.CLOSED;
-      this.emitNavBarState();
+    if (!this.isMobileView && this.navBarState != NAV_BAR_STATES.CLIPPED) {
+      this.emitNavBarState(NAV_BAR_STATES.CLOSED);
     }
   }
 
@@ -58,7 +60,8 @@ export class NavComponent implements OnInit {
     this.userService.logoutUser();
   }
 
-  private emitNavBarState() {
+  private emitNavBarState(navBarState: NAV_BAR_STATES) {
+    this.navBarState = navBarState;
     this.navBarStateChanged.emit(this.navBarState);
   }
 
@@ -66,9 +69,19 @@ export class NavComponent implements OnInit {
   private onResize(event) {
     const target = event.target;
     if (target.innerWidth < 991) {
-      this.navBarState = NAV_BAR_STATES.CLOSED;
-      this.emitNavBarState();
+      this.isMobileView = true;
+      this.emitNavBarState(NAV_BAR_STATES.CLOSED);
+    } else {
+      this.isMobileView = false;
     }
+  }
+
+  initNavigationListener() {
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationStart) {
+        this.emitNavBarState(NAV_BAR_STATES.CLOSED);
+      }
+    });
   }
 
 }
