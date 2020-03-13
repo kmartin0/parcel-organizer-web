@@ -14,7 +14,7 @@ app-nav {
   grid-area: nav;
 }
 
-app-dashboard-page {
+app-dashboard-content {
   grid-area: content;
   overflow: auto;
 }

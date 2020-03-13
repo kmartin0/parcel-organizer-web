@@ -4,7 +4,10 @@
      'sent': parcel.parcelStatus.status === parcelStatuses.SENT,
      'delivered': parcel.parcelStatus.status === parcelStatuses.DELIVERED,
      'clickable': parcel.trackingUrl
-     }" (click)="goToTrackingUrl()">
+     }"
+     (click)="goToTrackingUrl()"
+     [matTooltip]="parcel.trackingUrl"
+     matTooltipShowDelay="500">
   <p class="title">{{parcel.title}}</p>
 
   <div class="center">

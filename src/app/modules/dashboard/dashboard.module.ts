@@ -5,7 +5,7 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {NavComponent} from './components/nav/nav.component';
-import {DashboardPageComponent} from './components/dashboard-page/dashboard-page.component';
+import {DashboardContentComponent} from './components/dashboard-content/dashboard-content.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SharedModule} from '../../shared/shared.module';
 import {HomeModule} from '../home/home.module';
@@ -17,11 +17,13 @@ import {EditParcelComponent} from './pages/edit-parcel/edit-parcel.component';
 import {ParcelFormComponent} from './components/parcel-form/parcel-form.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    DashboardPageComponent,
+    DashboardContentComponent,
     HeaderComponent,
     FooterComponent,
     NavComponent,
@@ -32,15 +34,16 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     EditParcelComponent,
     ParcelFormComponent
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    FontAwesomeModule,
-    SharedModule,
-    HomeModule,
-    MatSnackBarModule,
-    ClipboardModule
-  ]
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        FontAwesomeModule,
+        SharedModule,
+        HomeModule,
+        MatSnackBarModule,
+        ClipboardModule,
+        MatTooltipModule
+    ]
 })
 export class DashboardModule {
 }
