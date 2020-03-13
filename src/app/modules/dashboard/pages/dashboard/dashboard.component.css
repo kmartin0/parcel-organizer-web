@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: min-content 1fr;
   grid-template-rows: auto 1fr auto;
-  grid-template-areas: "nav header" "nav content" "nav footer";
+  grid-template-areas: "nav header" "nav content";
   height: 100vh;
 }
 
@@ -17,10 +17,6 @@ app-nav {
 app-dashboard-content {
   grid-area: content;
   overflow: auto;
-}
-
-app-footer {
-  grid-area: footer;
 }
 
 @media (max-width: 991px) {

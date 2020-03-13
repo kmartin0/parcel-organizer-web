@@ -1,4 +1,6 @@
-<app-parcel-form *ngIf="hasAccess" (parcelResult)="onParcelResult($event)"></app-parcel-form>
+<div class="container">
+  <app-parcel-form *ngIf="hasAccess" (parcelResult)="onParcelResult($event)"></app-parcel-form>
+</div>
 
 <app-access-denied *ngIf="hasAccess == false"
                    message="You don't have the rights to edit this parcel."></app-access-denied>
