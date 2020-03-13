@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {USER_FORM} from '../../../../shared/components/user-form/user.form';
 
 @Component({
   selector: 'app-account',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountComponent implements OnInit {
 
-  constructor() { }
+  loading$ = new Subject<boolean>();
+  userForm = USER_FORM;
+
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  onValidForm(formValues) {
+    console.log('valid form');
+  }
+
+  populateForm() {
+
   }
 
 }

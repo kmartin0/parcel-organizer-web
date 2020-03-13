@@ -12,7 +12,7 @@ import {
   faMoneyCheckAlt,
   faPen, faClipboardList
 } from '@fortawesome/free-solid-svg-icons';
-import {DeleteDialogComponent} from '../../../../shared/dialogs/delete-dialog/delete-dialog.component';
+import {DeleteDialogComponent} from '../../../../shared/components/dialogs/delete-dialog/delete-dialog.component';
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {DashboardLoadingService} from '../dashboard-loading.service';
 import {loadingIndicator} from '../../../../shared/helpers/operators';

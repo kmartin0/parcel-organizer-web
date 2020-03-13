@@ -12,15 +12,16 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {UnauthenticatedComponent} from './components/unauthenticated/unauthenticated.component';
 import {RouterModule} from '@angular/router';
 import {LoadingComponent} from './components/loading/loading.component';
-import {DeleteDialogComponent} from './dialogs/delete-dialog/delete-dialog.component';
-import {ErrorDialogComponent} from './dialogs/error-dialog/error-dialog.component';
-import {LoginDialogComponent} from './dialogs/login-dialog/login-dialog.component';
-import {LoginFormComponent} from './components/login-form/login-form.component';
+import {DeleteDialogComponent} from './components/dialogs/delete-dialog/delete-dialog.component';
+import {ErrorDialogComponent} from './components/dialogs/error-dialog/error-dialog.component';
+import {UserAuthDialogComponent} from './components/dialogs/user-auth-dialog/user-auth-dialog.component';
+import {UserAuthFormComponent} from './components/user-authentication-form/user-auth-form.component';
 import {AccessDeniedComponent} from './components/access-denied/access-denied.component';
 import {DropdownInputComponent} from './components/dynamic-form/input/dropdown/dropdown-input.component';
 import {TypeOfPipe} from './pipes/type-of.pipe';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import {UserFormComponent} from './components/user-form/user-form.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -40,10 +41,11 @@ export function playerFactory() {
     LoadingComponent,
     DeleteDialogComponent,
     ErrorDialogComponent,
-    LoginDialogComponent,
-    LoginFormComponent,
+    UserAuthDialogComponent,
+    UserAuthFormComponent,
     AccessDeniedComponent,
-    TypeOfPipe
+    TypeOfPipe,
+    UserFormComponent
   ],
   imports: [
     CommonModule,
@@ -66,12 +68,13 @@ export function playerFactory() {
     LoadingComponent,
     DeleteDialogComponent,
     ErrorDialogComponent,
-    LoginDialogComponent,
-    LoginFormComponent,
+    UserAuthDialogComponent,
+    UserAuthFormComponent,
     AccessDeniedComponent,
-    TypeOfPipe
+    TypeOfPipe,
+    UserFormComponent
   ],
-  entryComponents: [DeleteDialogComponent, ErrorDialogComponent, LoginDialogComponent]
+  entryComponents: [DeleteDialogComponent, ErrorDialogComponent, UserAuthDialogComponent]
 })
 export class SharedModule {
 }

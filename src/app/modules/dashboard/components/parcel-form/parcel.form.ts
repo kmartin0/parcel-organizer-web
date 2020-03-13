@@ -1,7 +1,7 @@
-import {TextBoxInputField} from '../components/dynamic-form/input/textbox/text-box-input-field';
+import {TextBoxInputField} from '../../../../shared/components/dynamic-form/input/textbox/text-box-input-field';
 import {Validators} from '@angular/forms';
-import {DropdownInputField} from '../components/dynamic-form/input/dropdown/dropdown-input-field';
-import {ParcelStatusEnum} from '../models/parcel-status-enum';
+import {DropdownInputField} from '../../../../shared/components/dynamic-form/input/dropdown/dropdown-input-field';
+import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 
 export const PARCEL_FORM_KEYS = {
   title: 'title',

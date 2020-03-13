@@ -5,19 +5,24 @@ import {Subject} from 'rxjs';
 import {loadingIndicator} from '../../helpers/operators';
 import {isApiErrorBody} from '../../models/api-error-body';
 import {ApiErrorEnum} from '../../../api/api-error.enum';
-import {LOGIN_FORM} from '../../forms/login.form';
+import {LOGIN_FORM, LOGIN_FORM_KEYS} from './user-auth.form';
 import {BaseInputField} from '../dynamic-form/base-input-field';
+import {User} from '../../models/user';
+import {UserAuthentication} from '../../models/user-authentication';
 
 @Component({
-  selector: 'app-login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  selector: 'app-user-auth-form',
+  templateUrl: './user-auth-form.component.html',
+  styleUrls: ['./user-auth-form.component.css']
 })
-export class LoginFormComponent {
+export class UserAuthFormComponent {
 
   @Input() confirmButtonWidth = '50%';
-  @Output() loginSuccess = new EventEmitter<any>();
-  loading$ = new Subject<boolean>();
+
+  @Input() loading$: Subject<boolean>;
+  @Output() userAuthResult = new EventEmitter<UserAuthentication>();
+
+
   loginForm: BaseInputField<any>[] = LOGIN_FORM;
 
   @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;
@@ -25,30 +30,27 @@ export class LoginFormComponent {
     return this._formComponent;
   }
 
-  constructor(private userService: UserService) {
+  constructor() {
   }
 
   onLoginValidSubmit(formKeyValues: { [key: string]: string; }) {
-    this.login(formKeyValues['email'], formKeyValues['password']);
+    const userAuthentication = new class implements UserAuthentication {
+      email: string = formKeyValues[LOGIN_FORM_KEYS.email];
+      password: string = formKeyValues[LOGIN_FORM_KEYS.password];
+    };
+
+    this.userAuthResult.emit(userAuthentication);
   }
 
-  private login(email: string, password: string) {
-    this.userService.loginUser(email, password)
-      .pipe(loadingIndicator(this.loading$))
-      .subscribe(value => {
-        this.onLoginSuccess();
-      }, error => {
-        this.onLoginError(error);
-      });
-  }
-
-  private onLoginSuccess() {
+  displaySuccess(callback?: () => void) {
     this.formComponent.displaySuccess(() => {
-      this.loginSuccess.emit();
+      if (callback) {
+        callback();
+      }
     });
   }
 
-  private onLoginError(apiError: any) {
+  handleUserAuthApiError(apiError: any) {
     if (isApiErrorBody(apiError)) {
       if (apiError.error === ApiErrorEnum.invalid_grant) {
         this.formComponent.setError(null, 'Username/password incorrect.');

@@ -11,9 +11,9 @@
 }
 
 .logo-top {
-  width: 15%;
+  width: 11%;
   min-width: 70px;
-  margin-right: 15px;
+  margin: 0 15px;
 }
 
 #title {
@@ -81,7 +81,7 @@
   }
 
   #subtitle {
-    font-size: 15px;
+    font-size: 20px;
   }
 
   .center-container {

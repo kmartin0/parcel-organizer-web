@@ -44,3 +44,19 @@ $custom-typography: mat-typography-config(
   letter-spacing: 0.4px;
   font-weight: 400;
 }
+
+.mat-simple-snackbar-action {
+  color: var(--color-on-variant);
+  font-weight: 700;
+  font-size: 30px
+}
+
+.mat-simple-snackbar {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--color-on-default);
+}
+
+.mat-snack-bar-container {
+  background: var(--color-surface);
+}

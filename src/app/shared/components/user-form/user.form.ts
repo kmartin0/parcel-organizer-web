@@ -1,17 +1,17 @@
-import {TextBoxInputField} from '../components/dynamic-form/input/textbox/text-box-input-field';
+import {TextBoxInputField} from '../dynamic-form/input/textbox/text-box-input-field';
 import {Validators} from '@angular/forms';
 
-export const REGISTER_FORM_KEYS = {
+export const USER_FORM_KEYS = {
   email: 'email',
   name: 'name',
   password: 'password',
   confirmPassword: 'confirmPassword'
 };
 
-export const REGISTER_FORM: TextBoxInputField[] = [
+export const USER_FORM: TextBoxInputField[] = [
   new TextBoxInputField({
     id: 'register-form-email',
-    key: REGISTER_FORM_KEYS.email,
+    key: USER_FORM_KEYS.email,
     type: 'email',
     label: 'Email',
     placeholder: 'xyz@gmail.com',
@@ -19,7 +19,7 @@ export const REGISTER_FORM: TextBoxInputField[] = [
   }),
   new TextBoxInputField({
     id: 'register-form-name',
-    key: REGISTER_FORM_KEYS.name,
+    key: USER_FORM_KEYS.name,
     type: 'text',
     label: 'Name',
     placeholder: 'John Doe',
@@ -27,7 +27,7 @@ export const REGISTER_FORM: TextBoxInputField[] = [
   }),
   new TextBoxInputField({
     id: 'register-form-password',
-    key: REGISTER_FORM_KEYS.password,
+    key: USER_FORM_KEYS.password,
     type: 'password',
     label: 'Password',
     placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
@@ -35,7 +35,7 @@ export const REGISTER_FORM: TextBoxInputField[] = [
   }),
   new TextBoxInputField({
     id: 'register-form-confirm-password',
-    key: REGISTER_FORM_KEYS.confirmPassword,
+    key: USER_FORM_KEYS.confirmPassword,
     type: 'password',
     label: 'Confirm Password',
     placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',

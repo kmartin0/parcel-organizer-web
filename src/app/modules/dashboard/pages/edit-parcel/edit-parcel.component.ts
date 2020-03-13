@@ -7,7 +7,7 @@ import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {loadingIndicator} from '../../../../shared/helpers/operators';
 import {DashboardLoadingService} from '../../components/dashboard-loading.service';
-import {PARCEL_FORM_KEYS} from '../../../../shared/forms/parcel.form';
+import {PARCEL_FORM_KEYS} from '../../components/parcel-form/parcel.form';
 import {Subject} from 'rxjs';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';

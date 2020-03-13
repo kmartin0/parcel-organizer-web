@@ -1,4 +1,4 @@
-import {TextBoxInputField} from '../components/dynamic-form/input/textbox/text-box-input-field';
+import {TextBoxInputField} from '../dynamic-form/input/textbox/text-box-input-field';
 import {Validators} from '@angular/forms';
 
 export const LOGIN_FORM_KEYS = {
@@ -8,7 +8,7 @@ export const LOGIN_FORM_KEYS = {
 
 export const LOGIN_FORM: TextBoxInputField[] = [
   new TextBoxInputField({
-    id: 'login-form-email',
+    id: 'user-authentication-form-email',
     key: LOGIN_FORM_KEYS.email,
     type: 'email',
     label: 'Email',
@@ -16,7 +16,7 @@ export const LOGIN_FORM: TextBoxInputField[] = [
     validators: [Validators.required, Validators.email]
   }),
   new TextBoxInputField({
-    id: 'login-form-password',
+    id: 'user-authentication-form-password',
     key: LOGIN_FORM_KEYS.password,
     type: 'password',
     label: 'Password',

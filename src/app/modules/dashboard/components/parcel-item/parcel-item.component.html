@@ -5,9 +5,7 @@
      'delivered': parcel.parcelStatus.status === parcelStatuses.DELIVERED,
      'clickable': parcel.trackingUrl
      }"
-     (click)="goToTrackingUrl()"
-     [matTooltip]="parcel.trackingUrl"
-     matTooltipShowDelay="500">
+     (click)="goToTrackingUrl()">
   <p class="title">{{parcel.title}}</p>
 
   <div class="center">
@@ -52,7 +50,9 @@
                  [styles]="faIconStyle"></fa-icon>
         <fa-icon (click)="onShareParcelClick(); $event.stopPropagation()" class="information-icon action-icon"
                  [icon]="faIcons.share"
-                 [styles]="faIconStyle"></fa-icon>
+                 [styles]="faIconStyle"
+                 [matTooltip]="parcel.trackingUrl"
+                 matTooltipShowDelay="500"></fa-icon>
         <fa-icon (click)="onParcelDeleteClick();$event.stopPropagation()" class="information-icon action-icon"
                  [icon]="faIcons.delete"
                  [styles]="faIconStyle"></fa-icon>

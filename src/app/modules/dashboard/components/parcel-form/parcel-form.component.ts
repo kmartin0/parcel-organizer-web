@@ -3,7 +3,7 @@ import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {Parcel} from '../../../../shared/models/parcel';
 import {Subject} from 'rxjs';
-import {PARCEL_FORM, PARCEL_FORM_KEYS} from '../../../../shared/forms/parcel.form';
+import {PARCEL_FORM, PARCEL_FORM_KEYS} from './parcel.form';
 import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {DashboardLoadingService} from '../dashboard-loading.service';

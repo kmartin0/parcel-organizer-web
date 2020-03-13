@@ -4,7 +4,7 @@
   </div>
 
   <div mat-dialog-content>
-    <app-login-form confirmButtonWidth="100%" (loginSuccess)="onLoginSuccess()"></app-login-form>
+    <app-user-auth-form confirmButtonWidth="100%" [loading$]="loading$" (userAuthResult)="authenticateUser($event)"></app-user-auth-form>
   </div>
 
   <div mat-dialog-actions class="actions">

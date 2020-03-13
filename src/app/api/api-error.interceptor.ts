@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {EMPTY, Observable, throwError} from 'rxjs';
 import {catchError, switchMap} from 'rxjs/operators';
-import {ErrorDialogComponent} from '../shared/dialogs/error-dialog/error-dialog.component';
+import {ErrorDialogComponent} from '../shared/components/dialogs/error-dialog/error-dialog.component';
 import {isApiErrorBody} from '../shared/models/api-error-body';
 import {ApiErrorEnum} from './api-error.enum';
 import {UserService} from '../shared/services/user.service';
-import {LoginDialogComponent} from '../shared/dialogs/login-dialog/login-dialog.component';
+import {UserAuthDialogComponent} from '../shared/components/dialogs/user-auth-dialog/user-auth-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 
 @Injectable()
@@ -54,20 +54,19 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   };
 
   refreshToken(req, next) {
-    console.log('refresh token');
     return this.userService.refreshAuthToken().pipe(
       switchMap(credentials => {
         return next.handle(req) as Observable<HttpEvent<any>>;
       }),
       catchError(err => {
-        return this.retryLogin(req, next);
+        return this.retryLogin(req, next); // If the token can't be refreshed then prompt the user to login again.
       })
     );
   }
 
   retryLogin(req, next) {
-    const loginDialog = this.dialog.open(LoginDialogComponent, {
-      data: {message: 'Session expired please login-form again.'},
+    const loginDialog = this.dialog.open(UserAuthDialogComponent, {
+      data: {message: 'Session expired please user-authentication-form again.'},
       panelClass: 'app-dialog'
     });
 

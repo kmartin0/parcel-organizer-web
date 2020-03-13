@@ -5,6 +5,7 @@
       <h1 id="title">Parcel Organizer</h1>
       <h2 id="subtitle">Simple organizing of your parcels</h2>
     </div>
+    <div class="logo-top"></div>
   </div>
   <div class="center-container surface">
 
@@ -20,8 +21,11 @@
         <label for="register" class="select-form-label"> Register </label>
       </form>
 
-      <app-login-form [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN" (loginSuccess)="onLoginSuccess()"></app-login-form>
-      <app-register-form [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER" (registerSuccess)="onRegisterSuccess()"></app-register-form>
+      <app-user-auth-form [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN" [loading$]="loading$"
+                          (userAuthResult)="authenticateUser($event)"></app-user-auth-form>
+
+      <app-user-form [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER" [loading$]="loading$"
+                     (userResult)="registerUser($event)"></app-user-form>
 
     </div>
   </div>

@@ -35,7 +35,7 @@ export class UserService {
     const refreshToken = this.getLoggedInUser().oauth2Credentials.refresh_token;
     const body = new HttpParams()
       .set('grant_type', 'refresh_token')
-      .set('refresh_token', refreshToken + 'hello');
+      .set('refresh_token', refreshToken);
 
     return this.baseApiService.makePostFormUrlEncoded<Oauth2Credentials>(LOGIN, body).pipe(
       tap(credentials => {
