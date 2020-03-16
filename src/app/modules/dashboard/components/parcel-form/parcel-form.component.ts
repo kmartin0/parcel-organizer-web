@@ -1,16 +1,15 @@
-import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {Parcel} from '../../../../shared/models/parcel';
-import {Subject} from 'rxjs';
 import {PARCEL_FORM, PARCEL_FORM_KEYS} from './parcel.form';
-import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {ParcelStatus} from '../../../../shared/models/parcel-status';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {withLoading} from '../../../../shared/helpers/operators';
+import {BaseFormComponent} from '../../../../shared/components/dynamic-form/base-form.component';
 
 @Component({
   selector: 'app-parcel-form',
@@ -18,20 +17,74 @@ import {withLoading} from '../../../../shared/helpers/operators';
   styleUrls: ['./parcel-form.component.css'],
   animations: [trigger('form', enterLeaveTransition)]
 })
-export class ParcelFormComponent implements AfterViewInit {
+export class ParcelFormComponent extends BaseFormComponent<Parcel> implements AfterViewInit {
 
-  @Input() loading$: Subject<boolean>;
-  @Input() formName: string;
-  @Output() parcelResult = new EventEmitter<Parcel>();
   previewParcel: Parcel;
-  parcelForm = PARCEL_FORM;
-
-  @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;
-  get formComponent(): FormComponent {
-    return this._formComponent;
-  }
 
   constructor(private parcelService: ParcelService) {
+    super();
+    this.initPreviewParcel();
+  }
+
+  get form() {
+    return PARCEL_FORM;
+  }
+
+  ngAfterViewInit(): void {
+    this.initFormObserver();
+  }
+
+  onValidForm(formValues: { [key: string]: string }) {
+    const parcel: Parcel = new class implements Parcel {
+      id: number;
+      title: string = formValues[PARCEL_FORM_KEYS.title];
+      sender: string = formValues[PARCEL_FORM_KEYS.sender];
+      courier: string = formValues[PARCEL_FORM_KEYS.courier];
+      trackingUrl: string = formValues[PARCEL_FORM_KEYS.trackingUrl];
+      additionalInformation: string = formValues[PARCEL_FORM_KEYS.additionalInformation];
+      parcelStatus: ParcelStatus;
+      lastUpdated: Date;
+    };
+    this.parcelService.getParcelStatus(formValues[PARCEL_FORM_KEYS.parcelStatusEnum] as ParcelStatusEnum).pipe(
+      withLoading(this.loading$)
+    ).subscribe(parcelStatus => {
+      parcel.parcelStatus = parcelStatus;
+      this.validFormResult$.emit(parcel);
+    }, error => {
+      this.handleApiError(error);
+    });
+  }
+
+  handleApiError(apiError: any) {
+    if (isApiErrorBody(apiError)) {
+      switch (apiError.error) {
+        case ApiErrorEnum.INVALID_ARGUMENTS: {
+          this.formComponent.setError(PARCEL_FORM_KEYS.title, apiError.details[PARCEL_FORM_KEYS.title]);
+          this.formComponent.setError(PARCEL_FORM_KEYS.sender, apiError.details[PARCEL_FORM_KEYS.sender]);
+          this.formComponent.setError(PARCEL_FORM_KEYS.courier, apiError.details[PARCEL_FORM_KEYS.courier]);
+          this.formComponent.setError(PARCEL_FORM_KEYS.trackingUrl, apiError.details[PARCEL_FORM_KEYS.trackingUrl]);
+          this.formComponent.setError(PARCEL_FORM_KEYS.additionalInformation, apiError.details[PARCEL_FORM_KEYS.additionalInformation]);
+          this.formComponent.setError(PARCEL_FORM_KEYS.parcelStatusEnum, apiError.details[PARCEL_FORM_KEYS.parcelStatusEnum]);
+          break;
+        }
+        case ApiErrorEnum.RESOURCE_NOT_FOUND: {
+          this.formComponent.setError(null, 'A resource could not be found. Please try again later or contact us.');
+        }
+      }
+    } else {
+      this.formComponent.setError(null, 'An unknown error has occurred.');
+    }
+  }
+
+  resetForm() {
+    this.formComponent.resetForm(
+      {
+        [PARCEL_FORM_KEYS.parcelStatusEnum]: this.form.find(value => value.key == PARCEL_FORM_KEYS.parcelStatusEnum).value
+      }
+    );
+  }
+
+  private initPreviewParcel() {
     this.previewParcel = new class implements Parcel {
       courier: string = '';
       id: number;
@@ -45,68 +98,6 @@ export class ParcelFormComponent implements AfterViewInit {
       trackingUrl: string = '';
       additionalInformation: string = '';
     };
-  }
-
-  ngAfterViewInit(): void {
-    this.initFormObserver();
-  }
-
-  onValidForm(formValues) {
-    const parcel: Parcel = new class implements Parcel {
-      id: number;
-      title: string = formValues[PARCEL_FORM_KEYS.title];
-      sender: string = formValues[PARCEL_FORM_KEYS.sender];
-      courier: string = formValues[PARCEL_FORM_KEYS.courier];
-      trackingUrl: string = formValues[PARCEL_FORM_KEYS.trackingUrl];
-      additionalInformation: string = formValues[PARCEL_FORM_KEYS.additionalInformation];
-      parcelStatus: ParcelStatus;
-      lastUpdated: Date;
-    };
-    this.parcelService.getParcelStatus(formValues[PARCEL_FORM_KEYS.parcelStatusEnum]).pipe(
-      withLoading(this.loading$)
-    ).subscribe(parcelStatus => {
-      parcel.parcelStatus = parcelStatus;
-      this.parcelResult.emit(parcel);
-    }, error => {
-      this.handleParcelApiError(error);
-    });
-  }
-
-  handleParcelApiError(apiError: any) {
-    if (isApiErrorBody(apiError)) {
-      switch (apiError.error) {
-        case ApiErrorEnum.INVALID_ARGUMENTS: {
-          this.formComponent.setError(PARCEL_FORM_KEYS.title, apiError.details['title']);
-          this.formComponent.setError(PARCEL_FORM_KEYS.sender, apiError.details['sender']);
-          this.formComponent.setError(PARCEL_FORM_KEYS.courier, apiError.details['courier']);
-          this.formComponent.setError(PARCEL_FORM_KEYS.trackingUrl, apiError.details['trackingUrl']);
-          this.formComponent.setError(PARCEL_FORM_KEYS.additionalInformation, apiError.details['additionalInformation']);
-          this.formComponent.setError(PARCEL_FORM_KEYS.parcelStatusEnum, apiError.details['parcelStatus']);
-          break;
-        }
-        case ApiErrorEnum.RESOURCE_NOT_FOUND: {
-          this.formComponent.setError(null, 'A resource could not be found. Please try again later or contact us.');
-        }
-      }
-    } else {
-      this.formComponent.setError(null, 'An unknown error has occurred.');
-    }
-  }
-
-  displaySuccess(callback?: () => void) {
-    this.formComponent.displaySuccess(() => {
-      if (callback) {
-        callback();
-      }
-    });
-  }
-
-  resetForm() {
-    this.formComponent.resetForm(
-      {
-        [PARCEL_FORM_KEYS.parcelStatusEnum]: this.parcelForm.find(value => value.key == PARCEL_FORM_KEYS.parcelStatusEnum).value
-      }
-    );
   }
 
   private initFormObserver() {

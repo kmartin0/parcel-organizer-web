@@ -1,6 +1,6 @@
 <div @form class="container">
   <div class="surface">
-    <app-form [formName]="formName" [inputFields]="parcelForm" (formValidSubmit)="onValidForm($event)" [loading$]="loading$"></app-form>
+    <app-form [formName]="formAction" [inputFields]="form" (formValidSubmit)="onValidForm($event)" [loading$]="loading$"></app-form>
   </div>
   <div class="preview surface">
     <h2>Preview your parcel here</h2>

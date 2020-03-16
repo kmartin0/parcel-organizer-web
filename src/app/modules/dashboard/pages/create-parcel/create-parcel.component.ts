@@ -39,7 +39,7 @@ export class CreateParcelComponent implements OnInit {
         this.parcelFormComponent.resetForm();
       });
     }, error => {
-      this.parcelFormComponent.handleParcelApiError(error);
+      this.parcelFormComponent.handleApiError(error);
     });
   }
 

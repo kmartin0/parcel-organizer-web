@@ -48,7 +48,7 @@ export class UserAuthDialogComponent implements OnInit {
           this.dialogRef.close(true);
         });
       }, apiError => {
-        this.userAuthFormComponent.handleUserAuthApiError(apiError);
+        this.userAuthFormComponent.handleApiError(apiError);
       });
   }
 

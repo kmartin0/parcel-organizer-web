@@ -1,9 +1,11 @@
 <div @form class="surface">
   <h2>Update your account details here</h2>
-  <app-user-form formAction="Update" [loading$]="loading$" (userResult)="onUserResult($event)"></app-user-form>
+  <app-user-form formAction="Update" [loading$]="loading$" (validFormResult$)="onUserResult($event)"></app-user-form>
 </div>
 
 <div @form class="change-password-container surface">
   <h2>Change your password here</h2>
-  <app-change-password-form [loading$]="loading$" (changePasswordResult)="onChangePasswordResult($event)"></app-change-password-form>
+  <app-change-password-form [loading$]="loading$"
+                            (validFormResult$)="onChangePasswordResult($event)"
+                            formAction="Change Password"></app-change-password-form>
 </div>

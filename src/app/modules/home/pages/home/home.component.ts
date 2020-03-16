@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
       .subscribe(value => {
         this.handleAuthSuccess();
       }, apiError => {
-        this.userAuthFormComponent.handleUserAuthApiError(apiError);
+        this.userAuthFormComponent.handleApiError(apiError);
       });
   }
 
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
     ).subscribe(user => {
       this.handleRegisterSuccess();
     }, apiError => {
-      this.userFormComponent.handleUserApiError(apiError);
+      this.userFormComponent.handleApiError(apiError);
     });
   }
 

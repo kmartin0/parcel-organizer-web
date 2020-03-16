@@ -59,14 +59,15 @@ export class AccountComponent implements OnInit, AfterViewInit {
       switchMap(value => this.userService.loginUser(value.email, user.password).pipe(withLoading(this.loading$)))
     ).subscribe(user => {
       console.log(user);
-      this.handleUserUpdateSuccess();
+      this.handleUserUpdateSuccess(user);
     }, error => {
       this.handleUserUpdateError(error);
     });
   }
 
-  handleUserUpdateSuccess() {
+  handleUserUpdateSuccess(updatedUser: User) {
     this.userFormComponent.displaySuccess(() => {
+      this.loggedInUser = updatedUser;
       this.userFormComponent.formComponent.resetForm({
         [USER_FORM_KEYS.email]: this.loggedInUser.email,
         [USER_FORM_KEYS.name]: this.loggedInUser.name
@@ -76,7 +77,7 @@ export class AccountComponent implements OnInit, AfterViewInit {
 
   handleUserUpdateError(apiError: any) {
     if (isApiErrorBody(apiError)) {
-      this.userFormComponent.handleUserApiError(apiError);
+      this.userFormComponent.handleApiError(apiError);
       if (apiError.error == ApiErrorEnum.PERMISSION_DENIED) {
         this.userFormComponent.formComponent.setError(USER_FORM_KEYS.password, 'Incorrect password.');
       }

@@ -9,7 +9,7 @@ export const PARCEL_FORM_KEYS = {
   courier: 'courier',
   trackingUrl: 'trackingUrl',
   additionalInformation: 'additionalInformation',
-  parcelStatusEnum: 'parcelStatusEnum'
+  parcelStatusEnum: 'parcelStatus'
 };
 
 export const PARCEL_FORM = [

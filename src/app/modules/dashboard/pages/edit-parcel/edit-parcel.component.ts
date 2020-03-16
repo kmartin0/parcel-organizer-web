@@ -67,7 +67,7 @@ export class EditParcelComponent implements OnInit {
     ).subscribe(parcel => {
       this.handleEditSuccess();
     }, error => {
-      this.parcelFormComponent.handleParcelApiError(error);
+      this.parcelFormComponent.handleApiError(error);
     });
   }
 
