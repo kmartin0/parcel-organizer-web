@@ -79,7 +79,9 @@ export class NavComponent implements OnInit {
   initNavigationListener() {
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationStart) {
-        this.emitNavBarState(NAV_BAR_STATES.CLOSED);
+        if (this.isMobileView) {
+          this.emitNavBarState(NAV_BAR_STATES.CLOSED);
+        }
       }
     });
   }
