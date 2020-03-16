@@ -72,7 +72,7 @@ export class ParcelFormComponent implements AfterViewInit {
     });
   }
 
-  handleParcelApiError(apiError) {
+  handleParcelApiError(apiError: any) {
     if (isApiErrorBody(apiError)) {
       switch (apiError.error) {
         case ApiErrorEnum.INVALID_ARGUMENTS: {
@@ -102,7 +102,11 @@ export class ParcelFormComponent implements AfterViewInit {
   }
 
   resetForm() {
-    this.formComponent.resetForm({[PARCEL_FORM_KEYS.parcelStatusEnum]: this.parcelForm[4].value});
+    this.formComponent.resetForm(
+      {
+        [PARCEL_FORM_KEYS.parcelStatusEnum]: this.parcelForm.find(value => value.key == PARCEL_FORM_KEYS.parcelStatusEnum).value
+      }
+    );
   }
 
   private initFormObserver() {
