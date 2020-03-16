@@ -23,6 +23,10 @@ export class UserFormComponent extends BaseFormComponent<User> {
     return [passwordMatchValidator(USER_FORM_KEYS.password, USER_FORM_KEYS.confirmPassword, 'confirmPassword')];
   }
 
+  constructor() {
+    super();
+  }
+
   handleApiError(apiError: any) {
     if (isApiErrorBody(apiError)) {
       switch (apiError.error) {

@@ -22,7 +22,9 @@ import {ChangePasswordFormComponent} from '../../components/change-password-form
 })
 export class AccountComponent implements OnInit, AfterViewInit {
 
-  loading$: Subject<boolean>;
+  dashboardLoading$: Subject<boolean>;
+  updateAccountLoading$ = new Subject<boolean>();
+  changePasswordLoading$ = new Subject<boolean>();
   private loggedInUser: User;
 
   @ViewChild(UserFormComponent, {static: false}) private _userFormComponent: UserFormComponent;
@@ -36,7 +38,7 @@ export class AccountComponent implements OnInit, AfterViewInit {
   }
 
   constructor(private dashboardLoadingService: DashboardLoadingService, private userService: UserService) {
-    this.loading$ = dashboardLoadingService.loading$;
+    this.dashboardLoading$ = dashboardLoadingService.loading$;
   }
 
   ngOnInit() {
@@ -55,8 +57,12 @@ export class AccountComponent implements OnInit, AfterViewInit {
 
   onUserResult(user: User) {
     this.userService.updateUser(user).pipe(
-      withLoading(this.loading$),
-      switchMap(value => this.userService.loginUser(value.email, user.password).pipe(withLoading(this.loading$)))
+      withLoading(this.dashboardLoading$),
+      withLoading(this.updateAccountLoading$),
+      switchMap(value => this.userService.loginUser(value.email, user.password).pipe(
+        withLoading(this.dashboardLoading$),
+        withLoading(this.updateAccountLoading$)
+      ))
     ).subscribe(user => {
       console.log(user);
       this.handleUserUpdateSuccess(user);
@@ -86,7 +92,8 @@ export class AccountComponent implements OnInit, AfterViewInit {
 
   onChangePasswordResult(changePassword: ChangePassword) {
     this.userService.changePassword(changePassword).pipe(
-      withLoading(this.loading$)
+      withLoading(this.dashboardLoading$),
+      withLoading(this.changePasswordLoading$)
     ).subscribe(value => {
       this.handleChangePasswordSuccess();
     }, error => {
