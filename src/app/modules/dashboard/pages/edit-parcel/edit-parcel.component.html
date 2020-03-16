@@ -1,5 +1,5 @@
 <div class="container">
-  <app-parcel-form *ngIf="hasAccess" (parcelResult)="onParcelResult($event)"></app-parcel-form>
+  <app-parcel-form *ngIf="hasAccess" formName="Edit" [loading$]="loading$" (parcelResult)="onParcelResult($event)"></app-parcel-form>
 </div>
 
 <app-access-denied *ngIf="hasAccess == false"

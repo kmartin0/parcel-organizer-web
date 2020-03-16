@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {ActivatedRoute} from '@angular/router';
-import {DashboardLoadingService} from '../../components/dashboard-loading.service';
+import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {Subject} from 'rxjs';
 import {Parcel} from '../../../../shared/models/parcel';
-import {loadingIndicator} from '../../../../shared/helpers/operators';
+import {withLoading} from '../../../../shared/helpers/operators';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.component';
@@ -17,7 +17,7 @@ import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.comp
 })
 export class CreateParcelComponent implements OnInit {
 
-  loading$ = new Subject<boolean>();
+  loading$: Subject<boolean>;
 
   @ViewChild(ParcelFormComponent, {static: false}) private _parcelFormComponent: ParcelFormComponent;
   get parcelFormComponent(): ParcelFormComponent {
@@ -25,6 +25,7 @@ export class CreateParcelComponent implements OnInit {
   }
 
   constructor(private parcelService: ParcelService, private route: ActivatedRoute, private dashboardLoadingService: DashboardLoadingService) {
+    this.loading$ = dashboardLoadingService.loading$;
   }
 
   ngOnInit() {
@@ -32,8 +33,7 @@ export class CreateParcelComponent implements OnInit {
 
   onParcelResult(parcel: Parcel) {
     this.parcelService.createParcel(parcel).pipe(
-      loadingIndicator(this.loading$),
-      loadingIndicator(this.dashboardLoadingService.loading$)
+      withLoading(this.loading$)
     ).subscribe(value => {
       this.parcelFormComponent.displaySuccess(() => {
         this.parcelFormComponent.resetForm();

@@ -3,8 +3,8 @@ import {Parcel} from '../../../../shared/models/parcel';
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
-import {DashboardLoadingService} from '../../components/dashboard-loading.service';
-import {loadingIndicator} from '../../../../shared/helpers/operators';
+import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
+import {withLoading} from '../../../../shared/helpers/operators';
 
 @Component({
   selector: 'app-parcels',
@@ -17,10 +17,10 @@ export class ParcelsComponent implements OnInit {
   parcels = new Array<Parcel>();
 
   constructor(private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService) {
-    this.getParcels();
   }
 
   ngOnInit() {
+    this.getParcels();
   }
 
   onParcelDeleted(parcel: Parcel) {
@@ -29,12 +29,11 @@ export class ParcelsComponent implements OnInit {
 
   private getParcels() {
     this.parcelService.getParcels().pipe(
-      loadingIndicator(this.dashboardLoadingService.loading$)
+      withLoading(this.dashboardLoadingService.loading$)
     ).subscribe(value => {
       this.parcels.splice(0, this.parcels.length);
       this.parcels.push(...value);
     }, error => {
     });
   }
-
 }

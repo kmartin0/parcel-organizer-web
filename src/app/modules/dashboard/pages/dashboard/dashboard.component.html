@@ -1,11 +1,12 @@
 <div class="dashboard-container">
-  <app-header [title]="title" (changeNavBarState)="navBarState = $event" [navBarState]="navBarState"></app-header>
+  <app-header [title]="title" (changeNavBarState)="navBarState = $event" [navBarState]="navBarState"
+              [loading$]="loading$"></app-header>
 
   <app-nav [navBarState]="navBarState" (navBarStateChanged)="navBarState = $event"></app-nav>
 
-    <app-dashboard-content>
-      <router-outlet></router-outlet>
-    </app-dashboard-content>
+  <app-dashboard-content>
+    <router-outlet></router-outlet>
+  </app-dashboard-content>
 
 </div>
 

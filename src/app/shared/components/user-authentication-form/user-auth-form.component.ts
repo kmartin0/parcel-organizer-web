@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {FormComponent} from '../dynamic-form/form/form.component';
 import {UserService} from '../../services/user.service';
 import {Subject} from 'rxjs';
-import {loadingIndicator} from '../../helpers/operators';
+import {withLoading} from '../../helpers/operators';
 import {isApiErrorBody} from '../../models/api-error-body';
 import {ApiErrorEnum} from '../../../api/api-error.enum';
 import {LOGIN_FORM, LOGIN_FORM_KEYS} from './user-auth.form';

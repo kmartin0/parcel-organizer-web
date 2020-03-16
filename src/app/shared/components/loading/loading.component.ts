@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../anim/enter-leave.anim';
@@ -12,7 +12,7 @@ import {enterLeaveTransition} from '../../anim/enter-leave.anim';
 })
 export class LoadingComponent implements OnInit {
 
-  @Input() loading$?: Subject<boolean>;
+  @Input() loading$?: Observable<boolean>;
   @Input() width: string = '40px';
   @Input() height: string = '40px';
   @Input() color: string = 'var(--color-primary)';

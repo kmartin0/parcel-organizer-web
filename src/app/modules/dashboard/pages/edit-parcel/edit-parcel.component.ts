@@ -5,8 +5,8 @@ import {switchMap} from 'rxjs/operators';
 import {Parcel} from '../../../../shared/models/parcel';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
-import {loadingIndicator} from '../../../../shared/helpers/operators';
-import {DashboardLoadingService} from '../../components/dashboard-loading.service';
+import {withLoading} from '../../../../shared/helpers/operators';
+import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {PARCEL_FORM_KEYS} from '../../components/parcel-form/parcel.form';
 import {Subject} from 'rxjs';
 import {trigger} from '@angular/animations';
@@ -22,13 +22,15 @@ import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.comp
 })
 export class EditParcelComponent implements OnInit {
 
+  loading$: Subject<boolean>;
+
+  @ViewChild(ParcelFormComponent, {static: false}) private _parcelFormComponent: ParcelFormComponent;
   private _hasAccess: boolean = undefined;
   private parcelToEdit: Parcel;
-  private loading$ = new Subject<boolean>();
-  @ViewChild(ParcelFormComponent, {static: false}) private _parcelFormComponent: ParcelFormComponent;
 
   constructor(private parcelService: ParcelService, private route: ActivatedRoute, private dashboardLoadingService: DashboardLoadingService,
               private changeDetectorRef: ChangeDetectorRef, private location: Location) {
+    this.loading$ = dashboardLoadingService.loading$;
   }
 
   get hasAccess(): boolean {
@@ -61,8 +63,7 @@ export class EditParcelComponent implements OnInit {
     parcel.id = this.parcelToEdit.id;
 
     this.parcelService.editParcel(parcel).pipe(
-      loadingIndicator(this.loading$),
-      loadingIndicator(this.dashboardLoadingService.loading$)
+      withLoading(this.loading$),
     ).subscribe(parcel => {
       this.handleEditSuccess();
     }, error => {
@@ -79,7 +80,7 @@ export class EditParcelComponent implements OnInit {
   private getParcelToEdit() {
     this.route.paramMap.pipe(
       switchMap(params => {
-          return this.parcelService.getParcel(params.get('id')).pipe(loadingIndicator(this.dashboardLoadingService.loading$));
+          return this.parcelService.getParcel(params.get('id')).pipe(withLoading(this.loading$));
         }
       )
     ).subscribe(parcel => {

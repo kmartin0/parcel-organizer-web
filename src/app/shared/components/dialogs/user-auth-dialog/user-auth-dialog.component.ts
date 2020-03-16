@@ -4,7 +4,7 @@ import {Styles} from '@fortawesome/fontawesome-svg-core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Subject} from 'rxjs';
 import {UserAuthentication} from '../../../models/user-authentication';
-import {loadingIndicator} from '../../../helpers/operators';
+import {withLoading} from '../../../helpers/operators';
 import {UserAuthFormComponent} from '../../user-authentication-form/user-auth-form.component';
 import {UserService} from '../../../services/user.service';
 
@@ -42,7 +42,7 @@ export class UserAuthDialogComponent implements OnInit {
 
   authenticateUser(userAuthentication: UserAuthentication) {
     this.userService.loginUser(userAuthentication.email, userAuthentication.password)
-      .pipe(loadingIndicator(this.loading$))
+      .pipe(withLoading(this.loading$))
       .subscribe(value => {
         this.userAuthFormComponent.displaySuccess(() => {
           this.dialogRef.close(true);

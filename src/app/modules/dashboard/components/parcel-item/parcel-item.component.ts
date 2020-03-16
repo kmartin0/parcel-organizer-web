@@ -14,14 +14,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {DeleteDialogComponent} from '../../../../shared/components/dialogs/delete-dialog/delete-dialog.component';
 import {ParcelService} from '../../../../shared/services/parcel.service';
-import {DashboardLoadingService} from '../dashboard-loading.service';
-import {loadingIndicator} from '../../../../shared/helpers/operators';
+import {DashboardLoadingService} from '../../pages/dashboard/dashboard-loading.service';
+import {withLoading} from '../../../../shared/helpers/operators';
 import {Router} from '@angular/router';
 import {EDIT_PARCEL} from '../../../../shared/constants/endpoints';
 import {prefixUrl} from '../../../../shared/helpers/url.helper';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {CdkCopyToClipboard, Clipboard} from '@angular/cdk/clipboard';
+import {Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-parcel-item',
@@ -60,12 +60,14 @@ export class ParcelItemComponent implements OnInit {
   }
 
   onParcelDeleteClick() {
+    console.log(this.parcel);
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: {toDelete: this.parcel.title},
       panelClass: 'app-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log('after closed');
       if (result) {
         this.deleteParcel();
       }
@@ -73,8 +75,9 @@ export class ParcelItemComponent implements OnInit {
   }
 
   deleteParcel() {
+    console.log(this.parcel);
     this.parcelService.deleteParcel(this.parcel.id)
-      .pipe(loadingIndicator(this.dashboardLoadingService.loading$))
+      .pipe(withLoading(this.dashboardLoadingService.loading$))
       .subscribe(value => {
         this.parcelDeleted.emit(this.parcel);
       }, error => {

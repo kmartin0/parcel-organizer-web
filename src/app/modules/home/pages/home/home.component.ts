@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 import {DASHBOARD} from '../../../../shared/constants/endpoints';
 import {RedirectService} from '../../../../shared/services/redirect.service';
 import {User} from '../../../../shared/models/user';
-import {loadingIndicator} from '../../../../shared/helpers/operators';
+import {withLoading} from '../../../../shared/helpers/operators';
 import {UserFormComponent} from '../../../../shared/components/user-form/user-form.component';
 import {Subject} from 'rxjs';
 import {UserAuthentication} from '../../../../shared/models/user-authentication';
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
 
   authenticateUser(userAuthentication: UserAuthentication) {
     this.userService.loginUser(userAuthentication.email, userAuthentication.password)
-      .pipe(loadingIndicator(this.loading$))
+      .pipe(withLoading(this.loading$))
       .subscribe(value => {
         this.handleAuthSuccess();
       }, apiError => {
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
 
   registerUser(user: User) {
     this.userService.registerUser(user).pipe(
-      loadingIndicator(this.loading$)
+      withLoading(this.loading$)
     ).subscribe(user => {
       this.handleRegisterSuccess();
     }, apiError => {

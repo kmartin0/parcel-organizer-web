@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {Parcel} from '../../../../shared/models/parcel';
@@ -6,12 +6,11 @@ import {Subject} from 'rxjs';
 import {PARCEL_FORM, PARCEL_FORM_KEYS} from './parcel.form';
 import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
 import {ParcelService} from '../../../../shared/services/parcel.service';
-import {DashboardLoadingService} from '../dashboard-loading.service';
 import {ParcelStatus} from '../../../../shared/models/parcel-status';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
-import {loadingIndicator} from '../../../../shared/helpers/operators';
+import {withLoading} from '../../../../shared/helpers/operators';
 
 @Component({
   selector: 'app-parcel-form',
@@ -21,17 +20,18 @@ import {loadingIndicator} from '../../../../shared/helpers/operators';
 })
 export class ParcelFormComponent implements AfterViewInit {
 
-  previewParcel: Parcel;
-  loading$ = new Subject<boolean>();
-  parcelForm = PARCEL_FORM;
+  @Input() loading$: Subject<boolean>;
+  @Input() formName: string;
   @Output() parcelResult = new EventEmitter<Parcel>();
+  previewParcel: Parcel;
+  parcelForm = PARCEL_FORM;
 
   @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;
   get formComponent(): FormComponent {
     return this._formComponent;
   }
 
-  constructor(private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService) {
+  constructor(private parcelService: ParcelService) {
     this.previewParcel = new class implements Parcel {
       courier: string = '';
       id: number;
@@ -63,8 +63,7 @@ export class ParcelFormComponent implements AfterViewInit {
       lastUpdated: Date;
     };
     this.parcelService.getParcelStatus(formValues[PARCEL_FORM_KEYS.parcelStatusEnum]).pipe(
-      loadingIndicator(this.loading$),
-      loadingIndicator(this.dashboardLoadingService.loading$)
+      withLoading(this.loading$)
     ).subscribe(parcelStatus => {
       parcel.parcelStatus = parcelStatus;
       this.parcelResult.emit(parcel);

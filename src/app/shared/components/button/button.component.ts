@@ -1,20 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
+import {Component, Input} from '@angular/core';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.css']
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent {
 
-  @Input() loading$?: Subject<boolean>;
-  @Input() width: string = "100%";
+  @Input() loading$?: Observable<boolean>;
+  @Input() width: string = '100%';
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
 }

@@ -1,4 +1,3 @@
 <div class="container">
-  <app-parcel-form (parcelResult)="onParcelResult($event)"></app-parcel-form>
+  <app-parcel-form formName="Create" [loading$]="loading$" (parcelResult)="onParcelResult($event)"></app-parcel-form>
 </div>
-
