@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {BaseApiService} from './base-api.service';
 import {User} from '../models/user';
-import {GET_USER, LOGIN, SAVE_USER} from '../../api/api-endpoints';
+import {GET_USER, LOGIN, SAVE_USER, UPDATE_USER} from '../../api/api-endpoints';
 import {HttpParams} from '@angular/common/http';
 import {map, mergeMap, tap} from 'rxjs/operators';
 import {Oauth2Credentials} from '../models/oauth2-credentials';
@@ -13,6 +13,8 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class UserService {
+
+  private STORAGE_USER_KEY = 'user';
 
   constructor(private baseApiService: BaseApiService, private router: Router) {
   }
@@ -48,16 +50,24 @@ export class UserService {
   }
 
   logoutUser() {
-    localStorage.removeItem('user');
+    localStorage.removeItem(this.STORAGE_USER_KEY);
     this.router.navigate([HOME]);
   }
 
   isUserLoggedIn(): boolean {
-    return localStorage.getItem('user') != null;
+    return localStorage.getItem(this.STORAGE_USER_KEY) != null;
   }
 
   getLoggedInUser(): User {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem(this.STORAGE_USER_KEY));
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.baseApiService.makePut<User>(UPDATE_USER, user);
+  }
+
+  persistUser(user: User) {
+    localStorage.setItem(this.STORAGE_USER_KEY, JSON.stringify(user));
   }
 
   private authenticateUser(email: string, password: string) {
@@ -82,10 +92,6 @@ export class UserService {
         return user;
       })
     );
-  }
-
-  private persistUser(user: User) {
-    localStorage.setItem('user', JSON.stringify(user));
   }
 
 }

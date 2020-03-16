@@ -24,7 +24,7 @@
       <app-user-auth-form [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN" [loading$]="loading$"
                           (userAuthResult)="authenticateUser($event)"></app-user-auth-form>
 
-      <app-user-form [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER" [loading$]="loading$"
+      <app-user-form formAction="Register" [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER" [loading$]="loading$"
                      (userResult)="registerUser($event)"></app-user-form>
 
     </div>

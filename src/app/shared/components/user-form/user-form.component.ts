@@ -16,6 +16,7 @@ import {FormComponent} from '../dynamic-form/form/form.component';
 })
 export class UserFormComponent implements OnInit {
 
+  @Input() formAction: string;
   @Input() loading$: Subject<boolean>;
   @Output() userResult = new EventEmitter<User>();
 
@@ -40,6 +41,7 @@ export class UserFormComponent implements OnInit {
       name: string = formValues[USER_FORM_KEYS.name];
       oauth2Credentials: Oauth2Credentials;
       password: string = formValues[USER_FORM_KEYS.password];
+      confirmPassword: string = formValues[USER_FORM_KEYS.confirmPassword]
     };
 
     this.userResult.emit(user);

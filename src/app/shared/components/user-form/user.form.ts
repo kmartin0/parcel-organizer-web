@@ -31,7 +31,7 @@ export const USER_FORM: TextBoxInputField[] = [
     type: 'password',
     label: 'Password',
     placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
-    validators: [Validators.required, Validators.minLength(6), Validators.maxLength(45)]
+    validators: [Validators.required, Validators.minLength(4), Validators.maxLength(45)]
   }),
   new TextBoxInputField({
     id: 'register-form-confirm-password',
@@ -39,6 +39,6 @@ export const USER_FORM: TextBoxInputField[] = [
     type: 'password',
     label: 'Confirm Password',
     placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
-    validators: [Validators.required, Validators.minLength(6), Validators.maxLength(45)]
+    validators: [Validators.required, Validators.minLength(4), Validators.maxLength(45)]
   })
 ];

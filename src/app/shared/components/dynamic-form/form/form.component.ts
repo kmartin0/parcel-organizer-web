@@ -1,4 +1,16 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import {ErrorMessageService} from '../../../services/error-message.service';
 import {takeUntil} from 'rxjs/operators';
@@ -9,7 +21,8 @@ import {BaseInputField} from '../base-input-field';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+  styleUrls: ['./form.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush // Used to fix Expression has changed after it was checked error.
 })
 export class FormComponent implements OnInit, OnDestroy {
 
