@@ -2,12 +2,13 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {BaseApiService} from './base-api.service';
 import {User} from '../models/user';
-import {GET_USER, LOGIN, SAVE_USER, UPDATE_USER} from '../../api/api-endpoints';
+import {CHANGE_PASSWORD, GET_USER, LOGIN, SAVE_USER, UPDATE_USER} from '../../api/api-endpoints';
 import {HttpParams} from '@angular/common/http';
 import {map, mergeMap, tap} from 'rxjs/operators';
 import {Oauth2Credentials} from '../models/oauth2-credentials';
 import {HOME} from '../constants/endpoints';
 import {Router} from '@angular/router';
+import {ChangePassword} from '../models/change-password';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,10 @@ export class UserService {
 
   persistUser(user: User) {
     localStorage.setItem(this.STORAGE_USER_KEY, JSON.stringify(user));
+  }
+
+  changePassword(changePassword: ChangePassword): Observable<User> {
+    return this.baseApiService.makePost<User>(CHANGE_PASSWORD, changePassword);
   }
 
   private authenticateUser(email: string, password: string) {

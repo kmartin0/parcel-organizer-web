@@ -5,5 +5,5 @@
 
 <div @form class="change-password-container surface">
   <h2>Change your password here</h2>
-  <app-user-auth-form></app-user-auth-form>
+  <app-change-password-form [loading$]="loading$" (changePasswordResult)="onChangePasswordResult($event)"></app-change-password-form>
 </div>

@@ -11,6 +11,8 @@ import {withLoading} from '../../../../shared/helpers/operators';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {switchMap} from 'rxjs/operators';
+import {ChangePassword} from '../../../../shared/models/change-password';
+import {ChangePasswordFormComponent} from '../../components/change-password-form/change-password-form.component';
 
 @Component({
   selector: 'app-account',
@@ -26,6 +28,11 @@ export class AccountComponent implements OnInit, AfterViewInit {
   @ViewChild(UserFormComponent, {static: false}) private _userFormComponent: UserFormComponent;
   get userFormComponent(): UserFormComponent {
     return this._userFormComponent;
+  }
+
+  @ViewChild(ChangePasswordFormComponent, {static: false}) private _changePasswordFormComponent: ChangePasswordFormComponent;
+  get changePasswordFormComponent(): ChangePasswordFormComponent {
+    return this._changePasswordFormComponent;
   }
 
   constructor(private dashboardLoadingService: DashboardLoadingService, private userService: UserService) {
@@ -74,6 +81,22 @@ export class AccountComponent implements OnInit, AfterViewInit {
         this.userFormComponent.formComponent.setError(USER_FORM_KEYS.password, 'Incorrect password.');
       }
     }
+  }
+
+  onChangePasswordResult(changePassword: ChangePassword) {
+    this.userService.changePassword(changePassword).pipe(
+      withLoading(this.loading$)
+    ).subscribe(value => {
+      this.handleChangePasswordSuccess();
+    }, error => {
+      this.changePasswordFormComponent.handleApiError(error);
+    });
+  }
+
+  handleChangePasswordSuccess() {
+    this.changePasswordFormComponent.displaySuccess(() => {
+      this.changePasswordFormComponent.formComponent.resetForm();
+    });
   }
 
 }

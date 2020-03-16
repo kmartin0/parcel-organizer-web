@@ -18,8 +18,11 @@ import {ParcelFormComponent} from './components/parcel-form/parcel-form.componen
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
 
-
+//TODO: parcels paginate, sort, filter.
+//TODO: abstract forms/form components.
+//TODO: check email changed elsewhere (android). authentication (retry login when invalid token/grant but not on login or something.)
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -32,7 +35,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     AccountComponent,
     ParcelItemComponent,
     EditParcelComponent,
-    ParcelFormComponent
+    ParcelFormComponent,
+    ChangePasswordFormComponent
   ],
     imports: [
         CommonModule,
