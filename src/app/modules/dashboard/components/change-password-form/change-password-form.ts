@@ -13,7 +13,7 @@ export const CHANGE_PASSWORD_FORM = [
     key: CHANGE_PASSWORD_FORM_KEYS.currentPassword,
     type: 'password',
     label: 'Current Password',
-    placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
+    placeholder: '••••',
     validators: [Validators.required]
   }),
   new TextBoxInputField({
@@ -21,7 +21,7 @@ export const CHANGE_PASSWORD_FORM = [
     key: CHANGE_PASSWORD_FORM_KEYS.newPassword,
     type: 'password',
     label: 'New Password',
-    placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
+    placeholder: '••••',
     validators: [Validators.required, Validators.minLength(4)]
   }),
   new TextBoxInputField({
@@ -29,7 +29,7 @@ export const CHANGE_PASSWORD_FORM = [
     key: CHANGE_PASSWORD_FORM_KEYS.confirmPassword,
     type: 'password',
     label: 'Confirm Password',
-    placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
+    placeholder: '••••',
     validators: [Validators.required, Validators.minLength(4)]
   })
 ];

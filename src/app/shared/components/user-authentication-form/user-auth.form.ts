@@ -20,7 +20,7 @@ export const USER_AUTH_FORM: TextBoxInputField[] = [
     key: USER_AUTH_FORM_KEYS.password,
     type: 'password',
     label: 'Password',
-    placeholder: '\u25cf\u25cf\u25cf\u25cf\u25cf\u25cf',
+    placeholder: '••••',
     validators: Validators.required
   })
 ];
