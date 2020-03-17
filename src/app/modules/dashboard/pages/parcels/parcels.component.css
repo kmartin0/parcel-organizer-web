@@ -1,3 +1,9 @@
+:host {
+  --max-parcel-items-row: 3;
+  --parcels-item-gap: 22px;
+  --parcels-max-width: calc((var(--pi-width) + (var(--parcels-item-gap) * 2)) * var(--max-parcel-items-row));
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -12,8 +18,23 @@
   align-items: center;
 }
 
-@media (max-width: 600px) {
+.item-wrapper {
+  margin: var(--parcels-item-gap);
+  flex: 0 0 var(--pi-width);
+}
+
+@media (max-width: 991px) {
   .parcels {
     justify-content: center;
+  }
+
+  .item-wrapper {
+    flex: 0 0 550px;
+  }
+}
+
+@media (max-width: 600px) {
+  .item-wrapper {
+    flex: 0 0 100%;
   }
 }

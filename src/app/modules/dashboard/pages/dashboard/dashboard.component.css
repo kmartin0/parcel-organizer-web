@@ -1,7 +1,7 @@
 .dashboard-container {
   display: grid;
   grid-template-columns: min-content 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr;
   grid-template-areas: "nav header" "nav content";
   height: 100vh;
 }

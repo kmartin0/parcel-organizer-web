@@ -58,5 +58,13 @@ $custom-typography: mat-typography-config(
 }
 
 .mat-snack-bar-container {
-  background: var(--color-surface);
+  background: var(--color-primary);
+}
+
+.mat-title{
+  margin: 0 auto 12px auto;
+  width: fit-content;
+  text-align: center;
+  padding: 0 12px 4px 12px;
+  border-bottom: 2px rgba(255, 255, 255, 0.5) solid;
 }

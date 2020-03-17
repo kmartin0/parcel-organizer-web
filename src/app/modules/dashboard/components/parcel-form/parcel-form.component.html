@@ -3,7 +3,7 @@
     <app-form [formName]="formAction" [inputFields]="form" (formValidSubmit)="onValidForm($event)" [loading$]="loading$"></app-form>
   </div>
   <div class="preview surface">
-    <h2>Preview your parcel here</h2>
+    <div class="mat-title">Preview your parcel here</div>
     <app-parcel-item [parcel]="previewParcel"></app-parcel-item>
   </div>
 </div>

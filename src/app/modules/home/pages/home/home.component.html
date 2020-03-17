@@ -1,12 +1,10 @@
 <div class="content">
-  <div class="header">
-    <img class="logo-top" src="assets/ic_box.svg" alt="logo">
-    <div>
-      <h1 id="title">Parcel Organizer</h1>
-      <h2 id="subtitle">Simple organizing of your parcels</h2>
-    </div>
-    <div class="logo-top"></div>
-  </div>
+
+  <header>
+    <h1 id="title">Parcel Organizer</h1>
+    <h2 id="subtitle">Simple organizing of your parcels</h2>
+  </header>
+
   <div class="center-container surface">
 
     <div class="logo-center-container">
@@ -20,11 +18,11 @@
         <input id="register" type="radio" formControlName="formSelect" [value]=FORM_TYPES.REGISTER class="register">
         <label for="register" class="select-form-label"> Register </label>
       </form>
-
       <app-user-auth-form [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN" [loading$]="loading$"
                           (validFormResult$)="authenticateUser($event)"></app-user-auth-form>
 
-      <app-user-form formAction="Register" [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER" [loading$]="loading$"
+      <app-user-form formAction="Register" [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER"
+                     [loading$]="loading$"
                      (validFormResult$)="registerUser($event)"></app-user-form>
 
     </div>

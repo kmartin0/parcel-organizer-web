@@ -1,5 +1,4 @@
 .container {
-  width: 300px;
   background-color: var(--color-surface);
   display: flex;
   flex-direction: column;
@@ -44,4 +43,10 @@ fa-icon {
 .action-button:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 1);
+}
+
+@media (min-width: 550px) {
+  .container {
+    width: 350px;
+  }
 }

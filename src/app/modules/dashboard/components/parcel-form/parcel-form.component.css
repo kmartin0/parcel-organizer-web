@@ -12,15 +12,7 @@
 }
 
 app-parcel-item {
-  pointer-events: none
-}
-
-h2 {
-  font-weight: 600;
-}
-
-@media only screen and (max-width: 768px) {
-  .container {
-    margin-top: 0
-  }
+  margin: 12px 0;
+  pointer-events: none;
+  width: 100%;
 }

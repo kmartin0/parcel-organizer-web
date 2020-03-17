@@ -11,8 +11,8 @@
 }
 
 .container {
-  width: var(--pi-width);
-  margin: var(--pi-margin);
+  /*width: var(--pi-width);*/
+  width: 100%;
   padding: 12px;
   border-radius: 12px;
   color: var(--pi-color-on);
@@ -79,7 +79,7 @@
 
 .action-icon:hover {
   cursor: pointer;
-  color: var(--pi-color-action);
+  color: var(--pi-color-action-hover);
 }
 
 .clickable:hover {
@@ -88,6 +88,7 @@
 
 .action-icon {
   margin-right: 6px;
+  color: var(--pi-color-action);
 }
 
 .action-icon:last-child {
@@ -105,4 +106,3 @@
 .delivered {
   background-color: var(--pi-color-delivered);
 }
-

@@ -8,9 +8,9 @@
 
 label {
   margin-bottom: 4px;
-  font-size: 15px;
+  font-size: .9em;
   color: black;
-  font-weight: bold;
+  font-weight: 600;
   display: block;
 }
 

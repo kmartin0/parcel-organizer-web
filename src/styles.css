@@ -30,13 +30,11 @@
   --pi-color-delivered: #1B5E20;
   --pi-color-on: #F3FEE2;
   --pi-color-title: #FFCA28;
-  --pi-color-action: #b8c3a7;
+  --pi-color-action: #faffb5;
+  --pi-color-action-hover: #dce199;
 
-  /*Parcel item properties*/
+  /*Parcel item global properties*/
   --pi-width: 400px;
-  --pi-margin: 22px;
-  --max-parcel-items-row: 3;
-  --parcels-max-width: calc((var(--pi-width) + (var(--pi-margin) * 2)) * var(--max-parcel-items-row));
 }
 
 body {

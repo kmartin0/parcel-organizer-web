@@ -2,18 +2,9 @@
   padding: 15px;
 }
 
-.header {
+header {
   text-align: center;
-  flex-direction: row;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
-}
-
-.logo-top {
-  width: 11%;
-  min-width: 70px;
-  margin: 0 15px;
+  margin-bottom: 24px;
 }
 
 #title {
@@ -58,7 +49,7 @@
 .select-form-label {
   width: 40%;
   font-size: 22px;
-  padding-bottom: 5px;
+  padding-bottom: 12px;
   margin: 0 15px 10px 0;
   display: inline-block;
   border-bottom: 2px solid transparent;
@@ -94,8 +85,18 @@
   }
 }
 
-@media only screen and (min-width: 768px) {
-  .logo-top {
-    display: none;
+@media only screen and (max-width: 390px) {
+  #title {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  #subtitle {
+    font-size: 18px;
+  }
+
+  #title, #subtitle {
+    line-height: 1.4em;
+    margin: 3px 0;
   }
 }

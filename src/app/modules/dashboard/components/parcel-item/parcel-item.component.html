@@ -15,7 +15,6 @@
         <span class="information-text">{{parcel.sender}}</span>
       </div>
       <div class="right" [ngSwitch]="parcel.parcelStatus.status">
-        <span class="information-text">{{parcel.parcelStatus.status}}</span>
         <fa-icon *ngSwitchCase="parcelStatuses.ORDERED" class="information-icon" [icon]="faIcons.ordered"
                  [styles]="faIconStyle"></fa-icon>
         <fa-icon *ngSwitchCase="parcelStatuses.SENT" class="information-icon" [icon]="faIcons.sent"
@@ -30,12 +29,22 @@
         <fa-icon class="information-icon" [icon]="faIcons.courier" [styles]="faIconStyle"></fa-icon>
         <span class="information-text">{{parcel.courier}}</span>
       </div>
+      <div class="right">
+        <span class="information-text">{{parcel.parcelStatus.status}}</span>
+      </div>
     </div>
 
     <div class="information-item">
       <div class="left">
         <fa-icon class="information-icon" [icon]="faIcons.additionalInfo" [styles]="faIconStyle"></fa-icon>
         <span class="information-text">{{parcel.additionalInformation}}</span>
+      </div>
+      <div class="right">
+        <fa-icon (click)="onShareParcelClick(); $event.stopPropagation()" class="information-icon action-icon"
+                 [icon]="faIcons.share"
+                 [styles]="faIconStyle"
+                 [matTooltip]="parcel.trackingUrl"
+                 matTooltipShowDelay="500"></fa-icon>
       </div>
     </div>
 
@@ -48,11 +57,6 @@
         <fa-icon (click)="onEditParcelClick();$event.stopPropagation()" class="information-icon action-icon"
                  [icon]="faIcons.edit"
                  [styles]="faIconStyle"></fa-icon>
-        <fa-icon (click)="onShareParcelClick(); $event.stopPropagation()" class="information-icon action-icon"
-                 [icon]="faIcons.share"
-                 [styles]="faIconStyle"
-                 [matTooltip]="parcel.trackingUrl"
-                 matTooltipShowDelay="500"></fa-icon>
         <fa-icon (click)="onParcelDeleteClick();$event.stopPropagation()" class="information-icon action-icon"
                  [icon]="faIcons.delete"
                  [styles]="faIconStyle"></fa-icon>
