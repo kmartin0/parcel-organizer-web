@@ -10,13 +10,13 @@ app.use(bodyParser.json());
 const distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
+// Pass our application into our routes.
+app.get('*', function (req, res) {
+  res.sendfile('./dist/index.html'); // load our index.html file
+});
+
 // Initialize the app.
 const server = app.listen(process.env.PORT || 8080, function () {
   const port = server.address().port;
   console.log("App now running on port", port);
-});
-
-// Pass our application into our routes.
-server.get('*', function (req, res) {
-  res.sendfile('./dist/index.html'); // load our index.html file
 });
