@@ -1,15 +1,19 @@
 :host {
   --max-parcel-items-row: 3;
   --parcels-item-gap: 22px;
+  --pi-width: 400px;
   --parcels-max-width: calc((var(--pi-width) + (var(--parcels-item-gap) * 2)) * var(--max-parcel-items-row));
 }
 
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  height: 100%;
 }
 
 .parcels {
+  align-self: center;
+  width: 100%;
   max-width: var(--parcels-max-width);
   display: flex;
   flex-wrap: wrap;
@@ -23,6 +27,29 @@
   flex: 0 0 var(--pi-width);
 }
 
+.paginator {
+  align-self: center;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-state-img {
+  width: 350px;
+}
+
+.empty-state-text {
+  text-align: center;
+  margin-bottom: 8px;
+  margin-top: 18px;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-on-default);
+}
+
 @media (max-width: 991px) {
   .parcels {
     justify-content: center;
@@ -30,6 +57,16 @@
 
   .item-wrapper {
     flex: 0 0 550px;
+  }
+
+  .empty-state-img {
+    width: 50%;
+    max-width: 250px;
+  }
+
+  .empty-state-text {
+    font-size: 18px;
+    font-weight: 600;
   }
 }
 

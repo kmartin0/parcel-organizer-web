@@ -4,10 +4,11 @@
 
   <app-nav [navBarState]="navBarState" (navBarStateChanged)="navBarState = $event"></app-nav>
 
-  <app-dashboard-content>
-    <router-outlet></router-outlet>
-  </app-dashboard-content>
-
+  <div cdkScrollable [attr.id]="dashboardContentWrapperId">
+    <app-dashboard-content>
+        <router-outlet></router-outlet>
+    </app-dashboard-content>
+  </div>
 </div>
 
 

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../../shared/services/user.service';
 import {NAV_BAR_STATES} from '../../components/nav/nav.component';
 import {ActivatedRoute, ChildActivationEnd, Router} from '@angular/router';
@@ -13,6 +13,7 @@ import {DashboardLoadingService} from './dashboard-loading.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
+  dashboardContentWrapperId = DASHBOARD_CONTENT_WRAPPER_ID;
   title: string;
   navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLOSED;
   user = this.userService.getLoggedInUser();
@@ -53,3 +54,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 }
+
+export const DASHBOARD_CONTENT_WRAPPER_ID = "dashboard-content-wrapper";

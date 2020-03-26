@@ -19,6 +19,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 //TODO: parcels paginate, sort, filter.
 //TODO: abstract forms/form components.
@@ -46,7 +47,8 @@ import {ChangePasswordFormComponent} from './components/change-password-form/cha
         HomeModule,
         MatSnackBarModule,
         ClipboardModule,
-        MatTooltipModule
+        MatTooltipModule,
+        ScrollingModule
     ]
 })
 export class DashboardModule {

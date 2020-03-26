@@ -1,7 +1,18 @@
-<div class="container">
+<div #parcelsContainer class="container">
   <div class="parcels">
-    <div @items *ngFor="let parcel of parcels" class="item-wrapper">
+    <div @items *ngFor="let parcel of curPageParcels" class="item-wrapper">
       <app-parcel-item [parcel]="parcel" (parcelDeleted)="onParcelDeleted($event)"></app-parcel-item>
     </div>
   </div>
+
+  <div class="paginator">
+    <app-paginator @items [hidden]="maxPages <= 1" [lastPage]="maxPages" [curPage]="curPage"
+                   (curPageEvent)="onPageChange($event)"></app-paginator>
+  </div>
+
+  <div @items *ngIf="!curPageParcels.length && parcelsFetched" class="empty-state">
+    <img class="empty-state-img" src="assets/ic_empty_box.svg" alt="empty-state">
+    <p class="empty-state-text">It appears no parcels could be found.</p>
+  </div>
+
 </div>

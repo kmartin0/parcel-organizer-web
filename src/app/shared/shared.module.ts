@@ -22,6 +22,7 @@ import {TypeOfPipe} from './pipes/type-of.pipe';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {UserFormComponent} from './components/user-form/user-form.component';
+import {PaginatorComponent} from './components/paginator/paginator.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -45,7 +46,8 @@ export function playerFactory() {
     UserAuthFormComponent,
     AccessDeniedComponent,
     TypeOfPipe,
-    UserFormComponent
+    UserFormComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -72,7 +74,8 @@ export function playerFactory() {
     UserAuthFormComponent,
     AccessDeniedComponent,
     TypeOfPipe,
-    UserFormComponent
+    UserFormComponent,
+    PaginatorComponent
   ],
   entryComponents: [DeleteDialogComponent, ErrorDialogComponent, UserAuthDialogComponent]
 })

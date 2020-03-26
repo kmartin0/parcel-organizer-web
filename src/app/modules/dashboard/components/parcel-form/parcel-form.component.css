@@ -15,4 +15,5 @@ app-parcel-item {
   margin: 12px 0;
   pointer-events: none;
   width: 100%;
+  max-width: 525px;
 }
