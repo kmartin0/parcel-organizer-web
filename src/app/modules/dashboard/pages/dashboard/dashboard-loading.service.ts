@@ -17,6 +17,7 @@ export class DashboardLoadingService {
   constructor() {
     this._loading$ = new Subject<boolean>().pipe(
       filter(value => {
+        // console.log(value);
         value ? this.loadingRequests++ : this.loadingRequests--;
         if (this.loadingRequests == 1 && value) {
           return true;

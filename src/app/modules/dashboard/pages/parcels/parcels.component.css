@@ -50,6 +50,12 @@
   color: var(--color-on-default);
 }
 
+.filter-form {
+  width: 75%;
+  margin: auto;
+  max-width: 650px;
+}
+
 @media (max-width: 991px) {
   .parcels {
     justify-content: center;

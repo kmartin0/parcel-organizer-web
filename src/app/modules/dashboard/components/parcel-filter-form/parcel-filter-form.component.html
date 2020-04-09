@@ -1,0 +1,60 @@
+<div class="surface">
+  <form [formGroup]="filterForm">
+    <div class="search-section">
+      <button type="button" class="filter-icon" mat-icon-button aria-label="Show/hide filters">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+
+      <mat-form-field class="search-field" color="primary" appearance="standard">
+        <mat-label id="search-label">Search</mat-label>
+        <input [formControlName]="filterFormKeys.search" aria-labelledby="search-label" #searchInput="matInput"
+               autocomplete="off" matInput>
+        <mat-icon [ngClass]="{'input-focus': searchInput.focused}" matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="filters-section">
+      <div [formGroupName]="filterFormKeys.statusGroupName" class="section-checkbox">
+        <label class="section-label" id="status-label">Status</label>
+        <mat-checkbox [formControlName]="filterFormKeys.statusGroup.ordered" aria-labelledby="status-label"
+                      color="primary" [value]="statusOptions.ORDERED">Ordered
+        </mat-checkbox>
+        <mat-checkbox [formControlName]="filterFormKeys.statusGroup.sent" aria-labelledby="status-label"
+                      color="primary" [value]="statusOptions.SENT">Sent
+        </mat-checkbox>
+        <mat-checkbox [formControlName]="filterFormKeys.statusGroup.delivered" aria-labelledby="status-label"
+                      color="primary" [value]="statusOptions.DELIVERED">Delivered
+        </mat-checkbox>
+      </div>
+
+      <div class="section-checkbox">
+        <label class="section-label" id="search-by-label">Search By</label>
+        <mat-radio-group [formControlName]="filterFormKeys.searchBy" aria-labelledby="search-by-label">
+          <mat-radio-button color="primary" [value]="searchByOptions.TITLE">Title</mat-radio-button>
+          <mat-radio-button color="primary" [value]="searchByOptions.SENDER">Sender</mat-radio-button>
+          <mat-radio-button color="primary" [value]="searchByOptions.COURIER">Courier</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="section-checkbox">
+        <label class="section-label" id="order-by-label">Order By</label>
+        <mat-radio-group [formControlName]="filterFormKeys.orderBy" aria-labelledby="order-by-label">
+          <mat-radio-button color="primary" [value]="orderByOptions.TITLE">Title</mat-radio-button>
+          <mat-radio-button color="primary" [value]="orderByOptions.SENDER">Sender</mat-radio-button>
+          <mat-radio-button color="primary" [value]="orderByOptions.COURIER">Courier</mat-radio-button>
+          <mat-radio-button color="primary" [value]="orderByOptions.LAST_UPDATED">Last Updated</mat-radio-button>
+          <mat-radio-button color="primary" [value]="orderByOptions.STATUS">Status</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="section-checkbox">
+        <label class="section-label" id="order-direction">Order Direction</label>
+        <mat-radio-group [formControlName]="filterFormKeys.orderDirection" aria-labelledby="order-direction">
+          <mat-radio-button color="primary" [value]="orderDirection.ASCENDING">Ascending</mat-radio-button>
+          <mat-radio-button color="primary" [value]="orderDirection.DESCENDING">Descending</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </form>
+</div>
+

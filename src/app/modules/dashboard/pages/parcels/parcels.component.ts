@@ -9,6 +9,11 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {isNumeric} from 'rxjs/internal-compatibility';
 import {ScrollDispatcher} from '@angular/cdk/overlay';
 import {DASHBOARD_CONTENT_WRAPPER_ID} from '../dashboard/dashboard.component';
+import {PagingConfig} from './paging-config';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
+import {delay, map, switchMap, tap,} from 'rxjs/operators';
+import {ParcelSearchOptionsEnum, ParcelsSortFilterConfig} from './parcels-sort-filter-config';
+import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 
 @Component({
   selector: 'app-parcels',
@@ -18,17 +23,122 @@ import {DASHBOARD_CONTENT_WRAPPER_ID} from '../dashboard/dashboard.component';
 })
 export class ParcelsComponent implements OnInit {
 
-  parcels = new Array<Parcel>();
-  pageSize = 20;
-  maxPages = 1;
-  curPage = 1;
-  curPageParcels = new Array<Parcel>();
+  repoParcels$: BehaviorSubject<Parcel[]>;
   parcelsFetched = false;
+
+  pagingConfig$ = new BehaviorSubject(new PagingConfig());
+  sortAndFilterConfig$: BehaviorSubject<ParcelsSortFilterConfig> = new BehaviorSubject(null).pipe(delay(0)) as BehaviorSubject<ParcelsSortFilterConfig>;
+  curPageParcels$: BehaviorSubject<Parcel[]>;
 
   @ViewChild('parcelsContainer') divView: ElementRef;
 
-  constructor(private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService, private route: ActivatedRoute,
+  constructor(private parcelService: ParcelService, public dashboardLoadingService: DashboardLoadingService, private route: ActivatedRoute,
               private router: Router, private scrollDispatcher: ScrollDispatcher) {
+
+    this.repoParcels$ = new BehaviorSubject(new Array<Parcel>());
+    this.curPageParcels$ = new BehaviorSubject<Parcel[]>(new Array<Parcel>());
+
+    const filterSortParcels = combineLatest([this.sortAndFilterConfig$]).pipe(
+      switchMap(([sortAndFilterConfig]) => {
+        return this.repoParcels$
+          .pipe(
+            switchMap(repoParcels => this.filterParcels(repoParcels, sortAndFilterConfig)),
+            switchMap(filteredParcels => this.sortParcels(filteredParcels, sortAndFilterConfig)),
+            tap(filterSortParcels => this.updateMaxPage(filterSortParcels.length)),
+          );
+      }),
+    );
+
+    combineLatest([filterSortParcels, this.pagingConfig$]).pipe(
+      map(([filterSortParcels, paging]) => {
+        const endIndex = paging.curPage == 1 ? paging.pageSize : paging.curPage * paging.pageSize;
+        const startIndex = endIndex - paging.pageSize;
+
+        return filterSortParcels.slice(startIndex, endIndex);
+      }),
+    ).subscribe(curPageParcels => {
+      this.curPageParcels$.next(curPageParcels);
+    });
+  }
+
+  updateMaxPage(numOfPages: number) {
+    const paging = this.pagingConfig$.value;
+    paging.setMaxPagesBySize(numOfPages);
+    this.pagingConfig$.next(paging);
+  }
+
+  sortParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig): Observable<Parcel[]> {
+    return new Observable<Parcel[]>(subscriber => {
+      if (!filters) {
+        subscriber.next(parcels);
+      } else {
+        subscriber.next(parcels);
+      }
+      subscriber.complete();
+    }).pipe(withLoading(this.dashboardLoadingService.loading$));
+  }
+
+  filterParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig): Observable<Parcel[]> {
+    return new Observable<Parcel[]>(subscriber => {
+      if (!filters) {
+        subscriber.next(parcels);
+      } else {
+        subscriber.next(
+          parcels.filter(parcel => {
+            // Filter the parcel if the parcel status matches a filter from the status filters.
+            if (this.isParcelStatusMatchingFilter(parcel, filters.statusFilters)) {
+              return false;
+            }
+
+            // Filter the parcel if the start of the search by property doesn't match the search query.
+            return filters.searchQuery ? this.isParcelMatchingQuery(parcel, filters.searchQuery, filters.searchBy) : true;
+          })
+        );
+      }
+      subscriber.complete();
+    }).pipe(withLoading(this.dashboardLoadingService.loading$),);
+  }
+
+  /**
+   * Check if the parcel status matches a filter.
+   *
+   * @param parcel
+   * @param statusFilters
+   * @return True when a filter matches the parcel status. False when parcel status does not match any filters.
+   */
+  isParcelStatusMatchingFilter(parcel: Parcel, statusFilters: ParcelStatusEnum[]): boolean {
+    return !!statusFilters.find(statusFilter => statusFilter == parcel.parcelStatus.status);
+  }
+
+  /**
+   * Match query against parcel property using ParcelSearchOptionsEnum.
+   *
+   * @param parcel
+   * @param query
+   * @param searchBy
+   */
+  isParcelMatchingQuery(parcel: Parcel, query: string, searchBy: ParcelSearchOptionsEnum): boolean {
+    if (!query) {
+      return false;
+    }
+
+    let propertyToMatch: string;
+    switch (searchBy) {
+      case ParcelSearchOptionsEnum.COURIER:
+        propertyToMatch = parcel.courier;
+        break;
+      case ParcelSearchOptionsEnum.SENDER:
+        propertyToMatch = parcel.sender;
+        break;
+      case ParcelSearchOptionsEnum.TITLE:
+        propertyToMatch = parcel.title;
+    }
+
+    return propertyToMatch ? propertyToMatch.toLowerCase().startsWith(query) : false;
+  }
+
+  pageChangeParcels() {
+
   }
 
   ngOnInit() {
@@ -43,20 +153,14 @@ export class ParcelsComponent implements OnInit {
         if ('page' in params) {
           const pageParam = params.page;
           if (isNumeric(pageParam)) {
-            this.curPage = Number(pageParam);
-            this.updatePage();
+            // this.pagingConfig.curPage = Number(pageParam);
+
+            const tmpConfig = this.pagingConfig$.getValue();
+            tmpConfig.curPage = Number(pageParam);
+            this.pagingConfig$.next(tmpConfig);
           }
         }
       });
-  }
-
-  updatePage() {
-    this.maxPages = Math.ceil(this.parcels.length / this.pageSize);
-
-    const endIndex = this.curPage == 1 ? this.pageSize : this.curPage * this.pageSize;
-    const startIndex = endIndex - this.pageSize;
-
-    this.curPageParcels = this.parcels.slice(startIndex, endIndex);
   }
 
   onPageChange(newPage: number) {
@@ -74,26 +178,32 @@ export class ParcelsComponent implements OnInit {
   scrollTop() {
     this.scrollDispatcher.scrollContainers.forEach((value, key) => {
       if (key.getElementRef().nativeElement.id == DASHBOARD_CONTENT_WRAPPER_ID) {
-        key.scrollTo({top: 0, behavior: 'smooth'});
+        key.scrollTo({top: 0, behavior: 'auto'});
       }
     });
   }
 
   onParcelDeleted(parcel: Parcel) {
-    this.parcels = this.parcels.filter(item => item.id !== parcel.id);
+    this.repoParcels$.next(this.repoParcels$.getValue().filter(item => item.id !== parcel.id));
   }
 
   private getParcels() {
     this.parcelService.getParcels().pipe(
-      withLoading(this.dashboardLoadingService.loading$)
+      withLoading(this.dashboardLoadingService.loading$),
+      // map(value => {
+      //   let tmpParcels = value;
+      //   for (let i = 0; i < 10; i++) {
+      //     tmpParcels = tmpParcels.concat(tmpParcels);
+      //   }
+      //   console.log(tmpParcels.length);
+      //   return tmpParcels;
+      // })
     ).subscribe(value => {
-      this.parcels.splice(0, this.parcels.length);
-      this.parcels.push(...value);
       this.parcelsFetched = true;
-      this.updatePage();
+      this.repoParcels$.next(value);
+
     }, error => {
       this.parcelsFetched = true;
     });
   }
-
 }

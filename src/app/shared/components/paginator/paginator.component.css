@@ -17,7 +17,7 @@ ul > ul, li {
   font-family: Poppins, sans-serif;
   color: var(--color-on-default);
   background-color: var(--color-primary);
-  width: 40px;
+  min-width: 40px;
   height: 40px;
   margin: 3px;
   font-size: 14px;

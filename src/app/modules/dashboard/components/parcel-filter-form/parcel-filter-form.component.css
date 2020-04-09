@@ -1,0 +1,56 @@
+mat-form-field.mat-form-field {
+  font-size: 22px;
+}
+
+.section-label {
+  margin-bottom: 6px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.filters-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.section-checkbox {
+  padding: 12px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-section {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.filter-icon {
+  position: absolute;
+  margin-top: auto;
+  margin-bottom: auto;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.search-field {
+  flex-basis: 75%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-focus {
+  color: var(--color-primary)
+}

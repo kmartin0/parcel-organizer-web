@@ -1,18 +1,24 @@
 <div #parcelsContainer class="container">
+
+  <div class="filter-form">
+    <app-parcel-filter-form (sortFilterConfigEmitter)="sortAndFilterConfig$.next($event)"></app-parcel-filter-form>
+  </div>
+
   <div class="parcels">
-    <div @items *ngFor="let parcel of curPageParcels" class="item-wrapper">
+    <div @items *ngFor="let parcel of (curPageParcels$ | async)" class="item-wrapper">
       <app-parcel-item [parcel]="parcel" (parcelDeleted)="onParcelDeleted($event)"></app-parcel-item>
     </div>
   </div>
 
   <div class="paginator">
-    <app-paginator @items [hidden]="maxPages <= 1" [lastPage]="maxPages" [curPage]="curPage"
+    <app-paginator @items [hidden]="(pagingConfig$|async).maxPages <= 1"
+                   [lastPage]="(pagingConfig$|async).maxPages" [curPage]="(pagingConfig$|async).curPage"
                    (curPageEvent)="onPageChange($event)"></app-paginator>
   </div>
 
-  <div @items *ngIf="!curPageParcels.length && parcelsFetched" class="empty-state">
-    <img class="empty-state-img" src="assets/ic_empty_box.svg" alt="empty-state">
-    <p class="empty-state-text">It appears no parcels could be found.</p>
-  </div>
+  <!--  <div @items *ngIf="!(parcelsConfig$ | async).parcels.length && parcelsFetched" class="empty-state">-->
+  <!--    <img class="empty-state-img" src="assets/ic_empty_box.svg" alt="empty-state">-->
+  <!--    <p class="empty-state-text">It appears no parcels could be found.</p>-->
+  <!--  </div>-->
 
 </div>

@@ -20,6 +20,14 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {ParcelFilterFormComponent} from './components/parcel-filter-form/parcel-filter-form.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatButtonModule} from '@angular/material/button';
+import {ReactiveFormsModule} from '@angular/forms';
 
 //TODO: parcels paginate, sort, filter.
 //TODO: abstract forms/form components.
@@ -37,19 +45,27 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     ParcelItemComponent,
     EditParcelComponent,
     ParcelFormComponent,
-    ChangePasswordFormComponent
+    ChangePasswordFormComponent,
+    ParcelFilterFormComponent
   ],
-    imports: [
-        CommonModule,
-        DashboardRoutingModule,
-        FontAwesomeModule,
-        SharedModule,
-        HomeModule,
-        MatSnackBarModule,
-        ClipboardModule,
-        MatTooltipModule,
-        ScrollingModule
-    ]
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    FontAwesomeModule,
+    SharedModule,
+    HomeModule,
+    MatSnackBarModule,
+    ClipboardModule,
+    MatTooltipModule,
+    ScrollingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatButtonModule,
+    ReactiveFormsModule
+  ]
 })
 export class DashboardModule {
 }
