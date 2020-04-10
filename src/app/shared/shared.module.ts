@@ -23,6 +23,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {UserFormComponent} from './components/user-form/user-form.component';
 import {PaginatorComponent} from './components/paginator/paginator.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -57,7 +59,9 @@ export function playerFactory() {
     MatButtonModule,
     FontAwesomeModule,
     LottieModule.forRoot({player: playerFactory}),
-    RouterModule
+    RouterModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   exports: [
     FormComponent,

@@ -13,14 +13,15 @@ import {PagingConfig} from './paging-config';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ParcelsSortFilterConfig} from './parcels-sort-filter-config';
 import {ParcelDataSourceService} from './parcel-data-source.service';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-parcels',
   templateUrl: './parcels.component.html',
   styleUrls: ['./parcels.component.css'],
-  animations: [trigger('items', enterLeaveTransition)]
+  animations: [trigger('transition', enterLeaveTransition)]
 })
-// TODO: Fix/Think of paging.
+// TODO: Fix/Think of paging. Show/hide filter + mobile.
 export class ParcelsComponent implements OnInit {
 
   parcels$ = new BehaviorSubject(new Array<Parcel>());
@@ -33,43 +34,24 @@ export class ParcelsComponent implements OnInit {
   @ViewChild('parcelsContainer') divView: ElementRef;
 
   constructor(private parcelService: ParcelService, public dashboardLoadingService: DashboardLoadingService, private route: ActivatedRoute,
-              private router: Router, private scrollDispatcher: ScrollDispatcher, private parcelDataSourceService: ParcelDataSourceService) {
-
+              private router: Router, private scrollDispatcher: ScrollDispatcher, public parcelDataSourceService: ParcelDataSourceService) {
     this.curPageParcels$ = parcelDataSourceService.connect(this.parcels$, this.pagingConfig$, this.sortAndFilterConfig$, dashboardLoadingService.loading$);
+
+    this.curPageParcels$.subscribe(value => {
+      console.log(value);
+    });
   }
 
   ngOnInit() {
     this.getParcels();
-    this.observeQueryParams();
-  }
-
-  observeQueryParams() {
-    this.route
-      .queryParams
-      .subscribe(params => {
-        if ('page' in params) {
-          const pageParam = params.page;
-          if (isNumeric(pageParam)) {
-            // this.pagingConfig.curPage = Number(pageParam);
-
-            const tmpConfig = this.pagingConfig$.getValue();
-            tmpConfig.curPage = Number(pageParam);
-            this.pagingConfig$.next(tmpConfig);
-          }
-        }
-      });
   }
 
   onPageChange(newPage: number) {
-    const queryParams: Params = {page: newPage};
+    const tmpConfig = this.pagingConfig$.getValue();
+    tmpConfig.curPage = newPage;
+    this.pagingConfig$.next(tmpConfig);
 
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: queryParams,
-        queryParamsHandling: 'merge', // remove to replace all query params by provided
-      }).then(value => this.scrollTop());
+    this.scrollTop();
   }
 
   scrollTop() {
@@ -89,7 +71,7 @@ export class ParcelsComponent implements OnInit {
       withLoading(this.dashboardLoadingService.loading$),
       // map(value => {
       //   let tmpParcels = value;
-      //   for (let i = 0; i < 10; i++) {
+      //   for (let i = 0; i < 6; i++) {
       //     tmpParcels = tmpParcels.concat(tmpParcels);
       //   }
       //   console.log(tmpParcels.length);

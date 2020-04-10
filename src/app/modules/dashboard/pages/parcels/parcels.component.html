@@ -1,22 +1,22 @@
 <div #parcelsContainer class="container">
-  <div class="filter-form">
+  <div class="filter-form" [hidden]="!parcelsFetched">
     <app-parcel-filter-form (sortFilterConfigEmitter)="sortAndFilterConfig$.next($event)"></app-parcel-filter-form>
   </div>
 
   <div class="parcels">
-    <div @items *ngFor="let parcel of (curPageParcels$ | async)" class="item-wrapper">
+    <div @transition *ngFor="let parcel of (curPageParcels$ | async)" class="item-wrapper">
       <app-parcel-item [parcel]="parcel" (parcelDeleted)="onParcelDeleted($event)"></app-parcel-item>
     </div>
   </div>
 
-  <div @items *ngIf="!(curPageParcels$ | async).length && parcelsFetched" class="empty-state">
+  <div *ngIf="!(curPageParcels$ | async) && parcelsFetched" class="empty-state">
     <img class="empty-state-img" src="assets/ic_empty_box.svg" alt="empty-state">
     <p class="empty-state-text">It appears no parcels could be found.</p>
   </div>
 
-  <div class="paginator">
-    <app-paginator @items [hidden]="(pagingConfig$|async).maxPages <= 1"
-                   [lastPage]="(pagingConfig$|async).maxPages" [curPage]="(pagingConfig$|async).curPage"
+  <div *ngIf="pagingConfig$ | async as paging" class="paginator">
+    <app-paginator [hidden]="paging.maxPages <= 1"
+                   [lastPage]="paging.maxPages" [curPage]="paging.curPage"
                    (curPageEvent)="onPageChange($event)"></app-paginator>
   </div>
 </div>

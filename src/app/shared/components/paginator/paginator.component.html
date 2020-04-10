@@ -1,5 +1,5 @@
 <div class="container">
-<!-- Pagination selectors when there are more than 3 pages. -->
+  <!-- Pagination selectors when there are more than 3 pages. -->
   <ul *ngIf="lastPage > 3">
     <ul *ngIf="!(curPage == firstPage)">
       <li>
@@ -7,29 +7,19 @@
           <fa-icon [icon]="faIcons.left"></fa-icon>
         </button>
       </li>
-
-      <li>
-        <button class="nav-btn" (click)="onFirstPage()">{{firstPage}}</button>
-      </li>
-
-      <li>
-        <span class="dots">...</span>
-      </li>
     </ul>
 
     <li>
-      <button class="nav-btn cur-page">{{curPage}}</button>
+      <mat-form-field style="width: 50px; margin: 0 12px">
+        <mat-select (selectionChange)="onPage($event.value)" [(value)]="curPage">
+          <mat-option *ngFor="let page of getPages()" [value]="page">
+            {{page}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </li>
 
     <ul *ngIf="!(curPage == lastPage)">
-      <li>
-        <span class="dots">...</span>
-      </li>
-
-      <li>
-        <button class="nav-btn" (click)="onLastPage()">{{lastPage}}</button>
-      </li>
-
       <li>
         <button class="nav-btn" (click)="onNextPage()">
           <fa-icon [icon]="faIcons.right"></fa-icon>
@@ -47,7 +37,7 @@
     </li>
 
     <li>
-      <button class="nav-btn" [ngClass]="{'cur-page': curPage == 1}" (click)="onFirstPage()">1</button>
+      <button class="nav-btn" [ngClass]="{'cur-page': curPage == 1}" (click)="onPage(1)">1</button>
     </li>
 
     <li>
@@ -55,7 +45,7 @@
     </li>
 
     <li *ngIf="lastPage == 3">
-      <button class="nav-btn" [ngClass]="{'cur-page': curPage == 3}" (click)="onLastPage()">3</button>
+      <button class="nav-btn" [ngClass]="{'cur-page': curPage == 3}" (click)="onPage(3)">3</button>
     </li>
 
     <li *ngIf="!(curPage == lastPage)">

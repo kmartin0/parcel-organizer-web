@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.css']
+  styleUrls: ['./paginator.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PaginatorComponent implements OnInit {
 
@@ -29,6 +30,10 @@ export class PaginatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getPages(): number[] {
+    return Array.from(Array(this.lastPage).keys()).map(value => value+1);
+  }
+
   onPreviousPage() {
     if (this.curPage > this.firstPage) {
       this.setPageAndEmit(this.curPage - 1);
@@ -39,14 +44,6 @@ export class PaginatorComponent implements OnInit {
     if (this.curPage < this.lastPage) {
       this.setPageAndEmit(this.curPage + 1);
     }
-  }
-
-  onLastPage() {
-    this.setPageAndEmit(this.lastPage);
-  }
-
-  onFirstPage() {
-    this.setPageAndEmit(this.firstPage);
   }
 
   onPage(page: number) {

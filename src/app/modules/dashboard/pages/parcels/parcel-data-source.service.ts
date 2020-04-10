@@ -8,10 +8,9 @@ import {
   ParcelSearchOptionsEnum,
   ParcelsSortFilterConfig
 } from './parcels-sort-filter-config';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {map, share, switchMap, tap} from 'rxjs/operators';
 import {withLoading} from '../../../../shared/helpers/operators';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +21,7 @@ export class ParcelDataSourceService {
 
   connect(parcels$: Observable<Parcel[]>, paging$: BehaviorSubject<PagingConfig>, sortAndFilter$: Observable<ParcelsSortFilterConfig>, loading$?: Subject<boolean>): Observable<Parcel[]> {
 
+
     const filterSortParcels = combineLatest([sortAndFilter$]).pipe(
       switchMap(([sortAndFilterConfig]) => {
         return parcels$
@@ -29,9 +29,11 @@ export class ParcelDataSourceService {
             switchMap(parcels => this.filterParcels(parcels, sortAndFilterConfig, loading$)),
             switchMap(filteredParcels => this.sortParcels(filteredParcels, sortAndFilterConfig, loading$)),
             tap(filterSortParcels => {
-              const tmpPaging = paging$.value;
-              tmpPaging.setMaxPagesBySize(filterSortParcels.length);
-              paging$.next(tmpPaging);
+              setTimeout(() => {
+                const tmpPaging = paging$.value;
+                tmpPaging.setMaxPagesBySize(filterSortParcels.length);
+                paging$.next(tmpPaging);
+              }, 10);
             }),
           );
       }),
@@ -44,8 +46,7 @@ export class ParcelDataSourceService {
 
         return filterSortParcels.slice(startIndex, endIndex);
       }),
-    );
-
+    ).pipe(share());
   }
 
   sortParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig, loading$: Subject<boolean>): Observable<Parcel[]> {
@@ -53,7 +54,8 @@ export class ParcelDataSourceService {
       if (!filters) {
         subscriber.next(parcels);
       } else {
-        subscriber.next(parcels.sort((a, b) => {
+        console.log('...sorting', parcels.length);
+                subscriber.next(parcels.sort((a, b) => {
           let valueA = this.parcelOrderByAccessor(a, filters.orderBy);
           let valueB = this.parcelOrderByAccessor(b, filters.orderBy);
 
@@ -73,6 +75,7 @@ export class ParcelDataSourceService {
 
           return result * (filters.orderDirection == ParcelOrderDirectionEnum.ASCENDING ? 1 : -1);
         }));
+        console.log('...sorting done');
       }
       subscriber.complete();
     }).pipe(withLoading(loading$));
@@ -98,6 +101,7 @@ export class ParcelDataSourceService {
       if (!filters) {
         subscriber.next(parcels);
       } else {
+        console.log('...filtering', parcels.length);
         subscriber.next(
           parcels.filter(parcel => {
             // Filter the parcel if the parcel status matches a filter from the status filters.
