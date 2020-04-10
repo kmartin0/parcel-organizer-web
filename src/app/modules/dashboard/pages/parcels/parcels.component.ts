@@ -12,7 +12,12 @@ import {DASHBOARD_CONTENT_WRAPPER_ID} from '../dashboard/dashboard.component';
 import {PagingConfig} from './paging-config';
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {delay, map, switchMap, tap,} from 'rxjs/operators';
-import {ParcelSearchOptionsEnum, ParcelsSortFilterConfig} from './parcels-sort-filter-config';
+import {
+  ParcelOrderDirectionEnum,
+  ParcelOrderOptionsEnum,
+  ParcelSearchOptionsEnum,
+  ParcelsSortFilterConfig
+} from './parcels-sort-filter-config';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 
 @Component({
@@ -72,10 +77,44 @@ export class ParcelsComponent implements OnInit {
       if (!filters) {
         subscriber.next(parcels);
       } else {
-        subscriber.next(parcels);
+        subscriber.next(parcels.sort((a, b) => {
+          let valueA = this.parcelOrderByAccessor(a, filters.orderBy);
+          let valueB = this.parcelOrderByAccessor(b, filters.orderBy);
+
+          let result = 0;
+          if (valueA != null && valueB != null) {
+            // Check if one value is greater than the other; if equal, comparatorResult should remain 0.
+            if (valueA > valueB) {
+              result = 1;
+            } else if (valueA < valueB) {
+              result = -1;
+            }
+          } else if (valueA != null) {
+            result = 1;
+          } else if (valueB != null) {
+            result = -1;
+          }
+
+          return result * (filters.orderDirection == ParcelOrderDirectionEnum.ASCENDING ? 1 : -1);
+        }));
       }
       subscriber.complete();
     }).pipe(withLoading(this.dashboardLoadingService.loading$));
+  }
+
+  parcelOrderByAccessor(parcel: Parcel, orderBy: ParcelOrderOptionsEnum) {
+    switch (orderBy) {
+      case ParcelOrderOptionsEnum.TITLE:
+        return parcel.title;
+      case ParcelOrderOptionsEnum.SENDER:
+        return parcel.sender;
+      case ParcelOrderOptionsEnum.COURIER:
+        return parcel.courier;
+      case ParcelOrderOptionsEnum.LAST_UPDATED:
+        return parcel.lastUpdated;
+      case ParcelOrderOptionsEnum.STATUS:
+        return parcel.parcelStatus.status;
+    }
   }
 
   filterParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig): Observable<Parcel[]> {
