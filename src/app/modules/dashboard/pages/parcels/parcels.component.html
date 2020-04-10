@@ -1,5 +1,4 @@
 <div #parcelsContainer class="container">
-
   <div class="filter-form">
     <app-parcel-filter-form (sortFilterConfigEmitter)="sortAndFilterConfig$.next($event)"></app-parcel-filter-form>
   </div>
@@ -10,15 +9,14 @@
     </div>
   </div>
 
+  <div @items *ngIf="!(curPageParcels$ | async).length && parcelsFetched" class="empty-state">
+    <img class="empty-state-img" src="assets/ic_empty_box.svg" alt="empty-state">
+    <p class="empty-state-text">It appears no parcels could be found.</p>
+  </div>
+
   <div class="paginator">
     <app-paginator @items [hidden]="(pagingConfig$|async).maxPages <= 1"
                    [lastPage]="(pagingConfig$|async).maxPages" [curPage]="(pagingConfig$|async).curPage"
                    (curPageEvent)="onPageChange($event)"></app-paginator>
   </div>
-
-  <!--  <div @items *ngIf="!(parcelsConfig$ | async).parcels.length && parcelsFetched" class="empty-state">-->
-  <!--    <img class="empty-state-img" src="assets/ic_empty_box.svg" alt="empty-state">-->
-  <!--    <p class="empty-state-text">It appears no parcels could be found.</p>-->
-  <!--  </div>-->
-
 </div>
