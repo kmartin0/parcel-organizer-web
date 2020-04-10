@@ -5,8 +5,7 @@ import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {withLoading} from '../../../../shared/helpers/operators';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {isNumeric} from 'rxjs/internal-compatibility';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ScrollDispatcher} from '@angular/cdk/overlay';
 import {DASHBOARD_CONTENT_WRAPPER_ID} from '../dashboard/dashboard.component';
 import {PagingConfig} from './paging-config';
@@ -21,7 +20,7 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./parcels.component.css'],
   animations: [trigger('transition', enterLeaveTransition)]
 })
-// TODO: Fix/Think of paging. Show/hide filter + mobile.
+// TODO: Show/hide filter + mobile. Remove Logs. Persist filter settings.
 export class ParcelsComponent implements OnInit {
 
   parcels$ = new BehaviorSubject(new Array<Parcel>());
@@ -71,7 +70,7 @@ export class ParcelsComponent implements OnInit {
       withLoading(this.dashboardLoadingService.loading$),
       // map(value => {
       //   let tmpParcels = value;
-      //   for (let i = 0; i < 6; i++) {
+      //   for (let i = 0; i < 7; i++) {
       //     tmpParcels = tmpParcels.concat(tmpParcels);
       //   }
       //   console.log(tmpParcels.length);

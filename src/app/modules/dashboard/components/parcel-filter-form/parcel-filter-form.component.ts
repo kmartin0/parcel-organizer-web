@@ -7,11 +7,14 @@ import {
   ParcelSearchOptionsEnum,
   ParcelsSortFilterConfig,
 } from '../../pages/parcels/parcels-sort-filter-config';
+import {trigger} from '@angular/animations';
+import {expandCollapseTransition} from '../../../../shared/anim/enter-leave.anim';
 
 @Component({
   selector: 'app-parcel-filter-form',
   templateUrl: './parcel-filter-form.component.html',
-  styleUrls: ['./parcel-filter-form.component.css']
+  styleUrls: ['./parcel-filter-form.component.css'],
+  animations: [trigger('expandCollapseAnimation', expandCollapseTransition)]
 })
 export class ParcelFilterFormComponent implements OnInit {
 
@@ -81,6 +84,12 @@ export class ParcelFilterFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.filterForm.updateValueAndValidity();
+  }
+
+  showBottomSection = false;
+
+  toggleBottomSection() {
+    this.showBottomSection = !this.showBottomSection;
   }
 
 }

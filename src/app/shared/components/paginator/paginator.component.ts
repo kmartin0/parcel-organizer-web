@@ -1,11 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./paginator.component.css']
 })
 export class PaginatorComponent implements OnInit {
 

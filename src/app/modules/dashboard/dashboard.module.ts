@@ -29,9 +29,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
 import {ReactiveFormsModule} from '@angular/forms';
 
-//TODO: parcels paginate, sort, filter.
-//TODO: abstract forms/form components.
-//TODO: check email changed elsewhere (android). authentication (retry login when invalid token/grant but not on login or something.)
+//TODO: check email changed elsewhere (android).
 @NgModule({
   declarations: [
     DashboardComponent,

@@ -1,7 +1,7 @@
 <div class="surface">
   <form [formGroup]="filterForm">
-    <div class="search-section">
-      <button type="button" class="filter-icon" mat-icon-button aria-label="Show/hide filters">
+    <div class="top-section">
+      <button (click)="toggleBottomSection()" type="button" class="filter-icon" mat-icon-button aria-label="Show/hide filters">
         <mat-icon>filter_list</mat-icon>
       </button>
 
@@ -13,9 +13,9 @@
       </mat-form-field>
     </div>
 
-    <div class="filters-section">
-      <div [formGroupName]="filterFormKeys.statusGroupName" class="section-checkbox">
-        <label class="section-label" id="status-label">Status</label>
+    <div class="bottom-section" @expandCollapseAnimation *ngIf="showBottomSection">
+      <div class="input-container" [formGroupName]="filterFormKeys.statusGroupName">
+        <label class="input-label" id="status-label">Status</label>
         <mat-checkbox [formControlName]="filterFormKeys.statusGroup.ordered" aria-labelledby="status-label"
                       color="primary" [value]="statusOptions.ORDERED">Ordered
         </mat-checkbox>
@@ -27,8 +27,8 @@
         </mat-checkbox>
       </div>
 
-      <div class="section-checkbox">
-        <label class="section-label" id="search-by-label">Search By</label>
+      <div class="input-container">
+        <label class="input-label" id="search-by-label">Search By</label>
         <mat-radio-group [formControlName]="filterFormKeys.searchBy" aria-labelledby="search-by-label">
           <mat-radio-button color="primary" [value]="searchByOptions.TITLE">Title</mat-radio-button>
           <mat-radio-button color="primary" [value]="searchByOptions.SENDER">Sender</mat-radio-button>
@@ -36,8 +36,8 @@
         </mat-radio-group>
       </div>
 
-      <div class="section-checkbox">
-        <label class="section-label" id="order-by-label">Order By</label>
+      <div class="input-container">
+        <label class="input-label" id="order-by-label">Order By</label>
         <mat-radio-group [formControlName]="filterFormKeys.orderBy" aria-labelledby="order-by-label">
           <mat-radio-button color="primary" [value]="orderByOptions.TITLE">Title</mat-radio-button>
           <mat-radio-button color="primary" [value]="orderByOptions.SENDER">Sender</mat-radio-button>
@@ -47,8 +47,8 @@
         </mat-radio-group>
       </div>
 
-      <div class="section-checkbox">
-        <label class="section-label" id="order-direction">Order Direction</label>
+      <div class="input-container">
+        <label class="input-label" id="order-direction">Order Direction</label>
         <mat-radio-group [formControlName]="filterFormKeys.orderDirection" aria-labelledby="order-direction">
           <mat-radio-button color="primary" [value]="orderDirection.ASCENDING">Ascending</mat-radio-button>
           <mat-radio-button color="primary" [value]="orderDirection.DESCENDING">Descending</mat-radio-button>

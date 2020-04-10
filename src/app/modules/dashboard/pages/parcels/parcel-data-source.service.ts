@@ -32,6 +32,7 @@ export class ParcelDataSourceService {
               setTimeout(() => {
                 const tmpPaging = paging$.value;
                 tmpPaging.setMaxPagesBySize(filterSortParcels.length);
+                tmpPaging.curPage = 1;
                 paging$.next(tmpPaging);
               }, 10);
             }),
