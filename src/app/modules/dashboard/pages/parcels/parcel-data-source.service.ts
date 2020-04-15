@@ -154,7 +154,7 @@ export class ParcelDataSourceService {
         propertyToMatch = parcel.title;
     }
 
-    return propertyToMatch ? propertyToMatch.toLowerCase().startsWith(query) : false;
+    return propertyToMatch ? propertyToMatch.toLowerCase().startsWith(query.toLowerCase()) : false;
   }
 
 }

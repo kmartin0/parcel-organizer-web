@@ -1,3 +1,8 @@
+.surface {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
 .top-section {
   display: flex;
   position: relative;
@@ -16,10 +21,15 @@
 
 .search-field {
   flex-basis: 50%;
+  min-width: 20px;
 }
 
 mat-form-field.mat-form-field {
   font-size: 22px;
+}
+
+mat-checkbox.mat-checkbox, mat-radio-group.mat-radio-group {
+  font-size: 16px;
 }
 
 .input-focus {
@@ -54,4 +64,28 @@ form {
 mat-radio-group {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 700px) {
+  mat-form-field.mat-form-field {
+    font-size: 18px;
+  }
+  .input-label {
+    font-size: 16px;
+  }
+  mat-checkbox.mat-checkbox, mat-radio-group.mat-radio-group {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  mat-form-field.mat-form-field {
+    font-size: 16px;
+  }
+  .input-label {
+    font-size: 15px;
+  }
+  mat-checkbox.mat-checkbox, mat-radio-group.mat-radio-group {
+    font-size: 14px;
+  }
 }
