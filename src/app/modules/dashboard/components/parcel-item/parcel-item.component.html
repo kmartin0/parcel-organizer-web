@@ -39,7 +39,7 @@
         <fa-icon class="information-icon" [icon]="faIcons.additionalInfo" [styles]="faIconStyle"></fa-icon>
         <span class="information-text">{{parcel.additionalInformation}}</span>
       </div>
-      <div class="right">
+      <div *ngIf="parcel.trackingUrl" class="right">
         <fa-icon (click)="onShareParcelClick(); $event.stopPropagation()" class="information-icon action-icon"
                  [icon]="faIcons.share"
                  [styles]="faIconStyle"

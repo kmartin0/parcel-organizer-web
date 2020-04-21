@@ -5,7 +5,7 @@
 }
 
 fa-icon {
-  color: var(--color-primary);
+  color: var(--color-on-background);
 }
 
 p {
@@ -14,5 +14,5 @@ p {
   margin-top: 18px;
   font-size: 22px;
   font-weight: 600;
-  color: var(--color-on-default);
+  color: var(--color-on-background-variant);
 }

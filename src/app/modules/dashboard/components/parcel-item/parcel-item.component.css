@@ -70,7 +70,7 @@
 }
 
 .divider {
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--pi-color-divider);
   height: var(--perc-divider-height);
   top: var(--perc-divider-top);
   position: absolute;
@@ -113,7 +113,7 @@
   }
 
   .information-text {
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 
@@ -123,6 +123,6 @@
   }
 
   .information-text {
-    font-size: 13px;
+    font-size: 14px;
   }
 }

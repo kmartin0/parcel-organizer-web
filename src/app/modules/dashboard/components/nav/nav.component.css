@@ -23,7 +23,7 @@ nav, .logo-container, .logo-image {
 
 .logo-text {
   overflow: hidden;
-  color: var(--color-on-default);
+  color: var(--color-secondary);
   white-space: nowrap;
   margin: 6px 0 0 0;
   visibility: hidden;
@@ -47,7 +47,7 @@ a {
 }
 
 a, fa-icon {
-  color: var(--color-disabled);
+  color: var(--color-secondary-variant);
 }
 
 a:hover {
@@ -55,7 +55,7 @@ a:hover {
 }
 
 .active a {
-  border-left: 4px solid var(--color-disabled);
+  border-left: 4px solid var(--color-secondary-variant);
   padding-left: 14px;
 }
 
@@ -93,11 +93,11 @@ app-button {
 }
 
 .active-nav a {
-  color: var(--color-on-default);
+  color: var(--color-secondary);
 }
 
 .active-nav fa-icon {
-  color: var(--color-surface);
+  color: var(--color-secondary);
 }
 
 .active-nav a, .active-nav fa-icon {
@@ -109,7 +109,7 @@ app-button {
 }
 
 .active-nav .active a {
-  border-left: 4px solid var(--color-surface);
+  border-left: 4px solid var(--color-secondary);
   padding-left: 14px;
 }
 

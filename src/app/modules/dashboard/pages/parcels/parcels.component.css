@@ -39,7 +39,7 @@
 }
 
 .empty-state-img {
-  width: 350px;
+  width: 250px;
 }
 
 .empty-state-text {
@@ -48,11 +48,11 @@
   margin-top: 18px;
   font-size: 22px;
   font-weight: 600;
-  color: var(--color-on-default);
+  color: var(--color-on-background);
 }
 
 .filter-form {
-  width: 75%;
+  width: 90%;
   margin: auto;
   max-width: 650px;
 }

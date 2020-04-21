@@ -75,7 +75,6 @@ export class ParcelItemComponent implements OnInit {
   }
 
   deleteParcel() {
-    console.log(this.parcel);
     this.parcelService.deleteParcel(this.parcel.id)
       .pipe(withLoading(this.dashboardLoadingService.loading$))
       .subscribe(value => {

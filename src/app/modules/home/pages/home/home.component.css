@@ -9,10 +9,12 @@ header {
 
 #title {
   margin: 0;
+  color: var(--color-on-background);
 }
 
 #subtitle {
   margin: 0 0 15px 0;
+  color: var(--color-on-background);
 }
 
 .center-container {
@@ -53,6 +55,7 @@ header {
   margin: 0 15px 10px 0;
   display: inline-block;
   border-bottom: 2px solid transparent;
+  cursor: pointer;
 }
 
 .login,
@@ -62,8 +65,8 @@ header {
 
 .login:checked + .select-form-label,
 .register:checked + .select-form-label {
-  color: var(--color-on-default);
-  border-color: var(--color-primary);
+  color: var(--color-on-surface-variant);
+  border-color: var(--color-secondary);
 }
 
 @media only screen and (max-width: 767px) {

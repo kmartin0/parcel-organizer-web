@@ -15,7 +15,7 @@ ul > ul, li {
 
 .nav-btn {
   font-family: Poppins, sans-serif;
-  color: var(--color-on-default);
+  color: var(--color-on-primary);
   background-color: var(--color-primary);
   min-width: 40px;
   height: 40px;
@@ -28,19 +28,11 @@ ul > ul, li {
   outline: none;
 }
 
-.dots {
-  background-color: #ffffff00;
-  letter-spacing: 1px;
-  font-size: 1em;
-  font-weight: 600;
-  color: var(--color-on-default);
-}
-
 .cur-page {
   cursor: initial;
 }
 
-.nav-btn, .dots {
+.nav-btn {
   margin: 3px;
 }
 

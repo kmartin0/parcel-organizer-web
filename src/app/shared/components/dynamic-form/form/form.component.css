@@ -9,7 +9,7 @@
 label {
   margin-bottom: 4px;
   font-size: .9em;
-  color: black;
+  color: var(--color-on-surface);
   font-weight: 600;
   display: block;
 }

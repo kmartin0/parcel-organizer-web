@@ -29,6 +29,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
 import {ReactiveFormsModule} from '@angular/forms';
 
+// TODO: Persist filter settings.
 //TODO: check email changed elsewhere (android).
 @NgModule({
   declarations: [

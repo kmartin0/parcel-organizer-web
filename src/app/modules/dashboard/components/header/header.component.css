@@ -10,13 +10,13 @@ header {
 
 h2 {
   margin: 0;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 24px;
 }
 
 .nav-icon-container {
   transition: 1s ease 0.3s;
-  color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .open .nav-icon-container {
@@ -24,17 +24,17 @@ h2 {
 }
 
 .nav-icon-container, .logo {
-  height: 34px;
-  width: 34px;
+  height: 26px;
+  width: 26px;
   margin-right: 18px;
 }
 
-.hamburger, .logo {
+.logo {
   display: none;
 }
 
 h2 {
-  color: var(--color-on-variant)
+  color: var(--color-on-primary)
 }
 
 fa-icon:hover {
@@ -47,11 +47,7 @@ app-loading {
 }
 
 @media (max-width: 991px) {
-  .arrow {
-    display: none;
-  }
-
-  .hamburger, .logo {
+  .logo {
     display: inline;
   }
 

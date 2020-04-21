@@ -11,6 +11,7 @@ import {
 import {map, share, switchMap, tap} from 'rxjs/operators';
 import {withLoading} from '../../../../shared/helpers/operators';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +32,13 @@ export class ParcelDataSourceService {
             tap(filterSortParcels => {
               setTimeout(() => {
                 const tmpPaging = paging$.value;
-                tmpPaging.setMaxPagesBySize(filterSortParcels.length);
+
+                if (!filterSortParcels) {
+                  tmpPaging.setMaxPagesBySize(0)
+                } else {
+                  tmpPaging.setMaxPagesBySize(filterSortParcels.length);
+                }
+
                 tmpPaging.curPage = 1;
                 paging$.next(tmpPaging);
               }, 10);
@@ -42,6 +49,10 @@ export class ParcelDataSourceService {
 
     return combineLatest([filterSortParcels, paging$]).pipe(
       map(([filterSortParcels, paging]) => {
+        if (!filterSortParcels) {
+          return filterSortParcels;
+        }
+
         const endIndex = paging.curPage == 1 ? paging.pageSize : paging.curPage * paging.pageSize;
         const startIndex = endIndex - paging.pageSize;
 
@@ -52,11 +63,11 @@ export class ParcelDataSourceService {
 
   sortParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig, loading$: Subject<boolean>): Observable<Parcel[]> {
     return new Observable<Parcel[]>(subscriber => {
-      if (!filters) {
+      if (!filters || !parcels) {
         subscriber.next(parcels);
       } else {
         console.log('...sorting', parcels.length);
-                subscriber.next(parcels.sort((a, b) => {
+        subscriber.next(parcels.sort((a, b) => {
           let valueA = this.parcelOrderByAccessor(a, filters.orderBy);
           let valueB = this.parcelOrderByAccessor(b, filters.orderBy);
 
@@ -99,7 +110,7 @@ export class ParcelDataSourceService {
 
   private filterParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig, loading$?: Subject<boolean>): Observable<Parcel[]> {
     return new Observable<Parcel[]>(subscriber => {
-      if (!filters) {
+      if (!filters || !parcels) {
         subscriber.next(parcels);
       } else {
         console.log('...filtering', parcels.length);
@@ -154,7 +165,7 @@ export class ParcelDataSourceService {
         propertyToMatch = parcel.title;
     }
 
-    return propertyToMatch ? propertyToMatch.toLowerCase().startsWith(query.toLowerCase()) : false;
+    return propertyToMatch ? propertyToMatch.toLowerCase().includes(query.toLowerCase()) : false;
   }
 
 }

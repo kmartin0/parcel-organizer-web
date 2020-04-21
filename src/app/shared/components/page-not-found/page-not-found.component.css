@@ -1,6 +1,6 @@
 .container {
   text-align: center;
-  color: var(--color-on-variant);
+  color: var(--color-on-background);
   padding-top: 50px
 }
 

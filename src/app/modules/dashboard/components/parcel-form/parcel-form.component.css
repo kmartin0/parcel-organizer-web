@@ -17,3 +17,7 @@ app-parcel-item {
   width: 100%;
   max-width: 525px;
 }
+
+.mat-title {
+  color: var(--color-on-surface);
+}

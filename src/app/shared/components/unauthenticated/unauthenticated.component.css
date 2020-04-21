@@ -6,7 +6,7 @@
 }
 
 fa-icon {
-  color: var(--color-on-variant);
+  color: var(--color-on-background);
 }
 
 p {
@@ -20,5 +20,5 @@ p {
 
 a {
   margin: 0;
-  color: white;
+  color: var(--color-on-background-variant);
 }

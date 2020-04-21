@@ -20,7 +20,6 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./parcels.component.css'],
   animations: [trigger('transition', enterLeaveTransition)]
 })
-// TODO: Show/hide filter + mobile. Remove Logs. Persist filter settings.
 export class ParcelsComponent implements OnInit {
 
   parcels$ = new BehaviorSubject(new Array<Parcel>());

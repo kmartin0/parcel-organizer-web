@@ -7,6 +7,6 @@ input[type=text], input[type=password], input[type=email], select {
   height: 40px;
   width: 100%;
   display: block;
-  color: var(--color-on-variant);
-  background-color: var(--color-on-default);
+  color: var(--color-on-input);
+  background-color: var(--color-on-surface-variant);
 }

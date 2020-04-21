@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {faArrowCircleLeft, faBars} from '@fortawesome/free-solid-svg-icons';
+import {faBars} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 import {NAV_BAR_STATES} from '../nav/nav.component';
 import {Observable} from 'rxjs';
@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit {
   @Output() changeNavBarState = new EventEmitter<NAV_BAR_STATES>();
 
   faIcons = {
-    arrowLeft: faArrowCircleLeft,
     hamburger: faBars
   };
 

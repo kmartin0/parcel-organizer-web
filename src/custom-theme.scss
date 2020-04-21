@@ -8,14 +8,113 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+$md-color-primary-palette: (
+  50 : #f1e2ea,
+  100 : #dbb7ca,
+  200 : #c487a7,
+  300 : #ac5684,
+  400 : #9a3269,
+  500 : #880e4f,
+  600 : #800c48,
+  700 : #750a3f,
+  800 : #6b0836,
+  900 : #580426,
+  A100 : #ff8ab1,
+  A200 : #ff578f,
+  A400 : #ff246d,
+  A700 : #ff0a5c,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+$md-color-accent-palette: (
+  50 : #fff7e6,
+  100 : #feecc0,
+  200 : #fde096,
+  300 : #fcd36c,
+  400 : #fcc94d,
+  500 : #fbc02d,
+  600 : #faba28,
+  700 : #fab222,
+  800 : #f9aa1c,
+  900 : #f89c11,
+  A100 : #ffffff,
+  A200 : #fff9f1,
+  A400 : #ffe3be,
+  A700 : #ffd8a5,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$md-color-warn-palette: (
+  50 : #e0e0e0,
+  100 : #b3b3b3,
+  200 : #808080,
+  300 : #4d4d4d,
+  400 : #262626,
+  500 : #000000,
+  600 : #000000,
+  700 : #000000,
+  800 : #000000,
+  900 : #000000,
+  A100 : #a6a6a6,
+  A200 : #8c8c8c,
+  A400 : #737373,
+  A700 : #666666,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$parcel-organizer-web-primary: mat-palette($mat-indigo);
-$parcel-organizer-web-accent: mat-palette($mat-pink, A200, A100, A400);
+$parcel-organizer-web-primary: mat-palette($md-color-primary-palette);
+$parcel-organizer-web-accent: mat-palette($md-color-accent-palette);
 
 // The warn palette is optional (defaults to red).
-$parcel-organizer-web-warn: mat-palette($mat-red);
+$parcel-organizer-web-warn: mat-palette($md-color-warn-palette);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $parcel-organizer-web-theme: mat-light-theme($parcel-organizer-web-primary, $parcel-organizer-web-accent, $parcel-organizer-web-warn);
@@ -46,7 +145,7 @@ $custom-typography: mat-typography-config(
 }
 
 .mat-simple-snackbar-action {
-  color: var(--color-on-variant);
+  color: var(--color-secondary);
   font-weight: 700;
   font-size: 30px
 }
@@ -54,7 +153,7 @@ $custom-typography: mat-typography-config(
 .mat-simple-snackbar {
   font-weight: 400;
   font-size: 14px;
-  color: var(--color-on-default);
+  color: var(--color-on-primary);
 }
 
 .mat-snack-bar-container {
