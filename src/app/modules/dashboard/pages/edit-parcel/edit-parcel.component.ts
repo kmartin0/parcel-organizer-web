@@ -17,7 +17,7 @@ import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.comp
 @Component({
   selector: 'app-edit-parcel',
   templateUrl: './edit-parcel.component.html',
-  styleUrls: ['./edit-parcel.component.css'],
+  styleUrls: ['./edit-parcel.component.scss'],
   animations: [trigger('form', enterLeaveTransition)]
 })
 export class EditParcelComponent implements OnInit {

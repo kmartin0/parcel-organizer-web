@@ -8,7 +8,7 @@ import {BaseFormComponent} from '../dynamic-form/base-form.component';
 @Component({
   selector: 'app-user-auth-form',
   templateUrl: './user-auth-form.component.html',
-  styleUrls: ['./user-auth-form.component.css']
+  styleUrls: ['./user-auth-form.component.scss']
 })
 export class UserAuthFormComponent extends BaseFormComponent<UserAuthentication> {
 

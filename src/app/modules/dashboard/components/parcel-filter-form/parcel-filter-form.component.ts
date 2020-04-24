@@ -13,7 +13,7 @@ import {expandCollapseTransition} from '../../../../shared/anim/enter-leave.anim
 @Component({
   selector: 'app-parcel-filter-form',
   templateUrl: './parcel-filter-form.component.html',
-  styleUrls: ['./parcel-filter-form.component.css'],
+  styleUrls: ['./parcel-filter-form.component.scss'],
   animations: [trigger('expandCollapseAnimation', expandCollapseTransition)]
 })
 export class ParcelFilterFormComponent implements OnInit {

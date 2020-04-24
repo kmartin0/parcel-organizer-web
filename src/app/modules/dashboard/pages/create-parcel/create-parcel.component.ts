@@ -12,7 +12,7 @@ import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.comp
 @Component({
   selector: 'app-create-parcel',
   templateUrl: './create-parcel.component.html',
-  styleUrls: ['./create-parcel.component.css'],
+  styleUrls: ['./create-parcel.component.scss'],
   animations: [trigger('form', enterLeaveTransition)]
 })
 export class CreateParcelComponent implements OnInit {

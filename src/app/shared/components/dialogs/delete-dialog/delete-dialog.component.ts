@@ -6,7 +6,7 @@ import {Styles} from '@fortawesome/fontawesome-svg-core';
 @Component({
   selector: 'app-parcel-delete-dialog',
   templateUrl: './delete-dialog.component.html',
-  styleUrls: ['../dialog.component.css']
+  styleUrls: ['../dialog.component.scss']
 })
 export class DeleteDialogComponent implements OnInit {
 

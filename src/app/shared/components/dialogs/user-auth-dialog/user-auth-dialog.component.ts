@@ -11,7 +11,7 @@ import {UserService} from '../../../services/user.service';
 @Component({
   selector: 'app-login-dialog',
   templateUrl: './user-auth-dialog.component.html',
-  styleUrls: ['../dialog.component.css']
+  styleUrls: ['../dialog.component.scss']
 })
 export class UserAuthDialogComponent implements OnInit {
 

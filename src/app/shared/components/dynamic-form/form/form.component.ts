@@ -21,7 +21,7 @@ import {BaseInputField} from '../base-input-field';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css'],
+  styleUrls: ['./form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush // Used to fix Expression has changed after it was checked error.
 })
 export class FormComponent implements OnInit, OnDestroy {

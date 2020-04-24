@@ -7,7 +7,7 @@ import {RedirectService} from '../../services/redirect.service';
 @Component({
   selector: 'app-unauthenticated',
   templateUrl: './unauthenticated.component.html',
-  styleUrls: ['./unauthenticated.component.css']
+  styleUrls: ['./unauthenticated.component.scss']
 })
 export class UnauthenticatedComponent implements OnInit {
 

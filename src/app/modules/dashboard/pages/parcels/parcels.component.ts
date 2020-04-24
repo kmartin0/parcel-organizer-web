@@ -17,7 +17,7 @@ import {map} from 'rxjs/operators';
 @Component({
   selector: 'app-parcels',
   templateUrl: './parcels.component.html',
-  styleUrls: ['./parcels.component.css'],
+  styleUrls: ['./parcels.component.scss'],
   animations: [trigger('transition', enterLeaveTransition)]
 })
 export class ParcelsComponent implements OnInit {
