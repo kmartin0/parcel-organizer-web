@@ -1,7 +1,7 @@
 select {
   padding: 0 20px;
   appearance: none;
-  background-color: var(--color-on-surface);
+  background-color: var(--color-input);
   background-image: url(src/assets/arrow_down.svg);
   background-position: 97%;
   background-repeat: no-repeat;
