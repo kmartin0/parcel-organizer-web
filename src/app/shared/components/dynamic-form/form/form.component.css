@@ -9,17 +9,17 @@
 label {
   margin-bottom: 4px;
   font-size: .9em;
-  color: var(--color-on-surface);
+  color: var(--color-primary);
   font-weight: 600;
   display: block;
 }
 
 .error {
-  color: var(--color-error);
+  color: var(--color-on-error);
   padding: 0 25px;
   margin: 10px 10px 0;
   display: inline-block;
-  background: var(--color-error-background);
+  background: var(--color-error);
   border-radius: 12px;
   font-size: small;
 }

@@ -29,8 +29,12 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
 import {ReactiveFormsModule} from '@angular/forms';
 
-// TODO: Persist filter settings.
-//TODO: check email changed elsewhere (android).
+/**
+ * TODO: Check light theme (same as android + material palette)
+ * TODO: Add Dark Theme.
+ * TODO: Persist filter settings.
+ * TODO: check email changed elsewhere (android).
+ */
 @NgModule({
   declarations: [
     DashboardComponent,

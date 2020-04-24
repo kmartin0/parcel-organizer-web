@@ -1,5 +1,5 @@
 nav {
-  background-color: var(--color-nav);
+  background-color: var(--color-surface);
   height: 100%;
   overflow: hidden;
   width: 60px;
@@ -64,14 +64,8 @@ fa-icon {
   line-height: 100%;
 }
 
-span, app-button {
+span {
   margin-left: 18px;
-}
-
-app-button {
-  display: inline-block;
-  opacity: 0.4;
-  transition: opacity 1s ease;
 }
 
 .active-nav {
@@ -104,7 +98,7 @@ app-button {
   transition: border-left-color 1s ease, color 1s ease;
 }
 
-.active-nav app-button {
+.active-nav {
   opacity: 1;
 }
 

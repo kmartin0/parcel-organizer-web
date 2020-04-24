@@ -4,43 +4,37 @@
 
 :root {
   /*Primary color for widgets*/
-  --color-primary: #880e4f;
-  --color-primary-variant: #560027;
-  --color-primary-disabled: rgba(86, 0, 39, 0.51);
+  --color-primary: #1a237e;
+  --color-primary-variant: #000051;
+  --color-primary-disabled: rgba(26, 35, 126, 0.61);
 
-  --color-secondary: #fbc02d;
-  --color-secondary-variant: #c25e00;
+  --color-secondary: #880e4f;
+  --color-secondary-variant: #560027;
 
   /*Background colors*/
-  --color-background: #E57654;
-  --color-surface: #e5365c;
-  --color-header: var(--color-primary);
-  --color-nav: #101368;
-  --color-footer: var(--color-primary);
+  --color-background: #ff867c;
+  --color-surface: #ffddc1;
+  --color-input: rgba(255, 255, 255, 0.8);
 
-  /*Error and disabled colors*/
-  --color-error: #ffffff;
-  --color-error-background: rgba(0, 0, 0, 0.75);
-  --color-disabled: gray;
+  /*Error colors*/
+  --color-error: rgba(0, 0, 0, 0.8);
 
   /*"On" colors define how text, icons and strokes are colored in relation to the surface on which they appear.*/
   --color-on-primary: #ffffff;
-  --color-on-secondary: #000000;
+  --color-on-secondary: #ffffff;
   --color-on-background: #000000;
-  --color-on-background-variant: #ffffff;
   --color-on-surface: #000000;
-  --color-on-surface-variant: #ffffff;
   --color-on-error: #ffffff;
   --color-on-input: #000000;
 
   /*Parcel item colors*/
-  --pi-color-ordered: #01579B;
-  --pi-color-sent: #29434e;;
+  --pi-color-ordered: #0d47a1;
+  --pi-color-sent: #006064;;
   --pi-color-delivered: #1B5E20;
-  --pi-color-on: #F3FEE2;
-  --pi-color-title: #FFCA28;
-  --pi-color-action: #faffb5;
-  --pi-color-action-hover: #dce199;
+  --pi-color-on: #f9fbe7;
+  --pi-color-title: #fbc02d;
+  --pi-color-action: #e6ee9c;
+  --pi-color-action-hover: #b3bc6d;
   --pi-color-divider: rgba(255, 255, 255, 0.35);
 
 }
