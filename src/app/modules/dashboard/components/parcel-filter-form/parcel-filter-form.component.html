@@ -1,7 +1,8 @@
 <div class="surface">
   <form [formGroup]="filterForm">
     <div class="top-section">
-      <button (click)="toggleBottomSection()" type="button" class="filter-icon" mat-icon-button aria-label="Show/hide filters">
+      <button (click)="toggleBottomSection()" type="button" class="filter-icon" mat-icon-button
+              aria-label="Show/hide filters">
         <mat-icon>filter_list</mat-icon>
       </button>
 
@@ -9,7 +10,12 @@
         <mat-label id="search-label">Search</mat-label>
         <input [formControlName]="filterFormKeys.search" aria-labelledby="search-label" #searchInput="matInput"
                autocomplete="off" matInput>
-        <mat-icon [ngClass]="{'input-focus': searchInput.focused}" matSuffix>search</mat-icon>
+        <mat-icon *ngIf="searchInput.empty" [ngClass]="{'input-focus': searchInput.focused}" matSuffix>search</mat-icon>
+        <button mat-button *ngIf="!searchInput.empty" [ngClass]="{'input-focus': searchInput.focused}" matSuffix
+                mat-icon-button aria-label="Clear"
+                (click)="filterForm.controls[filterFormKeys.search].setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
     </div>
 
@@ -17,13 +23,13 @@
       <div class="input-container" [formGroupName]="filterFormKeys.statusGroupName">
         <label class="input-label" id="status-label">Status</label>
         <mat-checkbox [formControlName]="filterFormKeys.statusGroup.ordered" aria-labelledby="status-label"
-                       [value]="statusOptions.ORDERED">Ordered
+                      [value]="statusOptions.ORDERED">Ordered
         </mat-checkbox>
         <mat-checkbox [formControlName]="filterFormKeys.statusGroup.sent" aria-labelledby="status-label"
-                       [value]="statusOptions.SENT">Sent
+                      [value]="statusOptions.SENT">Sent
         </mat-checkbox>
         <mat-checkbox [formControlName]="filterFormKeys.statusGroup.delivered" aria-labelledby="status-label"
-                       [value]="statusOptions.DELIVERED">Delivered
+                      [value]="statusOptions.DELIVERED">Delivered
         </mat-checkbox>
       </div>
 
@@ -31,8 +37,8 @@
         <label class="input-label" id="search-by-label">Search By</label>
         <mat-radio-group [formControlName]="filterFormKeys.searchBy" aria-labelledby="search-by-label">
           <mat-radio-button [value]="searchByOptions.TITLE">Title</mat-radio-button>
-          <mat-radio-button  [value]="searchByOptions.SENDER">Sender</mat-radio-button>
-          <mat-radio-button  [value]="searchByOptions.COURIER">Courier</mat-radio-button>
+          <mat-radio-button [value]="searchByOptions.SENDER">Sender</mat-radio-button>
+          <mat-radio-button [value]="searchByOptions.COURIER">Courier</mat-radio-button>
         </mat-radio-group>
       </div>
 
@@ -40,7 +46,7 @@
         <label class="input-label" id="order-by-label">Order By</label>
         <mat-radio-group [formControlName]="filterFormKeys.orderBy" aria-labelledby="order-by-label">
           <mat-radio-button [value]="orderByOptions.TITLE">Title</mat-radio-button>
-          <mat-radio-button  [value]="orderByOptions.SENDER">Sender</mat-radio-button>
+          <mat-radio-button [value]="orderByOptions.SENDER">Sender</mat-radio-button>
           <mat-radio-button [value]="orderByOptions.COURIER">Courier</mat-radio-button>
           <mat-radio-button [value]="orderByOptions.LAST_UPDATED">Last Updated</mat-radio-button>
           <mat-radio-button [value]="orderByOptions.STATUS">Status</mat-radio-button>

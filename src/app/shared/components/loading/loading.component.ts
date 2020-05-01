@@ -15,14 +15,12 @@ export class LoadingComponent implements OnInit {
   @Input() loading$?: Observable<boolean>;
   @Input() width: string = '34px';
   @Input() height: string = '34px';
-  @Input() color: string = 'var(--color-primary)';
 
   spinnerIcon = faSpinner;
 
   faIconStyle = {
     width: this.width,
     height: this.height,
-    color: this.color
   };
 
   constructor() {

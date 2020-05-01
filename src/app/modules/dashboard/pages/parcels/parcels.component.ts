@@ -8,9 +8,9 @@ import {withLoading} from '../../../../shared/helpers/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ScrollDispatcher} from '@angular/cdk/overlay';
 import {DASHBOARD_CONTENT_WRAPPER_ID} from '../dashboard/dashboard.component';
-import {PagingConfig} from './paging-config';
+import {PagingConfig} from '../../../../shared/components/paginator/paging-config';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {ParcelsSortFilterConfig} from './parcels-sort-filter-config';
+import {ParcelsSortFilterConfig} from '../../components/parcel-filter-form/parcels-sort-filter-config';
 import {ParcelDataSourceService} from './parcel-data-source.service';
 import {map} from 'rxjs/operators';
 

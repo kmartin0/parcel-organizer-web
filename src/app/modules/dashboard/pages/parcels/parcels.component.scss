@@ -1,9 +1,9 @@
-:host {
-  --max-parcel-items-row: 3;
-  --parcels-item-gap: 22px;
-  --pi-width: 400px;
-  --parcels-max-width: calc((var(--pi-width) + (var(--parcels-item-gap) * 2)) * var(--max-parcel-items-row));
-}
+@import "variables";
+
+$max-parcel-items-row: 3;
+$parcels-item-gap: 22px;
+$pi-width: 400px;
+$parcels-max-width: calc((#{$pi-width} + (#{$parcels-item-gap} * 2)) * #{$max-parcel-items-row});
 
 .container {
   display: flex;
@@ -14,7 +14,7 @@
 .parcels {
   align-self: center;
   width: 100%;
-  max-width: var(--parcels-max-width);
+  max-width: $parcels-max-width;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -23,8 +23,8 @@
 }
 
 .item-wrapper {
-  margin: var(--parcels-item-gap);
-  flex: 0 0 var(--pi-width);
+  margin: $parcels-item-gap;
+  flex: 0 0 $pi-width;
 }
 
 .paginator {
@@ -48,7 +48,9 @@
   margin-top: 18px;
   font-size: 22px;
   font-weight: 600;
-  color: var(--color-on-background);
+  @include theme() {
+    color: theme-color($color-on-background);
+  }
 }
 
 .filter-form {

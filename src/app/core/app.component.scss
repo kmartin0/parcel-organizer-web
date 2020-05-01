@@ -1,0 +1,9 @@
+@import "variables";
+
+.app-container {
+  min-height: 100vh;
+  height: fit-content;
+  @include theme-root() {
+    background: theme-color($color-background);
+  }
+}

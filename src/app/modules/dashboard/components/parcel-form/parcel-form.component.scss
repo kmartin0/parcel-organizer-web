@@ -1,3 +1,5 @@
+@import "variables";
+
 .container {
   display: flex;
   flex-direction: column;
@@ -11,6 +13,10 @@
   margin-top: 38px;
 }
 
+.surface {
+  @include surface()
+}
+
 app-parcel-item {
   margin: 12px 0;
   pointer-events: none;
@@ -19,5 +25,7 @@ app-parcel-item {
 }
 
 .mat-title {
-  color: var(--color-on-surface);
+  @include theme() {
+    color: theme-color($color-on-surface);
+  }
 }

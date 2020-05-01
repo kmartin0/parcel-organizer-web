@@ -1,7 +1,11 @@
+@import "variables";
+
 .container {
   text-align: center;
-  color: var(--color-on-background);
-  padding-top: 50px
+  padding-top: 50px;
+  @include theme() {
+    color: theme-color($color-on-background);
+  }
 }
 
 h2 {
