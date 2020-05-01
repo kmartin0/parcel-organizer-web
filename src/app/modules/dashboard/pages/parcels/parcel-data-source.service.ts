@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs';
 import {Parcel} from '../../../../shared/models/parcel';
-import {PagingConfig} from './paging-config';
+import {PagingConfig} from '../../../../shared/components/paginator/paging-config';
 import {
   ParcelOrderDirectionEnum,
   ParcelOrderOptionsEnum,
   ParcelSearchOptionsEnum,
   ParcelsSortFilterConfig
-} from './parcels-sort-filter-config';
+} from '../../components/parcel-filter-form/parcels-sort-filter-config';
 import {map, share, switchMap, tap} from 'rxjs/operators';
 import {withLoading} from '../../../../shared/helpers/operators';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
@@ -21,7 +21,6 @@ export class ParcelDataSourceService {
   }
 
   connect(parcels$: Observable<Parcel[]>, paging$: BehaviorSubject<PagingConfig>, sortAndFilter$: Observable<ParcelsSortFilterConfig>, loading$?: Subject<boolean>): Observable<Parcel[]> {
-
 
     const filterSortParcels = combineLatest([sortAndFilter$]).pipe(
       switchMap(([sortAndFilterConfig]) => {

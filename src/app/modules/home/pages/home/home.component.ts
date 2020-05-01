@@ -10,18 +10,32 @@ import {withLoading} from '../../../../shared/helpers/operators';
 import {UserFormComponent} from '../../../../shared/components/user-form/user-form.component';
 import {Subject} from 'rxjs';
 import {UserAuthentication} from '../../../../shared/models/user-authentication';
+import {faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
+import {Styles} from '@fortawesome/fontawesome-svg-core';
+import {ThemeService} from '../../../../shared/services/theme.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
   loading$ = new Subject<boolean>();
+  isDarkTheme = this.themeService.isDarkTheme;
 
   formSelector: FormGroup;
   FORM_TYPES = FORM_TYPES;
+
+  faIcons = {
+    sun: faSun,
+    moon: faMoon
+  };
+
+  faIconStyle: Styles = {
+    width: '36px',
+    height: '36px'
+  };
 
   @ViewChild(UserAuthFormComponent, {static: false})
   private userAuthFormComponent: UserAuthFormComponent;
@@ -29,7 +43,7 @@ export class HomeComponent implements OnInit {
   @ViewChild(UserFormComponent, {static: false})
   private userFormComponent: UserFormComponent;
 
-  constructor(formBuilder: FormBuilder, private userService: UserService, private router: Router, private redirectService: RedirectService) {
+  constructor(formBuilder: FormBuilder, private userService: UserService, private router: Router, private redirectService: RedirectService, private themeService: ThemeService) {
     this.initFormSelect(formBuilder);
   }
 
@@ -54,6 +68,10 @@ export class HomeComponent implements OnInit {
     }, apiError => {
       this.userFormComponent.handleApiError(apiError);
     });
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 
   private initFormSelect(formBuilder: FormBuilder) {

@@ -1,6 +1,9 @@
+@import "variables";
+
 .surface {
   padding-bottom: 0;
   padding-top: 0;
+  @include surface()
 }
 
 .top-section {
@@ -17,24 +20,31 @@
   left: 0;
   top: 0;
   bottom: 0;
+  @include theme() {
+    color: theme-color($color-on-surface);
+  }
 }
 
 .search-field {
   flex-basis: 75%;
   min-width: 20px;
-}
-
-mat-form-field.mat-form-field {
   font-size: 20px;
-  color: var(--color-on-surface);
+  @include theme() {
+    color: theme-color($color-on-surface);
+  }
 }
 
 mat-checkbox.mat-checkbox, mat-radio-group.mat-radio-group {
   font-size: 16px;
+  @include theme() {
+    color: theme-color($color-on-surface);
+  }
 }
 
 .input-focus {
-  color: var(--color-primary)
+  @include theme() {
+    color: theme-color($color-primary);
+  }
 }
 
 .bottom-section {
@@ -59,8 +69,10 @@ form {
 .input-label {
   margin-bottom: 6px;
   font-size: 18px;
-  font-weight: 600;
-  color: var(--color-on-surface);
+  font-weight: 500;
+  @include theme() {
+    color: theme-color($color-primary);
+  }
 }
 
 mat-radio-group {
@@ -69,7 +81,7 @@ mat-radio-group {
 }
 
 @media (max-width: 700px) {
-  mat-form-field.mat-form-field {
+  .search-field {
     font-size: 18px;
   }
   .input-label {
@@ -81,7 +93,7 @@ mat-radio-group {
 }
 
 @media (max-width: 400px) {
-  mat-form-field.mat-form-field {
+  .search-field {
     font-size: 16px;
   }
   .input-label {

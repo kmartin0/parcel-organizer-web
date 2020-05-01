@@ -1,14 +1,15 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
-import {faCubes, faPlusCircle, faUser, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
+import {faCubes, faPlusCircle, faUser, faSignOutAlt, faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 import {UserService} from '../../../../shared/services/user.service';
 import {ACCOUNT, CREATE_PARCEL, PARCELS} from '../../../../shared/constants/endpoints';
 import {NavigationStart, Router} from '@angular/router';
+import {ThemeService} from '../../../../shared/services/theme.service';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
 
@@ -16,7 +17,9 @@ export class NavComponent implements OnInit {
     cubes: faCubes,
     plusCircle: faPlusCircle,
     user: faUser,
-    logout: faSignOutAlt
+    logout: faSignOutAlt,
+    moon: faMoon,
+    sun: faSun,
   };
 
   faIconStyle: Styles = {
@@ -34,8 +37,9 @@ export class NavComponent implements OnInit {
   @Input() navBarState: NAV_BAR_STATES;
   @Output() navBarStateChanged = new EventEmitter<NAV_BAR_STATES>();
   isMobileView: boolean = false;
+  isDarkTheme$ = this.themeService.isDarkTheme;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private themeService: ThemeService) {
     this.initNavigationListener();
     this.isMobileView = window.innerWidth < 991;
   }
@@ -58,6 +62,10 @@ export class NavComponent implements OnInit {
 
   onLogout() {
     this.userService.logoutUser();
+  }
+
+  onToggleTheme() {
+    this.themeService.toggleTheme();
   }
 
   private emitNavBarState(navBarState: NAV_BAR_STATES) {

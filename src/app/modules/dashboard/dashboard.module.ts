@@ -30,9 +30,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {ReactiveFormsModule} from '@angular/forms';
 
 /**
- * TODO: Check light theme (same as android + material palette)
- * TODO: Add Dark Theme.
- * TODO: Persist filter settings.
+ * TODO: Add Retour Status.
+ * TODO: normalize breakpoints, mobile, tablet etc.
+ * TODO: Filter form -> dynamic form (dynamic form needs to support checkbox and Radio button and return a valuechanges observer)
  * TODO: check email changed elsewhere (android).
  */
 @NgModule({

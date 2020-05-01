@@ -14,7 +14,7 @@ import {BaseFormComponent} from '../../../../shared/components/dynamic-form/base
 @Component({
   selector: 'app-parcel-form',
   templateUrl: './parcel-form.component.html',
-  styleUrls: ['./parcel-form.component.css'],
+  styleUrls: ['./parcel-form.component.scss'],
   animations: [trigger('form', enterLeaveTransition)]
 })
 export class ParcelFormComponent extends BaseFormComponent<Parcel> implements AfterViewInit {

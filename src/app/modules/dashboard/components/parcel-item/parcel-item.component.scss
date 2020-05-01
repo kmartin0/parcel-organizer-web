@@ -1,22 +1,23 @@
-:host {
-  /*Grid percentages*/
-  --perc-left: 62%;
-  --perc-grid-gap: 6%;
-  --perc-right: calc(100% - var(--perc-left) - var(--perc-grid-gap));
+@import "variables";
 
-  /*Divider percentages*/
-  --perc-divider-left: calc(var(--perc-left) + calc(var(--perc-grid-gap) / 2));
-  --perc-divider-height: 84%;
-  --perc-divider-top: calc(calc(100% - var(--perc-divider-height)) / 2);
-}
+/*Grid percentages*/
+$perc-left: 62%;
+$perc-grid-gap: 6%;
+$perc-right: calc(100% - #{$perc-left} - #{$perc-grid-gap});
+
+/*Divider percentages*/
+$perc-divider-left: calc(#{$perc-left} + calc(#{$perc-grid-gap} / 2));
+$perc-divider-height: 84%;
+$perc-divider-top: calc(calc(100% - #{$perc-divider-height}) / 2);
 
 .container {
-  /*width: var(--pi-width);*/
   width: 100%;
   padding: 12px;
   border-radius: 12px;
-  color: var(--pi-color-on);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  @include theme() {
+    color: theme-color($color-pi-on);
+  }
 }
 
 .center {
@@ -24,17 +25,19 @@
 }
 
 .title {
-  color: var(--pi-color-title);
   text-align: center;
   font-size: 20px;
   margin: 0 0 12px 0;
+  @include theme() {
+    color: theme-color($color-pi-title);
+  }
 }
 
 .information-item {
   display: grid;
   grid-template-areas: 'left right';
-  grid-template-columns: var(--perc-left) var(--perc-right);
-  grid-gap: var(--perc-grid-gap);
+  grid-template-columns: $perc-left $perc-right;
+  grid-gap: $perc-grid-gap;
   margin: 8px 0;
 }
 
@@ -70,16 +73,20 @@
 }
 
 .divider {
-  border: 1px solid var(--pi-color-divider);
-  height: var(--perc-divider-height);
-  top: var(--perc-divider-top);
+  height: $perc-divider-height;
+  top: $perc-divider-top;
   position: absolute;
-  left: var(--perc-divider-left);
+  left: $perc-divider-left;
+  @include theme() {
+    border: 1px solid theme-color($color-pi-divider);
+  }
 }
 
 .action-icon:hover {
   cursor: pointer;
-  color: var(--pi-color-action-hover);
+  @include theme() {
+    color: theme-color($color-pi-action-hover);
+  }
 }
 
 .clickable:hover {
@@ -90,19 +97,27 @@
   border-radius: 50%;
   padding: 8px;
   margin-right: -8px;
-  color: var(--pi-color-action);
+  @include theme() {
+    color: theme-color($color-pi-action);
+  }
 }
 
 .ordered {
-  background-color: var(--pi-color-ordered);
+  @include theme() {
+    background-color: theme-color($color-pi-ordered);
+  }
 }
 
 .sent {
-  background-color: var(--pi-color-sent);
+  @include theme() {
+    background-color: theme-color($color-pi-sent);
+  }
 }
 
 .delivered {
-  background-color: var(--pi-color-delivered);
+  @include theme() {
+    background-color: theme-color($color-pi-delivered);
+  }
 }
 
 .disabled {

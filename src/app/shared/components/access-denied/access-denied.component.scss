@@ -1,3 +1,5 @@
+@import "variables";
+
 .container {
   display: flex;
   flex-direction: column;
@@ -5,7 +7,9 @@
 }
 
 fa-icon {
-  color: var(--color-error);
+  @include theme() {
+    color: theme-color($color-error);
+  }
 }
 
 p {
@@ -14,5 +18,7 @@ p {
   margin-top: 18px;
   font-size: 22px;
   font-weight: 600;
-  color: var(--color-on-background);
+  @include theme() {
+    color: theme-color($color-on-background);
+  }
 }

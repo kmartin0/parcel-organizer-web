@@ -10,7 +10,7 @@ import {ValidatorFn} from '@angular/forms';
 @Component({
   selector: 'app-change-password-form',
   templateUrl: './change-password-form.component.html',
-  styleUrls: ['./change-password-form.component.css']
+  styleUrls: ['./change-password-form.component.scss']
 })
 export class ChangePasswordFormComponent extends BaseFormComponent<ChangePassword> {
 

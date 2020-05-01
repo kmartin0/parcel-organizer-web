@@ -1,0 +1,36 @@
+@import "variables";
+
+input[type=text], input[type=password], input[type=email], select {
+  padding: 15px 20px;
+  border-radius: 25px;
+  border: none;
+  font-size: 15px;
+  line-height: 1.5;
+  height: 40px;
+  width: 100%;
+  display: block;
+  @include theme() {
+    color: theme-color($color-on-input);
+    background-color: theme-color($color-input);
+  }
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  @include theme() {
+    color: rgba(theme-color($color-on-input), .5);
+  }
+
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  @include theme() {
+    color: rgba(theme-color($color-on-input), .5);
+  }
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  @include theme() {
+    color: rgba(theme-color($color-on-input), .5);
+  }
+}

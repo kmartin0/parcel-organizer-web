@@ -1,24 +1,27 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {
   ParcelOrderDirectionEnum,
   ParcelOrderOptionsEnum,
   ParcelSearchOptionsEnum,
   ParcelsSortFilterConfig,
-} from '../../pages/parcels/parcels-sort-filter-config';
+} from './parcels-sort-filter-config';
 import {trigger} from '@angular/animations';
 import {expandCollapseTransition} from '../../../../shared/anim/enter-leave.anim';
+import {ParcelFilterFormCacheService} from '../../pages/parcels/parcel-filter-form-cache.service';
 
 @Component({
   selector: 'app-parcel-filter-form',
   templateUrl: './parcel-filter-form.component.html',
-  styleUrls: ['./parcel-filter-form.component.css'],
+  styleUrls: ['./parcel-filter-form.component.scss'],
   animations: [trigger('expandCollapseAnimation', expandCollapseTransition)]
 })
 export class ParcelFilterFormComponent implements OnInit {
 
   @Output() sortFilterConfigEmitter = new EventEmitter<ParcelsSortFilterConfig>();
+
+  searchInput = '';
 
   statusOptions = ParcelStatusEnum;
   searchByOptions = ParcelSearchOptionsEnum;
@@ -50,24 +53,41 @@ export class ParcelFilterFormComponent implements OnInit {
     [this.filterFormKeys.orderDirection]: [this.orderDirection.DESCENDING]
   });
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private parcelFilterFormCacheService: ParcelFilterFormCacheService) {
+    this.initValueChangesObserver();
+    this.initParcelFiltersFromCache();
+  }
+
+  ngOnInit(): void {
+    this.filterForm.updateValueAndValidity();
+  }
+
+  showBottomSection = false;
+
+  toggleBottomSection() {
+    this.showBottomSection = !this.showBottomSection;
+  }
+
+  private initValueChangesObserver() {
     this.filterForm.valueChanges.subscribe(filters => {
       let keys = this.filterFormKeys;
       let parcelStatusFilters = this.getStatusFilters(filters[keys.statusGroupName]);
 
-      this.sortFilterConfigEmitter.emit(
-        new class implements ParcelsSortFilterConfig {
-          searchQuery: string = filters[keys.search];
-          searchBy: ParcelSearchOptionsEnum = filters[keys.searchBy];
-          orderBy: ParcelOrderOptionsEnum = filters[keys.orderBy];
-          orderDirection: ParcelOrderDirectionEnum = filters[keys.orderDirection];
-          statusFilters: ParcelStatusEnum[] = parcelStatusFilters;
-        }
-      );
+      let parcelFilterConfig = new class implements ParcelsSortFilterConfig {
+        searchQuery: string = filters[keys.search];
+        searchBy: ParcelSearchOptionsEnum = filters[keys.searchBy];
+        orderBy: ParcelOrderOptionsEnum = filters[keys.orderBy];
+        orderDirection: ParcelOrderDirectionEnum = filters[keys.orderDirection];
+        statusFilters: ParcelStatusEnum[] = parcelStatusFilters;
+      };
+
+      this.searchInput = parcelFilterConfig.searchQuery;
+      this.parcelFilterFormCacheService.persistParcelFilters(parcelFilterConfig);
+      this.sortFilterConfigEmitter.emit(parcelFilterConfig);
     });
   }
 
-  getStatusFilters(statusFilters) {
+  private getStatusFilters(statusFilters): Array<ParcelStatusEnum> {
     const parcelStatusFilterArr = new Array<ParcelStatusEnum>();
     if (!statusFilters[this.filterFormKeys.statusGroup.ordered]) {
       parcelStatusFilterArr.push(ParcelStatusEnum.ORDERED);
@@ -82,14 +102,29 @@ export class ParcelFilterFormComponent implements OnInit {
     return parcelStatusFilterArr;
   }
 
-  ngOnInit(): void {
-    this.filterForm.updateValueAndValidity();
-  }
+  private initParcelFiltersFromCache() {
+    const cachedConfig = this.parcelFilterFormCacheService.getCachedParcelFilters();
+    if (cachedConfig) {
+      this.filterForm.controls[this.filterFormKeys.search].setValue(cachedConfig.searchQuery);
+      this.filterForm.controls[this.filterFormKeys.searchBy].setValue(cachedConfig.searchBy);
+      this.filterForm.controls[this.filterFormKeys.orderBy].setValue(cachedConfig.orderBy);
+      this.filterForm.controls[this.filterFormKeys.orderDirection].setValue(cachedConfig.orderDirection);
 
-  showBottomSection = false;
-
-  toggleBottomSection() {
-    this.showBottomSection = !this.showBottomSection;
+      let statusGroup = this.filterForm.controls[this.filterFormKeys.statusGroupName] as FormGroup;
+      cachedConfig.statusFilters.forEach(statusFilter => {
+        switch (statusFilter) {
+          case ParcelStatusEnum.SENT:
+            statusGroup.controls[this.filterFormKeys.statusGroup.sent].setValue(false);
+            break;
+          case ParcelStatusEnum.ORDERED:
+            statusGroup.controls[this.filterFormKeys.statusGroup.ordered].setValue(false);
+            break;
+          case ParcelStatusEnum.DELIVERED:
+            statusGroup.controls[this.filterFormKeys.statusGroup.delivered].setValue(false);
+            break;
+        }
+      });
+    }
   }
 
 }

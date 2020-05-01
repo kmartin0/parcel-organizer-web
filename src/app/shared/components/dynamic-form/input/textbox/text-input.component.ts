@@ -5,7 +5,7 @@ import {FormControl} from '@angular/forms';
 @Component({
   selector: 'app-text-input',
   templateUrl: './text-input.component.html',
-  styleUrls: ['../input.css', './text-input.component.css']
+  styleUrls: ['../input.scss', './text-input.component.scss']
 })
 export class TextInputComponent {
 

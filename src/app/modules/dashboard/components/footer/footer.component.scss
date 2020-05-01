@@ -1,0 +1,10 @@
+@import "variables";
+
+footer {
+  text-align: center;
+  padding: 14px 14px;
+  @include theme() {
+    color: theme-color($color-on-footer);
+    background-color: theme-color($color-footer);
+  }
+}

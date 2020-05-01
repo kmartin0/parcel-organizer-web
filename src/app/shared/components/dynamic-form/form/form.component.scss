@@ -1,3 +1,5 @@
+@import "variables";
+
 .form-container {
   position: relative
 }
@@ -9,17 +11,21 @@
 label {
   margin-bottom: 4px;
   font-size: .9em;
-  color: var(--color-primary);
+  @include theme() {
+    color: theme-color($color-primary)
+  }
   font-weight: 600;
   display: block;
 }
 
 .error {
-  color: var(--color-on-error);
+  @include theme() {
+    color: theme-color($color-on-error);
+    background: theme-color($color-error);
+  }
   padding: 0 25px;
   margin: 10px 10px 0;
   display: inline-block;
-  background: var(--color-error);
   border-radius: 12px;
   font-size: small;
 }

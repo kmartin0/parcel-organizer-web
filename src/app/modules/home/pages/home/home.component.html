@@ -27,4 +27,12 @@
 
     </div>
   </div>
+
+  <div (click)="toggleTheme()" class="theme-icon-container"
+       [matTooltip]="!(isDarkTheme | async) ? 'Dark Theme' : 'Light Theme'">
+    <fa-icon *ngIf="!(isDarkTheme | async)" [icon]="faIcons.moon"
+             [styles]="faIconStyle"></fa-icon>
+    <fa-icon *ngIf="isDarkTheme | async" [icon]="faIcons.sun" [styles]="faIconStyle"></fa-icon>
+  </div>
+
 </div>

@@ -17,7 +17,7 @@ import {ChangePasswordFormComponent} from '../../components/change-password-form
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css'],
+  styleUrls: ['./account.component.scss'],
   animations: [trigger('form', enterLeaveTransition)]
 })
 export class AccountComponent implements OnInit, AfterViewInit {

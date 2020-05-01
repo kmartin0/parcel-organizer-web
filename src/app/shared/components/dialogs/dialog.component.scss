@@ -1,16 +1,22 @@
+@import "variables";
+
 .container {
-  background-color: var(--color-surface);
   display: flex;
   flex-direction: column;
+  @include theme() {
+    background-color: theme-color($color-surface);
+  }
 }
 
 .icon-wrap {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: var(--color-on-surface);
   display: flex;
   margin: 0 auto;
+  @include theme() {
+    background-color: theme-color($color-on-surface);
+  }
 }
 
 fa-icon {
@@ -19,8 +25,10 @@ fa-icon {
 }
 
 .description {
-  color: var(--color-on-background);
   margin-top: 12px;
+  @include theme() {
+    color: theme-color($color-on-background);
+  }
 }
 
 .actions {
@@ -28,21 +36,25 @@ fa-icon {
 }
 
 .action-button {
-  color: var(--color-on-background);
   outline: none;
   border: none;
   transition: background-color 0.3s ease;
   padding: 10px;
   border-radius: 4px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
-  background-color: rgba(255, 255, 255, 0.8);
   margin: 4px;
+  @include theme() {
+    color: theme-color($color-on-primary);
+    background-color: rgba(theme-color($color-primary), .75);
+  }
 }
 
 .action-button:hover {
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 1);
+  @include theme() {
+    background-color: rgba(theme-color($color-primary), .9);
+  }
 }
 
 @media (min-width: 550px) {

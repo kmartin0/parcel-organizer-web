@@ -5,7 +5,7 @@ import {DropdownInputField} from './dropdown-input-field';
 @Component({
   selector: 'app-dropdown-input',
   templateUrl: './dropdown-input.component.html',
-  styleUrls: ['../input.css', './dropdown-input.component.css']
+  styleUrls: ['../input.scss', './dropdown-input.component.scss']
 })
 export class DropdownInputComponent {
 
