@@ -5,7 +5,7 @@ nav {
   overflow: hidden;
   width: 60px;
   @include theme() {
-    background-color: rgba(theme-color($color-surface), .8);
+    background-color: theme-color($color-surface);
   }
 }
 

@@ -4,6 +4,7 @@
   </div>
 
   <div mat-dialog-content>
+    <p class="description">{{message}}</p>
     <app-user-auth-form confirmButtonWidth="100%" [loading$]="loading$" (validFormResult$)="authenticateUser($event)"></app-user-auth-form>
   </div>
 

@@ -25,6 +25,7 @@ fa-icon {
 }
 
 .description {
+  text-align: center;
   margin-top: 12px;
   @include theme() {
     color: theme-color($color-on-background);

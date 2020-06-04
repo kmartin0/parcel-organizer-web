@@ -47,7 +47,7 @@ ul > ul, li {
 
 .nav-btn:disabled {
   @include theme() {
-    background-color: theme-color($color-primary-disabled);
+    background-color: disabled-color(theme-color($color-primary));
   }
   cursor: initial;
 }

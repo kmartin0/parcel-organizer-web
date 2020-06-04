@@ -232,11 +232,10 @@ $themes: (
   default: (
     $color-primary : #1a237e,
     $color-primary-variant : #000051,
-    $color-primary-disabled: rgba(26, 35, 126, 0.61),
     $color-secondary: #880e4f,
     $color-secondary-variant: #560027,
-    $color-background: #ff867c,
-    $color-surface: #ffddc1,
+    $color-background: #d1c4e9,
+    $color-surface: #fff3e0,
     $color-header: #1a237e,
     $color-footer: #1a237e,
     $color-input: rgba(255, 255, 255, 0.8),
@@ -261,7 +260,6 @@ $themes: (
   dark: (
     $color-primary : #ff7043,
     $color-primary-variant : #c63f17,
-    $color-primary-disabled: rgba(198, 63, 23, 0.61),
     $color-secondary: #ef9a9a,
     $color-secondary-variant: #ba6b6c,
     $color-background: #102027,
@@ -335,6 +333,10 @@ $parcel-organizer-web-theme-dark: mat-dark-theme($parcel-organizer-web-primary-d
 // Get the theme $key color for a theme. Only to be used inside @theme mixin
 @function theme-color($key) {
   @return map-get($theme-map, $key);
+}
+
+@function disabled-color($color) {
+  @return rgba($color, .6)
 }
 
 @mixin surface() {
