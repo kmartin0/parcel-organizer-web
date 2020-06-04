@@ -31,9 +31,10 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 /**
  * TODO: Add Retour Status.
+ * TODO: Add environments (prod, dev).
  * TODO: normalize breakpoints, mobile, tablet etc.
  * TODO: Filter form -> dynamic form (dynamic form needs to support checkbox and Radio button and return a valuechanges observer)
- * TODO: check email changed elsewhere (android).
+ * TODO: Auth Interceptor Client Credentials heroku environment.
  */
 @NgModule({
   declarations: [

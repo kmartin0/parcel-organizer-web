@@ -13,7 +13,7 @@ export const DELETE_USER = BASE_USER_URL;
 export const CHANGE_PASSWORD = BASE_USER_URL + '/change-password';
 
 // Auth Endpoints
-export const LOGIN = BASE_API_URL + 'oauth/token';
+export const OAUTH = BASE_API_URL + 'oauth/token';
 
 // Parcel Endpoints
 export const BASE_PARCEL_URL = BASE_API_URL + 'parcels';
@@ -42,7 +42,7 @@ export function shouldBasicAuth(url: string, method: string): boolean {
     //   return url.startsWith(SAVE_USER) || url.startsWith(BASE_PARCEL_STATUS);
     // }
     case POST: {
-      return url.startsWith(LOGIN);
+      return url.startsWith(OAUTH);
     }
     default:
       return false;

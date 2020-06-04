@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {shouldBasicAuth, shouldBearerTokenAuth} from './api-endpoints';
-import {User} from '../shared/models/user';
 import {UserService} from '../shared/services/user.service';
+import {Oauth2Credentials} from '../shared/models/oauth2-credentials';
 
 @Injectable()
 export class ApiAuthInterceptor implements HttpInterceptor {
@@ -16,15 +16,15 @@ export class ApiAuthInterceptor implements HttpInterceptor {
     let method = req.method;
     if (shouldBasicAuth(url, method)) {
       const authReq = req.clone({
-        headers: req.headers.set('Authorization', 'Basic ' + btoa('parcel-organizer-android:secret'))
+        headers: req.headers.set('Authorization', 'Basic ' + btoa('parcel-organizer-web:secret'))
       });
 
       return next.handle(authReq);
     } else if (shouldBearerTokenAuth(url, method)) {
-      const user: User = this.userService.getLoggedInUser();
-      if (user != null && user.oauth2Credentials != null) {
+      const credentials: Oauth2Credentials = this.userService.getLoggedInUserOAuth2();
+      if (credentials != null) {
         const authReq = req.clone({
-          headers: req.headers.set('Authorization', user.oauth2Credentials.access_token)
+          headers: req.headers.set('Authorization', credentials.access_token)
         });
 
         return next.handle(authReq);

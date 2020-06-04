@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {USER_FORM, USER_FORM_KEYS} from './user.form';
 import {passwordMatchValidator} from '../../validators/password-match.validator';
 import {User} from '../../models/user';
-import {Oauth2Credentials} from '../../models/oauth2-credentials';
 import {isApiErrorBody} from '../../models/api-error-body';
 import {ApiErrorEnum} from '../../../api/api-error.enum';
 import {BaseFormComponent} from '../dynamic-form/base-form.component';
@@ -51,7 +50,6 @@ export class UserFormComponent extends BaseFormComponent<User> {
       email: string = formValues[USER_FORM_KEYS.email];
       id: string;
       name: string = formValues[USER_FORM_KEYS.name];
-      oauth2Credentials: Oauth2Credentials;
       password: string = formValues[USER_FORM_KEYS.password];
       confirmPassword: string = formValues[USER_FORM_KEYS.confirmPassword];
     };

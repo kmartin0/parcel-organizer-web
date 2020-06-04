@@ -8,6 +8,7 @@ import {ApiErrorEnum} from './api-error.enum';
 import {UserService} from '../shared/services/user.service';
 import {UserAuthDialogComponent} from '../shared/components/dialogs/user-auth-dialog/user-auth-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {BASE_API_URL, OAUTH} from './api-endpoints';
 
 @Injectable()
 export class ApiErrorInterceptor implements HttpInterceptor {
@@ -27,7 +28,6 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   handleError = (httpErrorResponse, req, next) => {
     if (isApiErrorBody(httpErrorResponse.error)) {
       const apiError = httpErrorResponse.error;
-
       switch (apiError.error) {
         case ApiErrorEnum.INTERNAL: { // Internal Server Error
           const internalErrorDialog = this.dialog.open(ErrorDialogComponent, {
@@ -36,9 +36,14 @@ export class ApiErrorInterceptor implements HttpInterceptor {
           });
           break;
         }
-        case ApiErrorEnum.invalid_token: { // Handle access token expired
-          if (apiError.error_description.startsWith('Access token expired')) {
-            return this.refreshToken(req, next);
+        case ApiErrorEnum.invalid_token:
+        case ApiErrorEnum.invalid_grant: { // Authentication Error
+          if (httpErrorResponse.url !== OAUTH) { // Global error interceptor does not handle direct calls to the authentication endpoint.
+            if (apiError.error_description.startsWith('Access token expired')) { // Refresh the access token if it's expired.
+              return this.refreshToken(req, next);
+            } else { // Retry login for all other authentication errors.
+              return this.retryLogin(req, next);
+            }
           }
           break;
         }
@@ -66,7 +71,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
 
   retryLogin(req, next) {
     const loginDialog = this.dialog.open(UserAuthDialogComponent, {
-      data: {message: 'Session expired please user-authentication-form again.'},
+      data: {message: 'Authentication failed, please login again.'},
       panelClass: 'app-dialog'
     });
 
