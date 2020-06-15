@@ -8,7 +8,7 @@ import {ApiErrorEnum} from './api-error.enum';
 import {UserService} from '../shared/services/user.service';
 import {UserAuthDialogComponent} from '../shared/components/dialogs/user-auth-dialog/user-auth-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {BASE_API_URL, OAUTH} from './api-endpoints';
+import {OAUTH} from './api-endpoints';
 
 @Injectable()
 export class ApiErrorInterceptor implements HttpInterceptor {
@@ -17,7 +17,6 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     return next.handle(req).pipe(
       catchError(err => {
         return this.handleError(err, req, next);
@@ -48,7 +47,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
           break;
         }
       }
-    } else if (httpErrorResponse.error instanceof ProgressEvent) { // The server couldn't be reached.
+    } else if (httpErrorResponse.status == 0) { // The server couldn't be reached.
       const unableToReachServerError = this.dialog.open(ErrorDialogComponent, {
         data: {message: 'The server couldn\'t be reached, please check your internet connection or try again later.'},
         panelClass: 'app-dialog'
@@ -58,7 +57,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     return throwError(httpErrorResponse.error);
   };
 
-  refreshToken(req, next) {
+  private refreshToken(req, next) {
     return this.userService.refreshAuthToken().pipe(
       switchMap(credentials => {
         return next.handle(req) as Observable<HttpEvent<any>>;
@@ -69,7 +68,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     );
   }
 
-  retryLogin(req, next) {
+  private retryLogin(req, next) {
     const loginDialog = this.dialog.open(UserAuthDialogComponent, {
       data: {message: 'Authentication failed, please login again.'},
       panelClass: 'app-dialog'

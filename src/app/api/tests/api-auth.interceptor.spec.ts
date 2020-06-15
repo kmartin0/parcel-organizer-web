@@ -6,8 +6,9 @@ import * as endpoints from '../api-endpoints';
 import {shouldBearerTokenAuth} from '../api-endpoints';
 import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 
-describe('api-auth-interceptor', () => {
+describe('api-auth.interceptor', () => {
 
   let userServiceSpy = jasmine.createSpyObj<UserService>('UserService', ['getLoggedInUserOAuth2']);
 
@@ -30,10 +31,12 @@ describe('api-auth-interceptor', () => {
   });
 
   afterEach(() => {
-
+    // After every test, assert that there are no more pending requests.
+    httpTestingController.verify();
   });
 
   it('should call next.handle without altering the header', () => {
+
     httpClient.get('/test-url').subscribe(() => {
     });
 
@@ -49,7 +52,7 @@ describe('api-auth-interceptor', () => {
     req.flush({});
   });
 
-  it('request should contain the user access token as Authorization header', () => {
+  it('should add user access token as Authorization Bearer header', () => {
     const oauth2stub = new class implements Oauth2Credentials {
       access_token: string = 'ey12f432';
       expires_in: string = '1243568';
@@ -77,8 +80,7 @@ describe('api-auth-interceptor', () => {
     req.flush({});
   });
 
-  it('request should contain the basic client authentication token as Authorization header', (done) => {
-
+  it('should add client authentication token as Authorization Basic header', (done) => {
     spyOn(endpoints, 'shouldBasicAuth').and.returnValue(true);
 
     httpClient.get('/test-url').subscribe(() => {
