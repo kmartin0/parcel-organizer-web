@@ -5,7 +5,7 @@ export interface ApiErrorBody {
   description?: string,
   error_description?: string,
   code: number,
-  details?: { target: string, error: string }[]
+  details?: { [target: string]: string } // array of details for targets containing the target and the error.
 }
 
 export function isApiErrorBody(object): object is ApiErrorBody {

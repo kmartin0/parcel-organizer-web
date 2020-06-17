@@ -34,6 +34,10 @@ export class ParcelItemComponent implements OnInit {
   @Output() parcelDeleted = new EventEmitter<Parcel>();
   parcelStatuses = ParcelStatusEnum;
 
+  copiedSuccessMsg = 'Successfully copied the tracking url to clipboard.';
+  copiedErrorMsg = 'Something went wrong while copying the tracking url to the clipboard';
+  copiedMissingUrlMsg = '';
+
   faIcons = {
     sender: faShoppingBag,
     courier: faTruck,
@@ -60,14 +64,12 @@ export class ParcelItemComponent implements OnInit {
   }
 
   onParcelDeleteClick() {
-    console.log(this.parcel);
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: {toDelete: this.parcel.title},
       panelClass: 'app-dialog'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('after closed');
       if (result) {
         this.deleteParcel();
       }
@@ -89,14 +91,13 @@ export class ParcelItemComponent implements OnInit {
 
   onShareParcelClick() {
     const trackingUrl = this.parcel.trackingUrl;
-
     // Construct the snackbar message and copy the tracking url if its present.
     let message;
     if (trackingUrl) {
       let copied = this.clipboard.copy(trackingUrl);
-      message = copied ? 'Successfully copied the tracking url to clipboard.' : 'Something went wrong while copying the tracking url to the clipboard';
+      message = copied ? this.copiedSuccessMsg : this.copiedErrorMsg;
     } else {
-      message = 'This parcel item does not contain a tracking url.';
+      message = this.copiedMissingUrlMsg;
     }
 
     // Display the snackbar message.

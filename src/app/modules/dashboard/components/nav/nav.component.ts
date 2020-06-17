@@ -38,10 +38,11 @@ export class NavComponent implements OnInit {
   @Output() navBarStateChanged = new EventEmitter<NAV_BAR_STATES>();
   isMobileView: boolean = false;
   isDarkTheme$ = this.themeService.isDarkTheme;
+  maxMobileWidth = 991;
 
   constructor(private userService: UserService, private router: Router, private themeService: ThemeService) {
     this.initNavigationListener();
-    this.isMobileView = window.innerWidth < 991;
+    this.isMobileView = window.innerWidth < this.maxMobileWidth;
   }
 
   ngOnInit() {
@@ -68,15 +69,10 @@ export class NavComponent implements OnInit {
     this.themeService.toggleTheme();
   }
 
-  private emitNavBarState(navBarState: NAV_BAR_STATES) {
-    this.navBarState = navBarState;
-    this.navBarStateChanged.emit(this.navBarState);
-  }
-
   @HostListener('window:resize', ['$event'])
-  private onResize(event) {
+  onResize(event) {
     const target = event.target;
-    if (target.innerWidth < 991) {
+    if (target.innerWidth < this.maxMobileWidth) {
       this.isMobileView = true;
       this.emitNavBarState(NAV_BAR_STATES.CLOSED);
     } else {
@@ -94,10 +90,13 @@ export class NavComponent implements OnInit {
     });
   }
 
+  private emitNavBarState(navBarState: NAV_BAR_STATES) {
+    this.navBarState = navBarState;
+    this.navBarStateChanged.emit(this.navBarState);
+  }
+
 }
 
 export enum NAV_BAR_STATES {
   CLIPPED, CLOSED, OPENED
 }
-
-// https://golb.hplar.ch/2019/02/fa.html

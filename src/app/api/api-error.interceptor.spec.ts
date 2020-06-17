@@ -1,17 +1,17 @@
 import {HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
-import {ApiErrorInterceptor} from '../api-error.interceptor';
-import {ApiErrorBody} from '../../shared/models/api-error-body';
-import {ApiErrorEnum} from '../api-error.enum';
-import {UserService} from '../../shared/services/user.service';
+import {ApiErrorInterceptor} from './api-error.interceptor';
+import {ApiErrorBody} from '../shared/models/api-error-body';
+import {ApiErrorEnum} from './api-error.enum';
+import {UserService} from '../shared/services/user.service';
 import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
-import {ErrorDialogComponent} from '../../shared/components/dialogs/error-dialog/error-dialog.component';
-import {Oauth2Credentials} from '../../shared/models/oauth2-credentials';
+import {ErrorDialogComponent} from '../shared/components/dialogs/error-dialog/error-dialog.component';
+import {Oauth2Credentials} from '../shared/models/oauth2-credentials';
 import {Observable, of} from 'rxjs';
-import {UserAuthDialogComponent} from '../../shared/components/dialogs/user-auth-dialog/user-auth-dialog.component';
+import {UserAuthDialogComponent} from '../shared/components/dialogs/user-auth-dialog/user-auth-dialog.component';
 
-describe('api-error.interceptor', () => {
+describe('ApiErrorInterceptor', () => {
 
   let userServiceSpy: jasmine.SpyObj<UserService>;
   let matDialogSpy: jasmine.SpyObj<MatDialog>;
@@ -43,27 +43,6 @@ describe('api-error.interceptor', () => {
     httpTestingController.verify();
   });
 
-  // it('should always return the error body.', () => {
-  //   const errorMessage = 'Api error occurred.';
-  //
-  //   httpClient.get(testUrl).subscribe(data => {
-  //     fail('should have failed with the network error');
-  //   }, (error: HttpErrorResponse) => {
-  //     expect(error.message).toEqual(errorMessage);
-  //   });
-  //
-  //   // Get the request.
-  //   const req = httpTestingController.expectOne(testUrl);
-  //
-  //   const mockError = new ErrorEvent('Network error', {
-  //     message: errorMessage,
-  //   });
-  //
-  //   // Respond with mock error
-  //   req.error(mockError, {status: 500, statusText: 'Error'});
-  //
-  // });
-
   it('should open ErrorDialogComponent when the server responds with an internal server error.', () => {
     httpClient.get(testUrl).subscribe(data => {
     }, (error: HttpErrorResponse) => {
@@ -73,12 +52,10 @@ describe('api-error.interceptor', () => {
     const req = httpTestingController.expectOne(testUrl);
 
     // Resolve the request with an internal server error.
-    const apiErrorBody = new class implements ApiErrorBody {
-      code: number = 500;
-      description: string = 'An internal error occurred.';
-      details: { target: string; error: string }[];
-      error: ApiErrorEnum = ApiErrorEnum.INTERNAL;
-      error_description: string;
+    const apiErrorBody: ApiErrorBody = {
+      code: 500,
+      description: 'An internal error occurred.',
+      error: ApiErrorEnum.INTERNAL,
     };
 
     req.flush(apiErrorBody, {status: 500, statusText: ''});
@@ -94,12 +71,10 @@ describe('api-error.interceptor', () => {
     const responseBody = {data: 'Personal Data'};
 
     // Create the access token expired error body.
-    const accessExpiredErrorBody = new class implements ApiErrorBody {
-      code: number = 401;
-      description: string;
-      details: { target: string; error: string }[];
-      error: ApiErrorEnum = ApiErrorEnum.invalid_token;
-      error_description: string = 'Access token expired';
+    const accessExpiredErrorBody: ApiErrorBody = {
+      code: 401,
+      error: ApiErrorEnum.invalid_token,
+      error_description: 'Access token expired'
     };
 
     // Create the mock response for refresh token request.
@@ -143,12 +118,10 @@ describe('api-error.interceptor', () => {
     const refreshUrl = '/refresh';
 
     // Create the access token expired error body.
-    const accessExpiredErrorBody = new class implements ApiErrorBody {
-      code: number = 401;
-      description: string;
-      details: { target: string; error: string }[];
-      error: ApiErrorEnum = ApiErrorEnum.invalid_token;
-      error_description: string = 'Access token expired';
+    const accessExpiredErrorBody: ApiErrorBody = {
+      code: 401,
+      error: ApiErrorEnum.invalid_token,
+      error_description: 'Access token expired'
     };
 
     // Setup user service refreshAuthToken method to return a mock http request.
@@ -190,12 +163,10 @@ describe('api-error.interceptor', () => {
     const responseBody = {data: 'Personal Data'};
 
     // Create the access token expired error body.
-    const accessExpiredErrorBody = new class implements ApiErrorBody {
-      code: number = 403;
-      description: string;
-      details: { target: string; error: string }[];
-      error: ApiErrorEnum = ApiErrorEnum.invalid_grant;
-      error_description: string = 'Refresh token expired';
+    const accessExpiredErrorBody: ApiErrorBody = {
+      code: 403,
+      error: ApiErrorEnum.invalid_grant,
+      error_description: 'Refresh token expired'
     };
 
     httpClient.get(testUrl).subscribe(value => {

@@ -1,4 +1,5 @@
 <div class="container"
+     *ngIf="parcel"
      [ngClass]="{
      'ordered': parcel.parcelStatus.status === parcelStatuses.ORDERED,
      'sent': parcel.parcelStatus.status === parcelStatuses.SENT,

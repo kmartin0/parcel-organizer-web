@@ -1,14 +1,13 @@
-import {ApiAuthInterceptor} from '../api-auth.interceptor';
-import {UserService} from '../../shared/services/user.service';
+import {ApiAuthInterceptor} from './api-auth.interceptor';
+import {UserService} from '../shared/services/user.service';
 import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
-import {Oauth2Credentials} from '../../shared/models/oauth2-credentials';
-import * as endpoints from '../api-endpoints';
-import {shouldBearerTokenAuth} from '../api-endpoints';
+import {Oauth2Credentials} from '../shared/models/oauth2-credentials';
+import * as endpoints from './api-endpoints';
+import {shouldBearerTokenAuth} from './api-endpoints';
 import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 
-describe('api-auth.interceptor', () => {
+describe('ApiAuthInterceptor', () => {
 
   let userServiceSpy = jasmine.createSpyObj<UserService>('UserService', ['getLoggedInUserOAuth2']);
 

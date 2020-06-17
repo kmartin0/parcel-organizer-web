@@ -73,12 +73,12 @@ export class ParcelFilterFormComponent implements OnInit {
       let keys = this.filterFormKeys;
       let parcelStatusFilters = this.getStatusFilters(filters[keys.statusGroupName]);
 
-      let parcelFilterConfig = new class implements ParcelsSortFilterConfig {
-        searchQuery: string = filters[keys.search];
-        searchBy: ParcelSearchOptionsEnum = filters[keys.searchBy];
-        orderBy: ParcelOrderOptionsEnum = filters[keys.orderBy];
-        orderDirection: ParcelOrderDirectionEnum = filters[keys.orderDirection];
-        statusFilters: ParcelStatusEnum[] = parcelStatusFilters;
+      let parcelFilterConfig: ParcelsSortFilterConfig = {
+        searchQuery: filters[keys.search],
+        searchBy: filters[keys.searchBy],
+        orderBy: filters[keys.orderBy],
+        orderDirection: filters[keys.orderDirection],
+        statusFilters: parcelStatusFilters
       };
 
       this.searchInput = parcelFilterConfig.searchQuery;
@@ -87,23 +87,9 @@ export class ParcelFilterFormComponent implements OnInit {
     });
   }
 
-  private getStatusFilters(statusFilters): Array<ParcelStatusEnum> {
-    const parcelStatusFilterArr = new Array<ParcelStatusEnum>();
-    if (!statusFilters[this.filterFormKeys.statusGroup.ordered]) {
-      parcelStatusFilterArr.push(ParcelStatusEnum.ORDERED);
-    }
-    if (!statusFilters[this.filterFormKeys.statusGroup.delivered]) {
-      parcelStatusFilterArr.push(ParcelStatusEnum.DELIVERED);
-    }
-    if (!statusFilters[this.filterFormKeys.statusGroup.sent]) {
-      parcelStatusFilterArr.push(ParcelStatusEnum.SENT);
-    }
-
-    return parcelStatusFilterArr;
-  }
-
-  private initParcelFiltersFromCache() {
+  initParcelFiltersFromCache() {
     const cachedConfig = this.parcelFilterFormCacheService.getCachedParcelFilters();
+
     if (cachedConfig) {
       this.filterForm.controls[this.filterFormKeys.search].setValue(cachedConfig.searchQuery);
       this.filterForm.controls[this.filterFormKeys.searchBy].setValue(cachedConfig.searchBy);
@@ -125,6 +111,21 @@ export class ParcelFilterFormComponent implements OnInit {
         }
       });
     }
+  }
+
+  private getStatusFilters(statusFilters): Array<ParcelStatusEnum> {
+    const parcelStatusFilterArr = new Array<ParcelStatusEnum>();
+    if (!statusFilters[this.filterFormKeys.statusGroup.ordered]) {
+      parcelStatusFilterArr.push(ParcelStatusEnum.ORDERED);
+    }
+    if (!statusFilters[this.filterFormKeys.statusGroup.delivered]) {
+      parcelStatusFilterArr.push(ParcelStatusEnum.DELIVERED);
+    }
+    if (!statusFilters[this.filterFormKeys.statusGroup.sent]) {
+      parcelStatusFilterArr.push(ParcelStatusEnum.SENT);
+    }
+
+    return parcelStatusFilterArr;
   }
 
 }

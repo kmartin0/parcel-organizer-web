@@ -11,7 +11,7 @@ export abstract class BaseFormComponent<T> {
   @Input() loading$: Subject<boolean>;
   @Output() validFormResult$ = new EventEmitter<T>();
 
-  @ViewChild(FormComponent, {static: false}) private _formComponent: FormComponent;
+  @ViewChild(FormComponent, {static: false}) _formComponent: FormComponent;
   public get formComponent(): FormComponent {
     return this._formComponent;
   }

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {CHANGE_PASSWORD_FORM, CHANGE_PASSWORD_FORM_KEYS} from './change-password-form';
-import {isApiErrorBody} from '../../../../shared/models/api-error-body';
+import {ApiErrorBody, isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {ChangePassword} from '../../../../shared/models/change-password';
 import {passwordMatchValidator} from '../../../../shared/validators/password-match.validator';
@@ -44,11 +44,12 @@ export class ChangePasswordFormComponent extends BaseFormComponent<ChangePasswor
   }
 
   onValidForm(formValues: { [key: string]: string }) {
-    const changePassword = new class implements ChangePassword {
-      confirmPassword: string = formValues[CHANGE_PASSWORD_FORM_KEYS.confirmPassword];
-      currentPassword: string = formValues[CHANGE_PASSWORD_FORM_KEYS.currentPassword];
-      newPassword: string = formValues[CHANGE_PASSWORD_FORM_KEYS.newPassword];
+    const changePassword: ChangePassword = {
+      confirmPassword: formValues[CHANGE_PASSWORD_FORM_KEYS.confirmPassword],
+      currentPassword: formValues[CHANGE_PASSWORD_FORM_KEYS.currentPassword],
+      newPassword: formValues[CHANGE_PASSWORD_FORM_KEYS.newPassword]
     };
+
     this.validFormResult$.emit(changePassword);
   }
 }

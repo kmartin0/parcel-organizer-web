@@ -4,7 +4,6 @@ import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {Parcel} from '../../../../shared/models/parcel';
 import {PARCEL_FORM, PARCEL_FORM_KEYS} from './parcel.form';
 import {ParcelService} from '../../../../shared/services/parcel.service';
-import {ParcelStatus} from '../../../../shared/models/parcel-status';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
@@ -35,15 +34,15 @@ export class ParcelFormComponent extends BaseFormComponent<Parcel> implements Af
   }
 
   onValidForm(formValues: { [key: string]: string }) {
-    const parcel: Parcel = new class implements Parcel {
-      id: number;
-      title: string = formValues[PARCEL_FORM_KEYS.title];
-      sender: string = formValues[PARCEL_FORM_KEYS.sender];
-      courier: string = formValues[PARCEL_FORM_KEYS.courier];
-      trackingUrl: string = formValues[PARCEL_FORM_KEYS.trackingUrl];
-      additionalInformation: string = formValues[PARCEL_FORM_KEYS.additionalInformation];
-      parcelStatus: ParcelStatus;
-      lastUpdated: Date;
+    const parcel: Parcel = {
+      id: undefined,
+      title: formValues[PARCEL_FORM_KEYS.title],
+      sender: formValues[PARCEL_FORM_KEYS.sender],
+      courier: formValues[PARCEL_FORM_KEYS.courier],
+      trackingUrl: formValues[PARCEL_FORM_KEYS.trackingUrl],
+      additionalInformation: formValues[PARCEL_FORM_KEYS.additionalInformation],
+      parcelStatus: undefined,
+      lastUpdated: undefined
     };
     this.parcelService.getParcelStatus(formValues[PARCEL_FORM_KEYS.parcelStatusEnum] as ParcelStatusEnum).pipe(
       withLoading(this.loading$)
@@ -85,18 +84,18 @@ export class ParcelFormComponent extends BaseFormComponent<Parcel> implements Af
   }
 
   private initPreviewParcel() {
-    this.previewParcel = new class implements Parcel {
-      courier: string = '';
-      id: number;
-      lastUpdated: Date = new Date();
-      parcelStatus: ParcelStatus = new class implements ParcelStatus {
-        id: number = 0;
-        status: ParcelStatusEnum = ParcelStatusEnum.ORDERED;
-      };
-      sender: string = '';
-      title: string = '';
-      trackingUrl: string = '';
-      additionalInformation: string = '';
+    this.previewParcel = {
+      courier: '',
+      id: undefined,
+      lastUpdated: undefined,
+      parcelStatus: {
+        id: 0,
+        status: ParcelStatusEnum.ORDERED,
+      },
+      sender: '',
+      title: '',
+      trackingUrl: '',
+      additionalInformation: ''
     };
   }
 
