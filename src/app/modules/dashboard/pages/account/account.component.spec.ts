@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component, NO_ERRORS_SCHEMA} from '@angular/core';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {AccountComponent} from './account.component';
 import {of, Subject, throwError} from 'rxjs';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {UserService} from '../../../../shared/services/user.service';
 import {User} from '../../../../shared/models/user';
-import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
-import {UserFormComponent} from '../../../../shared/components/user-form/user-form.component';
 import {FormControl} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {USER_FORM_KEYS} from '../../../../shared/components/user-form/user.form';
 import {ApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {ChangePassword} from '../../../../shared/models/change-password';
-import {ChangePasswordFormComponent} from '../../components/change-password-form/change-password-form.component';
+import {FormComponentStub} from '../../../../testing/form.component.stub';
+import {UserFormComponentStub} from '../../../../testing/user-form.component.stub';
+import {ChangePasswordFormComponentStub} from '../../../../testing/change-password-form.component.stub';
 
 describe('AccountComponent', () => {
 
@@ -29,56 +29,6 @@ describe('AccountComponent', () => {
     email: 'testuser@gmail.com',
     name: 'test user'
   };
-
-  @Component({
-    selector: 'app-form',
-    template: '',
-    providers: [{provide: FormComponent, useClass: FormComponentStub}]
-  })
-  class FormComponentStub {
-    getFormControl(key: string): FormControl {
-      return formControlSpy;
-    }
-
-    resetForm(value?: any) {
-    }
-  }
-
-  @Component({
-    selector: 'app-user-form',
-    template: '',
-    providers: [{provide: UserFormComponent, useClass: UserFormComponentStub}],
-  })
-  class UserFormComponentStub {
-    _formComponent = TestBed.createComponent(FormComponentStub).componentInstance as FormComponent;
-    public get formComponent(): FormComponent {
-      return this._formComponent;
-    }
-
-    displaySuccess(callback?: () => void) {
-    }
-
-    handleApiError(apiError: any) {
-    }
-  }
-
-  @Component({
-    selector: 'app-change-password-form',
-    template: '',
-    providers: [{provide: ChangePasswordFormComponent, useClass: ChangePasswordFormComponentStub}],
-  })
-  class ChangePasswordFormComponentStub {
-    _formComponent = TestBed.createComponent(FormComponentStub).componentInstance as FormComponent;
-    public get formComponent(): FormComponent {
-      return this._formComponent;
-    }
-
-    displaySuccess(callback?: () => void) {
-    }
-
-    handleApiError(apiError: any) {
-    }
-  }
 
   beforeEach(() => {
     // Initialize spies
@@ -113,7 +63,7 @@ describe('AccountComponent', () => {
     // Given
     formControlSpy.setValue.calls.reset();
     spyOn(component, 'populateForm').and.callThrough();
-    spyOn(component.userFormComponent.formComponent, 'getFormControl').and.callThrough();
+    spyOn(component.userFormComponent.formComponent, 'getFormControl').and.returnValue(formControlSpy);
 
     // When
     component.ngAfterViewInit();

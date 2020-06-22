@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {ChangeDetectorRef, Component, NO_ERRORS_SCHEMA} from '@angular/core';
+import {ChangeDetectorRef, NO_ERRORS_SCHEMA} from '@angular/core';
 import {EditParcelComponent} from './edit-parcel.component';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {Location} from '@angular/common';
-import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
 import {FormControl} from '@angular/forms';
-import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.component';
 import {Parcel} from '../../../../shared/models/parcel';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 import {of, Subject, throwError} from 'rxjs';
 import {PARCEL_FORM_KEYS} from '../../components/parcel-form/parcel.form';
 import {ApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
+import {FormComponentStub} from '../../../../testing/form.component.stub';
+import {ParcelFormComponentStub} from '../../../../testing/parcel-form.component.stub';
 
 describe('EditParcelComponent', () => {
 
@@ -40,38 +40,6 @@ describe('EditParcelComponent', () => {
     title: 'Clothes',
     trackingUrl: 'ups.com/track/123'
   };
-
-  @Component({
-    selector: 'app-form',
-    template: '',
-    providers: [{provide: FormComponent, useClass: FormComponentStub}]
-  })
-  class FormComponentStub {
-    getFormControl(key: string): FormControl {
-      return formControlSpy;
-    }
-
-    resetForm(value?: any) {
-    }
-  }
-
-  @Component({
-    selector: 'app-parcel-form',
-    template: '',
-    providers: [{provide: ParcelFormComponent, useClass: ParcelFormComponentStub}],
-  })
-  class ParcelFormComponentStub {
-    _formComponent = TestBed.createComponent(FormComponentStub).componentInstance as FormComponent;
-    public get formComponent(): FormComponent {
-      return this._formComponent;
-    }
-
-    displaySuccess(callback?: () => void) {
-    }
-
-    handleApiError(apiError: any) {
-    }
-  }
 
   beforeEach(() => {
     // Initialize spies
@@ -110,7 +78,7 @@ describe('EditParcelComponent', () => {
 
   it('should populate parcel form and set access to true', () => {
     // Given
-    spyOn(component.parcelFormComponent.formComponent, 'getFormControl').and.callThrough();
+    spyOn(component.parcelFormComponent.formComponent, 'getFormControl').and.returnValue(formControlSpy);
     formControlSpy.setValue.calls.reset();
 
     // When

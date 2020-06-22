@@ -2,25 +2,15 @@ import {ChangePasswordFormComponent} from './change-password-form.component';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CHANGE_PASSWORD_FORM_KEYS} from './change-password-form';
 import {ChangePassword} from '../../../../shared/models/change-password';
-import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
-import {Component, NO_ERRORS_SCHEMA} from '@angular/core';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
+import {FormComponentStub} from '../../../../testing/form.component.stub';
 
 describe('ChangePasswordFormComponent', () => {
 
   let component: ChangePasswordFormComponent;
   let fixture: ComponentFixture<ChangePasswordFormComponent>;
-
-  @Component({
-    selector: 'app-form',
-    template: '',
-    providers: [{provide: FormComponent, useClass: FormComponentStub}]
-  })
-  class FormComponentStub {
-    setError(formControlKey: string, error: string) {
-    };
-  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

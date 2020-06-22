@@ -1,13 +1,13 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component, NO_ERRORS_SCHEMA} from '@angular/core';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {of, Subject, throwError} from 'rxjs';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.component';
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {CreateParcelComponent} from './create-parcel.component';
 import {Parcel} from '../../../../shared/models/parcel';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
+import {ParcelFormComponentStub} from '../../../../testing/parcel-form.component.stub';
 
 describe('CreateParcelComponent', () => {
 
@@ -16,23 +16,6 @@ describe('CreateParcelComponent', () => {
 
   let component: CreateParcelComponent;
   let fixture: ComponentFixture<CreateParcelComponent>;
-
-  @Component({
-    selector: 'app-parcel-form',
-    template: '',
-    providers: [{provide: ParcelFormComponent, useClass: ParcelFormComponentStub}],
-  })
-  class ParcelFormComponentStub {
-    displaySuccess(callback?: () => void) {
-      callback();
-    }
-
-    resetForm(value?: any) {
-    }
-
-    handleApiError(apiError: any) {
-    }
-  }
 
   beforeEach(() => {
     // Initialize spies
