@@ -35,10 +35,12 @@ describe('ParcelFormComponent', () => {
     }
   }
 
-  beforeEach(async(() => {
-
+  beforeEach(() => {
+    // Initialize spies
     parcelServiceSpy = jasmine.createSpyObj('ParcelService', ['getParcelStatus']);
+  })
 
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [BrowserAnimationsModule],
       declarations: [ParcelFormComponent, FormComponentStub],

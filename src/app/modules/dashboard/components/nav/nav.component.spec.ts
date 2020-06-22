@@ -13,11 +13,14 @@ describe('NavComponent', () => {
   let component: NavComponent;
   let fixture: ComponentFixture<NavComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+    // Initialize spies
     userServiceSpy = jasmine.createSpyObj('UserService', ['logoutUser']);
     themeServiceSpy = jasmine.createSpyObj('ThemeService', ['toggleTheme']);
     routerSpy = jasmine.createSpyObj('Router', [], {events: of(null)});
+  });
 
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NavComponent],
       providers: [

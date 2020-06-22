@@ -13,11 +13,10 @@ import {of, Subject} from 'rxjs';
 import {DeleteDialogComponent} from '../../../../shared/components/dialogs/delete-dialog/delete-dialog.component';
 import {EDIT_PARCEL} from '../../../../shared/constants/endpoints';
 import * as urlHelper from '../../../../shared/helpers/url.helper';
-import * as endpoints from '../../../../api/api-endpoints';
 
 describe('ParcelItemComponent', () => {
 
-  let testParcel: Parcel;
+  let parcelItem: Parcel;
 
   let parcelServiceSpy: jasmine.SpyObj<ParcelService>;
   let dashboardLoadingServiceSpy: jasmine.SpyObj<DashboardLoadingService>;
@@ -29,8 +28,9 @@ describe('ParcelItemComponent', () => {
   let component: ParcelItemComponent;
   let fixture: ComponentFixture<ParcelItemComponent>;
 
-  beforeEach(async(() => {
-    testParcel = {
+  beforeEach(() => {
+    // Initialize parcel item
+    parcelItem = {
       additionalInformation: 'Extra info',
       courier: 'UPS',
       id: 1,
@@ -44,6 +44,7 @@ describe('ParcelItemComponent', () => {
       trackingUrl: 'amazon.com/tracker/10'
     };
 
+    // Initialize spies
     parcelServiceSpy = jasmine.createSpyObj('ParcelService', ['deleteParcel']);
     dashboardLoadingServiceSpy = jasmine.createSpyObj('DashboardLoadingService', [], [{loading$: new Subject()}]);
     matDialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
@@ -51,6 +52,9 @@ describe('ParcelItemComponent', () => {
     snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
     clipboardSpy = jasmine.createSpyObj('Clipboard', ['copy']);
 
+  });
+
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MatDialogModule, MatSnackBarModule, ClipboardModule],
       declarations: [ParcelItemComponent],
@@ -70,7 +74,7 @@ describe('ParcelItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ParcelItemComponent);
     component = fixture.componentInstance;
-    component.parcel = testParcel;
+    component.parcel = parcelItem;
     fixture.detectChanges();
   });
 
@@ -114,12 +118,12 @@ describe('ParcelItemComponent', () => {
 
     // Then
     expect(component.parcelDeleted.emit).toHaveBeenCalledTimes(1);
-    expect(component.parcelDeleted.emit).toHaveBeenCalledWith(testParcel);
+    expect(component.parcelDeleted.emit).toHaveBeenCalledWith(parcelItem);
   });
 
   it('should navigate to edit parcel url', () => {
     // Given
-    const parcelId = testParcel.id;
+    const parcelId = parcelItem.id;
 
     // When
     component.onEditParcelClick();
@@ -132,7 +136,7 @@ describe('ParcelItemComponent', () => {
   it('should copy tracking url and display snack bar success message', () => {
     // Given
     clipboardSpy.copy.and.returnValue(true);
-    const trackingUrl = testParcel.trackingUrl;
+    const trackingUrl = parcelItem.trackingUrl;
 
     // When
     component.onShareParcelClick();
@@ -147,7 +151,7 @@ describe('ParcelItemComponent', () => {
   it('should copy tracking url and display snack bar error message', () => {
     // Given
     clipboardSpy.copy.and.returnValue(false);
-    const trackingUrl = testParcel.trackingUrl;
+    const trackingUrl = parcelItem.trackingUrl;
 
     // When
     component.onShareParcelClick();
@@ -162,8 +166,7 @@ describe('ParcelItemComponent', () => {
   it('should copy tracking url and display snack bar missing url message', () => {
     // Given
     clipboardSpy.copy.and.returnValue(false);
-    testParcel.trackingUrl = undefined;
-    const trackingUrl = testParcel.trackingUrl;
+    parcelItem.trackingUrl = undefined;
 
     // When
     component.onShareParcelClick();
@@ -176,7 +179,7 @@ describe('ParcelItemComponent', () => {
 
   it('should open new tab with tracking url', () => {
     // Given
-    let prefixedUrl = 'http://' + testParcel.trackingUrl;
+    let prefixedUrl = 'http://' + parcelItem.trackingUrl;
     spyOn(window, 'open');
     spyOn(urlHelper, 'prefixUrl').and.returnValue(prefixedUrl);
 
@@ -190,7 +193,7 @@ describe('ParcelItemComponent', () => {
 
   it('should not open new tab without tracking url present', () => {
     // Given
-    testParcel.trackingUrl = undefined;
+    parcelItem.trackingUrl = undefined;
     spyOn(window, 'open');
 
     // When

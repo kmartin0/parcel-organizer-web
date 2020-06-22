@@ -34,10 +34,13 @@ describe('CreateParcelComponent', () => {
     }
   }
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+    // Initialize spies
     dashboardLoadingServiceSpy = jasmine.createSpyObj('DashboardLoadingService', [], [{loading$: new Subject()}]);
     parcelServiceSpy = jasmine.createSpyObj('ParcelService', ['createParcel']);
+  })
 
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [BrowserAnimationsModule],
       declarations: [CreateParcelComponent, ParcelFormComponentStub],

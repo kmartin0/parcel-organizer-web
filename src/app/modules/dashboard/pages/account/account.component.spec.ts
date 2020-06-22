@@ -80,11 +80,17 @@ describe('AccountComponent', () => {
     }
   }
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+    // Initialize spies
     dashboardLoadingServiceSpy = jasmine.createSpyObj('DashboardLoadingService', [], [{loading$: new Subject()}]);
     userServiceSpy = jasmine.createSpyObj('UserService', ['getLoggedInUser', 'updateUser', 'changePassword']);
     formControlSpy = jasmine.createSpyObj('FormControl', ['setValue']);
 
+    // Setup spy return values
+    userServiceSpy.getLoggedInUser.and.returnValue(of(loggedInUser));
+  });
+
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [BrowserAnimationsModule],
       declarations: [AccountComponent, UserFormComponentStub, FormComponentStub, ChangePasswordFormComponentStub],
@@ -98,8 +104,6 @@ describe('AccountComponent', () => {
   }));
 
   beforeEach(() => {
-    userServiceSpy.getLoggedInUser.and.returnValue(of(loggedInUser));
-
     fixture = TestBed.createComponent(AccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

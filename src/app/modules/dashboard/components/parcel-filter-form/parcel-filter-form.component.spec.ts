@@ -19,10 +19,12 @@ describe('ParcelFilterFormComponent', () => {
   let component: ParcelFilterFormComponent;
   let fixture: ComponentFixture<ParcelFilterFormComponent>;
 
-  beforeEach(async(() => {
-
+  beforeEach(() => {
+    // Initialize spies
     parcelFilterFormCacheServiceSpy = jasmine.createSpyObj('ParcelFilterFormCacheService', ['persistParcelFilters', 'getCachedParcelFilters']);
+  });
 
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MatInputModule, BrowserAnimationsModule],
       declarations: [ParcelFilterFormComponent],

@@ -1,6 +1,6 @@
 import {HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {TestBed} from '@angular/core/testing';
+import {async, TestBed} from '@angular/core/testing';
 import {ApiErrorInterceptor} from './api-error.interceptor';
 import {ApiErrorBody} from '../shared/models/api-error-body';
 import {ApiErrorEnum} from './api-error.enum';
@@ -20,10 +20,13 @@ describe('ApiErrorInterceptor', () => {
   let testUrl = '/test-url';
 
   beforeEach(() => {
-
+    // Initialize spies
     userServiceSpy = jasmine.createSpyObj<UserService>('UserService', ['refreshAuthToken', 'logoutUser']);
     matDialogSpy = jasmine.createSpyObj<MatDialog>('MatDialog', ['open']);
+  });
 
+  beforeEach(async(() => {
+    // Initialize testing module
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatDialogModule],
       providers: [
@@ -36,7 +39,7 @@ describe('ApiErrorInterceptor', () => {
     // Inject the http client and test controller for each test
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-  });
+  }));
 
   afterEach(() => {
     // After every test, assert that there are no more pending requests.

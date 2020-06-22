@@ -54,9 +54,12 @@ describe('DashboardComponent', () => {
   let fixture: ComponentFixture<DashboardComponent>;
   let router: Router;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
+    // Initialize spies
     dashboardLoadingServiceSpy = jasmine.createSpyObj('DashboardLoadingService', [], [{loading$: new Subject()}]);
+  });
 
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes(dashboardRoutes)],
       declarations: [DashboardComponent],
@@ -70,6 +73,7 @@ describe('DashboardComponent', () => {
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
     router = TestBed.inject(Router);
   });
 
