@@ -6,7 +6,7 @@ import {AuthGuard} from './auth.guard';
 import {UnauthenticatedComponent} from '../shared/components/unauthenticated/unauthenticated.component';
 import {AnonymousGuard} from './anonymous.guard';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('../modules/dashboard/dashboard.module').then(m => m.DashboardModule),

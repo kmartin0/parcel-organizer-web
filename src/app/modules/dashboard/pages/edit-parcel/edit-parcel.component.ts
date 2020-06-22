@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ParcelService} from '../../../../shared/services/parcel.service';
 import {ActivatedRoute} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
@@ -20,7 +20,7 @@ import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.comp
   styleUrls: ['./edit-parcel.component.scss'],
   animations: [trigger('form', enterLeaveTransition)]
 })
-export class EditParcelComponent implements OnInit {
+export class EditParcelComponent implements AfterViewInit {
 
   loading$: Subject<boolean>;
 
@@ -46,17 +46,8 @@ export class EditParcelComponent implements OnInit {
     return this._parcelFormComponent;
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.getParcelToEdit();
-  }
-
-  populateForm(parcel: Parcel) {
-    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.title).setValue(parcel.title);
-    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.sender).setValue(parcel.sender);
-    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.courier).setValue(parcel.courier);
-    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.trackingUrl).setValue(parcel.trackingUrl);
-    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.additionalInformation).setValue(parcel.additionalInformation);
-    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.parcelStatusEnum).setValue(parcel.parcelStatus.status);
   }
 
   onParcelResult(parcel: Parcel) {
@@ -94,5 +85,14 @@ export class EditParcelComponent implements OnInit {
         }
       }
     });
+  }
+
+  private populateForm(parcel: Parcel) {
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.title).setValue(parcel.title);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.sender).setValue(parcel.sender);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.courier).setValue(parcel.courier);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.trackingUrl).setValue(parcel.trackingUrl);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.additionalInformation).setValue(parcel.additionalInformation);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.parcelStatusEnum).setValue(parcel.parcelStatus.status);
   }
 }

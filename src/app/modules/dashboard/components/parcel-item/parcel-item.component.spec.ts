@@ -46,9 +46,6 @@ describe('ParcelItemComponent', () => {
 
     parcelServiceSpy = jasmine.createSpyObj('ParcelService', ['deleteParcel']);
     dashboardLoadingServiceSpy = jasmine.createSpyObj('DashboardLoadingService', [], [{loading$: new Subject()}]);
-    // dashboardLoadingServiceSpy = {} as jasmine.SpyObj<any>;
-    // dashboardLoadingServiceSpy = {
-    // } as jasmine.SpyObj<DashboardLoadingService>;
     matDialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
     snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
@@ -202,5 +199,5 @@ describe('ParcelItemComponent', () => {
     // Then
     expect(window.open).toHaveBeenCalledTimes(0);
   });
-  
+
 });

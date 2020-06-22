@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {filter, share, shareReplay} from 'rxjs/operators';
+import {filter, share, shareReplay, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardLoadingService {
   private readonly _loading$: Subject<boolean>;
+  readonly negativeLoadingRequestsMsg = 'Warning: loading requests is below zero' ;
 
   get loading$(): Subject<boolean> {
     return this._loading$;
@@ -25,12 +26,12 @@ export class DashboardLoadingService {
           return true;
         }
         if (this.loadingRequests < 0) {
-          console.error('Warning: loading requests is below zero');
+          console.error(this.negativeLoadingRequestsMsg);
         }
         return false;
       }),
       share(),
-      shareReplay(1)
+      shareReplay(1),
     ) as Subject<boolean>;
 
     // Dummy subscriber so that filter is always ran.

@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NAV_BAR_STATES} from '../../components/nav/nav.component';
 import {ActivatedRoute, ChildActivationEnd, Router} from '@angular/router';
-import {filter, map, takeUntil} from 'rxjs/operators';
+import {filter, map, takeUntil, tap} from 'rxjs/operators';
 import {Observable, Subject} from 'rxjs';
 import {DashboardLoadingService} from './dashboard-loading.service';
+import {getActivatedRouteTitle} from '../../../../shared/helpers/routing.helper';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,12 +33,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   initTitleChangeObserver() {
     this.router.events
       .pipe(
-        filter(e => e instanceof ChildActivationEnd && e.snapshot.component === this.activatedRoute.component),
-        map(ev => (ev as ChildActivationEnd).snapshot.firstChild.firstChild.data),
+        filter(e => e instanceof ChildActivationEnd && e.snapshot.component === DashboardComponent),
+        map(ev => {
+         return  getActivatedRouteTitle((ev as ChildActivationEnd).snapshot)
+        }),
         takeUntil(this.ngUnsubscribe$)
       )
-      .subscribe(data => {
-        this.title = data.title;
+      .subscribe(title => {
+        this.title = title;
       });
   }
 
@@ -47,9 +50,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private setInitialTitle() {
-    this.activatedRoute.firstChild.firstChild.data.subscribe(data => {
-      this.title = data.title;
-    });
+    this.title = getActivatedRouteTitle(this.activatedRoute.snapshot);
   }
 }
 

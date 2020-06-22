@@ -24,7 +24,7 @@ export class CreateParcelComponent implements OnInit {
     return this._parcelFormComponent;
   }
 
-  constructor(private parcelService: ParcelService, private route: ActivatedRoute, private dashboardLoadingService: DashboardLoadingService) {
+  constructor(private parcelService: ParcelService, private dashboardLoadingService: DashboardLoadingService) {
     this.loading$ = dashboardLoadingService.loading$;
   }
 

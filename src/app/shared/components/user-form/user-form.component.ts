@@ -39,6 +39,9 @@ export class UserFormComponent extends BaseFormComponent<User> {
           this.formComponent.setError(USER_FORM_KEYS.name, apiError.details[USER_FORM_KEYS.name]);
           break;
         }
+        case ApiErrorEnum.PERMISSION_DENIED: {
+          this.formComponent.setError(USER_FORM_KEYS.password, 'Incorrect password.');
+        }
       }
     } else {
       this.formComponent.setError(null, 'An unknown error has occurred.');

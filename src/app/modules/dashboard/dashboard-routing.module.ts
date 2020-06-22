@@ -7,18 +7,21 @@ import {AccountComponent} from './pages/account/account.component';
 import {AuthGuard} from '../../core/auth.guard';
 import {EditParcelComponent} from './pages/edit-parcel/edit-parcel.component';
 
-const dashboardRoutes: Routes = [
+export const dashboardRoutes: Routes = [
   {
     path: '',
+    pathMatch: 'prefix',
     component: DashboardComponent,
     canActivate: [AuthGuard],
     children: [
       {
         path: '',
+        pathMatch: 'prefix',
         canActivateChild: [AuthGuard],
         children: [
           {
             path: '',
+            pathMatch: 'prefix',
             redirectTo: 'parcels',
           },
           {

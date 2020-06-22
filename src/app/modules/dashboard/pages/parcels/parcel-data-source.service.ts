@@ -60,7 +60,7 @@ export class ParcelDataSourceService {
     ).pipe(share());
   }
 
-  sortParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig, loading$: Subject<boolean>): Observable<Parcel[]> {
+  private sortParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig, loading$: Subject<boolean>): Observable<Parcel[]> {
     return new Observable<Parcel[]>(subscriber => {
       if (!filters || !parcels) {
         subscriber.next(parcels);
@@ -92,7 +92,7 @@ export class ParcelDataSourceService {
     }).pipe(withLoading(loading$));
   }
 
-  parcelOrderByAccessor(parcel: Parcel, orderBy: ParcelOrderOptionsEnum) {
+  private parcelOrderByAccessor(parcel: Parcel, orderBy: ParcelOrderOptionsEnum) {
     switch (orderBy) {
       case ParcelOrderOptionsEnum.TITLE:
         return parcel.title;

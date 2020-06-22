@@ -6,18 +6,18 @@ import {ParcelsSortFilterConfig} from '../../components/parcel-filter-form/parce
 })
 export class ParcelFilterFormCacheService {
 
-  private STORAGE_PARCEL_FILTERS_KEY = 'parcel-filters';
-
   constructor() {
 
   }
 
   persistParcelFilters(parcelFilters: ParcelsSortFilterConfig) {
-    localStorage.setItem(this.STORAGE_PARCEL_FILTERS_KEY, JSON.stringify(parcelFilters));
+    localStorage.setItem(STORAGE_PARCEL_FILTERS_KEY, JSON.stringify(parcelFilters));
   }
 
   getCachedParcelFilters(): ParcelsSortFilterConfig {
-    return JSON.parse(localStorage.getItem(this.STORAGE_PARCEL_FILTERS_KEY));
+    return JSON.parse(localStorage.getItem(STORAGE_PARCEL_FILTERS_KEY));
   }
 
 }
+
+export const STORAGE_PARCEL_FILTERS_KEY = 'parcel-filters';

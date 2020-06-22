@@ -50,8 +50,8 @@ export class AccountComponent implements OnInit, AfterViewInit {
     this.userService.getLoggedInUser().pipe(
       withLoading(this.dashboardLoading$)
     ).subscribe(user => {
-      this.userFormComponent.formComponent.getFormControl(USER_FORM_KEYS.email).setValue(user.email);
-      this.userFormComponent.formComponent.getFormControl(USER_FORM_KEYS.name).setValue(user.name);
+        this.userFormComponent.formComponent.getFormControl(USER_FORM_KEYS.email).setValue(user.email);
+        this.userFormComponent.formComponent.getFormControl(USER_FORM_KEYS.name).setValue(user.name);
     }, error => {
     });
   }
@@ -63,26 +63,8 @@ export class AccountComponent implements OnInit, AfterViewInit {
     ).subscribe(user => {
       this.handleUserUpdateSuccess(user);
     }, error => {
-      this.handleUserUpdateError(error);
+      this.userFormComponent.handleApiError(error);
     });
-  }
-
-  handleUserUpdateSuccess(updatedUser: User) {
-    this.userFormComponent.displaySuccess(() => {
-      this.userFormComponent.formComponent.resetForm({
-        [USER_FORM_KEYS.email]: updatedUser.email,
-        [USER_FORM_KEYS.name]: updatedUser.name
-      });
-    });
-  }
-
-  handleUserUpdateError(apiError: any) {
-    if (isApiErrorBody(apiError)) {
-      this.userFormComponent.handleApiError(apiError);
-      if (apiError.error == ApiErrorEnum.PERMISSION_DENIED) {
-        this.userFormComponent.formComponent.setError(USER_FORM_KEYS.password, 'Incorrect password.');
-      }
-    }
   }
 
   onChangePasswordResult(changePassword: ChangePassword) {
@@ -96,7 +78,16 @@ export class AccountComponent implements OnInit, AfterViewInit {
     });
   }
 
-  handleChangePasswordSuccess() {
+  private handleUserUpdateSuccess(updatedUser: User) {
+    this.userFormComponent.displaySuccess(() => {
+      this.userFormComponent.formComponent.resetForm({
+        [USER_FORM_KEYS.email]: updatedUser.email,
+        [USER_FORM_KEYS.name]: updatedUser.name
+      });
+    });
+  }
+
+  private handleChangePasswordSuccess() {
     this.changePasswordFormComponent.displaySuccess(() => {
       this.changePasswordFormComponent.formComponent.resetForm();
     });
