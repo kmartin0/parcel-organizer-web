@@ -38,12 +38,13 @@ export class HomeComponent implements OnInit {
   };
 
   @ViewChild(UserAuthFormComponent, {static: false})
-  private userAuthFormComponent: UserAuthFormComponent;
+  userAuthFormComponent: UserAuthFormComponent;
 
   @ViewChild(UserFormComponent, {static: false})
-  private userFormComponent: UserFormComponent;
+  userFormComponent: UserFormComponent;
 
-  constructor(formBuilder: FormBuilder, private userService: UserService, private router: Router, private redirectService: RedirectService, private themeService: ThemeService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router,
+              private redirectService: RedirectService, private themeService: ThemeService) {
     this.initFormSelect(formBuilder);
   }
 
@@ -51,7 +52,7 @@ export class HomeComponent implements OnInit {
   }
 
   authenticateUser(userAuthentication: UserAuthentication) {
-    this.userService.loginUser(userAuthentication.email, userAuthentication.password)
+    this.userService.loginUser(userAuthentication)
       .pipe(withLoading(this.loading$))
       .subscribe(value => {
         this.handleAuthSuccess();

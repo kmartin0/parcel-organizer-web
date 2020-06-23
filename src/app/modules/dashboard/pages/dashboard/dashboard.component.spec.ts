@@ -5,15 +5,9 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {DashboardLoadingService} from './dashboard-loading.service';
 import {Subject} from 'rxjs';
 import {ActivatedRoute, Router, Routes} from '@angular/router';
+import {StubComponent} from '../../../../testing/stub.component';
 
 describe('DashboardComponent', () => {
-
-  @Component({
-    selector: 'stub',
-    template: '',
-  })
-  class StubComponent {
-  }
 
   const dashboardRoutes: Routes = [
     {
