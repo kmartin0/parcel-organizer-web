@@ -37,7 +37,9 @@ export class SuccessComponent implements OnInit {
     animationItem.play();
     animationItem.addEventListener('complete', args => {
       animationItem.stop();
-      this.animationCompleteCallback();
+      if (this.animationCompleteCallback) {
+        this.animationCompleteCallback();
+      }
       this.isDisplaying = false;
     });
   }

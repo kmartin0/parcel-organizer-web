@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
-import {ParcelService} from '../../../../shared/services/parcel.service';
+import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {ParcelsComponent} from './parcels.component';
 import {ScrollDispatcher} from '@angular/cdk/overlay';
 import {of, Subject, throwError} from 'rxjs';

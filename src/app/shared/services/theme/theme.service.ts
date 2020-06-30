@@ -6,7 +6,6 @@ import {OverlayContainer} from '@angular/cdk/overlay';
   providedIn: 'root'
 })
 export class ThemeService {
-  private STORAGE_THEME_KEY = 'dark-theme';
   private _darkTheme = new BehaviorSubject<boolean>(this.getThemeFromStorage());
   isDarkTheme = this._darkTheme.asObservable();
 
@@ -24,7 +23,6 @@ export class ThemeService {
   private initDarkThemeObserver() {
     this.isDarkTheme.subscribe(isDarkTheme => {
       const overlayContainerClasses = this.overlayContainer.getContainerElement().classList;
-
       const themeClassesToRemove = Array.from(overlayContainerClasses).filter((item: string) => item.startsWith('theme-'));
 
       if (themeClassesToRemove.length) {
@@ -39,11 +37,13 @@ export class ThemeService {
   }
 
   private persistTheme(isDarkTheme: boolean) {
-    localStorage.setItem(this.STORAGE_THEME_KEY, JSON.stringify(isDarkTheme));
+    localStorage.setItem(STORAGE_THEME_KEY, JSON.stringify(isDarkTheme));
   }
 
   private getThemeFromStorage(): boolean {
-    return JSON.parse(localStorage.getItem(this.STORAGE_THEME_KEY));
+    return JSON.parse(localStorage.getItem(STORAGE_THEME_KEY));
   }
 
 }
+
+export const STORAGE_THEME_KEY = 'dark-theme';

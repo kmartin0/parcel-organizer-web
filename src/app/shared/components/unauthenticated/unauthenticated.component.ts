@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {faUserLock} from '@fortawesome/free-solid-svg-icons';
 import {HOME} from '../../constants/endpoints';
-import {Router} from '@angular/router';
-import {RedirectService} from '../../services/redirect.service';
+import {RedirectService} from '../../services/redirect/redirect.service';
 
 @Component({
   selector: 'app-unauthenticated',
@@ -21,7 +20,7 @@ export class UnauthenticatedComponent implements OnInit {
 
   private redirect: string;
 
-  constructor(private router: Router, private redirectService: RedirectService) {
+  constructor(private redirectService: RedirectService) {
   }
 
   ngOnInit() {

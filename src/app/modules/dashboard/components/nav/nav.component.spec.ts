@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {NAV_BAR_STATES, NavComponent} from './nav.component';
-import {UserService} from '../../../../shared/services/user.service';
+import {UserService} from '../../../../shared/services/user/user.service';
 import {NavigationStart, Router} from '@angular/router';
 import {of} from 'rxjs';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {ThemeService} from '../../../../shared/services/theme.service';
+import {ThemeService} from '../../../../shared/services/theme/theme.service';
 
 describe('NavComponent', () => {
   let userServiceSpy: jasmine.SpyObj<UserService>;

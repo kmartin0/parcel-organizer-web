@@ -1,5 +1,5 @@
 import {ApiAuthInterceptor} from './api-auth.interceptor';
-import {UserService} from '../shared/services/user.service';
+import {UserService} from '../shared/services/user/user.service';
 import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
 import {Oauth2Credentials} from '../shared/models/oauth2-credentials';
 import * as endpoints from './api-endpoints';

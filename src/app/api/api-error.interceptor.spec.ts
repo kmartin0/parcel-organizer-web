@@ -4,7 +4,7 @@ import {async, TestBed} from '@angular/core/testing';
 import {ApiErrorInterceptor} from './api-error.interceptor';
 import {ApiErrorBody} from '../shared/models/api-error-body';
 import {ApiErrorEnum} from './api-error.enum';
-import {UserService} from '../shared/services/user.service';
+import {UserService} from '../shared/services/user/user.service';
 import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {ErrorDialogComponent} from '../shared/components/dialogs/error-dialog/error-dialog.component';
 import {Oauth2Credentials} from '../shared/models/oauth2-credentials';

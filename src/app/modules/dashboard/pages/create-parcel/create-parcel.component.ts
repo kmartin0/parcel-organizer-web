@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ParcelService} from '../../../../shared/services/parcel.service';
+import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {ActivatedRoute} from '@angular/router';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {Subject} from 'rxjs';

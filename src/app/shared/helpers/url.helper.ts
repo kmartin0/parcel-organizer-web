@@ -1,8 +1,12 @@
 // Prefixes the url with http:// if it doesn't have it already
 export function prefixUrl(url: string): string {
-  if (url && url.startsWith('http://') && url.startsWith('http://')) {
+  if (!url) {
     return url;
-  } else {
-    return 'http://' + url
   }
+
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    return url;
+  }
+
+  return 'http://' + url;
 }

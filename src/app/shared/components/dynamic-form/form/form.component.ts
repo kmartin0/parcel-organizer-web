@@ -12,7 +12,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
-import {ErrorMessageService} from '../../../services/error-message.service';
+import {ErrorMessageService} from '../../../services/error-message/error-message.service';
 import {takeUntil} from 'rxjs/operators';
 import {Observable, Subject} from 'rxjs';
 import {SuccessComponent} from '../../success/success.component';

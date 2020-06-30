@@ -10,7 +10,7 @@ export function getActivatedRouteTitle(activatedRouteSnapshot: ActivatedRouteSna
     return '';
   }
 
-  if (activatedRouteSnapshot.data.title) {
+  if (activatedRouteSnapshot.data && activatedRouteSnapshot.data.hasOwnProperty('title') && activatedRouteSnapshot.data.title) {
     return activatedRouteSnapshot.data.title;
   }
 

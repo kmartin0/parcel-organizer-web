@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {shouldBasicAuth, shouldBearerTokenAuth} from './api-endpoints';
-import {UserService} from '../shared/services/user.service';
+import {UserService} from '../shared/services/user/user.service';
 import {Oauth2Credentials} from '../shared/models/oauth2-credentials';
 
 @Injectable()

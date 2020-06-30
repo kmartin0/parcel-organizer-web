@@ -3,7 +3,7 @@ import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {AccountComponent} from './account.component';
 import {of, Subject, throwError} from 'rxjs';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
-import {UserService} from '../../../../shared/services/user.service';
+import {UserService} from '../../../../shared/services/user/user.service';
 import {User} from '../../../../shared/models/user';
 import {FormControl} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';

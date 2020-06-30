@@ -13,7 +13,7 @@ import {
   faPen, faClipboardList
 } from '@fortawesome/free-solid-svg-icons';
 import {DeleteDialogComponent} from '../../../../shared/components/dialogs/delete-dialog/delete-dialog.component';
-import {ParcelService} from '../../../../shared/services/parcel.service';
+import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {DashboardLoadingService} from '../../pages/dashboard/dashboard-loading.service';
 import {withLoading} from '../../../../shared/helpers/operators';
 import {Router} from '@angular/router';

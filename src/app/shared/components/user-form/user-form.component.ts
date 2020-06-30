@@ -49,12 +49,12 @@ export class UserFormComponent extends BaseFormComponent<User> {
   }
 
   onValidForm(formValues: { [key: string]: string }) {
-    const user: User = new class implements User {
-      email: string = formValues[USER_FORM_KEYS.email];
-      id: string;
-      name: string = formValues[USER_FORM_KEYS.name];
-      password: string = formValues[USER_FORM_KEYS.password];
-      confirmPassword: string = formValues[USER_FORM_KEYS.confirmPassword];
+    const user: User = {
+      email: formValues[USER_FORM_KEYS.email],
+      id: null,
+      name: formValues[USER_FORM_KEYS.name],
+      password: formValues[USER_FORM_KEYS.password],
+      confirmPassword: formValues[USER_FORM_KEYS.confirmPassword]
     };
 
     this.validFormResult$.emit(user);

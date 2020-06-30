@@ -30,11 +30,7 @@ export abstract class BaseFormComponent<T> {
   abstract handleApiError(apiError: any);
 
   displaySuccess(callback?: () => void) {
-    this.formComponent.displaySuccess(() => {
-      if (callback) {
-        callback();
-      }
-    });
+    this.formComponent.displaySuccess(callback);
   }
 
 }

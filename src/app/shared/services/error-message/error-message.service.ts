@@ -22,7 +22,7 @@ export class ErrorMessageService {
     Object.keys(validationErrors).forEach(key => {
       const error = this.defaultErrors[key];
       if (key == 'customError') {
-        errors.push(...(validationErrors[key]));
+        errors.push(validationErrors[key]);
         return;
       }
       if (error != null) {

@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component, NO_ERRORS_SCHEMA} from '@angular/core';
 import {ParcelFormComponent} from './parcel-form.component';
-import {ParcelService} from '../../../../shared/services/parcel.service';
+import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Observable, of, Subject, throwError} from 'rxjs';

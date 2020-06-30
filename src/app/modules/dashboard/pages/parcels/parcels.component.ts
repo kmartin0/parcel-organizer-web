@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Parcel} from '../../../../shared/models/parcel';
-import {ParcelService} from '../../../../shared/services/parcel.service';
+import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';

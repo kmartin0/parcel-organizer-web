@@ -17,6 +17,7 @@ export class UserFormComponentStub {
   }
 
   displaySuccess(callback?: () => void) {
+    callback()
   }
 
   handleApiError(apiError: any) {

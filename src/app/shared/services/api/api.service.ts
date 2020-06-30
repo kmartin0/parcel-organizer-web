@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class BaseApiService {
+export class ApiService {
 
   constructor(private http: HttpClient) {
   }
@@ -14,9 +14,9 @@ export class BaseApiService {
     return this.http.post<T>(url, body);
   }
 
-  makePostFormUrlEncoded<T>(url: string, params: HttpParams): Observable<T> {
+  makePostFormUrlEncoded<T>(url: string, body: HttpParams): Observable<T> {
     const headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
-    return this.http.post<T>(url, params.toString(), {headers});
+    return this.http.post<T>(url, body ? body.toString() : null, {headers});
   }
 
   makeGet<T>(url: string): Observable<T> {

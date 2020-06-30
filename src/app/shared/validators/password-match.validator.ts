@@ -5,7 +5,8 @@ export function passwordMatchValidator(controlName: string, matchingControlName:
     const control = abstractControl.get(controlName);
     const matchingControl = abstractControl.get(matchingControlName);
 
-    if ((control || matchingControl) == null) {
+    if (!control || !matchingControl) {
+      console.warn('control or matchingControl is null');
       return null;
     }
 

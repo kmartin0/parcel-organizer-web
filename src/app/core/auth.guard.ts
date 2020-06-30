@@ -10,7 +10,7 @@ import {
   UrlTree, Router
 } from '@angular/router';
 import {Observable} from 'rxjs';
-import {UserService} from '../shared/services/user.service';
+import {UserService} from '../shared/services/user/user.service';
 
 @Injectable({
   providedIn: 'root'

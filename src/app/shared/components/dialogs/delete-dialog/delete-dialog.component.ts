@@ -22,7 +22,6 @@ export class DeleteDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { toDelete: string }) {
     this.toDelete = data.toDelete;
-
   }
 
   ngOnInit() {

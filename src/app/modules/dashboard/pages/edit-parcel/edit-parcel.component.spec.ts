@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {ChangeDetectorRef, NO_ERRORS_SCHEMA} from '@angular/core';
 import {EditParcelComponent} from './edit-parcel.component';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
-import {ParcelService} from '../../../../shared/services/parcel.service';
+import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 import {Location} from '@angular/common';
 import {FormControl} from '@angular/forms';

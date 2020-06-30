@@ -17,6 +17,7 @@ export class ChangePasswordFormComponentStub {
   }
 
   displaySuccess(callback?: () => void) {
+    callback()
   }
 
   handleApiError(apiError: any) {

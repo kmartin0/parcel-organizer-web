@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ParcelItemComponent} from './parcel-item.component';
 import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
-import {ParcelService} from '../../../../shared/services/parcel.service';
+import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {DashboardLoadingService} from '../../pages/dashboard/dashboard-loading.service';
 import {Router} from '@angular/router';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';

@@ -3,7 +3,7 @@ import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {Parcel} from '../../../../shared/models/parcel';
 import {PARCEL_FORM, PARCEL_FORM_KEYS} from './parcel.form';
-import {ParcelService} from '../../../../shared/services/parcel.service';
+import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';

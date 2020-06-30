@@ -1,10 +1,10 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {faCubes, faPlusCircle, faUser, faSignOutAlt, faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
-import {UserService} from '../../../../shared/services/user.service';
+import {UserService} from '../../../../shared/services/user/user.service';
 import {ACCOUNT, CREATE_PARCEL, PARCELS} from '../../../../shared/constants/endpoints';
 import {NavigationStart, Router} from '@angular/router';
-import {ThemeService} from '../../../../shared/services/theme.service';
+import {ThemeService} from '../../../../shared/services/theme/theme.service';
 
 @Component({
   selector: 'app-nav',

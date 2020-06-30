@@ -2,10 +2,10 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {FORM_TYPES, HomeComponent} from './home.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {UserService} from '../../../../shared/services/user.service';
+import {UserService} from '../../../../shared/services/user/user.service';
 import {Router} from '@angular/router';
-import {RedirectService} from '../../../../shared/services/redirect.service';
-import {ThemeService} from '../../../../shared/services/theme.service';
+import {RedirectService} from '../../../../shared/services/redirect/redirect.service';
+import {ThemeService} from '../../../../shared/services/theme/theme.service';
 import {UserAuthentication} from '../../../../shared/models/user-authentication';
 import {of, throwError} from 'rxjs';
 import {Oauth2Credentials} from '../../../../shared/models/oauth2-credentials';
@@ -30,7 +30,7 @@ describe('HomeComponent', () => {
     // Initialize spies
     userServiceSpy = jasmine.createSpyObj('UserService', ['loginUser', 'registerUser']);
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl', 'navigate']);
-    redirectServiceSpy = jasmine.createSpyObj('RedirectService', [], {redirect: ''});
+    redirectServiceSpy = jasmine.createSpyObj('RedirectService', ['consume']);
     themeServiceSpy = jasmine.createSpyObj('ThemeService', ['toggleTheme']);
   });
 
@@ -91,8 +91,7 @@ describe('HomeComponent', () => {
   it('should navigate to redirect url after login', () => {
     // Given
     const redirectUrl = '/redirect-here';
-    // @ts-ignore
-    Object.getOwnPropertyDescriptor(redirectServiceSpy, 'redirect').get.and.returnValue(redirectUrl);
+    redirectServiceSpy.consume.and.returnValue(redirectUrl)
 
     const userAuth: UserAuthentication = {
       email: 'user@gmail.com',

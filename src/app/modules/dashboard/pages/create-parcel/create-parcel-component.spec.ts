@@ -3,7 +3,7 @@ import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {of, Subject, throwError} from 'rxjs';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ParcelService} from '../../../../shared/services/parcel.service';
+import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {CreateParcelComponent} from './create-parcel.component';
 import {Parcel} from '../../../../shared/models/parcel';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';

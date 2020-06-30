@@ -5,7 +5,7 @@ import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {UserFormComponent} from '../../../../shared/components/user-form/user-form.component';
-import {UserService} from '../../../../shared/services/user.service';
+import {UserService} from '../../../../shared/services/user/user.service';
 import {withLoading} from '../../../../shared/helpers/operators';
 import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';

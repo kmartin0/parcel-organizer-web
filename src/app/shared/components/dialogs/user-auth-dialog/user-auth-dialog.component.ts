@@ -6,7 +6,7 @@ import {Subject} from 'rxjs';
 import {UserAuthentication} from '../../../models/user-authentication';
 import {withLoading} from '../../../helpers/operators';
 import {UserAuthFormComponent} from '../../user-authentication-form/user-auth-form.component';
-import {UserService} from '../../../services/user.service';
+import {UserService} from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-login-dialog',
@@ -28,7 +28,7 @@ export class UserAuthDialogComponent implements OnInit {
   };
 
   @ViewChild(UserAuthFormComponent, {static: false})
-  private userAuthFormComponent: UserAuthFormComponent;
+  userAuthFormComponent: UserAuthFormComponent;
 
   constructor(private userService: UserService, public dialogRef: MatDialogRef<UserAuthDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { message: string, loginSuccess: () => {} }) {
@@ -41,7 +41,7 @@ export class UserAuthDialogComponent implements OnInit {
   }
 
   authenticateUser(userAuthentication: UserAuthentication) {
-    this.userService.loginUser(userAuthentication.email, userAuthentication.password)
+    this.userService.loginUser(userAuthentication)
       .pipe(withLoading(this.loading$))
       .subscribe(value => {
         this.userAuthFormComponent.displaySuccess(() => {

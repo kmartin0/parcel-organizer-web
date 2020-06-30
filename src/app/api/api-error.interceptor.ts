@@ -5,7 +5,7 @@ import {catchError, switchMap} from 'rxjs/operators';
 import {ErrorDialogComponent} from '../shared/components/dialogs/error-dialog/error-dialog.component';
 import {isApiErrorBody} from '../shared/models/api-error-body';
 import {ApiErrorEnum} from './api-error.enum';
-import {UserService} from '../shared/services/user.service';
+import {UserService} from '../shared/services/user/user.service';
 import {UserAuthDialogComponent} from '../shared/components/dialogs/user-auth-dialog/user-auth-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {OAUTH} from './api-endpoints';

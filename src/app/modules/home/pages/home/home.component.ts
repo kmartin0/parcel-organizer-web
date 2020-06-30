@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserAuthFormComponent} from '../../../../shared/components/user-authentication-form/user-auth-form.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {UserService} from '../../../../shared/services/user.service';
+import {UserService} from '../../../../shared/services/user/user.service';
 import {Router} from '@angular/router';
 import {DASHBOARD} from '../../../../shared/constants/endpoints';
-import {RedirectService} from '../../../../shared/services/redirect.service';
+import {RedirectService} from '../../../../shared/services/redirect/redirect.service';
 import {User} from '../../../../shared/models/user';
 import {withLoading} from '../../../../shared/helpers/operators';
 import {UserFormComponent} from '../../../../shared/components/user-form/user-form.component';
@@ -12,7 +12,7 @@ import {Subject} from 'rxjs';
 import {UserAuthentication} from '../../../../shared/models/user-authentication';
 import {faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
-import {ThemeService} from '../../../../shared/services/theme.service';
+import {ThemeService} from '../../../../shared/services/theme/theme.service';
 
 @Component({
   selector: 'app-home',
@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
 
   private handleAuthSuccess() {
     this.userAuthFormComponent.displaySuccess(() => {
-      const redirect = this.redirectService.redirect;
+      const redirect = this.redirectService.consume();
       if (redirect) {
         this.router.navigateByUrl(redirect);
       } else {

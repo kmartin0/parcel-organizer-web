@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {CHANGE_PASSWORD_FORM, CHANGE_PASSWORD_FORM_KEYS} from './change-password-form';
-import {ApiErrorBody, isApiErrorBody} from '../../../../shared/models/api-error-body';
+import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {ChangePassword} from '../../../../shared/models/change-password';
 import {passwordMatchValidator} from '../../../../shared/validators/password-match.validator';

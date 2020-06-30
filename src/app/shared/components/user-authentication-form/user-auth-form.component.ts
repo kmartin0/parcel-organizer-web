@@ -34,19 +34,12 @@ export class UserAuthFormComponent extends BaseFormComponent<UserAuthentication>
   }
 
   onValidForm(formValues: { [key: string]: string }) {
-    const userAuthentication = new class implements UserAuthentication {
-      email: string = formValues[USER_AUTH_FORM_KEYS.email];
-      password: string = formValues[USER_AUTH_FORM_KEYS.password];
+    const userAuthentication: UserAuthentication = {
+      email: formValues[USER_AUTH_FORM_KEYS.email],
+      password: formValues[USER_AUTH_FORM_KEYS.password]
     };
 
     this.validFormResult$.emit(userAuthentication);
   }
 
-  displaySuccess(callback?: () => void) {
-    this.formComponent.displaySuccess(() => {
-      if (callback) {
-        callback();
-      }
-    });
-  }
 }
