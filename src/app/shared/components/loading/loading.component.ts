@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../anim/enter-leave.anim';
 
@@ -13,15 +12,7 @@ import {enterLeaveTransition} from '../../anim/enter-leave.anim';
 export class LoadingComponent implements OnInit {
 
   @Input() loading$?: Observable<boolean>;
-  @Input() width: string = '34px';
-  @Input() height: string = '34px';
-
-  spinnerIcon = faSpinner;
-
-  faIconStyle = {
-    width: this.width,
-    height: this.height,
-  };
+  @Input() spinnerSize: number = 34;
 
   constructor() {
 

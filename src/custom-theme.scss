@@ -37,6 +37,12 @@ button {
   }
 }
 
+app-header .mat-spinner circle {
+  @include theme-root() {
+    stroke: theme-color($color-on-header)!important;
+  }
+}
+
 .mat-tooltip {
   font-size: 14px;
   letter-spacing: 0.4px;

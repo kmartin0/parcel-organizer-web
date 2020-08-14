@@ -8,8 +8,8 @@ import {
   ParcelsSortFilterConfig,
 } from './parcels-sort-filter-config';
 import {trigger} from '@angular/animations';
-import {expandCollapseTransition} from '../../../../shared/anim/enter-leave.anim';
 import {ParcelFilterFormCacheService} from '../../pages/parcels/parcel-filter-form-cache.service';
+import {expandCollapseTransition} from '../../../../shared/anim/expand-collapse.anim';
 
 @Component({
   selector: 'app-parcel-filter-form',

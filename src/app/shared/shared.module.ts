@@ -25,6 +25,7 @@ import {UserFormComponent} from './components/user-form/user-form.component';
 import {PaginatorComponent} from './components/paginator/paginator.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -61,7 +62,8 @@ export function playerFactory() {
     LottieModule.forRoot({player: playerFactory}),
     RouterModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     FormComponent,

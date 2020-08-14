@@ -28,6 +28,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 /**
  * TODO: Add Retour Status.
@@ -52,24 +53,25 @@ import {ReactiveFormsModule} from '@angular/forms';
     ChangePasswordFormComponent,
     ParcelFilterFormComponent
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    FontAwesomeModule,
-    SharedModule,
-    HomeModule,
-    MatSnackBarModule,
-    ClipboardModule,
-    MatTooltipModule,
-    ScrollingModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatButtonModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        FontAwesomeModule,
+        SharedModule,
+        HomeModule,
+        MatSnackBarModule,
+        ClipboardModule,
+        MatTooltipModule,
+        ScrollingModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatProgressSpinnerModule
+    ]
 })
 export class DashboardModule {
 }

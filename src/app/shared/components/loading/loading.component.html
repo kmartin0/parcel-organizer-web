@@ -1,1 +1,1 @@
-<fa-icon @spinner *ngIf="(loading$ | async)" [icon]="spinnerIcon" [styles]="faIconStyle" [pulse]="true"></fa-icon>
+<mat-spinner *ngIf="(loading$ | async)" [diameter]="spinnerSize"></mat-spinner>
