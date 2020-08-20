@@ -18,8 +18,13 @@
         <input id="register" type="radio" formControlName="formSelect" [value]=FORM_TYPES.REGISTER class="register">
         <label for="register" class="select-form-label"> Register </label>
       </form>
-      <app-user-auth-form [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN" [loading$]="loading$"
-                          (validFormResult$)="authenticateUser($event)"></app-user-auth-form>
+      <div [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN">
+        <app-user-auth-form [loading$]="loading$"
+                            (validFormResult$)="authenticateUser($event)"></app-user-auth-form>
+
+        <button (click)="goToForgotPassword()" mat-button class="forgot-password-btn" color="primary">Forgot Password?
+        </button>
+      </div>
 
       <app-user-form formAction="Register" [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER"
                      [loading$]="loading$"

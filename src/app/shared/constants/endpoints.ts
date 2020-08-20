@@ -1,5 +1,6 @@
 export const PAGE_NOT_FOUND = '**';
 export const HOME = '';
+export const FORGOT_PASSWORD = '/forgot-password';
 export const DASHBOARD = '/dashboard';
 export const PARCELS = DASHBOARD + '/parcels';
 export const EDIT_PARCEL = id => PARCELS + `/${id}/edit`;

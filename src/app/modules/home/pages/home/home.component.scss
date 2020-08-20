@@ -105,6 +105,10 @@ fa-icon {
   }
 }
 
+.forgot-password-btn {
+  margin-top: 12px;
+}
+
 @media only screen and (max-width: 767px) {
   #title {
     font-size: 25px;
@@ -137,5 +141,9 @@ fa-icon {
   #title, #subtitle {
     line-height: 1.4em;
     margin: 3px 0;
+  }
+
+  .forgot-password-btn {
+    font-size: 12px;
   }
 }

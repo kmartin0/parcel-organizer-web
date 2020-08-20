@@ -26,6 +26,7 @@ import {PaginatorComponent} from './components/paginator/paginator.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {ForgotPasswordFormComponent} from './components/forgot-password-form/forgot-password-form.component';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -50,7 +51,8 @@ export function playerFactory() {
     AccessDeniedComponent,
     TypeOfPipe,
     UserFormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    ForgotPasswordFormComponent
   ],
   imports: [
     CommonModule,
@@ -81,7 +83,8 @@ export function playerFactory() {
     AccessDeniedComponent,
     TypeOfPipe,
     UserFormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    ForgotPasswordFormComponent
   ],
   entryComponents: [DeleteDialogComponent, ErrorDialogComponent, UserAuthDialogComponent]
 })

@@ -3,7 +3,7 @@ import {UserAuthFormComponent} from '../../../../shared/components/user-authenti
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {Router} from '@angular/router';
-import {DASHBOARD} from '../../../../shared/constants/endpoints';
+import {DASHBOARD, FORGOT_PASSWORD} from '../../../../shared/constants/endpoints';
 import {RedirectService} from '../../../../shared/services/redirect/redirect.service';
 import {User} from '../../../../shared/models/user';
 import {withLoading} from '../../../../shared/helpers/operators';
@@ -73,6 +73,10 @@ export class HomeComponent implements OnInit {
 
   toggleTheme() {
     this.themeService.toggleTheme();
+  }
+
+  goToForgotPassword() {
+    this.router.navigate([FORGOT_PASSWORD])
   }
 
   private initFormSelect(formBuilder: FormBuilder) {

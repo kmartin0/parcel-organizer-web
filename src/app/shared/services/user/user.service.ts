@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ApiService} from '../api/api.service';
 import {User} from '../../models/user';
-import {CHANGE_PASSWORD, GET_USER, OAUTH, SAVE_USER, UPDATE_USER} from '../../../api/api-endpoints';
+import {CHANGE_PASSWORD, FORGOT_PASSWORD, GET_USER, OAUTH, SAVE_USER, UPDATE_USER} from '../../../api/api-endpoints';
 import {HttpParams} from '@angular/common/http';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {Oauth2Credentials} from '../../models/oauth2-credentials';
@@ -57,6 +57,10 @@ export class UserService {
 
   changePassword(changePassword: ChangePassword): Observable<any> {
     return this.apiService.makePost<User>(CHANGE_PASSWORD, changePassword);
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    return this.apiService.makePost<any>(FORGOT_PASSWORD, {email: email});
   }
 
   getLoggedInUser(): Observable<User> {

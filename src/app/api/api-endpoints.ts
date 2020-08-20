@@ -11,6 +11,8 @@ export const GET_USER = BASE_USER_URL;
 export const UPDATE_USER = BASE_USER_URL;
 export const DELETE_USER = BASE_USER_URL;
 export const CHANGE_PASSWORD = BASE_USER_URL + '/change-password';
+export const FORGOT_PASSWORD = BASE_USER_URL + '/forgot-password';
+export const RESET_PASSWORD = BASE_USER_URL + '/reset-password';
 
 // Auth Endpoints
 export const OAUTH = BASE_API_URL + 'oauth/token';
