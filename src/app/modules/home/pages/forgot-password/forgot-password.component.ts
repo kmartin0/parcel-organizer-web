@@ -8,7 +8,7 @@ import {HOME} from '../../../../shared/constants/endpoints';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+  styleUrls: ['./forgot-password.component.scss', '../../../../shared/styles/reset-forget-password.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
 

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ApiService} from '../api/api.service';
 import {User} from '../../models/user';
-import {CHANGE_PASSWORD, FORGOT_PASSWORD, GET_USER, OAUTH, SAVE_USER, UPDATE_USER} from '../../../api/api-endpoints';
+import {CHANGE_PASSWORD, FORGOT_PASSWORD, GET_USER, OAUTH, RESET_PASSWORD, SAVE_USER, UPDATE_USER} from '../../../api/api-endpoints';
 import {HttpParams} from '@angular/common/http';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {Oauth2Credentials} from '../../models/oauth2-credentials';
@@ -10,6 +10,7 @@ import {HOME} from '../../constants/endpoints';
 import {Router} from '@angular/router';
 import {ChangePassword} from '../../models/change-password';
 import {UserAuthentication} from '../../models/user-authentication';
+import {ResetPassword} from '../../models/reset-password';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +61,11 @@ export class UserService {
   }
 
   forgotPassword(email: string): Observable<any> {
-    return this.apiService.makePost<any>(FORGOT_PASSWORD, {email: email});
+    return this.apiService.makePost(FORGOT_PASSWORD, {email: email});
+  }
+
+  resetPassword(resetPassword: ResetPassword) : Observable<any> {
+    return this.apiService.makePost(RESET_PASSWORD, resetPassword)
   }
 
   getLoggedInUser(): Observable<User> {

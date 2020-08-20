@@ -76,11 +76,9 @@ export class ParcelFormComponent extends BaseFormComponent<Parcel> implements Af
   }
 
   resetForm() {
-    this.formComponent.resetForm(
-      {
-        [PARCEL_FORM_KEYS.parcelStatusEnum]: this.form.find(value => value.key == PARCEL_FORM_KEYS.parcelStatusEnum).value
-      }
-    );
+    super.resetForm({
+      [PARCEL_FORM_KEYS.parcelStatusEnum]: this.form.find(value => value.key == PARCEL_FORM_KEYS.parcelStatusEnum).value
+    });
   }
 
   private initPreviewParcel() {

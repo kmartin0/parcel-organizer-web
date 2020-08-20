@@ -8,13 +8,15 @@ import {SharedModule} from '../../shared/shared.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
-import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
+import {ForgotPasswordComponent} from './pages/forgot-password/forgot-password.component';
+import {ResetPasswordComponent} from './pages/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     ForgotPasswordComponent,
-    HomeRouteComponent
+    HomeRouteComponent,
+    ResetPasswordComponent
   ],
     imports: [
         CommonModule,

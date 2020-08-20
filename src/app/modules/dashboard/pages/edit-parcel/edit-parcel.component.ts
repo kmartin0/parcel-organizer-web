@@ -63,9 +63,7 @@ export class EditParcelComponent implements AfterViewInit {
   }
 
   private handleEditSuccess() {
-    this.parcelFormComponent.displaySuccess(() => {
-      this.location.back();
-    });
+    this.parcelFormComponent.displaySuccess();
   }
 
   private getParcelToEdit() {

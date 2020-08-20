@@ -33,4 +33,8 @@ export abstract class BaseFormComponent<T> {
     this.formComponent.displaySuccess(callback);
   }
 
+  resetForm(value?: any) {
+    this.formComponent.resetForm(value);
+  }
+
 }

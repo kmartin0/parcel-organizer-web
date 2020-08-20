@@ -1,4 +1,4 @@
-import {TextBoxInputField} from '../dynamic-form/input/textbox/text-box-input-field';
+import {TextBoxInputField} from '../../../../shared/components/dynamic-form/input/textbox/text-box-input-field';
 import {Validators} from '@angular/forms';
 
 export const FORGOT_PASSWORD_FORM_KEYS = {

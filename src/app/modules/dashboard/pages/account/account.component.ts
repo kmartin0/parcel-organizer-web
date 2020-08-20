@@ -80,7 +80,7 @@ export class AccountComponent implements OnInit, AfterViewInit {
 
   private handleUserUpdateSuccess(updatedUser: User) {
     this.userFormComponent.displaySuccess(() => {
-      this.userFormComponent.formComponent.resetForm({
+      this.userFormComponent.resetForm({
         [USER_FORM_KEYS.email]: updatedUser.email,
         [USER_FORM_KEYS.name]: updatedUser.name
       });
@@ -89,7 +89,7 @@ export class AccountComponent implements OnInit, AfterViewInit {
 
   private handleChangePasswordSuccess() {
     this.changePasswordFormComponent.displaySuccess(() => {
-      this.changePasswordFormComponent.formComponent.resetForm();
+      this.changePasswordFormComponent.resetForm();
     });
   }
 

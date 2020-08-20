@@ -6,6 +6,12 @@
   @include surface()
 }
 
+.mat-title {
+  @include theme() {
+    color: theme-color($color-on-surface)
+  }
+}
+
 .change-password-container {
   margin-top: 38px;
 }

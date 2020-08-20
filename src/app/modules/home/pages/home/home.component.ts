@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
   }
 
   goToForgotPassword() {
-    this.router.navigate([FORGOT_PASSWORD])
+    this.router.navigate([FORGOT_PASSWORD]);
   }
 
   private initFormSelect(formBuilder: FormBuilder) {
@@ -98,6 +98,7 @@ export class HomeComponent implements OnInit {
 
   private handleRegisterSuccess() {
     this.userFormComponent.displaySuccess(() => {
+      this.userFormComponent.resetForm();
       this.formSelector.controls.formSelect.setValue(FORM_TYPES.LOGIN);
     });
   }

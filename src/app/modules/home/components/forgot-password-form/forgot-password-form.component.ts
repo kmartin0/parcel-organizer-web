@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseFormComponent} from '../dynamic-form/base-form.component';
+import {BaseFormComponent} from '../../../../shared/components/dynamic-form/base-form.component';
 import {FORGOT_PASSWORD_FORM} from './forgot-password.form';
 
 @Component({
