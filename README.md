@@ -1,27 +1,29 @@
-# ParcelOrganizerWeb
+# Parcel Organizer Web Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
+Web application for Parcel Organizer platform made using the Angular framework.
 
-## Development server
+The app is hosted on Heroku using a free dyno which can take a minute to start up.    
+https://parcel-organizer-web.herokuapp.com/
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Light/dark mode.
+- Responsive design for mobile and desktop.
+- Login and Register.
+- Password recovery.
+- Update account details.
+- Persist, update or delete parcels.
+- Search, order or filter the parcels.
 
-## Build
+## Screenshots
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+![Login screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/Parcel_Organizer_Web_Login.png?raw=true)
 
-## Running unit tests
+![Parcels screenshot light](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/Parcel_Organizer_Web_Parcels.png?raw=true)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![Parcels screenshot Filters](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/Parcel_Organizer_Web_Sort_Search_Dark.png?raw=true)
 
-## Running end-to-end tests
+![Create parcel screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/Parcel_Organizer_Web_Create_Parcel_Dark.png?raw=true)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+![Update account screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/Parcel_Organizer_Web_Sort_Search_Update_Account_Dark.png?raw=true)
