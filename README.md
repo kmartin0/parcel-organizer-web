@@ -18,7 +18,7 @@ https://parcel-organizer-web.herokuapp.com/
 
 ## Screenshots
 
-![Login screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/parcel_organizer_web_Login.png?raw=true)
+![Login screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/parcel_organizer_web_login.png?raw=true)
 
 ![Parcels screenshot light](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/parcel_organizer_web_parcels.png?raw=true)
 
