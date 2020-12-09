@@ -18,12 +18,12 @@ https://parcel-organizer-web.herokuapp.com/
 
 ## Screenshots
 
-![Login screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/Parcel_Organizer_Web_Login.png?raw=true)
+![Login screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/parcel_organizer_web_Login.png?raw=true)
 
-![Parcels screenshot light](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/Parcel_Organizer_Web_Parcels.png?raw=true)
+![Parcels screenshot light](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/parcel_organizer_web_parcels.png?raw=true)
 
-![Parcels screenshot Filters](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/Parcel_Organizer_Web_Sort_Search_Dark.png?raw=true)
+![Parcels screenshot Filters](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/parcel_organizer_web_sort_search_dark.png?raw=true)
 
-![Create parcel screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/Parcel_Organizer_Web_Create_Parcel_Dark.png?raw=true)
+![Create parcel screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/parcel_organizer_web_create_parcel_dark.png?raw=true)
 
-![Update account screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/Parcel_Organizer_Web_Sort_Search_Update_Account_Dark.png?raw=true)
+![Update account screenshot](https://github.com/kmartin0/assets/blob/master/parcel-organizer-web/parcel_organizer_web_sort_search_update_account_dark.png?raw=true)
