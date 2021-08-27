@@ -3,10 +3,10 @@
     <div class="input-wrap" *ngFor="let inputField of inputFields">
       <label [attr.for]="inputField.id">{{inputField.label}}</label>
 
-      <div [ngSwitch]="(inputField | typeof)">
-        <app-text-input *ngSwitchCase="'TextBoxInputField'" [inputField]="$any(inputField)"
+      <div [ngSwitch]="(inputField.inputFieldEnum)">
+        <app-text-input *ngSwitchCase="inputFieldEnums.TEXT_BOX_INPUT" [inputField]="$any(inputField)"
                         [control]="getFormControl(inputField.key)"></app-text-input>
-        <app-dropdown-input *ngSwitchCase="'DropdownInputField'" [inputField]="$any(inputField)"
+        <app-dropdown-input *ngSwitchCase="inputFieldEnums.DROPDOWN_INPUT" [inputField]="$any(inputField)"
                             [control]="getFormControl(inputField.key)"></app-dropdown-input>
       </div>
 

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {shouldBasicAuth, shouldBearerTokenAuth} from './api-endpoints';
 import {UserService} from '../shared/services/user/user.service';
 import {Oauth2Credentials} from '../shared/models/oauth2-credentials';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ApiAuthInterceptor implements HttpInterceptor {
@@ -16,7 +17,9 @@ export class ApiAuthInterceptor implements HttpInterceptor {
     let method = req.method;
     if (shouldBasicAuth(url, method)) {
       const authReq = req.clone({
-        headers: req.headers.set('Authorization', 'Basic ' + btoa('parcel-organizer-web:secret'))
+        headers: req.headers.set(
+          'Authorization', 'Basic ' + btoa(`${environment.parcelOrganizerClientId}:${environment.parcelOrganizerClientSecret}`)
+        )
       });
 
       return next.handle(authReq);

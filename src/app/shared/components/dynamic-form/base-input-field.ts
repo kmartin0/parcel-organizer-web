@@ -1,27 +1,27 @@
 import {ValidatorFn} from '@angular/forms';
 
-export class BaseInputField<T> {
+export abstract class BaseInputField {
   id: string;
   key: string;
-  value: T;
   placeholder;
   label: string;
-  required: boolean;
   type: string;
-  controlType: string;
+  value?: any;
   validators: ValidatorFn[];
+  abstract inputFieldEnum: InputFieldEnum;
 
-  constructor(options: {
-    id?: string, key?: string, value?: T, placeholder?: string, label?: string, required?: boolean, type?: string, controlType?: string, validators?: ValidatorFn[]
+  protected constructor(options: {
+    id?: string, key?: string, placeholder?: string, label?: string, type?: string, value?: any, validators?: ValidatorFn[]
   } = {}) {
     this.id = options.id;
-    this.value = options.value;
     this.placeholder = options.placeholder;
     this.key = options.key;
     this.label = options.label;
-    this.required = options.required;
     this.type = options.type;
-    this.controlType = options.controlType;
+    this.value = options.value;
     this.validators = options.validators;
   }
+
 }
+
+export enum InputFieldEnum {TEXT_BOX_INPUT = 'TEXT_BOX_INPUT', DROPDOWN_INPUT = 'DROPDOWN_INPUT'}

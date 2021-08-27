@@ -1,14 +1,11 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
   Output,
-  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn} from '@angular/forms';
@@ -16,7 +13,7 @@ import {ErrorMessageService} from '../../../services/error-message/error-message
 import {takeUntil} from 'rxjs/operators';
 import {Observable, Subject} from 'rxjs';
 import {SuccessComponent} from '../../success/success.component';
-import {BaseInputField} from '../base-input-field';
+import {BaseInputField, InputFieldEnum} from '../base-input-field';
 
 @Component({
   selector: 'app-form',
@@ -29,10 +26,11 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() confirmButtonWidth = '50%';
   @Input() loading$?: Subject<boolean>;
   @Input() formName: string = 'Submit';
-  @Input() inputFields: BaseInputField<string>[];
+  @Input() inputFields: BaseInputField[];
   @Input() formValidators: ValidatorFn[];
   @Output() formValidSubmit: EventEmitter<{ [key: string]: string; }> = new EventEmitter();
   errorMessages: { [key: string]: string[]; } = {};
+  inputFieldEnums = InputFieldEnum;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
   private _formGroup: FormGroup;

@@ -21,7 +21,7 @@ export const USER_AUTH_FORM: TextBoxInputField[] = [
     type: 'password',
     label: 'Password',
     placeholder: '••••',
-    validators: Validators.required
+    validators: [Validators.required]
   })
 ];
 

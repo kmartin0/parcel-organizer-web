@@ -18,7 +18,6 @@ import {UserAuthDialogComponent} from './components/dialogs/user-auth-dialog/use
 import {UserAuthFormComponent} from './components/user-authentication-form/user-auth-form.component';
 import {AccessDeniedComponent} from './components/access-denied/access-denied.component';
 import {DropdownInputComponent} from './components/dynamic-form/input/dropdown/dropdown-input.component';
-import {TypeOfPipe} from './pipes/type-of.pipe';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {UserFormComponent} from './components/user-form/user-form.component';
@@ -50,7 +49,6 @@ export function playerFactory() {
     UserAuthDialogComponent,
     UserAuthFormComponent,
     AccessDeniedComponent,
-    TypeOfPipe,
     UserFormComponent,
     PaginatorComponent,
     ForgotPasswordFormComponent,
@@ -83,7 +81,6 @@ export function playerFactory() {
     UserAuthDialogComponent,
     UserAuthFormComponent,
     AccessDeniedComponent,
-    TypeOfPipe,
     UserFormComponent,
     PaginatorComponent,
     ForgotPasswordFormComponent,
