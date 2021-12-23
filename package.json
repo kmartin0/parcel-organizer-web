@@ -1,6 +1,10 @@
 {
   "name": "parcel-organizer-web",
   "version": "0.0.0",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
