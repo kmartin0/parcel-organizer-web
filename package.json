@@ -15,7 +15,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --configuration prod-heroku --output-path dist"
+    "heroku-postbuild": "npm run build-prod-heroku"
   },
   "private": true,
   "dependencies": {
