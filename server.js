@@ -7,12 +7,11 @@ const app = express();
 app.use(bodyParser.json());
 
 // Create link to Angular build directory
-const distDir = __dirname + "/dist/";
-app.use(express.static(distDir));
+app.use(express.static(__dirname + '/dist/parcel-organizer-web'));
 
 // Pass our application into our routes.
 app.get('*', function (req, res) {
-  res.sendfile('./dist/parcel-organizer-web/index.html'); // load our index.html file
+  res.sendfile(path.join(__dirname + '/dist/parcel-organizer-web/index.html')); // load our index.html file
 });
 
 // Initialize the app.
