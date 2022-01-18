@@ -1,0 +1,11 @@
+services:
+  parcel-organizer-web:
+    restart: always
+    image: parcel-organizer-web
+    container_name: parcel-organizer-web
+    build:
+      context: .
+      args:
+        - PROFILE=dev # Accepts dev, prod-pi, prod-heroku
+    ports:
+      - 4200:80

@@ -12,7 +12,7 @@ app.use(express.static(distDir));
 
 // Pass our application into our routes.
 app.get('*', function (req, res) {
-  res.sendfile('./dist/index.html'); // load our index.html file
+  res.sendfile('./dist/parcel-organizer-web/index.html'); // load our index.html file
 });
 
 // Initialize the app.

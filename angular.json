@@ -176,6 +176,9 @@
             },
             "prod-pi": {
               "devServerTarget": "parcel-organizer-web:serve:prod-pi"
+            },
+            "development": {
+              "devServerTarget": "parcel-organizer-web:serve:development"
             }
           }
         }
