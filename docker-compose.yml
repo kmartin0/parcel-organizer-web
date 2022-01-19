@@ -1,3 +1,4 @@
+version: "3"
 services:
   parcel-organizer-web:
     restart: always
@@ -8,4 +9,4 @@ services:
       args:
         - PROFILE=dev # Accepts dev, prod-pi, prod-heroku
     ports:
-      - 4200:80
+      - "4200:80"
