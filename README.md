@@ -1,10 +1,8 @@
 # Parcel Organizer Web Application
 
-Web application for Parcel Organizer platform made using the Angular framework.
+Web application for Parcel Organizer platform which lets users organize their incoming/outgoing parcels.
 
-The app is hosted on Heroku using a free dyno which can take a minute to start up.    
-https://parcel-organizer-web.herokuapp.com/
-
+Demo: https://parcel-organizer-web.herokuapp.com/
 
 ## Features
 
@@ -15,6 +13,11 @@ https://parcel-organizer-web.herokuapp.com/
 - Update account details.
 - Persist, update or delete parcels.
 - Search, order or filter the parcels.
+
+## Tech
+- Angular
+- Typescript
+- REST api communication using @angular/common/http/HttpClient
 
 ## Screenshots
 
