@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {NAV_BAR_STATES, NavComponent} from './nav.component';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {NavigationStart, Router} from '@angular/router';
@@ -20,7 +20,7 @@ describe('NavComponent', () => {
     routerSpy = jasmine.createSpyObj('Router', [], {events: of(null)});
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [NavComponent],
       providers: [

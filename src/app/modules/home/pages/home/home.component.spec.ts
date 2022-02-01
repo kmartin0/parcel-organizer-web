@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {FORM_TYPES, HomeComponent} from './home.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -34,7 +34,7 @@ describe('HomeComponent', () => {
     themeServiceSpy = jasmine.createSpyObj('ThemeService', ['toggleTheme']);
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       declarations: [HomeComponent, UserAuthFormComponentStub, UserFormComponentStub],

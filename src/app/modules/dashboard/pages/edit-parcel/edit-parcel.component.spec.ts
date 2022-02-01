@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {ChangeDetectorRef, NO_ERRORS_SCHEMA} from '@angular/core';
 import {EditParcelComponent} from './edit-parcel.component';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
@@ -54,7 +54,7 @@ describe('EditParcelComponent', () => {
     parcelServiceSpy.getParcel.withArgs(parcelToEdit.id).and.returnValue(of(parcelToEdit));
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     // Configure testing module
     TestBed.configureTestingModule({
       declarations: [EditParcelComponent, ParcelFormComponentStub, FormComponentStub],

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {UserAuthDialogComponent} from './user-auth-dialog.component';
@@ -29,7 +29,7 @@ describe('UserAuthDialogComponent', () => {
     dialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['close'], {disableClose: true});
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatDialogModule],
       declarations: [UserAuthDialogComponent, UserAuthFormComponentStub],

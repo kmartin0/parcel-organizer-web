@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {Component, NO_ERRORS_SCHEMA} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -53,7 +53,7 @@ describe('DashboardComponent', () => {
     dashboardLoadingServiceSpy = jasmine.createSpyObj('DashboardLoadingService', [], [{loading$: new Subject()}]);
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes(dashboardRoutes)],
       declarations: [DashboardComponent],

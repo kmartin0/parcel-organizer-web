@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ParcelItemComponent} from './parcel-item.component';
 import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
@@ -54,7 +54,7 @@ describe('ParcelItemComponent', () => {
 
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatDialogModule, MatSnackBarModule, ClipboardModule],
       declarations: [ParcelItemComponent],

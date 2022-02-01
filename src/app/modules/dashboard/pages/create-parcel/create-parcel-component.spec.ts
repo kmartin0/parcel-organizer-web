@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {of, Subject, throwError} from 'rxjs';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
@@ -23,7 +23,7 @@ describe('CreateParcelComponent', () => {
     parcelServiceSpy = jasmine.createSpyObj('ParcelService', ['createParcel']);
   })
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [BrowserAnimationsModule],
       declarations: [CreateParcelComponent, ParcelFormComponentStub],

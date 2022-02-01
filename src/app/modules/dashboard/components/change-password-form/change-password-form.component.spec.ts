@@ -1,5 +1,5 @@
 import {ChangePasswordFormComponent} from './change-password-form.component';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {CHANGE_PASSWORD_FORM_KEYS} from './change-password-form';
 import {ChangePassword} from '../../../../shared/models/change-password';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
@@ -12,7 +12,7 @@ describe('ChangePasswordFormComponent', () => {
   let component: ChangePasswordFormComponent;
   let fixture: ComponentFixture<ChangePasswordFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ChangePasswordFormComponent, FormComponentStub],
       schemas: [NO_ERRORS_SCHEMA]

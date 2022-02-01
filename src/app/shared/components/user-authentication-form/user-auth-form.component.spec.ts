@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {UserAuthFormComponent} from './user-auth-form.component';
 import {FormComponentStub} from '../../../testing/form.component.stub';
@@ -12,7 +12,7 @@ describe('UserAuthFormComponent', () => {
   let component: UserAuthFormComponent;
   let fixture: ComponentFixture<UserAuthFormComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [UserAuthFormComponent, FormComponentStub],
       providers: [],

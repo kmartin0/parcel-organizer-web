@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {ParcelFilterFormComponent} from './parcel-filter-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
@@ -24,7 +24,7 @@ describe('ParcelFilterFormComponent', () => {
     parcelFilterFormCacheServiceSpy = jasmine.createSpyObj('ParcelFilterFormCacheService', ['persistParcelFilters', 'getCachedParcelFilters']);
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MatInputModule, BrowserAnimationsModule],
       declarations: [ParcelFilterFormComponent],

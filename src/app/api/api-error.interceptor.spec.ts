@@ -1,6 +1,6 @@
 import {HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {async, TestBed} from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import {ApiErrorInterceptor} from './api-error.interceptor';
 import {ApiErrorBody} from '../shared/models/api-error-body';
 import {ApiErrorEnum} from './api-error.enum';
@@ -25,7 +25,7 @@ describe('ApiErrorInterceptor', () => {
     matDialogSpy = jasmine.createSpyObj<MatDialog>('MatDialog', ['open']);
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     // Initialize testing module
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, MatDialogModule],
