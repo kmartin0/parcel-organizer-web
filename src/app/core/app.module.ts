@@ -11,23 +11,22 @@ import {ApiLoggingInterceptor} from '../api/api-logging.interceptor';
 
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    SharedModule,
-    AppRoutingModule,
-  ],
-  providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ApiAuthInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ApiLoggingInterceptor, multi: true}
-  ],
-  bootstrap: [AppComponent],
-  entryComponents: []
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        SharedModule,
+        AppRoutingModule,
+    ],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ApiAuthInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ApiLoggingInterceptor, multi: true }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
