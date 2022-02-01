@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '~@angular/material/theming';
 
 $md-color-primary-palette: (
@@ -288,18 +289,18 @@ $themes: (
 );
 
 // Light Theme configuration
-$parcel-organizer-web-primary: mat-palette($md-color-primary-palette);
-$parcel-organizer-web-accent: mat-palette($md-color-accent-palette);
-$parcel-organizer-web-warn: mat-palette($md-color-warn-palette);
+$parcel-organizer-web-primary: mat.define-palette($md-color-primary-palette);
+$parcel-organizer-web-accent: mat.define-palette($md-color-accent-palette);
+$parcel-organizer-web-warn: mat.define-palette($md-color-warn-palette);
 
-$parcel-organizer-web-theme: mat-light-theme($parcel-organizer-web-primary, $parcel-organizer-web-accent, $parcel-organizer-web-warn);
+$parcel-organizer-web-theme: mat.define-light-theme($parcel-organizer-web-primary, $parcel-organizer-web-accent, $parcel-organizer-web-warn);
 
 // Dark theme configuration
-$parcel-organizer-web-primary-dark: mat-palette($md-color-primary-palette-dark);
-$parcel-organizer-web-accent-dark: mat-palette($md-color-accent-palette-dark);
-$parcel-organizer-web-warn-dark: mat-palette($md-color-warn-palette-dark);
+$parcel-organizer-web-primary-dark: mat.define-palette($md-color-primary-palette-dark);
+$parcel-organizer-web-accent-dark: mat.define-palette($md-color-accent-palette-dark);
+$parcel-organizer-web-warn-dark: mat.define-palette($md-color-warn-palette-dark);
 
-$parcel-organizer-web-theme-dark: mat-dark-theme($parcel-organizer-web-primary-dark, $parcel-organizer-web-accent-dark, $parcel-organizer-web-warn-dark);
+$parcel-organizer-web-theme-dark: mat.define-dark-theme($parcel-organizer-web-primary-dark, $parcel-organizer-web-accent-dark, $parcel-organizer-web-warn-dark);
 
 // Mixin used for component theme
 @mixin theme() {
