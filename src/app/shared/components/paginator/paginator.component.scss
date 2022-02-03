@@ -1,6 +1,4 @@
-@import "variables";
-
-.container {
+.paginator-component-container {
   display: flex;
   flex-direction: row;
 }
@@ -19,16 +17,10 @@ ul > ul, li {
   min-width: 40px;
   height: 40px;
   margin: 3px;
-  font-size: 14px;
-  font-weight: 500;
   border-radius: 4px;
   cursor: pointer;
   border: none;
   outline: none;
-  @include theme() {
-    background-color: theme-color($color-primary);
-    color: theme-color($color-on-primary);
-  }
 }
 
 .cur-page {
@@ -37,17 +29,4 @@ ul > ul, li {
 
 .nav-btn {
   margin: 3px;
-}
-
-.nav-btn:hover, .cur-page {
-  @include theme() {
-    background-color: theme-color($color-primary-variant);
-  }
-}
-
-.nav-btn:disabled {
-  @include theme() {
-    background-color: disabled-color(theme-color($color-primary));
-  }
-  cursor: initial;
 }

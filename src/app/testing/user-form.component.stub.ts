@@ -20,6 +20,9 @@ export class UserFormComponentStub {
     callback()
   }
 
+  resetForm(value?: any) {
+  }
+
   handleApiError(apiError: any) {
   }
 }

@@ -19,6 +19,11 @@ import {expandCollapseTransition} from '../../../../shared/anim/expand-collapse.
 })
 export class ParcelFilterFormComponent implements OnInit {
 
+  constructor(private fb: FormBuilder, private parcelFilterFormCacheService: ParcelFilterFormCacheService) {
+    this.initValueChangesObserver();
+    this.initParcelFiltersFromCache();
+  }
+
   @Output() sortFilterConfigEmitter = new EventEmitter<ParcelsSortFilterConfig>();
 
   searchInput = '';
@@ -53,16 +58,11 @@ export class ParcelFilterFormComponent implements OnInit {
     [this.filterFormKeys.orderDirection]: [this.orderDirection.DESCENDING]
   });
 
-  constructor(private fb: FormBuilder, private parcelFilterFormCacheService: ParcelFilterFormCacheService) {
-    this.initValueChangesObserver();
-    this.initParcelFiltersFromCache();
-  }
+  showBottomSection = false;
 
   ngOnInit(): void {
     this.filterForm.updateValueAndValidity();
   }
-
-  showBottomSection = false;
 
   toggleBottomSection() {
     this.showBottomSection = !this.showBottomSection;
@@ -70,10 +70,10 @@ export class ParcelFilterFormComponent implements OnInit {
 
   private initValueChangesObserver() {
     this.filterForm.valueChanges.subscribe(filters => {
-      let keys = this.filterFormKeys;
-      let parcelStatusFilters = this.getStatusFilters(filters[keys.statusGroupName]);
+      const keys = this.filterFormKeys;
+      const parcelStatusFilters = this.getStatusFilters(filters[keys.statusGroupName]);
 
-      let parcelFilterConfig: ParcelsSortFilterConfig = {
+      const parcelFilterConfig: ParcelsSortFilterConfig = {
         searchQuery: filters[keys.search],
         searchBy: filters[keys.searchBy],
         orderBy: filters[keys.orderBy],
@@ -96,7 +96,7 @@ export class ParcelFilterFormComponent implements OnInit {
       this.filterForm.controls[this.filterFormKeys.orderBy].setValue(cachedConfig.orderBy);
       this.filterForm.controls[this.filterFormKeys.orderDirection].setValue(cachedConfig.orderDirection);
 
-      let statusGroup = this.filterForm.controls[this.filterFormKeys.statusGroupName] as FormGroup;
+      const statusGroup = this.filterForm.controls[this.filterFormKeys.statusGroupName] as FormGroup;
       cachedConfig.statusFilters.forEach(statusFilter => {
         switch (statusFilter) {
           case ParcelStatusEnum.SENT:

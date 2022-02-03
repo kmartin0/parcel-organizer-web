@@ -1,15 +1,6 @@
-@import "variables";
-
 .surface {
   margin: 0 auto;
   max-width: 700px;
-  @include surface()
-}
-
-.mat-title {
-  @include theme() {
-    color: theme-color($color-on-surface)
-  }
 }
 
 .change-password-container {

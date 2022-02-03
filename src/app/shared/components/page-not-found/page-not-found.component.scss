@@ -1,14 +1,4 @@
-@import "variables";
-
 .container {
   text-align: center;
   padding-top: 50px;
-  @include theme() {
-    color: theme-color($color-on-background);
-  }
 }
-
-h2 {
-  margin: 0
-}
-

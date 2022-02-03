@@ -1,6 +1,4 @@
-@import "variables";
-
-.form-container {
+.dynamic-form-component-container {
   position: relative
 }
 
@@ -10,24 +8,14 @@
 
 label {
   margin-bottom: 4px;
-  font-size: .9em;
-  @include theme() {
-    color: theme-color($color-primary)
-  }
-  font-weight: 600;
   display: block;
 }
 
 .error {
-  @include theme() {
-    color: theme-color($color-on-error);
-    background: theme-color($color-error);
-  }
-  padding: 0 25px;
+  padding: 2px 25px;
   margin: 10px 10px 0;
   display: inline-block;
   border-radius: 12px;
-  font-size: small;
 }
 
 app-success {

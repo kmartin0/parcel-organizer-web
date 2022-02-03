@@ -96,8 +96,7 @@ describe('DashboardLoadingService', () => {
   });
 
   it('should log a warning that there can\'t be less than 0 zero requests', () => {
-    spyOn(console, 'error').and.callFake(() => {
-    });
+    spyOn(console, 'error').and.callThrough();
 
     testScheduler.run(({expectObservable, cold, flush}) => {
       // Given

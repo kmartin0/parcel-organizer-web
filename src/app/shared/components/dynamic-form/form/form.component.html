@@ -1,4 +1,4 @@
-<div class="form-container">
+<div class="dynamic-form-component-container">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <div class="input-wrap" *ngFor="let inputField of inputFields">
       <label [attr.for]="inputField.id">{{inputField.label}}</label>

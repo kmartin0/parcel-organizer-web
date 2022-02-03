@@ -28,12 +28,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/custom-theme.scss",
+              "src/theme/app-theme.scss",
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/styles"
+                "src/theme",
+                "src/theme/config",
+                "src/theme/custom-component-themes"
               ]
             },
             "scripts": []
@@ -102,7 +104,7 @@
               "namedChunks": true
             }
           },
-          "defaultConfiguration": "prod-heroku"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -119,7 +121,8 @@
             "development": {
               "browserTarget": "parcel-organizer-web:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -139,11 +142,14 @@
               "src/assets"
             ],
             "styles": [
+              "src/theme/app-theme.scss",
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/styles"
+                "src/theme",
+                "src/theme/config",
+                "src/theme/custom-component-themes"
               ]
             },
             "scripts": []

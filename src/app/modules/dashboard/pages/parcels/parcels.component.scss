@@ -1,4 +1,4 @@
-@import "variables";
+@use "devices";
 
 $max-parcel-items-row: 3;
 $parcels-item-gap: 22px;
@@ -20,11 +20,23 @@ $parcels-max-width: calc((#{$pi-width} + (#{$parcels-item-gap} * 2)) * #{$max-pa
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+
+  @include devices.device(phone, phablet, tablet) {
+    justify-content: center;
+  }
 }
 
 .item-wrapper {
   margin: $parcels-item-gap;
   flex: 0 0 $pi-width;
+
+  @include devices.device(phone, phablet) {
+    flex: 0 0 100%;
+  }
+
+  @include devices.tablet {
+    flex: 0 0 550px;
+  }
 }
 
 .paginator {
@@ -40,47 +52,21 @@ $parcels-max-width: calc((#{$pi-width} + (#{$parcels-item-gap} * 2)) * #{$max-pa
 
 .empty-state-img {
   width: 250px;
+
+  @include devices.device(phone, phablet, tablet) {
+    width: 50%;
+    max-width: 250px;
+  }
 }
 
 .empty-state-text {
   text-align: center;
   margin-bottom: 8px;
   margin-top: 18px;
-  font-size: 22px;
-  font-weight: 600;
-  @include theme() {
-    color: theme-color($color-on-background);
-  }
 }
 
 .filter-form {
   width: 90%;
   margin: auto;
   max-width: 650px;
-}
-
-@media (max-width: 991px) {
-  .parcels {
-    justify-content: center;
-  }
-
-  .item-wrapper {
-    flex: 0 0 550px;
-  }
-
-  .empty-state-img {
-    width: 50%;
-    max-width: 250px;
-  }
-
-  .empty-state-text {
-    font-size: 18px;
-    font-weight: 600;
-  }
-}
-
-@media (max-width: 600px) {
-  .item-wrapper {
-    flex: 0 0 100%;
-  }
 }

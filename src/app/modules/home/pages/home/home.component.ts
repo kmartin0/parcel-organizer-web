@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
   registerUser(user: User) {
     this.userService.registerUser(user).pipe(
       withLoading(this.loading$)
-    ).subscribe(user => {
+    ).subscribe(_ => {
       this.handleRegisterSuccess();
     }, apiError => {
       this.userFormComponent.handleApiError(apiError);

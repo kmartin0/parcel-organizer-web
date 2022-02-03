@@ -20,6 +20,9 @@ export class ChangePasswordFormComponentStub {
     callback()
   }
 
+  resetForm(value?: any) {
+  }
+
   handleApiError(apiError: any) {
   }
 }

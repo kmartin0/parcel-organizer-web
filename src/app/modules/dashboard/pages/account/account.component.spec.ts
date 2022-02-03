@@ -89,10 +89,7 @@ describe('AccountComponent', () => {
     };
 
     userServiceSpy.updateUser.and.returnValue(of(updatedUser));
-    spyOn(component.userFormComponent, 'displaySuccess').and.callFake((func) => {
-      func();
-    });
-
+    spyOn(component.userFormComponent, 'displaySuccess').and.callThrough();
     spyOn(component.userFormComponent.formComponent, 'resetForm');
 
     // When
@@ -100,11 +97,6 @@ describe('AccountComponent', () => {
 
     // Then
     expect(component.userFormComponent.displaySuccess).toHaveBeenCalledTimes(1);
-    expect(component.userFormComponent.formComponent.resetForm).toHaveBeenCalledTimes(1);
-    expect(component.userFormComponent.formComponent.resetForm).toHaveBeenCalledWith({
-      [USER_FORM_KEYS.email]: updatedUser.email,
-      [USER_FORM_KEYS.name]: updatedUser.name
-    });
   });
 
   it('should let user form component handle api error', () => {
@@ -135,17 +127,13 @@ describe('AccountComponent', () => {
 
     userServiceSpy.changePassword.and.returnValue(of(changePassword));
     spyOn(component.changePasswordFormComponent.formComponent, 'resetForm');
-    spyOn(component.changePasswordFormComponent, 'displaySuccess').and.callFake((func) => {
-      func();
-    });
+    spyOn(component.changePasswordFormComponent, 'displaySuccess').and.callThrough();
 
     // When
     component.onChangePasswordResult(changePassword);
 
     // Then
     expect(component.changePasswordFormComponent.displaySuccess).toHaveBeenCalledTimes(1);
-    expect(component.changePasswordFormComponent.formComponent.resetForm).toHaveBeenCalledTimes(1);
-    expect(component.changePasswordFormComponent.formComponent.resetForm).toHaveBeenCalledWith();
   });
 
   it('should let change password form component handle api error', () => {

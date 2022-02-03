@@ -12,7 +12,7 @@ import {enterLeaveTransition} from '../../anim/enter-leave.anim';
 export class LoadingComponent implements OnInit {
 
   @Input() loading$?: Observable<boolean>;
-  @Input() spinnerSize: number = 34;
+  @Input() spinnerSize = 34;
 
   constructor() {
 

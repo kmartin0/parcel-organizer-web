@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {FORM_TYPES, HomeComponent} from './home.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -161,7 +161,7 @@ describe('HomeComponent', () => {
 
     // Then
     expect(component.userFormComponent.displaySuccess).toHaveBeenCalledTimes(1);
-    expect(component.formSelector.value['formSelect']).toEqual(FORM_TYPES.LOGIN);
+    expect(component.formSelector.value.formSelect).toEqual(FORM_TYPES.LOGIN);
   });
 
   it('should let auth form handle api error', () => {

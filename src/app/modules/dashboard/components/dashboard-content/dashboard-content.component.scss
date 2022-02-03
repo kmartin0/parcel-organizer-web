@@ -1,13 +1,8 @@
-@import "variables";
-
 .container {
   display: flex;
   flex-direction: column;
   min-height: 100%;
   width: 100%;
-  @include theme() {
-    background-color: theme-color($color-background);
-  }
 }
 
 main {

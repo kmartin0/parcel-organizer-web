@@ -1,11 +1,12 @@
-@import "variables";
+@use "devices";
 
-nav {
+.nav-component-container {
   height: 100%;
   overflow: hidden;
   width: 60px;
-  @include theme() {
-    background-color: theme-color($color-surface);
+
+  @include devices.device(phone, phablet, tablet) {
+    width: 0;
   }
 }
 
@@ -23,6 +24,10 @@ nav {
 
 nav, .logo-container, .logo-image {
   transition: all 1s ease 0.3s, background-color 0ms;
+
+  @include devices.device(phone, phablet, tablet) {
+    transition: all 0.7s ease 0.1s;
+  }
 }
 
 .logo-text {
@@ -32,10 +37,6 @@ nav, .logo-container, .logo-image {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.5s ease 0.3s, opacity 0.5s ease 0.3s;
-  font-weight: 800;
-  @include theme() {
-    color: theme-color($color-secondary);
-  }
 }
 
 ul {
@@ -52,20 +53,11 @@ a {
   white-space: nowrap;
 }
 
-a, fa-icon {
-  @include theme() {
-    color: theme-color($color-secondary-variant);
-  }
-}
-
 a:hover {
   cursor: pointer;
 }
 
 .active a {
-  @include theme() {
-    border-left: 4px solid theme-color($color-secondary-variant);
-  }
   padding-left: 14px;
 }
 
@@ -96,18 +88,6 @@ span {
   opacity: 1;
 }
 
-.active-nav a {
-  @include theme() {
-    color: theme-color($color-secondary);
-  }
-}
-
-.active-nav fa-icon {
-  @include theme() {
-    color: theme-color($color-secondary);
-  }
-}
-
 .active-nav a, .active-nav fa-icon {
   transition: border-left-color 1s ease, color 1s ease;
 }
@@ -117,18 +97,5 @@ span {
 }
 
 .active-nav .active a {
-  @include theme() {
-    border-left: 4px solid theme-color($color-secondary);
-  }
   padding-left: 14px;
-}
-
-@media (max-width: 991px) {
-  nav {
-    width: 0;
-  }
-
-  nav, .logo-container, .logo-image {
-    transition: all 0.7s ease 0.1s;
-  }
 }

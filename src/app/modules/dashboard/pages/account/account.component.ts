@@ -60,7 +60,7 @@ export class AccountComponent implements OnInit, AfterViewInit {
     this.userService.updateUser(user).pipe(
       withLoading(this.dashboardLoading$),
       withLoading(this.updateAccountLoading$),
-    ).subscribe(user => {
+    ).subscribe(_ => {
       this.handleUserUpdateSuccess(user);
     }, error => {
       this.userFormComponent.handleApiError(error);

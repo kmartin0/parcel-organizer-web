@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {ChangeDetectorRef, NO_ERRORS_SCHEMA} from '@angular/core';
 import {EditParcelComponent} from './edit-parcel.component';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
-import {Location} from '@angular/common';
+
 import {FormControl} from '@angular/forms';
 import {Parcel} from '../../../../shared/models/parcel';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
@@ -21,13 +21,12 @@ describe('EditParcelComponent', () => {
   let activatedRouteSpy: jasmine.SpyObj<ActivatedRoute>;
   let dashboardLoadingServiceSpy: jasmine.SpyObj<DashboardLoadingService>;
   let changeDetectorRefSpy: jasmine.SpyObj<ChangeDetectorRef>;
-  let locationSpy: jasmine.SpyObj<Location>;
   let formControlSpy: jasmine.SpyObj<FormControl>;
 
   let component: EditParcelComponent;
   let fixture: ComponentFixture<EditParcelComponent>;
 
-  let parcelToEdit: Parcel = {
+  const parcelToEdit: Parcel = {
     additionalInformation: 'Trousers',
     courier: 'ups',
     id: 23,
@@ -47,7 +46,6 @@ describe('EditParcelComponent', () => {
     activatedRouteSpy = jasmine.createSpyObj('ActivatedRoute', [''], {paramMap: of(convertToParamMap({id: parcelToEdit.id}))});
     dashboardLoadingServiceSpy = jasmine.createSpyObj('DashboardLoadingService', [], [{loading$: new Subject()}]);
     changeDetectorRefSpy = {} as jasmine.SpyObj<ChangeDetectorRef>;
-    locationSpy = jasmine.createSpyObj('Location', ['back']);
     formControlSpy = jasmine.createSpyObj('FormControl', ['setValue']);
 
     // Setup spy return values necessary for constructing the component.
@@ -63,7 +61,6 @@ describe('EditParcelComponent', () => {
         {provide: ActivatedRoute, useValue: activatedRouteSpy},
         {provide: DashboardLoadingService, useValue: dashboardLoadingServiceSpy},
         {provide: ChangeDetectorRef, useValue: changeDetectorRefSpy},
-        {provide: Location, useValue: locationSpy},
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -148,9 +145,7 @@ describe('EditParcelComponent', () => {
     returnParcel.title = 'Different Clothes';
 
     parcelServiceSpy.editParcel.and.returnValue(of(returnParcel));
-    spyOn(component.parcelFormComponent, 'displaySuccess').and.callFake((func) => {
-      func();
-    });
+    spyOn(component.parcelFormComponent, 'displaySuccess').and.callThrough();
 
     // When
     component.onParcelResult(editedParcel);
@@ -161,7 +156,6 @@ describe('EditParcelComponent', () => {
     expect(parcelServiceSpy.editParcel).toHaveBeenCalledWith(editedParcel);
 
     expect(component.parcelFormComponent.displaySuccess).toHaveBeenCalledTimes(1);
-    expect(locationSpy.back).toHaveBeenCalledTimes(1);
   });
 
   it('should let parcel form component handle api error', () => {

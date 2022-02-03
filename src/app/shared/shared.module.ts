@@ -27,6 +27,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ForgotPasswordFormComponent} from '../modules/home/components/forgot-password-form/forgot-password-form.component';
 import {ResetPasswordFormComponent} from '../modules/home/components/reset-password-form/reset-password-form.component';
+import {MatRippleModule} from '@angular/material/core';
 
 // Note we need a separate function as it's required
 // by the AOT compiler
@@ -61,11 +62,12 @@ export function playerFactory() {
         MatDialogModule,
         MatButtonModule,
         FontAwesomeModule,
-        LottieModule.forRoot({ player: playerFactory }),
+        LottieModule.forRoot({player: playerFactory}),
         RouterModule,
         MatFormFieldModule,
         MatSelectModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatRippleModule
     ],
     exports: [
         FormComponent,

@@ -17,7 +17,7 @@ export class ParcelFormComponentStub {
   }
 
   displaySuccess(callback?: () => void) {
-    callback();
+    if (callback) callback();
   }
 
   resetForm(value?: any) {

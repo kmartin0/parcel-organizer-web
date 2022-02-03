@@ -94,7 +94,7 @@ export class ParcelItemComponent implements OnInit {
     // Construct the snackbar message and copy the tracking url if its present.
     let message;
     if (trackingUrl) {
-      let copied = this.clipboard.copy(trackingUrl);
+      const copied = this.clipboard.copy(trackingUrl);
       message = copied ? this.copiedSuccessMsg : this.copiedErrorMsg;
     } else {
       message = this.copiedMissingUrlMsg;

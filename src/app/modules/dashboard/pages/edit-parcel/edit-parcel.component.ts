@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ViewChild} from '@angular/core';
 import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {ActivatedRoute} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
@@ -11,7 +11,6 @@ import {PARCEL_FORM_KEYS} from '../../components/parcel-form/parcel.form';
 import {Subject} from 'rxjs';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
-import {Location} from '@angular/common';
 import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.component';
 
 @Component({
@@ -29,7 +28,7 @@ export class EditParcelComponent implements AfterViewInit {
   private parcelToEdit: Parcel;
 
   constructor(private parcelService: ParcelService, private route: ActivatedRoute, private dashboardLoadingService: DashboardLoadingService,
-              private changeDetectorRef: ChangeDetectorRef, private location: Location) {
+              private changeDetectorRef: ChangeDetectorRef) {
     this.loading$ = dashboardLoadingService.loading$;
   }
 
@@ -55,7 +54,7 @@ export class EditParcelComponent implements AfterViewInit {
 
     this.parcelService.editParcel(parcel).pipe(
       withLoading(this.loading$),
-    ).subscribe(parcel => {
+    ).subscribe(_ => {
       this.handleEditSuccess();
     }, error => {
       this.parcelFormComponent.handleApiError(error);
@@ -78,7 +77,7 @@ export class EditParcelComponent implements AfterViewInit {
       this.populateForm(parcel);
     }, error => {
       if (isApiErrorBody(error)) {
-        if (error.error == ApiErrorEnum.access_denied || error.error == ApiErrorEnum.RESOURCE_NOT_FOUND) {
+        if (error.error === ApiErrorEnum.access_denied || error.error === ApiErrorEnum.RESOURCE_NOT_FOUND) {
           this.hasAccess = false;
         }
       }

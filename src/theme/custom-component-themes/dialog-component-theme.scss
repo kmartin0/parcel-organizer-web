@@ -1,0 +1,58 @@
+@use 'sass:map';
+@use 'node_modules/@angular/material' as mat;
+@use 'devices' as devices;
+
+@mixin color($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $custom: map.get($color-config, custom);
+  $foreground: map.get($color-config, foreground);
+
+  .dialog-component-container {
+
+    .icon-wrap {
+      background-color: mat.get-color-from-palette($custom, surface-contrast);
+    }
+
+    .description {
+      color: mat.get-color-from-palette($foreground);
+    }
+
+    .action-button {
+      color: mat.get-color-from-palette($primary, default-contrast);
+      background-color: rgba(mat.get-color-from-palette($primary), .75);
+    }
+
+    .action-button:hover {
+      background-color: rgba(mat.get-color-from-palette($primary), .9);
+    }
+
+  }
+
+  .dialog-component-container, .mat-dialog-container {
+    background-color: mat.get-color-from-palette($custom, surface);
+  }
+
+}
+
+@mixin typography($theme) {
+  // Get the typography config from the theme.
+  $typography-config: mat.get-typography-config($theme);
+
+  .dialog-component-container {
+  }
+
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include color($theme);
+  }
+
+  $typography-config: mat.get-typography-config($theme);
+  @if $typography-config != null {
+    @include typography($theme);
+  }
+}

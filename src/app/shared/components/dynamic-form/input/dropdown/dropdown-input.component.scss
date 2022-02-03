@@ -1,17 +1,8 @@
-@import "variables";
-
 select {
   padding: 0 20px;
   appearance: none;
-  background-image: url(/assets/arrow_down.svg);
+  background-image: url('/assets/arrow_down.svg');
   background-position: 97%;
   background-repeat: no-repeat;
   background-size: 24px;
-}
-
-option {
-  @include theme() {
-    background-color: theme-color($color-surface);
-    color: theme-color($color-on-surface);
-  }
 }

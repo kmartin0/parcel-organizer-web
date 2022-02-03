@@ -1,8 +1,8 @@
-<div class="content">
+<div class="home-component-container">
 
   <header>
-    <h1 id="title">Parcel Organizer</h1>
-    <h2 id="subtitle">Simple organizing of your parcels</h2>
+    <p id="title">Parcel Organizer</p>
+    <p id="subtitle">Simple organizing of your parcels</p>
   </header>
 
   <div class="center-container surface">
@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div (click)="toggleTheme()" class="theme-icon-container"
+  <div (click)="toggleTheme()" class="theme-icon-container surface"
        [matTooltip]="!(isDarkTheme | async) ? 'Dark Theme' : 'Light Theme'">
     <fa-icon *ngIf="!(isDarkTheme | async)" [icon]="faIcons.moon"
              [styles]="faIconStyle"></fa-icon>

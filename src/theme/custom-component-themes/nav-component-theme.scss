@@ -1,0 +1,57 @@
+@use 'sass:map';
+@use 'node_modules/@angular/material' as mat;
+@use 'devices' as devices;
+
+@mixin color($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+  $secondary: map.get($color-config, accent);
+  $custom: map.get($color-config, custom);
+
+  .nav-component-container {
+    color: mat.get-color-from-palette($custom, surface-contrast);
+    background-color: mat.get-color-from-palette($custom, surface);
+
+    .logo-text {
+      color: mat.get-color-from-palette($secondary);
+    }
+
+    a, fa-icon {
+      color: mat.get-color-from-palette($secondary, 700);
+    }
+
+    &.active-nav fa-icon, &.active-nav a {
+      color: mat.get-color-from-palette($secondary);
+    }
+
+    .active-nav .active a, .active a {
+      border-left: 4px solid mat.get-color-from-palette($secondary);
+    }
+
+  }
+
+}
+
+@mixin typography($theme) {
+  // Get the typography config from the theme.
+  $typography-config: mat.get-typography-config($theme);
+
+  .nav-component-container {
+    .logo-text {
+      font-weight: 800;
+    }
+  }
+
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include color($theme);
+  }
+
+  $typography-config: mat.get-typography-config($theme);
+  @if $typography-config != null {
+    @include typography($theme);
+  }
+}

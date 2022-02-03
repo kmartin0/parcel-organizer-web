@@ -1,9 +1,17 @@
+@use "devices";
+
 .dashboard-container {
   display: grid;
   grid-template-columns: min-content 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas: "nav header" "nav content";
   height: 100vh;
+
+  @include devices.device(phone, phablet, tablet) {
+    display: grid;
+    grid-template-columns: min-content 100%;
+    overflow-x: hidden;
+  }
 }
 
 app-header {
@@ -17,12 +25,4 @@ app-nav {
 #dashboard-content-wrapper {
   grid-area: content;
   overflow: auto;
-}
-
-@media (max-width: 991px) {
-  .dashboard-container {
-    display: grid;
-    grid-template-columns: min-content 100%;
-    overflow-x: hidden;
-  }
 }

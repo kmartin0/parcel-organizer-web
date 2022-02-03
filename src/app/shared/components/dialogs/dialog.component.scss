@@ -1,11 +1,9 @@
-@import "variables";
+@use "devices";
 
-.container {
+.dialog-component-container {
+  width: 350px;
   display: flex;
   flex-direction: column;
-  @include theme() {
-    background-color: theme-color($color-surface);
-  }
 }
 
 .icon-wrap {
@@ -14,9 +12,6 @@
   border-radius: 50%;
   display: flex;
   margin: 0 auto;
-  @include theme() {
-    background-color: theme-color($color-on-surface);
-  }
 }
 
 fa-icon {
@@ -27,9 +22,6 @@ fa-icon {
 .description {
   text-align: center;
   margin-top: 12px;
-  @include theme() {
-    color: theme-color($color-on-background);
-  }
 }
 
 .actions {
@@ -42,24 +34,9 @@ fa-icon {
   transition: background-color 0.3s ease;
   padding: 10px;
   border-radius: 4px;
-  font-weight: 500;
-  font-size: 14px;
   margin: 4px;
-  @include theme() {
-    color: theme-color($color-on-primary);
-    background-color: rgba(theme-color($color-primary), .75);
-  }
 }
 
 .action-button:hover {
   cursor: pointer;
-  @include theme() {
-    background-color: rgba(theme-color($color-primary), .9);
-  }
-}
-
-@media (min-width: 550px) {
-  .container {
-    width: 350px;
-  }
 }

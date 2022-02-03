@@ -1,0 +1,64 @@
+@use 'node_modules/@angular/material' as mat;
+@use 'custom-color-palettes' as custom-color-palettes;
+@use 'typography' as custom-typograhy;
+@use 'sass:map';
+
+ //Custom color collection. Ref: https://stackoverflow.com/a/58165951
+$light-theme-custom-color-collection: (
+  default : #4caf50,
+  background: #d1c4e9,
+  surface: #fff3e0,
+  header: #1a237e,
+  footer: #1a237e,
+  input: #000000,
+  pi-ordered: #0d47a1,
+  pi-sent: #006064,
+  pi-delivered: #1B5E20,
+  pi-title: #fbc02d,
+  pi-action: #e6ee9c,
+  pi-action-hover: #b3bc6d,
+  pi-divider: rgba(255, 255, 255, 0.35),
+  contrast: (
+    default : #000000,
+    background: #000000,
+    surface: #000000,
+    header: #ffffff,
+    footer: #ffffff,
+    input: rgba(255, 255, 255, 0.8),
+    pi-ordered: #f9fbe7,
+    pi-sent: #f9fbe7,
+    pi-delivered: #f9fbe7,
+    pi-title: #000000,
+    pi-action: #000000,
+    pi-action-hover: #000000,
+    pi-divider: #000000,
+  )
+);
+
+// Custom color palette.
+$light-theme-custom-palette: mat.define-palette($light-theme-custom-color-collection, default, default, default);
+
+// Primary palette.
+$light-theme-primary: mat.define-palette(custom-color-palettes.$mat-indigo-900);
+
+// Accent palette.
+$light-theme-accent: mat.define-palette(custom-color-palettes.$mat-pink-900);
+
+// Warn palette.
+$light-theme-warn: mat.define-palette(custom-color-palettes.$mat-black);
+
+// Create the light theme.
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: $light-theme-primary,
+    accent: $light-theme-accent,
+    warn: $light-theme-warn
+  ),
+  typography: custom-typograhy.$typography-config
+));
+
+// Add custom color collection to the light theme.
+$color-config: mat.get-color-config($light-theme, color);
+$color-config: map.merge($color-config, (custom: $light-theme-custom-palette));
+
+$light-theme: map.merge($light-theme, (color: $color-config));

@@ -1,32 +1,12 @@
-@import "variables";
-
-button {
-  padding: 12px;
+.app-button-component-container {
+  padding: 16px;
   border-radius: 24px;
   border: none;
-  font-size: 14px;
-  font-weight: normal;
-  @include theme() {
-    color: theme-color($color-on-primary);
-    background: theme-color($color-primary);
-  }
   display: block;
 }
 
-button:hover {
+.app-button-component-container:hover {
   cursor: pointer;
-}
-
-button:hover:enabled {
-  @include theme() {
-    background: theme-color($color-primary-variant);
-  }
-}
-
-button:disabled {
-  @include theme() {
-    background: disabled-color(theme-color($color-primary));
-  }
 }
 
 .loading {

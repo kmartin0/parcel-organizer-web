@@ -1,0 +1,82 @@
+@use 'sass:map';
+@use 'node_modules/@angular/material' as mat;
+@use 'devices' as devices;
+
+@mixin color($theme) {
+  // Get the color config from the theme.
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $secondary: map.get($color-config, accent);
+
+  .home-component-container {
+
+    .login:checked + .select-form-label,
+    .register:checked + .select-form-label {
+      border-color: mat.get-color-from-palette($secondary);
+    }
+
+    fa-icon {
+      color: mat.get-color-from-palette($secondary);
+    }
+
+    .theme-icon-container:hover fa-icon {
+      color: mat.get-color-from-palette($secondary, 900);
+    }
+
+  }
+
+}
+
+@mixin typography($theme) {
+  // Get the typography config from the theme.
+  $typography-config: mat.get-typography-config($theme);
+
+  .home-component-container {
+
+    #title {
+      @include mat.typography-level($typography-config, headline);
+
+      @include devices.device(phone, phablet) {
+        @include mat.typography-level($typography-config, title);
+        font-size: 24px;
+        font-weight: 700;
+      }
+    }
+
+    #subtitle {
+      @include mat.typography-level($typography-config, title);
+    }
+
+    .select-form-label {
+      @include mat.typography-level($typography-config, title);
+      font-weight: 500;
+
+      @include devices.device(phone, phablet) {
+        font-weight: 400;
+      }
+    }
+
+    .login:checked + .select-form-label,
+    .register:checked + .select-form-label {
+      @include mat.typography-level($typography-config, title);
+      font-weight: 600;
+
+      @include devices.device(phone, phablet) {
+        font-weight: 500;
+      }
+    }
+  }
+
+}
+
+@mixin theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  @if $color-config != null {
+    @include color($theme);
+  }
+
+  $typography-config: mat.get-typography-config($theme);
+  @if $typography-config != null {
+    @include typography($theme);
+  }
+}

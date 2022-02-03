@@ -1,6 +1,6 @@
-@import "variables";
+@use "devices";
 
-.content {
+.home-component-container {
   padding: 15px;
   max-width: 1400px;
   display: flex;
@@ -14,18 +14,8 @@ header {
   text-align: center;
 }
 
-#title {
-  margin: 0;
-}
-
-#subtitle {
-  margin: 0;
-}
-
 #title, #subtitle {
-  @include theme() {
-    color: theme-color($color-on-background);
-  }
+  margin: 0;
 }
 
 .center-container {
@@ -33,7 +23,12 @@ header {
   width: 100%;
   min-height: 550px;
   margin: 24px auto 24px auto;
-  @include surface()
+
+  @include devices.device(phone, phablet) {
+    min-height: auto;
+    max-height: none;
+  }
+
 }
 
 .logo-center-container {
@@ -42,6 +37,10 @@ header {
   justify-content: center;
   display: flex;
   padding: 16px;
+
+  @include devices.device(phone, phablet) {
+    display: none;
+  }
 }
 
 .logo-center {
@@ -62,15 +61,11 @@ header {
 
 .select-form-label {
   width: 40%;
-  font-size: 22px;
   padding-bottom: 12px;
   margin: 0 15px 10px 0;
   display: inline-block;
   border-bottom: 2px solid transparent;
   cursor: pointer;
-  @include theme() {
-    color: theme-color($color-on-surface);
-  }
 }
 
 .login,
@@ -78,72 +73,12 @@ header {
   display: none;
 }
 
-.login:checked + .select-form-label,
-.register:checked + .select-form-label {
-  font-size: 24px;
-  @include theme() {
-    border-color: theme-color($color-secondary);
-  }
-}
-
 .theme-icon-container {
   text-align: center;
   align-self: flex-end;
   cursor: pointer;
-  @include surface();
-}
-
-fa-icon {
-  @include theme() {
-    color: theme-color($color-secondary);
-  }
-}
-
-.theme-icon-container:hover fa-icon {
-  @include theme() {
-    color: theme-color($color-secondary-variant);
-  }
 }
 
 .forgot-password-btn {
   margin-top: 12px;
-}
-
-@media only screen and (max-width: 767px) {
-  #title {
-    font-size: 25px;
-  }
-
-  #subtitle {
-    font-size: 20px;
-  }
-
-  .center-container {
-    min-height: auto;
-    max-height: none;
-  }
-
-  .logo-center-container {
-    display: none;
-  }
-}
-
-@media only screen and (max-width: 390px) {
-  #title {
-    font-size: 22px;
-    font-weight: 600;
-  }
-
-  #subtitle {
-    font-size: 18px;
-  }
-
-  #title, #subtitle {
-    line-height: 1.4em;
-    margin: 3px 0;
-  }
-
-  .forgot-password-btn {
-    font-size: 12px;
-  }
 }

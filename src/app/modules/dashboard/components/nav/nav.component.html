@@ -1,4 +1,4 @@
-<nav (mouseenter)="onNavMouseEnter()" (mouseleave)="onNavMouseLeave()"
+<nav class="nav-component-container" (mouseenter)="onNavMouseEnter()" (mouseleave)="onNavMouseLeave()"
      [ngClass]="{'active-nav': (navBarState == navBarStates.CLIPPED || navBarState == navBarStates.OPENED)}">
 
   <div class="logo-container">

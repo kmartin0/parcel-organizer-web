@@ -25,7 +25,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   @Input() confirmButtonWidth = '50%';
   @Input() loading$?: Subject<boolean>;
-  @Input() formName: string = 'Submit';
+  @Input() formName = 'Submit';
   @Input() inputFields: BaseInputField[];
   @Input() formValidators: ValidatorFn[];
   @Output() formValidSubmit: EventEmitter<{ [key: string]: string; }> = new EventEmitter();
@@ -67,16 +67,18 @@ export class FormComponent implements OnInit, OnDestroy {
 
   setError(formControlKey: string, error: string) {
     if (error) {
-      let target = this.formGroup.controls[formControlKey] || this.formGroup;
-      let tmpErrors = target.errors;
+      const target = this.formGroup.controls[formControlKey] || this.formGroup;
+      const tmpErrors = target.errors;
       let errorValue;
-      errorValue = tmpErrors != null && tmpErrors['customError'] != null ? {'customError': [...tmpErrors['customError'], error]} : {'customError': [error]};
+      errorValue = tmpErrors != null && tmpErrors.customError != null ?
+        {customError: [...tmpErrors.customError, error]} :
+        {customError: [error]};
       target.setErrors(errorValue);
     }
   }
 
   getFormControl(key: string): FormControl {
-    return <FormControl> this.formGroup.get(key);
+    return this.formGroup.get(key) as FormControl;
   }
 
   /**
@@ -85,7 +87,7 @@ export class FormComponent implements OnInit, OnDestroy {
    */
   private initFormGroup() {
     // Create a [FormControl] for each inputField and add it to [tmpFormGroup].
-    let tmpFormGroup = {};
+    const tmpFormGroup = {};
     this.inputFields.forEach(inputField => {
       tmpFormGroup[inputField.key] = new FormControl(inputField.value || '', inputField.validators);
     });
@@ -96,13 +98,13 @@ export class FormComponent implements OnInit, OnDestroy {
     // Observe the status for each FormControl. Whenever the status changes update the error message.
     Object.keys(this.formGroup.controls).forEach(key => {
       const formControl = this.formGroup.controls[key];
-      formControl.statusChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(status => {
+      formControl.statusChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(_ => {
         this.errorMessages[key] = this.errorMessageService.getErrorMessagesForValidationErrors(formControl.errors);
       });
     });
     // Observe the status for the formGroup. Whenever the status changes update the error message.
-    this.formGroup.statusChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value => {
-      this.errorMessages['formGroup'] = this.errorMessageService.getErrorMessagesForValidationErrors(this.formGroup.errors);
+    this.formGroup.statusChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(_ => {
+      this.errorMessages.formGroup = this.errorMessageService.getErrorMessagesForValidationErrors(this.formGroup.errors);
     });
 
     this.initValueChanges$();
@@ -114,7 +116,7 @@ export class FormComponent implements OnInit, OnDestroy {
       Object.keys(this.formGroup.controls).forEach(key => {
         const formControl = this.formGroup.controls[key];
         formControl.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(value => {
-          subscriber.next({key: key, value: value});
+          subscriber.next({key, value});
         });
       });
     });
@@ -126,7 +128,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   private onFormInvalid() {
     // Display the general form errors.
-    this.errorMessages['formGroup'] = this.errorMessageService.getErrorMessagesForValidationErrors(this.formGroup.errors);
+    this.errorMessages.formGroup = this.errorMessageService.getErrorMessagesForValidationErrors(this.formGroup.errors);
 
     // Display the input field errors.
     Object.keys(this.formGroup.controls).forEach(key => {

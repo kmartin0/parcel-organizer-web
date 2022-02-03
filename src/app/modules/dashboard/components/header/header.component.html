@@ -1,9 +1,9 @@
-<header [ngClass]="{'open' : navBarState == navBarStates.OPENED || navBarState == navBarStates.CLIPPED}">
+<header class="header-component-container" [ngClass]="{'open' : navBarState == navBarStates.OPENED || navBarState == navBarStates.CLIPPED}">
   <div class="nav-icon-container">
     <fa-icon (click)="toggleNavBarClip()" [styles]="faIconStyle" [icon]="faIcons.hamburger"></fa-icon>
   </div>
   <img class="logo" src="assets/ic_box.svg" alt="logo">
-  <h2>{{title}}</h2>
+  <p class="title">{{title}}</p>
   <div class="loading">
     <app-loading [loading$]="loading$"></app-loading>
   </div>
