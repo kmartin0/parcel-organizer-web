@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  parcelOrganizerApiUrl: 'https://parcel-organizer-api.herokuapp.com',
+  parcelOrganizerApiUrl: 'https://api.parcelorganizer.kmartin.nl',
   parcelOrganizerClientId: 'parcel-organizer-web',
   parcelOrganizerClientSecret: 'secret',
 };
