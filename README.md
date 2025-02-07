@@ -2,7 +2,7 @@
 
 Web application for Parcel Organizer platform which lets users organize their incoming/outgoing parcels.
 
-Demo: https://parcel-organizer-web.herokuapp.com/
+Demo hosted on Raspberry pi with Docker and nginx: https://parcelorganizer.kmartin.nl/
 
 ## Features
 

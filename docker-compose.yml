@@ -7,6 +7,6 @@ services:
     build:
       context: .
       args:
-        - PROFILE=dev # Accepts dev, prod-pi, prod-heroku
+        - PROFILE=dev # Accepts dev, prod-pi
     ports:
       - "4200:80"
