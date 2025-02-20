@@ -1,10 +1,10 @@
 <div @form class="surface">
-  <div class="mat-title">Update your account details here</div>
+  <div class="title">Update your account details here</div>
   <app-user-form formAction="Update" [loading$]="updateAccountLoading$" (validFormResult$)="onUserResult($event)"></app-user-form>
 </div>
 
 <div @form class="change-password-container surface">
-  <div class="mat-title">Change your password here</div>
+  <div class="title">Change your password here</div>
   <app-change-password-form [loading$]="changePasswordLoading$"
                             (validFormResult$)="onChangePasswordResult($event)"
                             formAction="Change Password"></app-change-password-form>

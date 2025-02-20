@@ -7,8 +7,6 @@ import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {UserFormComponent} from '../../../../shared/components/user-form/user-form.component';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {withLoading} from '../../../../shared/helpers/operators';
-import {isApiErrorBody} from '../../../../shared/models/api-error-body';
-import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {ChangePassword} from '../../../../shared/models/change-password';
 import {ChangePasswordFormComponent} from '../../components/change-password-form/change-password-form.component';
 import {User} from '../../../../shared/models/user';
@@ -17,7 +15,12 @@ import {User} from '../../../../shared/models/user';
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
-  animations: [trigger('form', enterLeaveTransition)]
+  animations: [trigger('form', enterLeaveTransition)],
+  imports: [
+    UserFormComponent,
+    ChangePasswordFormComponent
+  ],
+  standalone: true
 })
 export class AccountComponent implements OnInit, AfterViewInit {
 
@@ -25,12 +28,12 @@ export class AccountComponent implements OnInit, AfterViewInit {
   updateAccountLoading$ = new Subject<boolean>();
   changePasswordLoading$ = new Subject<boolean>();
 
-  @ViewChild(UserFormComponent, {static: false}) private _userFormComponent: UserFormComponent;
+  @ViewChild(UserFormComponent, {static: false}) private _userFormComponent!: UserFormComponent;
   get userFormComponent(): UserFormComponent {
     return this._userFormComponent;
   }
 
-  @ViewChild(ChangePasswordFormComponent, {static: false}) private _changePasswordFormComponent: ChangePasswordFormComponent;
+  @ViewChild(ChangePasswordFormComponent, {static: false}) private _changePasswordFormComponent!: ChangePasswordFormComponent;
   get changePasswordFormComponent(): ChangePasswordFormComponent {
     return this._changePasswordFormComponent;
   }

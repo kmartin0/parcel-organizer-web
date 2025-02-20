@@ -11,7 +11,7 @@
 
   <div *ngIf="!(curPageParcels$ | async)?.length && parcelsFetched" class="empty-state">
     <img class="empty-state-img" src="assets/ic_empty_box.svg" alt="empty-state">
-    <p class="empty-state-text mat-title">It appears no parcels could be found.</p>
+    <p class="empty-state-text mat-headline-6">It appears no parcels could be found.</p>
   </div>
 
   <div *ngIf="pagingConfig$ | async as paging" class="paginator">

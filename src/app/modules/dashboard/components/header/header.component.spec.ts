@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {HeaderComponent} from './header.component';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {NAV_BAR_STATES} from '../nav/nav.component';
@@ -9,7 +9,8 @@ describe('HeaderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [HeaderComponent],
+      imports: [HeaderComponent],
+      declarations: [],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();

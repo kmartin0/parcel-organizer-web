@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {FormComponentStub} from '../../../testing/form.component.stub';
 import {ApiErrorBody} from '../../models/api-error-body';
 import {ApiErrorEnum} from '../../../api/api-error.enum';
-import {UserAuthentication} from '../../models/user-authentication';
 import {UserFormComponent} from './user-form.component';
-import {USER_FORM, USER_FORM_KEYS} from './user.form';
+import {USER_FORM_KEYS} from './user.form';
 import {User} from '../../models/user';
+import {FormComponent} from '../dynamic-form/form/form.component';
 
 describe('UserFormComponent', () => {
 
@@ -15,10 +15,14 @@ describe('UserFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [UserFormComponent, FormComponentStub],
+      imports: [UserFormComponent],
+      declarations: [],
       providers: [],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+      schemas: [NO_ERRORS_SCHEMA]})
+      .overrideComponent(UserFormComponent, {
+        remove: {imports: [FormComponent]},
+        add: {imports: [FormComponentStub]},
+      })
       .compileComponents();
   }));
 
@@ -46,7 +50,7 @@ describe('UserFormComponent', () => {
 
     // Then
     expect(component.formComponent.setError).toHaveBeenCalledTimes(1);
-    expect(component.formComponent.setError).toHaveBeenCalledWith(USER_FORM_KEYS.email, alreadyExists.details[USER_FORM_KEYS.email]);
+    expect(component.formComponent.setError).toHaveBeenCalledWith(USER_FORM_KEYS.email, alreadyExists.details![USER_FORM_KEYS.email]);
   });
 
   it('should set form component error when invalid arguments', () => {
@@ -69,9 +73,9 @@ describe('UserFormComponent', () => {
 
     // Then
     expect(component.formComponent.setError).toHaveBeenCalledTimes(3);
-    expect(component.formComponent.setError).toHaveBeenCalledWith(USER_FORM_KEYS.email, invalidArguments.details[USER_FORM_KEYS.email]);
-    expect(component.formComponent.setError).toHaveBeenCalledWith(USER_FORM_KEYS.password, invalidArguments.details[USER_FORM_KEYS.password]);
-    expect(component.formComponent.setError).toHaveBeenCalledWith(USER_FORM_KEYS.name, invalidArguments.details[USER_FORM_KEYS.name]);
+    expect(component.formComponent.setError).toHaveBeenCalledWith(USER_FORM_KEYS.email, invalidArguments.details![USER_FORM_KEYS.email]);
+    expect(component.formComponent.setError).toHaveBeenCalledWith(USER_FORM_KEYS.password, invalidArguments.details![USER_FORM_KEYS.password]);
+    expect(component.formComponent.setError).toHaveBeenCalledWith(USER_FORM_KEYS.name, invalidArguments.details![USER_FORM_KEYS.name]);
   });
 
   it('should set form component error when permission denied', () => {
@@ -112,17 +116,17 @@ describe('UserFormComponent', () => {
     // Given
     const expected: User = {
       email: 'xyz@gmail.com',
-      id: null,
+      id: undefined,
       name: 'xyz',
       password: '1234',
       confirmPassword: '1234'
     };
 
     const input = {
-      [USER_FORM_KEYS.email]: expected.email,
-      [USER_FORM_KEYS.password]: expected.password,
-      [USER_FORM_KEYS.name]: expected.name,
-      [USER_FORM_KEYS.confirmPassword]: expected.confirmPassword
+      [USER_FORM_KEYS.email]: expected.email!,
+      [USER_FORM_KEYS.password]: expected.password!,
+      [USER_FORM_KEYS.name]: expected.name!,
+      [USER_FORM_KEYS.confirmPassword]: expected.confirmPassword!
     };
 
     spyOn(component.validFormResult$, 'emit');

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
@@ -62,8 +62,8 @@ describe('ParcelsComponent', () => {
   beforeEach(waitForAsync(() => {
     // Configure testing module
     TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule],
-      declarations: [ParcelsComponent],
+      imports: [BrowserAnimationsModule, ParcelsComponent],
+      declarations: [],
       providers: [
         {provide: ParcelService, useValue: parcelServiceSpy},
         {provide: DashboardLoadingService, useValue: dashboardLoadingServiceSpy},

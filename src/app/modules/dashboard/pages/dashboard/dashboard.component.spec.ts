@@ -1,11 +1,31 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import {Component, NO_ERRORS_SCHEMA} from '@angular/core';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {Component, Input, NO_ERRORS_SCHEMA} from '@angular/core';
 import {DashboardComponent} from './dashboard.component';
-import {RouterTestingModule} from '@angular/router/testing';
-import {DashboardLoadingService} from './dashboard-loading.service';
-import {Subject} from 'rxjs';
-import {ActivatedRoute, Router, Routes} from '@angular/router';
+import {Observable} from 'rxjs';
+import {provideRouter, Router, Routes} from '@angular/router';
 import {StubComponent} from '../../../../testing/stub.component';
+import {NAV_BAR_STATES, NavComponent} from '../../components/nav/nav.component';
+import {HeaderComponent} from '../../components/header/header.component';
+
+@Component({
+  selector: 'app-nav',
+  template: '',
+  standalone: true
+})
+export class NavComponentStub {
+  @Input() navBarState!: NAV_BAR_STATES;
+}
+
+@Component({
+  selector: 'app-header',
+  template: '',
+  standalone: true
+})
+export class HeaderComponentStub {
+  @Input() navBarState!: NAV_BAR_STATES;
+  @Input() title!: string;
+  @Input() loading$!: Observable<boolean>;
+}
 
 describe('DashboardComponent', () => {
 
@@ -18,69 +38,67 @@ describe('DashboardComponent', () => {
         {
           path: '',
           pathMatch: 'prefix',
-          children: [
-            {
-              path: 'stub',
-              component: StubComponent,
-              data: {title: 'stub title'}
-            },
-          ]
-        }
+          redirectTo: 'homeStub',
+        },
+        {
+          path: 'homeStub',
+          component: StubComponent,
+          data: {title: 'Home Stub'}
+        },
+        {
+          path: 'secondStub',
+          component: StubComponent,
+          data: {title: 'Second Stub'}
+        },
       ]
     },
   ];
-
-  let initialActivatedRouteMock = {
-    component: DashboardComponent,
-    snapshot: {
-      data: {},
-      firstChild: {
-        data: {
-          title: 'initial title'
-        }
-      },
-    },
-  };
-
-  let dashboardLoadingServiceSpy: jasmine.SpyObj<DashboardLoadingService>;
 
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let router: Router;
 
-  beforeEach(() => {
-    // Initialize spies
-    dashboardLoadingServiceSpy = jasmine.createSpyObj('DashboardLoadingService', [], [{loading$: new Subject()}]);
-  });
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes(dashboardRoutes)],
-      declarations: [DashboardComponent],
-      providers: [{provide: ActivatedRoute, useValue: initialActivatedRouteMock}],
+      imports: [DashboardComponent],
+      declarations: [],
+      providers: [
+        provideRouter(dashboardRoutes)
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     })
+      .overrideComponent(DashboardComponent, {
+        remove: {imports: [NavComponent, HeaderComponent]},
+        add: {imports: [NavComponentStub, HeaderComponentStub]},
+      })
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async () => {
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-
     router = TestBed.inject(Router);
+
+    // Navigate to the base path, which should redirect to 'homeStub'
+    await router.navigateByUrl('');
+    fixture.detectChanges();
   });
 
+  it('should create component', () => {
+    expect(component).toBeTruthy();
+  });
+
+
   it('should initialize title with the activated route title', () => {
-    expect(component.title).toEqual('initial title');
+    expect(component.title).toEqual('Home Stub');
   });
 
   it('should change title when another dashboard page is opened', async () => {
     // When
-    await fixture.ngZone.run(() => router.navigateByUrl('stub'));
+    await fixture.ngZone!.run(() => router.navigateByUrl('/secondStub'));
 
     // Then
-    expect(component.title).toEqual('stub title');
+    expect(component.title).toEqual('Second Stub');
   });
 
 });

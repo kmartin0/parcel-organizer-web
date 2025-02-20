@@ -18,7 +18,7 @@ export class ParcelService {
     return this.baseApiService.makePost<Parcel>(SAVE_PARCEL, parcel);
   }
 
-  getParcel(parcelId): Observable<Parcel> {
+  getParcel(parcelId: number): Observable<Parcel> {
     return this.baseApiService.makeGet(GET_PARCEL(parcelId));
   }
 

@@ -17,7 +17,7 @@
         <input id="register" type="radio" formControlName="formSelect" [value]=FORM_TYPES.REGISTER class="register">
         <label for="register" class="select-form-label"> Register </label>
       </form>
-      <div [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.LOGIN">
+      <div [hidden]="formSelector.get('formSelect')?.value !== FORM_TYPES.LOGIN">
         <app-user-auth-form [loading$]="loading$"
                             (validFormResult$)="authenticateUser($event)"></app-user-auth-form>
 
@@ -25,7 +25,7 @@
         </button>
       </div>
 
-      <app-user-form formAction="Register" [hidden]="formSelector.get('formSelect').value !== FORM_TYPES.REGISTER"
+      <app-user-form formAction="Register" [hidden]="formSelector.get('formSelect')?.value !== FORM_TYPES.REGISTER"
                      [loading$]="loading$"
                      (validFormResult$)="registerUser($event)"></app-user-form>
 
@@ -33,10 +33,9 @@
   </div>
 
   <div (click)="toggleTheme()" class="theme-icon-container surface"
-       [matTooltip]="!(isDarkTheme | async) ? 'Dark Theme' : 'Light Theme'">
-    <fa-icon *ngIf="!(isDarkTheme | async)" [icon]="faIcons.moon"
-             [styles]="faIconStyle"></fa-icon>
-    <fa-icon *ngIf="isDarkTheme | async" [icon]="faIcons.sun" [styles]="faIconStyle"></fa-icon>
+       [matTooltip]="(appThemeMode$ | async) === APP_THEME_MODE.LIGHT ? 'Dark Theme' : 'Light Theme'">
+
+    <mat-icon [fontIcon]="(appThemeMode$ | async) === APP_THEME_MODE.LIGHT ? 'dark_mode' : 'light_mode'"></mat-icon>
   </div>
 
 </div>

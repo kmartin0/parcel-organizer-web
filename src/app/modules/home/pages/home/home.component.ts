@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserAuthFormComponent} from '../../../../shared/components/user-authentication-form/user-auth-form.component';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {Router} from '@angular/router';
 import {DASHBOARD, FORGOT_PASSWORD} from '../../../../shared/constants/endpoints';
@@ -10,40 +10,42 @@ import {withLoading} from '../../../../shared/helpers/operators';
 import {UserFormComponent} from '../../../../shared/components/user-form/user-form.component';
 import {Subject} from 'rxjs';
 import {UserAuthentication} from '../../../../shared/models/user-authentication';
-import {faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
-import {Styles} from '@fortawesome/fontawesome-svg-core';
-import {ThemeService} from '../../../../shared/services/theme/theme.service';
+import {APP_THEME_MODE, ThemeService} from '../../../../shared/services/theme/theme.service';
+import {MatTooltip} from '@angular/material/tooltip';
+import {AsyncPipe} from '@angular/common';
+import {MatButton} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    UserAuthFormComponent,
+    UserFormComponent,
+    MatTooltip,
+    AsyncPipe,
+    MatButton,
+    MatIconModule,
+  ],
+  standalone: true
 })
 export class HomeComponent implements OnInit {
 
   loading$ = new Subject<boolean>();
-  isDarkTheme = this.themeService.isDarkTheme;
+  appThemeMode$ = this.themeService.themeMode$;
 
-  formSelector: FormGroup;
+  formSelector!: UntypedFormGroup;
   FORM_TYPES = FORM_TYPES;
 
-  faIcons = {
-    sun: faSun,
-    moon: faMoon
-  };
-
-  faIconStyle: Styles = {
-    width: '36px',
-    height: '36px'
-  };
-
   @ViewChild(UserAuthFormComponent, {static: false})
-  userAuthFormComponent: UserAuthFormComponent;
+  userAuthFormComponent!: UserAuthFormComponent;
 
   @ViewChild(UserFormComponent, {static: false})
-  userFormComponent: UserFormComponent;
+  userFormComponent!: UserFormComponent;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router,
+  constructor(private formBuilder: UntypedFormBuilder, private userService: UserService, private router: Router,
               private redirectService: RedirectService, private themeService: ThemeService) {
     this.initFormSelect(formBuilder);
   }
@@ -72,14 +74,14 @@ export class HomeComponent implements OnInit {
   }
 
   toggleTheme() {
-    this.themeService.toggleTheme();
+    this.themeService.toggleThemeMode();
   }
 
   goToForgotPassword() {
     this.router.navigate([FORGOT_PASSWORD]);
   }
 
-  private initFormSelect(formBuilder: FormBuilder) {
+  private initFormSelect(formBuilder: UntypedFormBuilder) {
     this.formSelector = formBuilder.group({
       formSelect: [FORM_TYPES.LOGIN]
     });
@@ -99,9 +101,11 @@ export class HomeComponent implements OnInit {
   private handleRegisterSuccess() {
     this.userFormComponent.displaySuccess(() => {
       this.userFormComponent.resetForm();
-      this.formSelector.controls.formSelect.setValue(FORM_TYPES.LOGIN);
+      this.formSelector?.controls['formSelect'].setValue(FORM_TYPES.LOGIN);
     });
   }
+
+  protected readonly APP_THEME_MODE = APP_THEME_MODE;
 }
 
 export enum FORM_TYPES {

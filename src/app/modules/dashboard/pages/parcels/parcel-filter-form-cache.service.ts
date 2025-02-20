@@ -14,8 +14,11 @@ export class ParcelFilterFormCacheService {
     localStorage.setItem(STORAGE_PARCEL_FILTERS_KEY, JSON.stringify(parcelFilters));
   }
 
-  getCachedParcelFilters(): ParcelsSortFilterConfig {
-    return JSON.parse(localStorage.getItem(STORAGE_PARCEL_FILTERS_KEY));
+  getCachedParcelFilters(): ParcelsSortFilterConfig | undefined {
+    const cachedFilters = localStorage.getItem(STORAGE_PARCEL_FILTERS_KEY);
+
+    // If cachedFilters is null, return null; otherwise, parse the value
+    return cachedFilters ? JSON.parse(cachedFilters) : undefined;
   }
 
 }

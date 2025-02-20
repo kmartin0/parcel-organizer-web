@@ -4,11 +4,16 @@ import {UserService} from '../../../../shared/services/user/user.service';
 import {withLoading} from '../../../../shared/helpers/operators';
 import {Router} from '@angular/router';
 import {HOME} from '../../../../shared/constants/endpoints';
+import {ForgotPasswordFormComponent} from '../../components/forgot-password-form/forgot-password-form.component';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss', '../../../../shared/styles/reset-forget-password.scss']
+  styleUrls: ['./forgot-password.component.scss', '../../../../shared/styles/reset-forget-password.scss'],
+  imports: [
+    ForgotPasswordFormComponent
+  ],
+  standalone: true
 })
 export class ForgotPasswordComponent implements OnInit {
 

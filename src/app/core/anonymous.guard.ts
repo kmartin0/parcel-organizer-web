@@ -1,23 +1,22 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
+  ActivatedRouteSnapshot,
   CanActivate,
   CanActivateChild,
-  CanLoad,
   Route,
-  UrlSegment,
-  ActivatedRouteSnapshot,
+  Router,
   RouterStateSnapshot,
-  UrlTree,
-  Router
+  UrlSegment,
+  UrlTree
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 import {UserService} from '../shared/services/user/user.service';
 import {DASHBOARD} from '../shared/constants/endpoints';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AnonymousGuard implements CanActivate, CanActivateChild, CanLoad {
+export class AnonymousGuard implements CanActivate, CanActivateChild {
   constructor(private userService: UserService, private router: Router) {
   }
 
@@ -33,13 +32,6 @@ export class AnonymousGuard implements CanActivate, CanActivateChild, CanLoad {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     return this.canActivate(route, state);
-  }
-
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-
-    return this.checkLogin();
   }
 
   checkLogin(): boolean {

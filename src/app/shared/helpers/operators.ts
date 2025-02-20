@@ -7,7 +7,7 @@ export const doOnSubscribe = (onSubscribe: () => void) =>
     return source;
   });
 
-export function withLoading<T>(indicator: Subject<boolean>): (source: Observable<T>) => Observable<T> {
+export function withLoading<T>(indicator?: Subject<boolean>): (source: Observable<T>) => Observable<T> {
   if (!indicator) {
     return (source: Observable<T>) => source;
   }

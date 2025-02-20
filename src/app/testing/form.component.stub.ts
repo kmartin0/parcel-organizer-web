@@ -1,16 +1,27 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormComponent} from '../shared/components/dynamic-form/form/form.component';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl, ValidatorFn} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {BaseInputField} from '../shared/components/dynamic-form/base-input-field';
 
 // noinspection AngularMissingOrInvalidDeclarationInModule
 @Component({
-  selector: 'app-form',
-  template: '',
-  providers: [{provide: FormComponent, useClass: FormComponentStub}]
+    selector: 'app-form',
+    template: '',
+    providers: [{ provide: FormComponent, useClass: FormComponentStub }],
+    standalone: true
 })
 export class FormComponentStub {
-  getFormControl(key: string): FormControl {
-    return new FormControl();
+
+  @Input() confirmButtonWidth = '50%';
+  @Input() loading$?: Subject<boolean>;
+  @Input() formName = 'Submit';
+  @Input() inputFields!: BaseInputField[];
+  @Input() formValidators!: ValidatorFn[];
+  @Output() formValidSubmit: EventEmitter<{ [key: string]: string; }> = new EventEmitter();
+
+  getFormControl(key: string): UntypedFormControl {
+    return new UntypedFormControl();
   }
 
   resetForm(value?: any) {

@@ -9,16 +9,23 @@ import {isApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {withLoading} from '../../../../shared/helpers/operators';
 import {BaseFormComponent} from '../../../../shared/components/dynamic-form/base-form.component';
+import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
+import {ParcelItemComponent} from '../parcel-item/parcel-item.component';
 
 @Component({
   selector: 'app-parcel-form',
   templateUrl: './parcel-form.component.html',
   styleUrls: ['./parcel-form.component.scss'],
-  animations: [trigger('form', enterLeaveTransition)]
+  animations: [trigger('form', enterLeaveTransition)],
+  imports: [
+    FormComponent,
+    ParcelItemComponent
+  ],
+  standalone: true
 })
 export class ParcelFormComponent extends BaseFormComponent<Parcel> implements AfterViewInit {
 
-  previewParcel: Parcel;
+  previewParcel?: Parcel
 
   constructor(private parcelService: ParcelService) {
     super();
@@ -58,12 +65,14 @@ export class ParcelFormComponent extends BaseFormComponent<Parcel> implements Af
     if (isApiErrorBody(apiError)) {
       switch (apiError.error) {
         case ApiErrorEnum.INVALID_ARGUMENTS: {
-          this.formComponent.setError(PARCEL_FORM_KEYS.title, apiError.details[PARCEL_FORM_KEYS.title]);
-          this.formComponent.setError(PARCEL_FORM_KEYS.sender, apiError.details[PARCEL_FORM_KEYS.sender]);
-          this.formComponent.setError(PARCEL_FORM_KEYS.courier, apiError.details[PARCEL_FORM_KEYS.courier]);
-          this.formComponent.setError(PARCEL_FORM_KEYS.trackingUrl, apiError.details[PARCEL_FORM_KEYS.trackingUrl]);
-          this.formComponent.setError(PARCEL_FORM_KEYS.additionalInformation, apiError.details[PARCEL_FORM_KEYS.additionalInformation]);
-          this.formComponent.setError(PARCEL_FORM_KEYS.parcelStatusEnum, apiError.details[PARCEL_FORM_KEYS.parcelStatusEnum]);
+          if (apiError.details) {
+            this.formComponent.setError(PARCEL_FORM_KEYS.title, apiError.details[PARCEL_FORM_KEYS.title]);
+            this.formComponent.setError(PARCEL_FORM_KEYS.sender, apiError.details[PARCEL_FORM_KEYS.sender]);
+            this.formComponent.setError(PARCEL_FORM_KEYS.courier, apiError.details[PARCEL_FORM_KEYS.courier]);
+            this.formComponent.setError(PARCEL_FORM_KEYS.trackingUrl, apiError.details[PARCEL_FORM_KEYS.trackingUrl]);
+            this.formComponent.setError(PARCEL_FORM_KEYS.additionalInformation, apiError.details[PARCEL_FORM_KEYS.additionalInformation]);
+            this.formComponent.setError(PARCEL_FORM_KEYS.parcelStatusEnum, apiError.details[PARCEL_FORM_KEYS.parcelStatusEnum]);
+          }
           break;
         }
         case ApiErrorEnum.RESOURCE_NOT_FOUND: {
@@ -75,9 +84,11 @@ export class ParcelFormComponent extends BaseFormComponent<Parcel> implements Af
     }
   }
 
-  resetForm() {
+  override resetForm() {
+    const parcelStatusEnumValue = this.form.find(value => value.key == PARCEL_FORM_KEYS.parcelStatusEnum)?.value;
+
     super.resetForm({
-      [PARCEL_FORM_KEYS.parcelStatusEnum]: this.form.find(value => value.key == PARCEL_FORM_KEYS.parcelStatusEnum).value
+      [PARCEL_FORM_KEYS.parcelStatusEnum]: parcelStatusEnumValue ?? ParcelStatusEnum.ORDERED,
     });
   }
 
@@ -99,32 +110,40 @@ export class ParcelFormComponent extends BaseFormComponent<Parcel> implements Af
 
   private initFormObserver() {
     this.formComponent.valueChanges$.subscribe((next: { key: string, value: string }) => {
-      switch (next.key) {
-        case PARCEL_FORM_KEYS.title: {
-          this.previewParcel.title = next.value;
-          break;
-        }
-        case PARCEL_FORM_KEYS.sender: {
-          this.previewParcel.sender = next.value;
-          break;
-        }
-        case PARCEL_FORM_KEYS.courier: {
-          this.previewParcel.courier = next.value;
-          break;
-        }
-        case PARCEL_FORM_KEYS.trackingUrl: {
-          this.previewParcel.trackingUrl = next.value;
-          break;
-        }
-        case PARCEL_FORM_KEYS.additionalInformation: {
-          this.previewParcel.additionalInformation = next.value;
-          break;
-        }
-        case PARCEL_FORM_KEYS.parcelStatusEnum: {
-          this.previewParcel.parcelStatus.status = ParcelStatusEnum[next.value];
-          break;
+      if (this.previewParcel) {
+        switch (next.key) {
+          case PARCEL_FORM_KEYS.title: {
+            this.previewParcel.title = next.value;
+            break;
+          }
+          case PARCEL_FORM_KEYS.sender: {
+            this.previewParcel.sender = next.value;
+            break;
+          }
+          case PARCEL_FORM_KEYS.courier: {
+            this.previewParcel.courier = next.value;
+            break;
+          }
+          case PARCEL_FORM_KEYS.trackingUrl: {
+            this.previewParcel.trackingUrl = next.value;
+            break;
+          }
+          case PARCEL_FORM_KEYS.additionalInformation: {
+            this.previewParcel.additionalInformation = next.value;
+            break;
+          }
+          case PARCEL_FORM_KEYS.parcelStatusEnum: {
+            const status = ParcelStatusEnum[next.value as keyof typeof ParcelStatusEnum];
+
+            if (this.previewParcel.parcelStatus && status) {
+              this.previewParcel.parcelStatus.status = status;
+            }
+
+            break;
+          }
         }
       }
+
     });
   }
 }

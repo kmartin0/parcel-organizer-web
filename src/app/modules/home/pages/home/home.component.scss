@@ -18,6 +18,24 @@ header {
   margin: 0;
 }
 
+#title {
+  font: var(--mat-sys-headline-large);
+  font-weight: 600;
+
+  @include devices.device(phone, phablet) {
+    font: var(--mat-sys-headline-medium);
+    font-weight: 500;
+  }
+}
+
+#subtitle {
+  font: var(--mat-sys-title-large);
+
+  @include devices.device(phone, phablet) {
+    font-weight: 400;
+  }
+}
+
 .center-container {
   display: flex;
   width: 100%;
@@ -66,6 +84,12 @@ header {
   display: inline-block;
   border-bottom: 2px solid transparent;
   cursor: pointer;
+  font: var(--mat-sys-title-large);
+  font-weight: 500;
+
+  @include devices.device(phone, phablet) {
+    font-weight: 400;
+  }
 }
 
 .login,
@@ -74,11 +98,31 @@ header {
 }
 
 .theme-icon-container {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
   align-self: flex-end;
   cursor: pointer;
 }
 
 .forgot-password-btn {
   margin-top: 12px;
+}
+
+.login:checked + .select-form-label,
+.register:checked + .select-form-label {
+  border-color: var(--mat-sys-secondary);
+  font-weight: 600;
+}
+
+.mat-icon {
+  $size: 42px;
+  font-size: $size;
+  height: $size;
+  width: $size;
+  color: var(--mat-sys-secondary);
+}
+
+.theme-icon-container:hover .mat-icon {
+  filter: brightness(80%);
 }

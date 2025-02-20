@@ -49,8 +49,8 @@ describe('UserService', () => {
 
     const expectedOauthBody = new HttpParams()
       .set('grant_type', 'password')
-      .set('username', userAuthentication.email)
-      .set('password', userAuthentication.password);
+      .set('username', userAuthentication.email ?? '')
+      .set('password', userAuthentication.password ?? '');
 
     const oauth2Credentials: Oauth2Credentials = {
       access_token: 'ey123mgf',
@@ -262,8 +262,8 @@ describe('UserService', () => {
 
     const expectedBody = new HttpParams()
       .set('grant_type', 'password')
-      .set('username', userAuthentication.email)
-      .set('password', userAuthentication.password);
+      .set('username', userAuthentication.email ?? '')
+      .set('password', userAuthentication.password ?? '');
 
     apiServiceSpy.makePostFormUrlEncoded.withArgs(OAUTH, expectedBody).and.returnValue(of(oauth2Credentials));
 

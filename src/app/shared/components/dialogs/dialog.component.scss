@@ -1,9 +1,16 @@
 @use "devices";
+@use "@angular/material" as mat;
 
 .dialog-component-container {
   width: 350px;
   display: flex;
   flex-direction: column;
+  padding: 12px;
+
+  @include mat.dialog-overrides((
+    actions-padding: 0,
+    content-padding: 0,
+  ))
 }
 
 .icon-wrap {
@@ -11,12 +18,24 @@
   height: 50px;
   border-radius: 50%;
   display: flex;
-  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  background-color: var(--mat-sys-error-container);
 }
 
-fa-icon {
+.mat-icon {
+  $size: var(--mat-sys-headline-large-size);
   line-height: 100%;
-  margin: auto;
+  font-size: $size;
+  height: $size;
+  width: $size;
+  padding: 0;
+  margin: 0;
+
+  @include mat.icon-overrides((
+    color: var(--mat-sys-error)
+  ))
 }
 
 .description {

@@ -22,11 +22,11 @@ describe('ParcelService', () => {
       additionalInformation: '',
       courier: 'DHL',
       id: 0,
-      lastUpdated: null,
+      lastUpdated: new Date(),
       parcelStatus: {status: ParcelStatusEnum.SENT, id: 1},
       sender: 'Zalando',
       title: 'Shoes',
-      trackingUrl: null
+      trackingUrl: undefined
     };
 
     const result: Parcel = {
@@ -37,7 +37,7 @@ describe('ParcelService', () => {
       parcelStatus: {status: ParcelStatusEnum.SENT, id: 1},
       sender: 'Zalando',
       title: 'Shoes',
-      trackingUrl: null
+      trackingUrl: undefined
     };
 
     apiServiceSpy.makePost.withArgs(SAVE_PARCEL, parcel).and.returnValue(of(result));
@@ -83,7 +83,7 @@ describe('ParcelService', () => {
         parcelStatus: {status: ParcelStatusEnum.SENT, id: 1},
         sender: 'Zalando',
         title: 'Shoes',
-        trackingUrl: null
+        trackingUrl: undefined
       },
       {
         additionalInformation: '',
@@ -112,11 +112,11 @@ describe('ParcelService', () => {
       additionalInformation: '',
       courier: 'DHL',
       id: 10,
-      lastUpdated: null,
+      lastUpdated: new Date(),
       parcelStatus: {status: ParcelStatusEnum.SENT, id: 1},
       sender: 'Zalando',
       title: 'Shoes',
-      trackingUrl: null
+      trackingUrl: undefined
     };
 
     const result: Parcel = {
@@ -127,7 +127,7 @@ describe('ParcelService', () => {
       parcelStatus: {status: ParcelStatusEnum.SENT, id: 1},
       sender: 'Zalando',
       title: 'Shoes',
-      trackingUrl: null
+      trackingUrl: undefined
     };
 
     apiServiceSpy.makePut.withArgs(UPDATE_PARCEL, parcel).and.returnValue(of(result));

@@ -1,9 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ForgotPasswordComponent } from './forgot-password.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ForgotPasswordComponent} from './forgot-password.component';
+import {Router} from '@angular/router';
 import {UserService} from '../../../../shared/services/user/user.service';
-import {of} from 'rxjs';
+import {Component, Input, NO_ERRORS_SCHEMA} from '@angular/core';
+import {ForgotPasswordFormComponent} from '../../components/forgot-password-form/forgot-password-form.component';
+import {Subject} from 'rxjs';
+
+
+@Component({
+  selector: 'app-forgot-password-form',
+  template: '',
+  providers: [{provide: ForgotPasswordFormComponent, useClass: ForgotPasswordFormComponentStub}],
+  standalone: true
+})
+export class ForgotPasswordFormComponentStub{
+  @Input() loading$!: Subject<boolean>;
+}
 
 describe('ForgotPasswordComponent', () => {
 
@@ -21,13 +34,19 @@ describe('ForgotPasswordComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForgotPasswordComponent ],
+      imports: [ForgotPasswordComponent],
+      declarations: [],
       providers: [
         {provide: Router, useValue: routerSpy},
         {provide: UserService, useValue: userServiceSpy},
       ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .overrideComponent(ForgotPasswordComponent, {
+        remove: {imports: [ForgotPasswordFormComponent]},
+        add: {imports: [ForgotPasswordFormComponentStub]},
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

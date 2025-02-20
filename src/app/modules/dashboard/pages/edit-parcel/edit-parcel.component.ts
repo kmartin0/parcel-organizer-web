@@ -12,31 +12,40 @@ import {Subject} from 'rxjs';
 import {trigger} from '@angular/animations';
 import {enterLeaveTransition} from '../../../../shared/anim/enter-leave.anim';
 import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.component';
+import {NgIf} from '@angular/common';
+import {AccessDeniedComponent} from '../../../../shared/components/access-denied/access-denied.component';
 
 @Component({
   selector: 'app-edit-parcel',
   templateUrl: './edit-parcel.component.html',
   styleUrls: ['./edit-parcel.component.scss'],
-  animations: [trigger('form', enterLeaveTransition)]
+  animations: [trigger('form', enterLeaveTransition)],
+  imports: [
+    ParcelFormComponent,
+    NgIf,
+    AccessDeniedComponent
+  ],
+  standalone: true
 })
 export class EditParcelComponent implements AfterViewInit {
 
   loading$: Subject<boolean>;
 
-  @ViewChild(ParcelFormComponent, {static: false}) private _parcelFormComponent: ParcelFormComponent;
-  private _hasAccess: boolean = undefined;
-  private parcelToEdit: Parcel;
+  @ViewChild(ParcelFormComponent, {static: false}) private _parcelFormComponent!: ParcelFormComponent;
+  private _hasAccess?: boolean;
+  private parcelToEdit?: Parcel;
 
   constructor(private parcelService: ParcelService, private route: ActivatedRoute, private dashboardLoadingService: DashboardLoadingService,
               private changeDetectorRef: ChangeDetectorRef) {
     this.loading$ = dashboardLoadingService.loading$;
   }
 
-  get hasAccess(): boolean {
+  get hasAccess(): boolean | undefined {
     return this._hasAccess;
   }
 
-  set hasAccess(value: boolean) {
+
+  set hasAccess(value: boolean | undefined) {
     this._hasAccess = value;
     this.changeDetectorRef.detectChanges();
   }
@@ -50,15 +59,17 @@ export class EditParcelComponent implements AfterViewInit {
   }
 
   onParcelResult(parcel: Parcel) {
-    parcel.id = this.parcelToEdit.id;
+    if (this.parcelToEdit) {
+      parcel.id = this.parcelToEdit.id;
 
-    this.parcelService.editParcel(parcel).pipe(
-      withLoading(this.loading$),
-    ).subscribe(_ => {
-      this.handleEditSuccess();
-    }, error => {
-      this.parcelFormComponent.handleApiError(error);
-    });
+      this.parcelService.editParcel(parcel).pipe(
+        withLoading(this.loading$),
+      ).subscribe(_ => {
+        this.handleEditSuccess();
+      }, error => {
+        this.parcelFormComponent.handleApiError(error);
+      });
+    }
   }
 
   private handleEditSuccess() {
@@ -68,7 +79,12 @@ export class EditParcelComponent implements AfterViewInit {
   private getParcelToEdit() {
     this.route.paramMap.pipe(
       switchMap(params => {
-          return this.parcelService.getParcel(params.get('id')).pipe(withLoading(this.loading$));
+          const parcelId = Number(params.get('id')) || NaN;
+
+          if (isNaN(parcelId)) {
+            throw new Error('Invalid Parcel ID.');
+          }
+          return this.parcelService.getParcel(parcelId).pipe(withLoading(this.loading$));
         }
       )
     ).subscribe(parcel => {
@@ -90,6 +106,6 @@ export class EditParcelComponent implements AfterViewInit {
     this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.courier).setValue(parcel.courier);
     this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.trackingUrl).setValue(parcel.trackingUrl);
     this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.additionalInformation).setValue(parcel.additionalInformation);
-    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.parcelStatusEnum).setValue(parcel.parcelStatus.status);
+    this.parcelFormComponent.formComponent.getFormControl(PARCEL_FORM_KEYS.parcelStatusEnum).setValue(parcel.parcelStatus?.status);
   }
 }

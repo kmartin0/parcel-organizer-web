@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {of, Subject, throwError} from 'rxjs';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
@@ -8,6 +8,7 @@ import {CreateParcelComponent} from './create-parcel.component';
 import {Parcel} from '../../../../shared/models/parcel';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 import {ParcelFormComponentStub} from '../../../../testing/parcel-form.component.stub';
+import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.component';
 
 describe('CreateParcelComponent', () => {
 
@@ -25,14 +26,17 @@ describe('CreateParcelComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule],
-      declarations: [CreateParcelComponent, ParcelFormComponentStub],
+      imports: [BrowserAnimationsModule, CreateParcelComponent],
+      declarations: [],
       providers: [
         {provide: ParcelService, useValue: parcelServiceSpy},
         {provide: DashboardLoadingService, useValue: dashboardLoadingServiceSpy}
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+      schemas: [NO_ERRORS_SCHEMA]})
+      .overrideComponent(CreateParcelComponent, {
+        remove: {imports: [ParcelFormComponent]},
+        add: {imports: [ParcelFormComponentStub]},
+      })
       .compileComponents();
   }));
 

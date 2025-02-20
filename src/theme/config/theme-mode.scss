@@ -1,0 +1,27 @@
+@use '@angular/material' as mat;
+
+@mixin theme-mode() {
+  .theme-mode-light {
+    color-scheme: light;
+    --hover-brightness: 0.9;
+    --pi-ordered-color: #0d47a1;
+    --pi-sent-color: #006064;
+    --pi-delivered-color: #1B5E20;
+    --pi-title-color: #FBC02D;
+    --pi-divider-color: #ffffff59;
+    --pi-action-button-color: #E6EE9C;
+    --pi-on-color: #F9FBE7;
+  }
+
+  .theme-mode-dark {
+    color-scheme: dark;
+    --hover-brightness: 1.1;
+    --pi-ordered-color: #5D4037;
+    --pi-sent-color: #494949;
+    --pi-delivered-color: #29434E;
+    --pi-title-color: #E9B430;
+    --pi-divider-color: #ffffff4d;
+    --pi-action-button-color: #C7CD8B;
+    --pi-on-color: #D6D7C7;
+  }
+}

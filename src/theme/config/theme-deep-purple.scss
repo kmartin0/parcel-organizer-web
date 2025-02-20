@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+@use "typography" as custom-typography;
+@use "theme-deep-purple-colors" as theme-deep-purple;
+
+@mixin theme-deep-purple {
+  @include mat.theme((
+    color: (
+      primary: theme-deep-purple.$primary-palette,
+      tertiary: theme-deep-purple.$tertiary-palette,
+    ),
+    typography: custom-typography.$typography-config,
+    density: (scale: 0),
+  ));
+
+  --swiper-navigation-color: var(--mat-sys-primary);
+}
+

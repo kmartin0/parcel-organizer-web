@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {HomeRouteComponent} from './home-route.component';
 
@@ -8,7 +8,8 @@ describe('HomeRouteComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [HomeRouteComponent],
+      imports: [HomeRouteComponent],
+      declarations: [],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();

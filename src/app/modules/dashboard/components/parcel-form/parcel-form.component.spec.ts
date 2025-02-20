@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {Component, NO_ERRORS_SCHEMA} from '@angular/core';
 import {ParcelFormComponent} from './parcel-form.component';
 import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
@@ -10,6 +10,7 @@ import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 import {PARCEL_FORM_KEYS} from './parcel.form';
 import {ApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
+import {FormComponentStub} from '../../../../testing/form.component.stub';
 
 describe('ParcelFormComponent', () => {
 
@@ -21,17 +22,12 @@ describe('ParcelFormComponent', () => {
   @Component({
     selector: 'app-form',
     template: '',
-    providers: [{provide: FormComponent, useClass: FormComponentStub}]
+    providers: [{provide: FormComponent, useClass: CustomFormComponentStub}],
+    standalone: true
   })
-  class FormComponentStub {
-    setError(formControlKey: string, error: string) {
-    };
-
+  class CustomFormComponentStub extends FormComponentStub {
     get valueChanges$(): Observable<{ key: string, value: string }> {
       return valueChanges$;
-    }
-
-    resetForm(value?: any) {
     }
   }
 
@@ -42,11 +38,15 @@ describe('ParcelFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule],
-      declarations: [ParcelFormComponent, FormComponentStub],
+      imports: [BrowserAnimationsModule, ParcelFormComponent],
+      declarations: [],
       providers: [{provide: ParcelService, useValue: parcelServiceSpy}],
       schemas: [NO_ERRORS_SCHEMA]
     })
+      .overrideComponent(ParcelFormComponent, {
+        remove: {imports: [FormComponent]},
+        add: {imports: [CustomFormComponentStub]},
+      })
       .compileComponents();
   }));
 
@@ -65,8 +65,8 @@ describe('ParcelFormComponent', () => {
     const parcel: Parcel = {
       additionalInformation: 'Extra info',
       courier: 'UPS',
-      id: undefined,
-      lastUpdated: undefined,
+      id: 0,
+      lastUpdated: new Date(),
       parcelStatus: {
         id: 0,
         status: ParcelStatusEnum.SENT
@@ -77,19 +77,19 @@ describe('ParcelFormComponent', () => {
     };
 
     // When
-    valueChanges$.next({key: PARCEL_FORM_KEYS.additionalInformation, value: parcel.additionalInformation});
-    valueChanges$.next({key: PARCEL_FORM_KEYS.courier, value: parcel.courier});
-    valueChanges$.next({key: PARCEL_FORM_KEYS.parcelStatusEnum, value: parcel.parcelStatus.status});
-    valueChanges$.next({key: PARCEL_FORM_KEYS.sender, value: parcel.sender});
-    valueChanges$.next({key: PARCEL_FORM_KEYS.title, value: parcel.title});
-    valueChanges$.next({key: PARCEL_FORM_KEYS.trackingUrl, value: parcel.trackingUrl});
+    valueChanges$.next({key: PARCEL_FORM_KEYS.additionalInformation, value: parcel.additionalInformation!});
+    valueChanges$.next({key: PARCEL_FORM_KEYS.courier, value: parcel.courier!});
+    valueChanges$.next({key: PARCEL_FORM_KEYS.parcelStatusEnum, value: parcel.parcelStatus!.status});
+    valueChanges$.next({key: PARCEL_FORM_KEYS.sender, value: parcel.sender!});
+    valueChanges$.next({key: PARCEL_FORM_KEYS.title, value: parcel.title!});
+    valueChanges$.next({key: PARCEL_FORM_KEYS.trackingUrl, value: parcel.trackingUrl!});
 
     // Then
     expect(component.previewParcel).toEqual(jasmine.objectContaining({
       additionalInformation: parcel.additionalInformation,
       courier: parcel.courier,
       parcelStatus: jasmine.objectContaining({
-        status: parcel.parcelStatus.status
+        status: parcel.parcelStatus!.status
       }),
       sender: parcel.sender,
       title: parcel.title,
@@ -116,24 +116,24 @@ describe('ParcelFormComponent', () => {
       trackingUrl: 'amazon.com/tracker/10'
     };
 
-    const submittedForm = {
-      [PARCEL_FORM_KEYS.trackingUrl]: parcel.trackingUrl,
-      [PARCEL_FORM_KEYS.parcelStatusEnum]: parcel.parcelStatus.status,
-      [PARCEL_FORM_KEYS.courier]: parcel.courier,
-      [PARCEL_FORM_KEYS.additionalInformation]: parcel.additionalInformation,
-      [PARCEL_FORM_KEYS.sender]: parcel.sender,
-      [PARCEL_FORM_KEYS.title]: parcel.title,
+    const submittedForm: { [key: string]: string } = {
+      [PARCEL_FORM_KEYS.trackingUrl]: parcel.trackingUrl!,
+      [PARCEL_FORM_KEYS.parcelStatusEnum]: parcel.parcelStatus!.status!,
+      [PARCEL_FORM_KEYS.courier]: parcel.courier!,
+      [PARCEL_FORM_KEYS.additionalInformation]: parcel.additionalInformation!,
+      [PARCEL_FORM_KEYS.sender]: parcel.sender!,
+      [PARCEL_FORM_KEYS.title]: parcel.title!,
     };
 
     // When
     component.onValidForm(submittedForm);
 
     // Change parcel status id to the expected id.
-    parcel.parcelStatus.id = 2;
+    parcel.parcelStatus!.id = 2;
 
     // Then
     expect(parcelServiceSpy.getParcelStatus).toHaveBeenCalledTimes(1);
-    expect(parcelServiceSpy.getParcelStatus).toHaveBeenCalledWith(parcel.parcelStatus.status);
+    expect(parcelServiceSpy.getParcelStatus).toHaveBeenCalledWith(parcel.parcelStatus!.status);
     expect(component.validFormResult$.emit).toHaveBeenCalledTimes(1);
     expect(component.validFormResult$.emit).toHaveBeenCalledWith(parcel);
   });

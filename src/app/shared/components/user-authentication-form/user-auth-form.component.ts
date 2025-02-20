@@ -4,11 +4,16 @@ import {ApiErrorEnum} from '../../../api/api-error.enum';
 import {USER_AUTH_FORM, USER_AUTH_FORM_KEYS} from './user-auth.form';
 import {UserAuthentication} from '../../models/user-authentication';
 import {BaseFormComponent} from '../dynamic-form/base-form.component';
+import {FormComponent} from '../dynamic-form/form/form.component';
 
 @Component({
   selector: 'app-user-auth-form',
   templateUrl: './user-auth-form.component.html',
-  styleUrls: ['./user-auth-form.component.scss']
+  styleUrls: ['./user-auth-form.component.scss'],
+  imports: [
+    FormComponent
+  ],
+  standalone: true
 })
 export class UserAuthFormComponent extends BaseFormComponent<UserAuthentication> {
 

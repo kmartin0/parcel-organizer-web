@@ -1,7 +1,7 @@
-import {HttpParams} from '@angular/common/http';
+import {HttpParams, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {ApiService} from './api.service';
 import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 
 describe('ApiService', () => {
 
@@ -15,8 +15,9 @@ describe('ApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
-    });
+    imports: [],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
 
     apiService = TestBed.inject(ApiService);
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -79,7 +80,7 @@ describe('ApiService', () => {
     const url = '10.0.0.1/test';
     const response: ResponseStub = {message: 'success', code: 200};
 
-    apiService.makePostFormUrlEncoded<ResponseStub>(url, null).subscribe(value => {
+    apiService.makePostFormUrlEncoded<ResponseStub>(url, new HttpParams()).subscribe(value => {
       expect(value).toEqual(response);
       done();
     }, fail);
@@ -87,7 +88,7 @@ describe('ApiService', () => {
     // Assert the request was made
     const req = httpTestingController.expectOne(req =>
       req.url === url &&
-      req.body === null &&
+      req.body === "" &&
       req.headers.has('Content-type') && req.headers.get('Content-type') === 'application/x-www-form-urlencoded'
     );
 

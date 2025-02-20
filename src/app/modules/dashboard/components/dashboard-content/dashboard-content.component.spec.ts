@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {DashboardContentComponent} from './dashboard-content.component';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 
@@ -8,7 +8,8 @@ describe('DashboardContentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardContentComponent ],
+      imports: [DashboardContentComponent],
+      declarations: [],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();

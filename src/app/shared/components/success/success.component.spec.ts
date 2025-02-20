@@ -1,6 +1,20 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {Component, Input, NO_ERRORS_SCHEMA} from '@angular/core';
 import {SuccessComponent} from './success.component';
+import {AnimationOptions, LottieComponent} from 'ngx-lottie';
+
+@Component({
+  selector: 'ng-lottie',
+  template: '',
+  providers: [{provide: LottieComponent, useClass: LottieComponentStub}],
+  standalone: true
+})
+export class LottieComponentStub {
+  @Input() width: string = '';
+  @Input() height: string = '';
+  @Input() options: AnimationOptions = {};
+  @Input() styles: Partial<CSSStyleDeclaration> = {};
+}
 
 describe('SuccessComponent', () => {
   let component: SuccessComponent;
@@ -8,9 +22,14 @@ describe('SuccessComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SuccessComponent],
+      imports: [SuccessComponent],
+      declarations: [],
       schemas: [NO_ERRORS_SCHEMA]
     })
+      .overrideComponent(SuccessComponent, {
+        remove: {imports: [LottieComponent]},
+        add: {imports: [LottieComponentStub]},
+      })
       .compileComponents();
   }));
 

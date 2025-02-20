@@ -4,7 +4,7 @@ export class DropdownInputField extends BaseInputField {
   options: { label: string, value: string }[];
   inputFieldEnum = InputFieldEnum.DROPDOWN_INPUT;
 
-  constructor(options: {} = {}) {
+  constructor(options: { [key: string]: any } = {}) {
     super(options);
     this.options = options['options'] || '';
   }

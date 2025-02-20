@@ -1,6 +1,7 @@
 <div class="dynamic-form-component-container">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <div class="input-wrap" *ngFor="let inputField of inputFields">
+      <!--suppress XmlInvalidId -->
       <label [attr.for]="inputField.id">{{inputField.label}}</label>
 
       <div [ngSwitch]="(inputField.inputFieldEnum)">
@@ -11,16 +12,15 @@
       </div>
 
       <ul class="error"
-          *ngIf="formGroup.get(inputField.key) && errorMessages && errorMessages[inputField.key] && formGroup.get(inputField.key).dirty">
+          *ngIf="formGroup.get(inputField.key) && errorMessages && errorMessages[inputField.key] && errorMessages[inputField.key].length && formGroup.get(inputField.key)?.dirty">
         <li *ngFor="let errorMessage of errorMessages[inputField.key]">
           {{ errorMessage }}
         </li>
       </ul>
     </div>
-
     <app-button [width]="confirmButtonWidth" [loading$]="loading$">{{formName}}</app-button>
     <ul class="error"
-        *ngIf="errorMessages && errorMessages['formGroup'] && formGroup.dirty">
+        *ngIf="errorMessages && errorMessages['formGroup'] && errorMessages['formGroup'].length && formGroup.dirty">
       <li *ngFor="let errorMessage of errorMessages['formGroup']">
         {{ errorMessage }}
       </li>

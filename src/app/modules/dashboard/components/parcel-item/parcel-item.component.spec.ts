@@ -1,18 +1,18 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ParcelItemComponent} from './parcel-item.component';
-import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {DashboardLoadingService} from '../../pages/dashboard/dashboard-loading.service';
 import {Router} from '@angular/router';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
-import {Clipboard, ClipboardModule} from '@angular/cdk/clipboard';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Clipboard} from '@angular/cdk/clipboard';
 import {Parcel} from '../../../../shared/models/parcel';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 import {of, Subject} from 'rxjs';
 import {DeleteDialogComponent} from '../../../../shared/components/dialogs/delete-dialog/delete-dialog.component';
 import {EDIT_PARCEL} from '../../../../shared/constants/endpoints';
-import * as urlHelper from '../../../../shared/helpers/url.helper';
+import {UrlHelperService} from '../../../../shared/services/url/url.helper.service';
 
 describe('ParcelItemComponent', () => {
 
@@ -24,6 +24,7 @@ describe('ParcelItemComponent', () => {
   let routerSpy: jasmine.SpyObj<Router>;
   let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
   let clipboardSpy: jasmine.SpyObj<Clipboard>;
+  let urlHelperServiceSpy: jasmine.SpyObj<UrlHelperService>;
 
   let component: ParcelItemComponent;
   let fixture: ComponentFixture<ParcelItemComponent>;
@@ -51,13 +52,13 @@ describe('ParcelItemComponent', () => {
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
     snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
     clipboardSpy = jasmine.createSpyObj('Clipboard', ['copy']);
-
+    urlHelperServiceSpy = jasmine.createSpyObj('UrlHelperService', ['prefixUrl']);
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [MatDialogModule, MatSnackBarModule, ClipboardModule],
-      declarations: [ParcelItemComponent],
+      imports: [ParcelItemComponent],
+      declarations: [],
       providers: [
         {provide: ParcelService, useValue: parcelServiceSpy},
         {provide: DashboardLoadingService, useValue: dashboardLoadingServiceSpy},
@@ -65,6 +66,7 @@ describe('ParcelItemComponent', () => {
         {provide: Router, useValue: routerSpy},
         {provide: MatSnackBar, useValue: snackBarSpy},
         {provide: Clipboard, useValue: clipboardSpy},
+        // {provide: UrlHelperService, useValue: urlHelperServiceSpy}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -123,7 +125,7 @@ describe('ParcelItemComponent', () => {
 
   it('should navigate to edit parcel url', () => {
     // Given
-    const parcelId = parcelItem.id;
+    const parcelId = parcelItem.id!;
 
     // When
     component.onEditParcelClick();
@@ -136,7 +138,7 @@ describe('ParcelItemComponent', () => {
   it('should copy tracking url and display snack bar success message', () => {
     // Given
     clipboardSpy.copy.and.returnValue(true);
-    const trackingUrl = parcelItem.trackingUrl;
+    const trackingUrl = parcelItem.trackingUrl!;
 
     // When
     component.onShareParcelClick();
@@ -151,7 +153,7 @@ describe('ParcelItemComponent', () => {
   it('should copy tracking url and display snack bar error message', () => {
     // Given
     clipboardSpy.copy.and.returnValue(false);
-    const trackingUrl = parcelItem.trackingUrl;
+    const trackingUrl = parcelItem.trackingUrl!;
 
     // When
     component.onShareParcelClick();
@@ -181,7 +183,6 @@ describe('ParcelItemComponent', () => {
     // Given
     let prefixedUrl = 'http://' + parcelItem.trackingUrl;
     spyOn(window, 'open');
-    spyOn(urlHelper, 'prefixUrl').and.returnValue(prefixedUrl);
 
     // When
     component.goToTrackingUrl();

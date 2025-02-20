@@ -1,7 +1,5 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {ParcelFilterFormComponent} from './parcel-filter-form.component';
-import {ReactiveFormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {
@@ -26,8 +24,8 @@ describe('ParcelFilterFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, MatInputModule, BrowserAnimationsModule],
-      declarations: [ParcelFilterFormComponent],
+      imports: [ParcelFilterFormComponent, BrowserAnimationsModule],
+      declarations: [],
       providers: [{provide: ParcelFilterFormCacheService, useValue: parcelFilterFormCacheServiceSpy}],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -56,14 +54,14 @@ describe('ParcelFilterFormComponent', () => {
     };
 
     // When
-    component.filterForm.get(keys.search).setValue(expected.searchQuery);
-    component.filterForm.get(keys.searchBy).setValue(expected.searchBy);
-    component.filterForm.get(keys.orderBy).setValue(expected.orderBy);
-    component.filterForm.get(keys.orderDirection).setValue(expected.orderDirection);
+    component.filterForm.get(keys.search)?.setValue(expected.searchQuery);
+    component.filterForm.get(keys.searchBy)?.setValue(expected.searchBy);
+    component.filterForm.get(keys.orderBy)?.setValue(expected.orderBy);
+    component.filterForm.get(keys.orderDirection)?.setValue(expected.orderDirection);
 
-    component.filterForm.get(keys.statusGroupName).get(keys.statusGroup.ordered).setValue(false);
-    component.filterForm.get(keys.statusGroupName).get(keys.statusGroup.sent).setValue(false);
-    component.filterForm.get(keys.statusGroupName).get(keys.statusGroup.delivered).setValue(true);
+    component.filterForm.get(keys.statusGroupName)?.get(keys.statusGroup.ordered)?.setValue(false);
+    component.filterForm.get(keys.statusGroupName)?.get(keys.statusGroup.sent)?.setValue(false);
+    component.filterForm.get(keys.statusGroupName)?.get(keys.statusGroup.delivered)?.setValue(true);
 
     // Then
     expect(component.sortFilterConfigEmitter.emit).toHaveBeenCalledTimes(7);

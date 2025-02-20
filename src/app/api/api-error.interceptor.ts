@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {EMPTY, Observable, throwError} from 'rxjs';
 import {catchError, switchMap} from 'rxjs/operators';
 import {ErrorDialogComponent} from '../shared/components/dialogs/error-dialog/error-dialog.component';
@@ -24,12 +24,12 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     );
   }
 
-  handleError = (httpErrorResponse, req, next) => {
+  handleError = (httpErrorResponse: HttpErrorResponse, req: HttpRequest<any>, next: HttpHandler) => {
     if (isApiErrorBody(httpErrorResponse.error)) {
       const apiError = httpErrorResponse.error;
       switch (apiError.error) {
         case ApiErrorEnum.INTERNAL: { // Internal Server Error
-          const internalErrorDialog = this.dialog.open(ErrorDialogComponent, {
+          this.dialog.open(ErrorDialogComponent, {
             data: {message: 'Oops something went wrong on our end. Please try again later or contact us.'},
             panelClass: 'app-dialog'
           });
@@ -38,7 +38,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
         case ApiErrorEnum.invalid_token:
         case ApiErrorEnum.invalid_grant: { // Authentication Error
           if (httpErrorResponse.url !== OAUTH) { // Global error interceptor does not handle direct calls to the authentication endpoint.
-            if (apiError.error_description.startsWith('Access token expired')) { // Refresh the access token if it's expired.
+            if (apiError.error_description?.startsWith('Access token expired')) { // Refresh the access token if it's expired.
               return this.refreshToken(req, next);
             } else { // Retry login for all other authentication errors.
               return this.retryLogin(req, next);
@@ -48,7 +48,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
         }
       }
     } else if (httpErrorResponse.status == 0) { // The server couldn't be reached.
-      const unableToReachServerError = this.dialog.open(ErrorDialogComponent, {
+      this.dialog.open(ErrorDialogComponent, {
         data: {message: 'The server couldn\'t be reached, please check your internet connection or try again later.'},
         panelClass: 'app-dialog'
       });
@@ -57,7 +57,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     return throwError(httpErrorResponse.error);
   };
 
-  private refreshToken(req, next) {
+  private refreshToken(req: HttpRequest<any>, next: HttpHandler) {
     return this.userService.refreshAuthToken().pipe(
       switchMap(credentials => {
         return next.handle(req) as Observable<HttpEvent<any>>;
@@ -68,7 +68,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     );
   }
 
-  private retryLogin(req, next) {
+  private retryLogin(req: HttpRequest<any>, next: HttpHandler) {
     const loginDialog = this.dialog.open(UserAuthDialogComponent, {
       data: {message: 'Authentication failed, please login again.'},
       panelClass: 'app-dialog'

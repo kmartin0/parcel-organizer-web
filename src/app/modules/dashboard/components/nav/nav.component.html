@@ -31,11 +31,11 @@
 
       <li style="margin-top: 16px">
         <a (click)="onToggleTheme()">
-          <div *ngIf="!(isDarkTheme$ | async)">
+          <div *ngIf="(appThemeMode$ | async) === APP_THEME_MODE.LIGHT">
             <fa-icon [styles]="faIconStyle" [icon]="faIcons.moon"></fa-icon>
             <span>Dark Theme</span>
           </div>
-          <div *ngIf="isDarkTheme$ | async">
+          <div *ngIf="(appThemeMode$ | async) === APP_THEME_MODE.DARK">
             <fa-icon [styles]="faIconStyle" [icon]="faIcons.sun"></fa-icon>
             <span>Light Theme</span>
           </div>

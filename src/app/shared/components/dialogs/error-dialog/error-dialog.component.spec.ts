@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ErrorDialogComponent} from './error-dialog.component';
 
 describe('ErrorDialogComponent', () => {
@@ -12,8 +12,8 @@ describe('ErrorDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [MatDialogModule],
-      declarations: [ErrorDialogComponent],
+      imports: [ErrorDialogComponent],
+      declarations: [],
       providers: [
         {provide: MAT_DIALOG_DATA, useValue: {message: messageData}},
         {provide: MatDialogRef, useValue: {}},

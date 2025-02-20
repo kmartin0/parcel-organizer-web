@@ -1,10 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
-/*noinspection CssUnknownTarget*/
+@use '@angular/material' as mat;
 
-body {
+html, body {
   margin: 0;
   padding: 0;
   height: 100vh;
+}
+
+body, .app-container {
+  background-color: var(--mat-sys-background);
+  color: var(--mat-sys-on-background);
+}
+
+body, input, textarea, select, select option {
+  font: var(--mat-sys-body-medium), sans-serif;
+}
+
+input, textarea, select, option {
+  background-color: var(--mat-sys-surface-container-lowest);
+  color: var(--mat-sys-on-surface);
 }
 
 * {
@@ -18,4 +31,7 @@ body {
 .surface {
   border-radius: 24px;
   padding: 16px;
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
 }
+

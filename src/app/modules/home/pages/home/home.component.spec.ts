@@ -1,7 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {FORM_TYPES, HomeComponent} from './home.component';
-import {ReactiveFormsModule} from '@angular/forms';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {Router} from '@angular/router';
 import {RedirectService} from '../../../../shared/services/redirect/redirect.service';
@@ -15,6 +14,8 @@ import {UserFormComponentStub} from '../../../../testing/user-form.component.stu
 import {User} from '../../../../shared/models/user';
 import {ApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
+import {UserAuthFormComponent} from '../../../../shared/components/user-authentication-form/user-auth-form.component';
+import {UserFormComponent} from '../../../../shared/components/user-form/user-form.component';
 
 describe('HomeComponent', () => {
 
@@ -31,21 +32,24 @@ describe('HomeComponent', () => {
     userServiceSpy = jasmine.createSpyObj('UserService', ['loginUser', 'registerUser']);
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl', 'navigate']);
     redirectServiceSpy = jasmine.createSpyObj('RedirectService', ['consume']);
-    themeServiceSpy = jasmine.createSpyObj('ThemeService', ['toggleTheme']);
+    themeServiceSpy = jasmine.createSpyObj('ThemeService', ['toggleThemeMode']);
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [HomeComponent, UserAuthFormComponentStub, UserFormComponentStub],
+      imports: [HomeComponent],
+      declarations: [],
       providers: [
         {provide: UserService, useValue: userServiceSpy},
         {provide: Router, useValue: routerSpy},
         {provide: RedirectService, useValue: redirectServiceSpy},
-        {provide: ThemeService, useValue: themeServiceSpy},
+        {provide: ThemeService, useValue: themeServiceSpy}
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+      schemas: [NO_ERRORS_SCHEMA]})
+      .overrideComponent(HomeComponent, {
+        remove: {imports: [UserFormComponent, UserAuthFormComponent]},
+        add: {imports: [UserFormComponentStub, UserAuthFormComponentStub]},
+      })
       .compileComponents();
   }));
 
@@ -56,7 +60,7 @@ describe('HomeComponent', () => {
   });
 
   it('should initialize form selector with login', () => {
-    expect(component.formSelector.value['formSelect']).toEqual(FORM_TYPES.LOGIN);
+    expect(component.formSelector?.value['formSelect']).toEqual(FORM_TYPES.LOGIN);
   });
 
   it('should login user using the user service and navigate to dashboard', () => {
@@ -142,7 +146,7 @@ describe('HomeComponent', () => {
     expect(component.userAuthFormComponent.handleApiError).toHaveBeenCalledWith(apiError);
   });
 
-  it('should register user and switch back to login form', () => {
+  it('should register user and switch back to login form', fakeAsync(() => {
     // Given
     const user: User = {
       id: '0',
@@ -152,17 +156,19 @@ describe('HomeComponent', () => {
       confirmPassword: '1234'
     };
 
-    component.formSelector.controls.formSelect.setValue(FORM_TYPES.REGISTER);
+    component.formSelector?.controls['formSelect'].setValue(FORM_TYPES.REGISTER);
     userServiceSpy.registerUser.withArgs(user).and.returnValue(of(user));
     spyOn(component.userFormComponent, 'displaySuccess').and.callThrough();
 
     // When
     component.registerUser(user);
 
+    tick();
+
     // Then
     expect(component.userFormComponent.displaySuccess).toHaveBeenCalledTimes(1);
-    expect(component.formSelector.value.formSelect).toEqual(FORM_TYPES.LOGIN);
-  });
+    expect(component.formSelector?.value.formSelect).toEqual(FORM_TYPES.LOGIN);
+  }));
 
   it('should let auth form handle api error', () => {
     // Given
@@ -195,6 +201,6 @@ describe('HomeComponent', () => {
     // Given
     component.toggleTheme();
 
-    expect(themeServiceSpy.toggleTheme).toHaveBeenCalledTimes(1);
+    expect(themeServiceSpy.toggleThemeMode).toHaveBeenCalledTimes(1);
   });
 });

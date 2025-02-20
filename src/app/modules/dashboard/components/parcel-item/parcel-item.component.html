@@ -1,9 +1,9 @@
 <div class="parcel-item-component-container"
      *ngIf="parcel"
      [ngClass]="{
-     'ordered': parcel.parcelStatus.status === parcelStatuses.ORDERED,
-     'sent': parcel.parcelStatus.status === parcelStatuses.SENT,
-     'delivered': parcel.parcelStatus.status === parcelStatuses.DELIVERED,
+     'ordered': parcel.parcelStatus?.status === parcelStatuses.ORDERED,
+     'sent': parcel.parcelStatus?.status === parcelStatuses.SENT,
+     'delivered': parcel.parcelStatus?.status === parcelStatuses.DELIVERED,
      'clickable': parcel.trackingUrl
      }"
      (click)="goToTrackingUrl()">
@@ -28,7 +28,7 @@
         <fa-icon class="information-icon" [icon]="faIcons.courier" [styles]="faIconStyle"></fa-icon>
         <span class="information-text">{{parcel.courier}}</span>
       </div>
-      <div class="right" [ngSwitch]="parcel.parcelStatus.status">
+      <div class="right" [ngSwitch]="parcel.parcelStatus?.status">
         <fa-icon *ngSwitchCase="parcelStatuses.ORDERED" class="information-icon" [icon]="faIcons.ordered"
                  [styles]="faIconStyle"></fa-icon>
         <fa-icon *ngSwitchCase="parcelStatuses.SENT" class="information-icon" [icon]="faIcons.sent"
@@ -44,7 +44,7 @@
         <span class="information-text">{{parcel.additionalInformation}}</span>
       </div>
       <div class="right">
-        <span class="information-text" style="align-self: start">{{parcel.parcelStatus.status}}</span>
+        <span class="information-text" style="align-self: start">{{parcel.parcelStatus?.status}}</span>
       </div>
     </div>
 

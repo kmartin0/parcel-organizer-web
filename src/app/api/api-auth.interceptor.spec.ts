@@ -1,26 +1,34 @@
 import {ApiAuthInterceptor} from './api-auth.interceptor';
 import {UserService} from '../shared/services/user/user.service';
-import {HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {Oauth2Credentials} from '../shared/models/oauth2-credentials';
-import * as endpoints from './api-endpoints';
-import {shouldBearerTokenAuth} from './api-endpoints';
 import {TestBed} from '@angular/core/testing';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
+import {ApiService} from '../shared/services/api/api.service';
 
 describe('ApiAuthInterceptor', () => {
 
-  let userServiceSpy = jasmine.createSpyObj<UserService>('UserService', ['getLoggedInUserOAuth2']);
+  let userServiceSpy: jasmine.SpyObj<UserService>;
+  let apiServiceSpy: jasmine.SpyObj<ApiService>;
 
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
+    userServiceSpy = jasmine.createSpyObj<UserService>('UserService', ['getLoggedInUserOAuth2']);
+    apiServiceSpy = jasmine.createSpyObj<ApiService>('ApiService', ['shouldBasicAuth', 'shouldBearerTokenAuth']);
+  });
+
+  beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [],
       providers: [
         {provide: UserService, useValue: userServiceSpy},
-        {provide: HTTP_INTERCEPTORS, useClass: ApiAuthInterceptor, multi: true}
+        {provide: ApiService, useValue: apiServiceSpy},
+        {provide: HTTP_INTERCEPTORS, useClass: ApiAuthInterceptor, multi: true},
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
       ]
     });
 
@@ -41,7 +49,7 @@ describe('ApiAuthInterceptor', () => {
 
     // Verify that the api request contains no authorization header.
     const req = httpTestingController.expectOne(
-      req => !req.headers.has('Authorization')
+      _req => !_req.headers.has('Authorization')
     );
 
     // Assert that the request is a GET.
@@ -51,25 +59,27 @@ describe('ApiAuthInterceptor', () => {
     req.flush({});
   });
 
-  it('should add user access token as Authorization Bearer header', () => {
-    const oauth2stub = new class implements Oauth2Credentials {
-      access_token: string = 'ey12f432';
-      expires_in: string = '1243568';
-      jti: string = '1516239022';
-      refresh_token: string = '123am67ee';
-      scope: string = 'all';
-      token_type: string = 'bearer';
-    };
 
+  it('should add user access token as Authorization Bearer header', () => {
+    /* tslint:disable: variable-name */
+    const oauth2stub = new (class implements Oauth2Credentials {
+      access_token = 'ey12f432';
+      expires_in = '1243568';
+      jti = '1516239022';
+      refresh_token = '123am67ee';
+      scope = 'all';
+      token_type = 'bearer';
+    })();
+    /* tslint:enable: variable-name */
     userServiceSpy.getLoggedInUserOAuth2.and.returnValue(oauth2stub);
-    spyOn(endpoints, 'shouldBearerTokenAuth').and.returnValue(true);
+    apiServiceSpy.shouldBearerTokenAuth.and.returnValue(true);
 
     httpClient.get('/test-url').subscribe(() => {
     });
 
     // Verify that the api request contains the authorization header with the access token.
     const req = httpTestingController.expectOne(
-      req => req.headers.has('Authorization') && req.headers.get('Authorization') === 'ey12f432'
+      _req => _req.headers.has('Authorization') && _req.headers.get('Authorization') === 'ey12f432'
     );
 
     // Assert that the request is a GET.
@@ -80,7 +90,7 @@ describe('ApiAuthInterceptor', () => {
   });
 
   it('should add client authentication token as Authorization Basic header', (done) => {
-    spyOn(endpoints, 'shouldBasicAuth').and.returnValue(true);
+    apiServiceSpy.shouldBasicAuth.and.returnValue(true);
 
     httpClient.get('/test-url').subscribe(() => {
       done();
@@ -88,7 +98,10 @@ describe('ApiAuthInterceptor', () => {
 
     // Verify that the api request contains the authorization header with the access token.
     const req = httpTestingController.expectOne(
-      req => req.headers.has('Authorization') && req.headers.get('Authorization').startsWith('Basic ')
+      _req => {
+        const authHeader = _req.headers.get('Authorization');
+        return authHeader !== null && authHeader.startsWith('Basic ');
+      }
     );
 
     // Assert that the request is a GET.

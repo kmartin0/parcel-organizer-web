@@ -3,7 +3,7 @@ import {ValidatorFn} from '@angular/forms';
 export abstract class BaseInputField {
   id: string;
   key: string;
-  placeholder;
+  placeholder: string;
   label: string;
   type: string;
   value?: any;
@@ -13,13 +13,13 @@ export abstract class BaseInputField {
   protected constructor(options: {
     id?: string, key?: string, placeholder?: string, label?: string, type?: string, value?: any, validators?: ValidatorFn[]
   } = {}) {
-    this.id = options.id;
-    this.placeholder = options.placeholder;
-    this.key = options.key;
-    this.label = options.label;
-    this.type = options.type;
+    this.id = options.id ?? '';
+    this.placeholder = options.placeholder ?? '';
+    this.key = options.key ?? '';
+    this.label = options.label ?? '';
+    this.type = options.type ?? '';
     this.value = options.value;
-    this.validators = options.validators;
+    this.validators = options.validators ?? [];
   }
 
 }

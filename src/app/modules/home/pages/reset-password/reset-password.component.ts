@@ -10,19 +10,23 @@ import {ResetPasswordFormComponent} from '../../components/reset-password-form/r
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss', '../../../../shared/styles/reset-forget-password.scss']
+  styleUrls: ['./reset-password.component.scss', '../../../../shared/styles/reset-forget-password.scss'],
+  imports: [
+    ResetPasswordFormComponent
+  ],
+  standalone: true
 })
 export class ResetPasswordComponent implements OnInit {
 
   loading$ = new Subject<boolean>();
-  token: string;
+  token?: string;
   message = '';
 
   error = 'Invalid or expired reset url.';
   success = 'Successfully reset password.';
 
   @ViewChild(ResetPasswordFormComponent, {static: false})
-  private changePasswordFormComponent: ResetPasswordFormComponent;
+  private changePasswordFormComponent!: ResetPasswordFormComponent;
 
   constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {
   }
@@ -30,7 +34,7 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        const token = params.token;
+        const token = params['token'];
         token ? this.token = token : this.message = this.error;
       });
   }

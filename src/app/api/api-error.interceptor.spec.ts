@@ -1,6 +1,6 @@
-import {HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {HTTP_INTERCEPTORS, HttpClient, HttpErrorResponse, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
+import {TestBed, waitForAsync} from '@angular/core/testing';
 import {ApiErrorInterceptor} from './api-error.interceptor';
 import {ApiErrorBody} from '../shared/models/api-error-body';
 import {ApiErrorEnum} from './api-error.enum';
@@ -28,13 +28,15 @@ describe('ApiErrorInterceptor', () => {
   beforeEach(waitForAsync(() => {
     // Initialize testing module
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatDialogModule],
-      providers: [
-        {provide: MatDialog, useValue: matDialogSpy},
-        {provide: UserService, useValue: userServiceSpy},
-        {provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true}
-      ]
-    });
+    imports: [MatDialogModule],
+    providers: [
+        { provide: MatDialog, useValue: matDialogSpy },
+        { provide: UserService, useValue: userServiceSpy },
+        { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting()
+    ]
+});
 
     // Inject the http client and test controller for each test
     httpClient = TestBed.inject(HttpClient);

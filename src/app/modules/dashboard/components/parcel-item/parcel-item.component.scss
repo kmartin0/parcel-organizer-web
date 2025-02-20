@@ -1,3 +1,5 @@
+@use "helpers";
+
 /*Grid percentages*/
 $perc-left: 62%;
 $perc-grid-gap: 6%;
@@ -12,6 +14,9 @@ $perc-divider-top: calc(calc(100% - #{$perc-divider-height}) / 2);
   width: 100%;
   padding: 12px;
   border-radius: 12px;
+  color: var(--pi-on-color);
+  box-shadow: var(--mat-sys-level2);
+  font-weight: 500;
 }
 
 .center {
@@ -20,8 +25,10 @@ $perc-divider-top: calc(calc(100% - #{$perc-divider-height}) / 2);
 
 .title {
   text-align: center;
-  //font-size: 20px;
   margin: 0 0 12px 0;
+  font: var(--mat-sys-title-large);
+  font-weight: 500;
+  color: var(--pi-title-color);
 }
 
 .information-item {
@@ -68,6 +75,7 @@ $perc-divider-top: calc(calc(100% - #{$perc-divider-height}) / 2);
   top: $perc-divider-top;
   position: absolute;
   left: $perc-divider-left;
+  border: 1px solid var(--pi-divider-color);
 }
 
 .action-icon:hover {
@@ -82,9 +90,23 @@ $perc-divider-top: calc(calc(100% - #{$perc-divider-height}) / 2);
   border-radius: 50%;
   padding: 8px;
   margin-right: -8px;
+  color: var(--pi-action-button-color);
+  @include helpers.hover();
 }
 
 .disabled {
   opacity: 0.6;
   pointer-events: none;
+}
+
+.ordered {
+  background-color: var(--pi-ordered-color);
+}
+
+.sent {
+  background-color: var(--pi-sent-color);
+}
+
+.delivered {
+  background-color: var(--pi-delivered-color);
 }

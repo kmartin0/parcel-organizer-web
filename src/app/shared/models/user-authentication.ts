@@ -1,4 +1,4 @@
 export interface UserAuthentication {
-  email: string,
-  password: string
+  email?: string,
+  password?: string
 }

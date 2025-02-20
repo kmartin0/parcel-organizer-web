@@ -1,20 +1,25 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AnimationOptions, LottieComponent} from 'ngx-lottie';
 import {AnimationItem} from 'lottie-web';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-success',
   templateUrl: './success.component.html',
-  styleUrls: ['./success.component.scss']
+  styleUrls: ['./success.component.scss'],
+  imports: [
+    LottieComponent,
+    NgIf
+  ],
+  standalone: true
 })
 export class SuccessComponent implements OnInit {
 
-  @Input() width: string = '100px';
-  @Input() height: string = '100px';
+  @Input() width = '100px';
+  @Input() height = '100px';
   isDisplaying = false;
 
-  private animationCompleteCallback: () => void;
-  @ViewChild(LottieComponent, {static: false}) private lottieComponent: LottieComponent;
+  private animationCompleteCallback?: () => void;
 
   options: AnimationOptions = {
     path: '/assets/lottie_success.json',

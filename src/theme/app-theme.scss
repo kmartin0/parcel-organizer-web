@@ -1,22 +1,18 @@
-@use 'node_modules/@angular/material' as mat;
-@use 'all-custom-component-themes';
-@use 'light-theme';
-@use 'dark-theme';
-@use "typography";
+@use '@angular/material' as mat;
+@use "typography" as custom-typography;
+@use "theme-deep-purple" as theme-deep-purple;
+@use "theme-mode" as theme-mode;
 
-// Include mat-core (Note: Must be imported exactly once.)
-@include mat.core(typography.$typography-config);
+/**
+ * Resources for Angular material V19 theming.
+ * https://material.angular.io/guide/system-variables
+ * https://material.angular.io/guide/theming
+ * https://material.angular.io/components/categories
+ * https://material-foundation.github.io/material-theme-builder/
+ * https://themes.angular-material.dev/
+ */
 
-// Set the material component themes to light theme as default.
-@include mat.all-component-themes(light-theme.$light-theme);
-
-// Set the custom component themes to light theme as default.
-@include all-custom-component-themes.all-custom-component-themes(light-theme.$light-theme);
-
-.theme-dark {
-  // Set all material components color themes to their dark theme.
-  @include mat.all-component-colors(dark-theme.$dark-theme);
-
-  // Set all custom components color themes to their dark theme.
-  @include all-custom-component-themes.all-custom-component-colors(dark-theme.$dark-theme)
+html {
+  @include theme-deep-purple.theme-deep-purple();
+  @include theme-mode.theme-mode;
 }

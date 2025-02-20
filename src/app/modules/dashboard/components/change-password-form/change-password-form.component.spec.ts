@@ -1,11 +1,12 @@
 import {ChangePasswordFormComponent} from './change-password-form.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {CHANGE_PASSWORD_FORM_KEYS} from './change-password-form';
 import {ChangePassword} from '../../../../shared/models/change-password';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
 import {FormComponentStub} from '../../../../testing/form.component.stub';
+import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
 
 describe('ChangePasswordFormComponent', () => {
 
@@ -14,9 +15,14 @@ describe('ChangePasswordFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ChangePasswordFormComponent, FormComponentStub],
+      imports: [ChangePasswordFormComponent],
+      declarations: [],
       schemas: [NO_ERRORS_SCHEMA]
     })
+      .overrideComponent(ChangePasswordFormComponent, {
+        remove: {imports: [FormComponent]},
+        add: {imports: [FormComponentStub]},
+      })
       .compileComponents();
   }));
 

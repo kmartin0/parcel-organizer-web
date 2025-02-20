@@ -4,7 +4,7 @@ export const FORGOT_PASSWORD = '/forgot-password';
 export const RESET_PASSWORD = '/reset-password';
 export const DASHBOARD = '/dashboard';
 export const PARCELS = DASHBOARD + '/parcels';
-export const EDIT_PARCEL = id => PARCELS + `/${id}/edit`;
+export const EDIT_PARCEL = (id: number) => PARCELS + `/${id}/edit`;
 export const CREATE_PARCEL = DASHBOARD + '/create-parcel';
 export const PARCEL_DETAILS = PARCELS + '/:id';
 export const ACCOUNT = DASHBOARD + '/account';

@@ -1,10 +1,24 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {MatFormField} from '@angular/material/form-field';
+import {MatOption, MatSelect} from '@angular/material/select';
 
 @Component({
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.scss']
+  styleUrls: ['./paginator.component.scss'],
+  imports: [
+    NgIf,
+    FontAwesomeModule,
+    MatFormField,
+    MatSelect,
+    MatOption,
+    NgForOf,
+    NgClass
+  ],
+  standalone: true
 })
 export class PaginatorComponent implements OnInit {
 

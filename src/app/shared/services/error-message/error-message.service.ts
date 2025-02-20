@@ -9,7 +9,7 @@ export class ErrorMessageService {
   constructor() {
   }
 
-  public getErrorMessagesForValidationErrors(validationErrors: ValidationErrors): string[] {
+  public getErrorMessagesForValidationErrors(validationErrors: ValidationErrors | null): string[] | null {
 
     if (validationErrors === null) {
       return null;
@@ -36,10 +36,18 @@ export class ErrorMessageService {
     return errors;
   }
 
-  private readonly defaultErrors = {
+  private readonly defaultErrors: {
+    [key: string]: string | Function
+  } = {
     required: `This field is required`,
-    minlength: ({requiredLength, actualLength}) => `This field requires a minimum of ${requiredLength} characters`,
-    maxlength: ({requiredLength, actualLength}) => `This field requires a maximum of ${requiredLength} characters`,
+    minlength: ({requiredLength, actualLength}: {
+      requiredLength: number,
+      actualLength: number
+    }) => `This field requires a minimum of ${requiredLength} characters`,
+    maxlength: ({requiredLength, actualLength}: {
+      requiredLength: number,
+      actualLength: number
+    }) => `This field requires a maximum of ${requiredLength} characters`,
     email: `This field requires a valid email`,
     confirmPassword: `Passwords must match`,
   };

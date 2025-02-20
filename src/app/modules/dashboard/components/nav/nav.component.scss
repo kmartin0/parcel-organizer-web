@@ -10,6 +10,12 @@
   }
 }
 
+.nav-component-container, a, .active a {
+  border-color: var(--mat-sys-on-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+  background-color: var(--mat-sys-secondary-container);
+}
+
 .logo-container {
   overflow: hidden;
   white-space: nowrap;
@@ -37,6 +43,8 @@ nav, .logo-container, .logo-image {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.5s ease 0.3s, opacity 0.5s ease 0.3s;
+  font: var(--mat-sys-title-large);
+  font-weight: 600;
 }
 
 ul {
@@ -55,10 +63,6 @@ a {
 
 a:hover {
   cursor: pointer;
-}
-
-.active a {
-  padding-left: 14px;
 }
 
 fa-icon {
@@ -96,6 +100,10 @@ span {
   opacity: 1;
 }
 
-.active-nav .active a {
+.active a {
+  border-left-width: 4px;
+  border-left-style: solid;
   padding-left: 14px;
 }
+
+

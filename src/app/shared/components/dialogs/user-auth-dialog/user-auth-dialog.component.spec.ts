@@ -1,8 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {UserAuthDialogComponent} from './user-auth-dialog.component';
-import SpyObj = jasmine.SpyObj;
 import {UserService} from '../../../services/user/user.service';
 import {UserAuthentication} from '../../../models/user-authentication';
 import {UserAuthFormComponentStub} from '../../../../testing/user-auth-form.component.stub';
@@ -10,6 +9,8 @@ import {Oauth2Credentials} from '../../../models/oauth2-credentials';
 import {of, throwError} from 'rxjs';
 import {ApiErrorBody} from '../../../models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
+import {UserAuthFormComponent} from '../../user-authentication-form/user-auth-form.component';
+import SpyObj = jasmine.SpyObj;
 
 describe('UserAuthDialogComponent', () => {
 
@@ -31,15 +32,18 @@ describe('UserAuthDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [MatDialogModule],
-      declarations: [UserAuthDialogComponent, UserAuthFormComponentStub],
+      imports: [UserAuthDialogComponent],
+      declarations: [],
       providers: [
         {provide: UserService, useValue: userServiceSpy},
         {provide: MAT_DIALOG_DATA, useValue: {message: messageData, loginSuccess: loginSuccessCallback}},
         {provide: MatDialogRef, useValue: dialogRefSpy},
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
+      schemas: [NO_ERRORS_SCHEMA]})
+      .overrideComponent(UserAuthDialogComponent, {
+        remove: {imports: [UserAuthFormComponent]},
+        add: {imports: [UserAuthFormComponentStub]},
+      })
       .compileComponents();
   }));
 

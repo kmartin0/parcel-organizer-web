@@ -4,14 +4,15 @@ import {ValidatorFn} from '@angular/forms';
 import {FormComponent} from './form/form.component';
 
 @Component({
-  template: ''
+  template: '',
+  standalone: false
 })
 export abstract class BaseFormComponent<T> {
-  @Input() formAction: string;
-  @Input() loading$: Subject<boolean>;
+  @Input() formAction!: string;
+  @Input() loading$!: Subject<boolean>;
   @Output() validFormResult$ = new EventEmitter<T>();
 
-  @ViewChild(FormComponent, {static: false}) _formComponent: FormComponent;
+  @ViewChild(FormComponent, {static: false}) _formComponent!: FormComponent;
   public get formComponent(): FormComponent {
     return this._formComponent;
   }
@@ -19,18 +20,19 @@ export abstract class BaseFormComponent<T> {
   protected constructor() {
   }
 
-  abstract get form();
+  abstract get form(): any;
 
   get formValidators(): ValidatorFn[] {
-    return null;
+    return [];
   }
 
-  abstract onValidForm(formValues: { [key: string]: string; });
+  abstract onValidForm(formValues: { [key: string]: string; }): any;
 
-  abstract handleApiError(apiError: any);
+  abstract handleApiError(apiError: any): any;
 
   displaySuccess(callback?: () => void) {
-    this.formComponent.displaySuccess(callback);
+    this.formComponent.displaySuccess(callback || (() => {
+    }));
   }
 
   resetForm(value?: any) {

@@ -6,11 +6,16 @@ import {isApiErrorBody} from '../../models/api-error-body';
 import {ApiErrorEnum} from '../../../api/api-error.enum';
 import {BaseFormComponent} from '../dynamic-form/base-form.component';
 import {ValidatorFn} from '@angular/forms';
+import {FormComponent} from '../dynamic-form/form/form.component';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss']
+  styleUrls: ['./user-form.component.scss'],
+  imports: [
+    FormComponent
+  ],
+  standalone: true
 })
 export class UserFormComponent extends BaseFormComponent<User> {
 
@@ -18,7 +23,7 @@ export class UserFormComponent extends BaseFormComponent<User> {
     return USER_FORM;
   }
 
-  get formValidators(): ValidatorFn[] {
+  override get formValidators(): ValidatorFn[] {
     return [passwordMatchValidator(USER_FORM_KEYS.password, USER_FORM_KEYS.confirmPassword, 'confirmPassword')];
   }
 
@@ -30,13 +35,15 @@ export class UserFormComponent extends BaseFormComponent<User> {
     if (isApiErrorBody(apiError)) {
       switch (apiError.error) {
         case  ApiErrorEnum.ALREADY_EXISTS : {
-          this.formComponent.setError(USER_FORM_KEYS.email, apiError.details[USER_FORM_KEYS.email]);
+          if (apiError.details) this.formComponent.setError(USER_FORM_KEYS.email, apiError.details[USER_FORM_KEYS.email]);
           break;
         }
         case ApiErrorEnum.INVALID_ARGUMENTS: {
-          this.formComponent.setError(USER_FORM_KEYS.email, apiError.details[USER_FORM_KEYS.email]);
-          this.formComponent.setError(USER_FORM_KEYS.password, apiError.details[USER_FORM_KEYS.password]);
-          this.formComponent.setError(USER_FORM_KEYS.name, apiError.details[USER_FORM_KEYS.name]);
+          if (apiError.details) {
+            this.formComponent.setError(USER_FORM_KEYS.email, apiError.details[USER_FORM_KEYS.email]);
+            this.formComponent.setError(USER_FORM_KEYS.password, apiError.details[USER_FORM_KEYS.password]);
+            this.formComponent.setError(USER_FORM_KEYS.name, apiError.details[USER_FORM_KEYS.name]);
+          }
           break;
         }
         case ApiErrorEnum.PERMISSION_DENIED: {
@@ -51,7 +58,7 @@ export class UserFormComponent extends BaseFormComponent<User> {
   onValidForm(formValues: { [key: string]: string }) {
     const user: User = {
       email: formValues[USER_FORM_KEYS.email],
-      id: null,
+      id: undefined,
       name: formValues[USER_FORM_KEYS.name],
       password: formValues[USER_FORM_KEYS.password],
       confirmPassword: formValues[USER_FORM_KEYS.confirmPassword]

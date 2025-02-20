@@ -34,11 +34,10 @@ form {
 .input-container {
   padding: 12px;
   width: fit-content;
-  display: flex;
-  flex-direction: column;
 }
 
-mat-radio-group {
+mat-radio-group, .input-container {
   display: flex;
   flex-direction: column;
+  gap: 0;
 }

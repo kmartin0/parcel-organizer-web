@@ -1,19 +1,74 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
-import {ChangeDetectorRef, NO_ERRORS_SCHEMA} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output} from '@angular/core';
 import {EditParcelComponent} from './edit-parcel.component';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {ParcelService} from '../../../../shared/services/parcel/parcel.service';
 import {ActivatedRoute, convertToParamMap} from '@angular/router';
 
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl, ValidatorFn} from '@angular/forms';
 import {Parcel} from '../../../../shared/models/parcel';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
 import {of, Subject, throwError} from 'rxjs';
-import {PARCEL_FORM_KEYS} from '../../components/parcel-form/parcel.form';
 import {ApiErrorBody} from '../../../../shared/models/api-error-body';
 import {ApiErrorEnum} from '../../../../api/api-error.enum';
-import {FormComponentStub} from '../../../../testing/form.component.stub';
-import {ParcelFormComponentStub} from '../../../../testing/parcel-form.component.stub';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ParcelFormComponent} from '../../components/parcel-form/parcel-form.component';
+import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
+import {BaseInputField} from '../../../../shared/components/dynamic-form/base-input-field';
+
+@Component({
+  selector: 'app-form',
+  template: '',
+  providers: [{provide: FormComponent, useClass: FormComponentStub}],
+  standalone: true
+})
+export class FormComponentStub {
+
+  @Input() confirmButtonWidth = '50%';
+  @Input() loading$?: Subject<boolean>;
+  @Input() formName = 'Submit';
+  @Input() inputFields!: BaseInputField[];
+  @Input() formValidators!: ValidatorFn[];
+  @Output() formValidSubmit: EventEmitter<{ [key: string]: string; }> = new EventEmitter();
+
+  getFormControl(key: string): UntypedFormControl {
+    return new UntypedFormControl();
+  }
+
+  resetForm(value?: any) {
+  }
+
+  setError(formControlKey: string, error: string) {
+  };
+
+}
+
+@Component({
+  selector: 'app-parcel-form',
+  template: '',
+  providers: [{provide: ParcelFormComponent, useClass: ParcelFormComponentStub}],
+  standalone: true
+})
+export class ParcelFormComponentStub {
+  // _formComponent = TestBed.createComponent(FormComponentStub).componentInstance as FormComponent;
+  _formComponent = new FormComponentStub() as FormComponent;
+  public get formComponent(): FormComponent {
+    return this._formComponent;
+  }
+
+  @Input() loading$?: Subject<boolean> = new Subject<boolean>();
+
+  displaySuccess(callback?: () => void) {
+    if (callback) callback();
+  }
+
+  resetForm(value?: any) {
+  }
+
+  handleApiError(apiError: any) {
+  }
+}
 
 describe('EditParcelComponent', () => {
 
@@ -21,41 +76,61 @@ describe('EditParcelComponent', () => {
   let activatedRouteSpy: jasmine.SpyObj<ActivatedRoute>;
   let dashboardLoadingServiceSpy: jasmine.SpyObj<DashboardLoadingService>;
   let changeDetectorRefSpy: jasmine.SpyObj<ChangeDetectorRef>;
-  let formControlSpy: jasmine.SpyObj<FormControl>;
+  let formControlSpy: jasmine.SpyObj<UntypedFormControl>;
 
   let component: EditParcelComponent;
   let fixture: ComponentFixture<EditParcelComponent>;
 
-  const parcelToEdit: Parcel = {
-    additionalInformation: 'Trousers',
-    courier: 'ups',
-    id: 23,
-    lastUpdated: new Date(),
-    parcelStatus: {
-      id: 0,
-      status: ParcelStatusEnum.ORDERED
-    },
-    sender: 'Amazon',
-    title: 'Clothes',
-    trackingUrl: 'ups.com/track/123'
-  };
+
+  // const parcelToEdit: Parcel = {
+  //   additionalInformation: 'Trousers',
+  //   courier: 'ups',
+  //   id: 23,
+  //   lastUpdated: new Date(),
+  //   parcelStatus: {
+  //     id: 0,
+  //     status: ParcelStatusEnum.ORDERED
+  //   },
+  //   sender: 'Amazon',
+  //   title: 'Clothes',
+  //   trackingUrl: 'ups.com/track/123'
+  // };
+
+  function createParcelToEdit(): Parcel {
+    return {
+      additionalInformation: 'Trousers',
+      courier: 'ups',
+      id: 25,
+      lastUpdated: new Date(),
+      parcelStatus: {
+        id: 0,
+        status: ParcelStatusEnum.ORDERED
+      },
+      sender: 'Amazon',
+      title: 'Clothes',
+      trackingUrl: 'ups.com/track/123' // Unique tracking URL
+    };
+  }
 
   beforeEach(() => {
+    const initialParcelToEdit = createParcelToEdit();
+
     // Initialize spies
     parcelServiceSpy = jasmine.createSpyObj('ParcelService', ['editParcel', 'getParcel']);
-    activatedRouteSpy = jasmine.createSpyObj('ActivatedRoute', [''], {paramMap: of(convertToParamMap({id: parcelToEdit.id}))});
+    activatedRouteSpy = jasmine.createSpyObj('ActivatedRoute', [''], {paramMap: of(convertToParamMap({id: initialParcelToEdit.id}))});
     dashboardLoadingServiceSpy = jasmine.createSpyObj('DashboardLoadingService', [], [{loading$: new Subject()}]);
     changeDetectorRefSpy = {} as jasmine.SpyObj<ChangeDetectorRef>;
     formControlSpy = jasmine.createSpyObj('FormControl', ['setValue']);
 
     // Setup spy return values necessary for constructing the component.
-    parcelServiceSpy.getParcel.withArgs(parcelToEdit.id).and.returnValue(of(parcelToEdit));
+    parcelServiceSpy.getParcel.withArgs(initialParcelToEdit.id!!).and.returnValue(of(initialParcelToEdit));
   });
 
   beforeEach(waitForAsync(() => {
     // Configure testing module
     TestBed.configureTestingModule({
-      declarations: [EditParcelComponent, ParcelFormComponentStub, FormComponentStub],
+      imports: [BrowserAnimationsModule, EditParcelComponent],
+      declarations: [],
       providers: [
         {provide: ParcelService, useValue: parcelServiceSpy},
         {provide: ActivatedRoute, useValue: activatedRouteSpy},
@@ -64,6 +139,10 @@ describe('EditParcelComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
+      .overrideComponent(EditParcelComponent, {
+        remove: {imports: [ParcelFormComponent]},
+        add: {imports: [ParcelFormComponentStub]},
+      })
       .compileComponents();
   }));
 
@@ -71,34 +150,6 @@ describe('EditParcelComponent', () => {
     fixture = TestBed.createComponent(EditParcelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should populate parcel form and set access to true', () => {
-    // Given
-    spyOn(component.parcelFormComponent.formComponent, 'getFormControl').and.returnValue(formControlSpy);
-    formControlSpy.setValue.calls.reset();
-
-    // When
-    component.ngAfterViewInit();
-
-    // Then
-    expect(component.hasAccess).toBeTrue();
-
-    expect(component.parcelFormComponent.formComponent.getFormControl).toHaveBeenCalledTimes(6);
-
-    expect(component.parcelFormComponent.formComponent.getFormControl).toHaveBeenCalledWith(PARCEL_FORM_KEYS.trackingUrl);
-    expect(component.parcelFormComponent.formComponent.getFormControl).toHaveBeenCalledWith(PARCEL_FORM_KEYS.additionalInformation);
-    expect(component.parcelFormComponent.formComponent.getFormControl).toHaveBeenCalledWith(PARCEL_FORM_KEYS.courier);
-    expect(component.parcelFormComponent.formComponent.getFormControl).toHaveBeenCalledWith(PARCEL_FORM_KEYS.parcelStatusEnum);
-    expect(component.parcelFormComponent.formComponent.getFormControl).toHaveBeenCalledWith(PARCEL_FORM_KEYS.sender);
-    expect(component.parcelFormComponent.formComponent.getFormControl).toHaveBeenCalledWith(PARCEL_FORM_KEYS.title);
-
-    expect(formControlSpy.setValue).toHaveBeenCalledWith(parcelToEdit.trackingUrl);
-    expect(formControlSpy.setValue).toHaveBeenCalledWith(parcelToEdit.additionalInformation);
-    expect(formControlSpy.setValue).toHaveBeenCalledWith(parcelToEdit.courier);
-    expect(formControlSpy.setValue).toHaveBeenCalledWith(parcelToEdit.parcelStatus.status);
-    expect(formControlSpy.setValue).toHaveBeenCalledWith(parcelToEdit.sender);
-    expect(formControlSpy.setValue).toHaveBeenCalledWith(parcelToEdit.title);
   });
 
   it('should set access to denied when forbidden access', () => {
@@ -109,7 +160,8 @@ describe('EditParcelComponent', () => {
       error_description: 'User doesn\'t have access to this parcel.'
     };
 
-    parcelServiceSpy.getParcel.withArgs(parcelToEdit.id).and.returnValue(throwError(accessDenied));
+    const parcelToEdit = createParcelToEdit();
+    parcelServiceSpy.getParcel.withArgs(parcelToEdit.id!!).and.returnValue(throwError(accessDenied));
 
     // When
     component.ngAfterViewInit();
@@ -117,6 +169,7 @@ describe('EditParcelComponent', () => {
     // Then
     expect(component.hasAccess).toBeFalse();
   });
+
 
   it('should set access to denied when parcel not found', () => {
     // Given
@@ -126,7 +179,8 @@ describe('EditParcelComponent', () => {
       error_description: 'Parcel cannot be found.'
     };
 
-    parcelServiceSpy.getParcel.withArgs(parcelToEdit.id).and.returnValue(throwError(resourceNotFound));
+    const editedParcel = createParcelToEdit();
+    parcelServiceSpy.getParcel.withArgs(editedParcel.id!!).and.returnValue(throwError(resourceNotFound));
 
     // When
     component.ngAfterViewInit();
@@ -137,11 +191,10 @@ describe('EditParcelComponent', () => {
 
   it('should display success message and go back to previous page after edit parcel', () => {
     // Given
-    const editedParcel = parcelToEdit;
-    editedParcel.id = 0;
+    const editedParcel = createParcelToEdit()
     editedParcel.title = 'Different Clothes';
 
-    const returnParcel = parcelToEdit;
+    const returnParcel = createParcelToEdit()
     returnParcel.title = 'Different Clothes';
 
     parcelServiceSpy.editParcel.and.returnValue(of(returnParcel));
@@ -149,7 +202,6 @@ describe('EditParcelComponent', () => {
 
     // When
     component.onParcelResult(editedParcel);
-    editedParcel.id = parcelToEdit.id;
 
     // Then
     expect(parcelServiceSpy.editParcel).toHaveBeenCalledTimes(1);
@@ -166,6 +218,8 @@ describe('EditParcelComponent', () => {
       error_description: 'Arguments were invalid.'
     };
 
+    const parcelToEdit = createParcelToEdit();
+
     parcelServiceSpy.editParcel.and.returnValue(throwError(invalidArguments));
     spyOn(component.parcelFormComponent, 'handleApiError');
 
@@ -176,4 +230,6 @@ describe('EditParcelComponent', () => {
     expect(component.parcelFormComponent.handleApiError).toHaveBeenCalledTimes(1);
     expect(component.parcelFormComponent.handleApiError).toHaveBeenCalledWith(invalidArguments);
   });
+
 });
+

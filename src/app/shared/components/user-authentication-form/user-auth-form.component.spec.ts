@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {UserAuthFormComponent} from './user-auth-form.component';
 import {FormComponentStub} from '../../../testing/form.component.stub';
@@ -6,6 +6,7 @@ import {ApiErrorBody} from '../../models/api-error-body';
 import {ApiErrorEnum} from '../../../api/api-error.enum';
 import {USER_AUTH_FORM_KEYS} from './user-auth.form';
 import {UserAuthentication} from '../../models/user-authentication';
+import {FormComponent} from '../dynamic-form/form/form.component';
 
 describe('UserAuthFormComponent', () => {
 
@@ -14,10 +15,15 @@ describe('UserAuthFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [UserAuthFormComponent, FormComponentStub],
+      imports: [UserAuthFormComponent,],
+      declarations: [],
       providers: [],
       schemas: [NO_ERRORS_SCHEMA]
     })
+      .overrideComponent(UserAuthFormComponent, {
+        remove: {imports: [FormComponent]},
+        add: {imports: [FormComponentStub]},
+      })
       .compileComponents();
   }));
 
@@ -69,8 +75,8 @@ describe('UserAuthFormComponent', () => {
     };
 
     const input = {
-      [USER_AUTH_FORM_KEYS.email]: expected.email,
-      [USER_AUTH_FORM_KEYS.password]: expected.password
+      [USER_AUTH_FORM_KEYS.email]: expected.email!,
+      [USER_AUTH_FORM_KEYS.password]: expected.password!
     };
 
     spyOn(component.validFormResult$, 'emit');

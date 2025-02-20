@@ -11,12 +11,25 @@ import {PagingConfig} from '../../../../shared/components/paginator/paging-confi
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ParcelsSortFilterConfig} from '../../components/parcel-filter-form/parcels-sort-filter-config';
 import {ParcelDataSourceService} from './parcel-data-source.service';
+import {ParcelFilterFormComponent} from '../../components/parcel-filter-form/parcel-filter-form.component';
+import {ParcelItemComponent} from '../../components/parcel-item/parcel-item.component';
+import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import {PaginatorComponent} from '../../../../shared/components/paginator/paginator.component';
 
 @Component({
   selector: 'app-parcels',
   templateUrl: './parcels.component.html',
   styleUrls: ['./parcels.component.scss'],
-  animations: [trigger('transition', enterLeaveTransition)]
+  animations: [trigger('transition', enterLeaveTransition)],
+  imports: [
+    ParcelFilterFormComponent,
+    ParcelItemComponent,
+    NgForOf,
+    AsyncPipe,
+    NgIf,
+    PaginatorComponent
+  ],
+  standalone: true
 })
 export class ParcelsComponent implements OnInit {
 
@@ -24,7 +37,8 @@ export class ParcelsComponent implements OnInit {
   parcelsFetched = false;
 
   pagingConfig$ = new BehaviorSubject(new PagingConfig());
-  sortAndFilterConfig$ = new BehaviorSubject<ParcelsSortFilterConfig>(null);
+  sortAndFilterConfig$: BehaviorSubject<ParcelsSortFilterConfig | null> = new BehaviorSubject<ParcelsSortFilterConfig | null>(null);
+
   curPageParcels$: Observable<Parcel[]>;
 
   constructor(private parcelService: ParcelService, public dashboardLoadingService: DashboardLoadingService,

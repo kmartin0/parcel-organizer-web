@@ -9,6 +9,8 @@
 label {
   margin-bottom: 4px;
   display: block;
+  color: var(--mat-sys-primary);
+  font: var(--mat-sys-label-large);
 }
 
 .error {
@@ -16,6 +18,9 @@ label {
   margin: 10px 10px 0;
   display: inline-block;
   border-radius: 12px;
+  background-color: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+  font: var(--mat-sys-body-medium);
 }
 
 app-success {
@@ -25,5 +30,7 @@ app-success {
   position: absolute;
 }
 
-
-
+input[type=text], input[type=password], input[type=email], select {
+  font: var(--mat-sys-body-large);
+  height: 50px;
+}

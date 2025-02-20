@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {filter, share, shareReplay, tap} from 'rxjs/operators';
+import {filter, share, shareReplay} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

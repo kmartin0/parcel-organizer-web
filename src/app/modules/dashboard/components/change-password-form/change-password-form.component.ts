@@ -6,11 +6,16 @@ import {ChangePassword} from '../../../../shared/models/change-password';
 import {passwordMatchValidator} from '../../../../shared/validators/password-match.validator';
 import {BaseFormComponent} from '../../../../shared/components/dynamic-form/base-form.component';
 import {ValidatorFn} from '@angular/forms';
+import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
 
 @Component({
   selector: 'app-change-password-form',
   templateUrl: './change-password-form.component.html',
-  styleUrls: ['./change-password-form.component.scss']
+  styleUrls: ['./change-password-form.component.scss'],
+  imports: [
+    FormComponent
+  ],
+  standalone: true
 })
 export class ChangePasswordFormComponent extends BaseFormComponent<ChangePassword> {
 
@@ -22,7 +27,7 @@ export class ChangePasswordFormComponent extends BaseFormComponent<ChangePasswor
     return CHANGE_PASSWORD_FORM;
   }
 
-  get formValidators(): ValidatorFn[] {
+  override get formValidators(): ValidatorFn[] {
     return [passwordMatchValidator(CHANGE_PASSWORD_FORM_KEYS.newPassword, CHANGE_PASSWORD_FORM_KEYS.confirmPassword, 'confirmPassword')];
   }
 
@@ -30,8 +35,8 @@ export class ChangePasswordFormComponent extends BaseFormComponent<ChangePasswor
     if (isApiErrorBody(apiError)) {
       switch (apiError.error) {
         case ApiErrorEnum.INVALID_ARGUMENTS: {
-          this.formComponent.setError(CHANGE_PASSWORD_FORM_KEYS.newPassword, apiError.details[CHANGE_PASSWORD_FORM_KEYS.newPassword]);
-          this.formComponent.setError(CHANGE_PASSWORD_FORM_KEYS.currentPassword, apiError.details[CHANGE_PASSWORD_FORM_KEYS.currentPassword]);
+          this.formComponent.setError(CHANGE_PASSWORD_FORM_KEYS.newPassword, apiError.details?.[CHANGE_PASSWORD_FORM_KEYS.newPassword] ?? null);
+          this.formComponent.setError(CHANGE_PASSWORD_FORM_KEYS.currentPassword, apiError.details?.[CHANGE_PASSWORD_FORM_KEYS.currentPassword] ?? null);
           break;
         }
         case ApiErrorEnum.PERMISSION_DENIED: {

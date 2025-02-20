@@ -1,20 +1,31 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NAV_BAR_STATES} from '../../components/nav/nav.component';
-import {ActivatedRoute, ChildActivationEnd, Router} from '@angular/router';
-import {filter, map, takeUntil, tap} from 'rxjs/operators';
+import {NAV_BAR_STATES, NavComponent} from '../../components/nav/nav.component';
+import {ActivatedRoute, ChildActivationEnd, Router, RouterOutlet} from '@angular/router';
+import {filter, map, takeUntil} from 'rxjs/operators';
 import {Observable, Subject} from 'rxjs';
 import {DashboardLoadingService} from './dashboard-loading.service';
 import {getActivatedRouteTitle} from '../../../../shared/helpers/routing.helper';
+import {HeaderComponent} from '../../components/header/header.component';
+import {CdkScrollable} from '@angular/cdk/overlay';
+import {DashboardContentComponent} from '../../components/dashboard-content/dashboard-content.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  imports: [
+    HeaderComponent,
+    NavComponent,
+    CdkScrollable,
+    DashboardContentComponent,
+    RouterOutlet
+  ],
+  standalone: true
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
   dashboardContentWrapperId = DASHBOARD_CONTENT_WRAPPER_ID;
-  title: string;
+  title: string = '';
   navBarState: NAV_BAR_STATES = NAV_BAR_STATES.CLOSED;
   loading$: Observable<boolean>;
 

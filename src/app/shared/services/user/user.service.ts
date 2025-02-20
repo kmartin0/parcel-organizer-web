@@ -82,14 +82,16 @@ export class UserService {
   }
 
   getLoggedInUserOAuth2(): Oauth2Credentials {
-    return JSON.parse(localStorage.getItem(STORAGE_OAUTH2_CREDENTIALS_KEY));
+    const storedOath2Key = localStorage.getItem(STORAGE_OAUTH2_CREDENTIALS_KEY)
+
+    return storedOath2Key ? JSON.parse(storedOath2Key) : undefined;
   }
 
   authenticateUser(userAuthentication: UserAuthentication): Observable<Oauth2Credentials> {
     const body = new HttpParams()
       .set('grant_type', 'password')
-      .set('username', userAuthentication.email)
-      .set('password', userAuthentication.password);
+      .set('username', userAuthentication.email ?? '')
+      .set('password', userAuthentication.password ?? '');
 
     return this.apiService.makePostFormUrlEncoded<Oauth2Credentials>(OAUTH, body);
   }

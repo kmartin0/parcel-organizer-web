@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NAV_BAR_STATES, NavComponent} from './nav.component';
 import {UserService} from '../../../../shared/services/user/user.service';
-import {NavigationStart, Router} from '@angular/router';
+import {ActivatedRoute, Router, UrlTree} from '@angular/router';
 import {of} from 'rxjs';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {ThemeService} from '../../../../shared/services/theme/theme.service';
@@ -16,17 +16,22 @@ describe('NavComponent', () => {
   beforeEach(() => {
     // Initialize spies
     userServiceSpy = jasmine.createSpyObj('UserService', ['logoutUser']);
-    themeServiceSpy = jasmine.createSpyObj('ThemeService', ['toggleTheme']);
-    routerSpy = jasmine.createSpyObj('Router', [], {events: of(null)});
+    themeServiceSpy = jasmine.createSpyObj('ThemeService', ['toggleThemeMode']);
+    routerSpy = jasmine.createSpyObj('Router', ['createUrlTree', 'serializeUrl'], { events: of(null) });
+    // Mock createUrlTree to return a dummy UrlTree
+    routerSpy.createUrlTree.and.returnValue({} as UrlTree);
+    routerSpy.serializeUrl.and.returnValue('/mock-url');
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [NavComponent],
+      imports: [NavComponent],
+      declarations: [],
       providers: [
         {provide: UserService, useValue: userServiceSpy},
         {provide: ThemeService, useValue: themeServiceSpy},
-        {provide: Router, useValue: routerSpy}
+        {provide: Router, useValue: routerSpy},
+        {provide: ActivatedRoute, useValue: { params: of({}) } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -128,7 +133,7 @@ describe('NavComponent', () => {
     component.onToggleTheme();
 
     // Then
-    expect(themeServiceSpy.toggleTheme).toHaveBeenCalledTimes(1);
+    expect(themeServiceSpy.toggleThemeMode).toHaveBeenCalledTimes(1);
   });
 
   it('should close nav bar when browser resizes to mobile view', () => {
@@ -137,11 +142,16 @@ describe('NavComponent', () => {
     component.navBarState = NAV_BAR_STATES.CLIPPED;
     spyOn(component.navBarStateChanged, 'emit');
 
-    const event = {
-      target: {
-        innerWidth: component.maxMobileWidth / 2
-      }
-    };
+    // Create a real Event object
+    const event = new Event('resize');
+
+    // Override the target property using Object.defineProperty
+    Object.defineProperty(event, 'target', {
+      value: { innerWidth: component.maxMobileWidth / 2 },
+      writable: false, // Mimic real event behavior
+      configurable: true
+    });
+
     // When
     component.onResize(event);
 
@@ -155,11 +165,17 @@ describe('NavComponent', () => {
     // Given
     component.isMobileView = true;
 
-    const event = {
-      target: {
-        innerWidth: component.maxMobileWidth * 2
-      }
-    };
+
+    // Create a real Event object
+    const event = new Event('resize');
+
+    // Override the target property using Object.defineProperty
+    Object.defineProperty(event, 'target', {
+      value: { innerWidth: component.maxMobileWidth * 2 },
+      writable: false, // Mimic real event behavior
+      configurable: true
+    });
+
     // When
     component.onResize(event);
 

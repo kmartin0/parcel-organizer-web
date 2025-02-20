@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {AccountComponent} from './account.component';
 import {of, Subject, throwError} from 'rxjs';
 import {DashboardLoadingService} from '../dashboard/dashboard-loading.service';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {User} from '../../../../shared/models/user';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {USER_FORM_KEYS} from '../../../../shared/components/user-form/user.form';
 import {ApiErrorBody} from '../../../../shared/models/api-error-body';
@@ -14,12 +14,15 @@ import {ChangePassword} from '../../../../shared/models/change-password';
 import {FormComponentStub} from '../../../../testing/form.component.stub';
 import {UserFormComponentStub} from '../../../../testing/user-form.component.stub';
 import {ChangePasswordFormComponentStub} from '../../../../testing/change-password-form.component.stub';
+import {UserFormComponent} from '../../../../shared/components/user-form/user-form.component';
+import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
+import {ChangePasswordFormComponent} from '../../components/change-password-form/change-password-form.component';
 
 describe('AccountComponent', () => {
 
   let dashboardLoadingServiceSpy: jasmine.SpyObj<DashboardLoadingService>;
   let userServiceSpy: jasmine.SpyObj<UserService>;
-  let formControlSpy: jasmine.SpyObj<FormControl>;
+  let formControlSpy: jasmine.SpyObj<UntypedFormControl>;
 
   let component: AccountComponent;
   let fixture: ComponentFixture<AccountComponent>;
@@ -42,14 +45,18 @@ describe('AccountComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule],
-      declarations: [AccountComponent, UserFormComponentStub, FormComponentStub, ChangePasswordFormComponentStub],
+      imports: [BrowserAnimationsModule, AccountComponent],
+      declarations: [],
       providers: [
         {provide: UserService, useValue: userServiceSpy},
         {provide: DashboardLoadingService, useValue: dashboardLoadingServiceSpy}
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
+      .overrideComponent(AccountComponent, {
+        remove: {imports: [UserFormComponent, FormComponent, ChangePasswordFormComponent]},
+        add: {imports: [UserFormComponentStub, FormComponentStub, ChangePasswordFormComponentStub]},
+      })
       .compileComponents();
   }));
 

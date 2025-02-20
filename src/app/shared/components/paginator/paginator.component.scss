@@ -1,6 +1,9 @@
+@use "helpers";
+
 .paginator-component-container {
   display: flex;
   flex-direction: row;
+  gap: 12px;
 }
 
 ul {
@@ -29,4 +32,16 @@ ul > ul, li {
 
 .nav-btn {
   margin: 3px;
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  @include helpers.hover();
+}
+
+.cur-page {
+  filter: brightness(var(--hover-brightness));
+}
+
+.page-selector {
+  width: 72px;
+  margin: 0 12px;
 }

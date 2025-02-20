@@ -20,7 +20,7 @@ export class ParcelDataSourceService {
   constructor() {
   }
 
-  connect(parcels$: Observable<Parcel[]>, paging$: BehaviorSubject<PagingConfig>, sortAndFilter$: Observable<ParcelsSortFilterConfig>, loading$?: Subject<boolean>): Observable<Parcel[]> {
+  connect(parcels$: Observable<Parcel[]>, paging$: BehaviorSubject<PagingConfig>, sortAndFilter$: Observable<ParcelsSortFilterConfig | null>, loading$?: Subject<boolean>): Observable<Parcel[]> {
 
     const filterSortParcels = combineLatest([sortAndFilter$]).pipe(
       switchMap(([sortAndFilterConfig]) => {
@@ -60,7 +60,7 @@ export class ParcelDataSourceService {
     ).pipe(share());
   }
 
-  private sortParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig, loading$: Subject<boolean>): Observable<Parcel[]> {
+  private sortParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig | null, loading$?: Subject<boolean>): Observable<Parcel[]> {
     return new Observable<Parcel[]>(subscriber => {
       if (!filters || !parcels) {
         subscriber.next(parcels);
@@ -103,11 +103,11 @@ export class ParcelDataSourceService {
       case ParcelOrderOptionsEnum.LAST_UPDATED:
         return parcel.lastUpdated;
       case ParcelOrderOptionsEnum.STATUS:
-        return parcel.parcelStatus.status;
+        return parcel.parcelStatus?.status;
     }
   }
 
-  private filterParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig, loading$?: Subject<boolean>): Observable<Parcel[]> {
+  private filterParcels(parcels: Parcel[], filters: ParcelsSortFilterConfig|null, loading$?: Subject<boolean>): Observable<Parcel[]> {
     return new Observable<Parcel[]>(subscriber => {
       if (!filters || !parcels) {
         subscriber.next(parcels);
@@ -137,7 +137,7 @@ export class ParcelDataSourceService {
    * @return True when a filter matches the parcel status. False when parcel status does not match any filters.
    */
   private isParcelStatusMatchingFilter(parcel: Parcel, statusFilters: ParcelStatusEnum[]): boolean {
-    return !!statusFilters.find(statusFilter => statusFilter == parcel.parcelStatus.status);
+    return !!statusFilters.find(statusFilter => statusFilter == parcel.parcelStatus?.status);
   }
 
   /**
@@ -152,7 +152,7 @@ export class ParcelDataSourceService {
       return false;
     }
 
-    let propertyToMatch: string;
+    let propertyToMatch: string|undefined;
     switch (searchBy) {
       case ParcelSearchOptionsEnum.COURIER:
         propertyToMatch = parcel.courier;

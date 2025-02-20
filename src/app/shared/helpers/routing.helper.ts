@@ -5,13 +5,13 @@ import {ActivatedRouteSnapshot} from '@angular/router';
  *
  * @param activatedRouteSnapshot
  */
-export function getActivatedRouteTitle(activatedRouteSnapshot: ActivatedRouteSnapshot): string {
+export function getActivatedRouteTitle(activatedRouteSnapshot: ActivatedRouteSnapshot | null): string {
   if (!activatedRouteSnapshot) {
     return '';
   }
 
-  if (activatedRouteSnapshot.data && activatedRouteSnapshot.data.hasOwnProperty('title') && activatedRouteSnapshot.data.title) {
-    return activatedRouteSnapshot.data.title;
+  if (activatedRouteSnapshot.data && activatedRouteSnapshot.data.hasOwnProperty('title') && activatedRouteSnapshot.data['title']) {
+    return activatedRouteSnapshot.data['title'];
   }
 
   return getActivatedRouteTitle(activatedRouteSnapshot.firstChild);

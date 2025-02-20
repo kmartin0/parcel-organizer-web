@@ -1,23 +1,22 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {faBomb} from '@fortawesome/free-solid-svg-icons';
-import {Styles} from '@fortawesome/fontawesome-svg-core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-error-dialog',
   templateUrl: './error-dialog.component.html',
-  styleUrls: ['../dialog.component.scss']
+  styleUrls: ['../dialog.component.scss'],
+  imports: [
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatIconModule
+  ],
+  standalone: true
 })
 export class ErrorDialogComponent implements OnInit {
 
-  errorIcon = faBomb;
   message: string = '';
-
-  errorIconStyle: Styles = {
-    width: '28px',
-    height: '28px',
-    color: 'red'
-  };
 
   constructor(public dialogRef: MatDialogRef<ErrorDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { message: string }) {

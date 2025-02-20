@@ -1,15 +1,26 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
-import {faCubes, faPlusCircle, faUser, faSignOutAlt, faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
+import {faCubes, faMoon, faPlusCircle, faSignOutAlt, faSun, faUser} from '@fortawesome/free-solid-svg-icons';
 import {Styles} from '@fortawesome/fontawesome-svg-core';
 import {UserService} from '../../../../shared/services/user/user.service';
 import {ACCOUNT, CREATE_PARCEL, PARCELS} from '../../../../shared/constants/endpoints';
-import {NavigationStart, Router} from '@angular/router';
-import {ThemeService} from '../../../../shared/services/theme/theme.service';
+import {NavigationStart, Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {APP_THEME_MODE, ThemeService} from '../../../../shared/services/theme/theme.service';
+import {AsyncPipe, NgClass, NgIf} from '@angular/common';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  styleUrls: ['./nav.component.scss'],
+  imports: [
+    NgClass,
+    RouterLinkActive,
+    RouterLink,
+    FontAwesomeModule,
+    NgIf,
+    AsyncPipe
+  ],
+  standalone: true
 })
 export class NavComponent implements OnInit {
 
@@ -34,10 +45,10 @@ export class NavComponent implements OnInit {
   };
 
   navBarStates = NAV_BAR_STATES;
-  @Input() navBarState: NAV_BAR_STATES;
+  @Input() navBarState!: NAV_BAR_STATES;
   @Output() navBarStateChanged = new EventEmitter<NAV_BAR_STATES>();
   isMobileView: boolean = false;
-  isDarkTheme$ = this.themeService.isDarkTheme;
+  appThemeMode$ = this.themeService.themeMode$;
   maxMobileWidth = 991;
 
   constructor(private userService: UserService, private router: Router, private themeService: ThemeService) {
@@ -66,13 +77,13 @@ export class NavComponent implements OnInit {
   }
 
   onToggleTheme() {
-    this.themeService.toggleTheme();
+    this.themeService.toggleThemeMode();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    const target = event.target;
-    if (target.innerWidth < this.maxMobileWidth) {
+  onResize(event: Event) {
+    const target = event.target as Window;
+    if (target && target.innerWidth < this.maxMobileWidth) {
       this.isMobileView = true;
       this.emitNavBarState(NAV_BAR_STATES.CLOSED);
     } else {
@@ -95,6 +106,7 @@ export class NavComponent implements OnInit {
     this.navBarStateChanged.emit(this.navBarState);
   }
 
+  protected readonly APP_THEME_MODE = APP_THEME_MODE;
 }
 
 export enum NAV_BAR_STATES {

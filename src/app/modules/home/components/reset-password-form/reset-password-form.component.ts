@@ -4,11 +4,16 @@ import {ResetPassword} from '../../../../shared/models/reset-password';
 import {RESET_PASSWORD_FORM, RESET_PASSWORD_FORM_KEYS} from './reset-password-form';
 import {ValidatorFn} from '@angular/forms';
 import {passwordMatchValidator} from '../../../../shared/validators/password-match.validator';
+import {FormComponent} from '../../../../shared/components/dynamic-form/form/form.component';
 
 @Component({
   selector: 'app-reset-password-form',
   templateUrl: './reset-password-form.component.html',
-  styleUrls: ['./reset-password-form.component.scss']
+  styleUrls: ['./reset-password-form.component.scss'],
+  imports: [
+    FormComponent
+  ],
+  standalone: true
 })
 export class ResetPasswordFormComponent extends BaseFormComponent<ResetPassword> implements OnInit {
 
@@ -24,7 +29,7 @@ export class ResetPasswordFormComponent extends BaseFormComponent<ResetPassword>
     return RESET_PASSWORD_FORM;
   }
 
-  get formValidators(): ValidatorFn[] {
+  override get formValidators(): ValidatorFn[] {
     return [passwordMatchValidator(RESET_PASSWORD_FORM_KEYS.newPassword, RESET_PASSWORD_FORM_KEYS.confirmPassword, 'confirmPassword')];
   }
 

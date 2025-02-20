@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ParcelStatusEnum} from '../../../../shared/models/parcel-status-enum';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {
   ParcelOrderDirectionEnum,
   ParcelOrderOptionsEnum,
@@ -10,16 +10,36 @@ import {
 import {trigger} from '@angular/animations';
 import {ParcelFilterFormCacheService} from '../../pages/parcels/parcel-filter-form-cache.service';
 import {expandCollapseTransition} from '../../../../shared/anim/expand-collapse.anim';
+import {MatIcon} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {NgClass, NgIf} from '@angular/common';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
+import {MatInput} from '@angular/material/input';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-parcel-filter-form',
   templateUrl: './parcel-filter-form.component.html',
   styleUrls: ['./parcel-filter-form.component.scss'],
-  animations: [trigger('expandCollapseAnimation', expandCollapseTransition)]
+  animations: [trigger('expandCollapseAnimation', expandCollapseTransition)],
+  imports: [
+    ReactiveFormsModule,
+    MatIcon,
+    MatFormFieldModule,
+    NgIf,
+    NgClass,
+    MatCheckbox,
+    MatRadioGroup,
+    MatRadioButton,
+    MatInput,
+    MatIconButton
+  ],
+  standalone: true
 })
 export class ParcelFilterFormComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private parcelFilterFormCacheService: ParcelFilterFormCacheService) {
+  constructor(private fb: UntypedFormBuilder, private parcelFilterFormCacheService: ParcelFilterFormCacheService) {
     this.initValueChangesObserver();
     this.initParcelFiltersFromCache();
   }
@@ -96,7 +116,7 @@ export class ParcelFilterFormComponent implements OnInit {
       this.filterForm.controls[this.filterFormKeys.orderBy].setValue(cachedConfig.orderBy);
       this.filterForm.controls[this.filterFormKeys.orderDirection].setValue(cachedConfig.orderDirection);
 
-      const statusGroup = this.filterForm.controls[this.filterFormKeys.statusGroupName] as FormGroup;
+      const statusGroup = this.filterForm.controls[this.filterFormKeys.statusGroupName] as UntypedFormGroup;
       cachedConfig.statusFilters.forEach(statusFilter => {
         switch (statusFilter) {
           case ParcelStatusEnum.SENT:
@@ -113,7 +133,7 @@ export class ParcelFilterFormComponent implements OnInit {
     }
   }
 
-  private getStatusFilters(statusFilters): Array<ParcelStatusEnum> {
+  private getStatusFilters(statusFilters: any): Array<ParcelStatusEnum> {
     const parcelStatusFilterArr = new Array<ParcelStatusEnum>();
     if (!statusFilters[this.filterFormKeys.statusGroup.ordered]) {
       parcelStatusFilterArr.push(ParcelStatusEnum.ORDERED);

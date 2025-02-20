@@ -10,7 +10,7 @@
     </ul>
 
     <li>
-      <mat-form-field style="width: 50px; margin: 0 12px">
+      <mat-form-field class="page-selector">
         <mat-select (selectionChange)="onPage($event.value)" [(value)]="curPage">
           <mat-option *ngFor="let page of getPages()" [value]="page">
             {{page}}
