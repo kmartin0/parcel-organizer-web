@@ -1,6 +1,14 @@
 .footer-component {
   text-align: center;
   padding: 14px 14px;
-  color: var(--mat-sys-on-primary-container);
-  background-color: var(--mat-sys-primary-container);
+
+  :host-context(.theme-mode-light) {
+    color: var(--mat-sys-on-primary-container);
+    background-color: var(--mat-sys-primary-container);
+  }
+
+  :host-context(.theme-mode-dark) {
+    color: var(--mat-sys-on-surface);
+    background-color: var(--mat-sys-surface-container-high);
+  }
 }

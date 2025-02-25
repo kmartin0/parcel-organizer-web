@@ -7,16 +7,28 @@
   height: 100%;
   display: flex;
   align-items: center;
-  color: var(--mat-sys-on-primary-container);
-  background-color: var(--mat-sys-primary-container);
 
-  @include mat.progress-spinner-overrides((
-    active-indicator-color: var(--mat-sys-on-primary-container)
-  ));
+  :host-context(.theme-mode-light) {
+    color: var(--mat-sys-on-primary-container);
+    background-color: var(--mat-sys-primary-container);
+
+    @include mat.progress-spinner-overrides((
+      active-indicator-color: var(--mat-sys-on-primary-container)
+    ));
+  }
+
+  :host-context(.theme-mode-dark) {
+    color: var(--mat-sys-on-surface);
+    background-color: var(--mat-sys-surface-container-high);
+
+    @include mat.progress-spinner-overrides((
+      active-indicator-color: var(--mat-sys-on-surface)
+    ));
+  }
 }
 
 .nav-icon-container {
-  transition: 1s ease 0.3s;
+  transition: 1s ease 0.3s, background-color 0ms, color 0ms;;
 }
 
 .open .nav-icon-container {

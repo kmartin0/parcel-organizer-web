@@ -27,6 +27,7 @@ $perc-divider-top: calc(calc(100% - #{$perc-divider-height}) / 2);
   text-align: center;
   margin: 0 0 12px 0;
   font: var(--mat-sys-title-large);
+  font-size: 20px;
   font-weight: 500;
   color: var(--pi-title-color);
 }

@@ -13,6 +13,6 @@
  */
 
 html {
+  @include theme-mode.theme-mode();
   @include theme-deep-purple.theme-deep-purple();
-  @include theme-mode.theme-mode;
 }
