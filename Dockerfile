@@ -25,14 +25,18 @@ RUN npm run build-${PROFILE:-dev}
 # Stage 2: Serve app with nginx server
 
 # Use official nginx image
-FROM nginx:latest
+FROM nginx:1.29.0-alpine
 
 # Remove the default configuration and add our own.
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d/
+RUN rm -f /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy the build output to replace the default nginx contents.
-COPY --from=build /app/dist/parcel-organizer-web /usr/share/nginx/html
+# Remove the default nginx content and add the angular application contents.
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=build /app/dist/parcel-organizer-web/browser /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
+
+# Command to start NGINX when the container launches.
+CMD ["nginx", "-g", "daemon off;"]
