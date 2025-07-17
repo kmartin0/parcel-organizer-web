@@ -3,7 +3,7 @@
 # Stage 1: Compile and Build angular codebase
 
 # Use official node image as the base image
-FROM node:16-slim as build
+FROM node:22-alpine AS build
 
 # Set the working directory
 WORKDIR /app
