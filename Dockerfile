@@ -15,20 +15,23 @@ COPY . .
 RUN npm install
 
 # Get the environment profile
-ARG PROFILE
-ENV PROFILE=${PROFILE}
+ARG PROFILE=dev
 
-# Get the application configuration
+# Get the environment properties
 ARG PARCEL_ORGANIZER_API_URL=http://localhost:8080
 ARG PARCEL_ORGANIZER_CLIENT_ID=parcel-organizer-web
 ARG PARCEL_ORGANIZER_CLIENT_SECRET=secret
 
-# Generate the build of the application (defaults to dev build if no profile is set).
+# Generate the build of the application.
 # Accepts: prod, dev
-RUN npm run build-${PROFILE:-dev} -- \
-    --define "PARCEL_ORGANIZER_API_URL='${PARCEL_ORGANIZER_API_URL}'" \
-    --define "PARCEL_ORGANIZER_CLIENT_ID='${PARCEL_ORGANIZER_CLIENT_ID}'" \
-    --define "PARCEL_ORGANIZER_CLIENT_SECRET='${PARCEL_ORGANIZER_CLIENT_SECRET}'"
+RUN if [ "$PROFILE" = "prod" ] || [ "$PROFILE" = "dev" ]; then \
+      npm run build-${PROFILE} -- \
+        --define "PARCEL_ORGANIZER_API_URL='${PARCEL_ORGANIZER_API_URL}'" \
+        --define "PARCEL_ORGANIZER_CLIENT_ID='${PARCEL_ORGANIZER_CLIENT_ID}'" \
+        --define "PARCEL_ORGANIZER_CLIENT_SECRET='${PARCEL_ORGANIZER_CLIENT_SECRET}'"; \
+    else \
+      echo "Invalid PROFILE: $PROFILE. Expected 'dev' or 'prod'." && exit 1; \
+    fi
 
 # Stage 2: Serve app with nginx server
 

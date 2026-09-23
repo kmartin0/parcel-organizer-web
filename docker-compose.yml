@@ -6,9 +6,9 @@ services:
     build:
       context: .
       args:
-        - PROFILE=dev # Accepts dev, prod
-        - PARCEL_ORGANIZER_API_URL=http://localhost:8082
-        - PARCEL_ORGANIZER_CLIENT_ID=parcel-organizer-web
-        - PARCEL_ORGANIZER_CLIENT_SECRET=secret
+        PROFILE: dev
+        PARCEL_ORGANIZER_API_URL: http://localhost:8080
+        PARCEL_ORGANIZER_CLIENT_ID: parcel-organizer-web
+        PARCEL_ORGANIZER_CLIENT_SECRET: secret
     ports:
       - "4200:80"
