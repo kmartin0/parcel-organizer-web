@@ -1,11 +1,14 @@
 services:
-  parcel-organizer-web:
+  parcel-organizer-web-development:
     restart: always
-    image: parcel-organizer-web
-    container_name: parcel-organizer-web
+    image: parcel-organizer-web-development
+    container_name: parcel-organizer-web-development
     build:
       context: .
       args:
-        - PROFILE=dev # Accepts dev, prod-pi
+        - PROFILE=dev # Accepts dev, prod
+        - PARCEL_ORGANIZER_API_URL=http://localhost:8082
+        - PARCEL_ORGANIZER_CLIENT_ID=parcel-organizer-web
+        - PARCEL_ORGANIZER_CLIENT_SECRET=secret
     ports:
-      - "4200:80"
+      - "4202:80"
